@@ -6,8 +6,8 @@
 <meta name="theme-color" content="#07172f">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <meta name="cgn-api-base" content="https://script.google.com/macros/s/AKfycbx41mQg-Ine3XZ-VrMI_SaQn4_K6cDQHA0cBFyGPgupu_edNFoNRjSLv2hoSe_bOytt/exec">
-<title>Traffic Center | The Ozark Gazette</title>
-<meta name="description" content="Live traffic, road status and travel notes for Tecumseh, US Highway 160, MO-5 and Ozark County roads.">
+<title>Traffic Brief | The Ozark Gazette</title>
+<meta name="description" content="The Ozark Gazette Traffic Brief tracks road status, travel notes, crashes, closures, flooding and official-source traffic links for Tecumseh, US Highway 160, MO-5 and Ozark County roads.">
 <link rel="canonical" href="https://ozarks.cgnnews.net/traffic/">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
@@ -16,27 +16,74 @@
 <link rel="manifest" href="/site.webmanifest">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="The Ozark Gazette">
-<meta property="og:title" content="Traffic Center | The Ozark Gazette">
-<meta property="og:description" content="Live traffic, road status and travel notes for Tecumseh, US Highway 160, MO-5 and Ozark County roads.">
+<meta property="og:title" content="Traffic Brief | The Ozark Gazette">
+<meta property="og:description" content="Road status and travel notes for Tecumseh, US Highway 160, MO-5 and Ozark County roads.">
 <meta property="og:url" content="https://ozarks.cgnnews.net/traffic/">
 <meta property="og:image" content="https://ozarks.cgnnews.net/OzarkGazetteBanner.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Traffic Center | The Ozark Gazette">
-<meta name="twitter:description" content="Live traffic, road status and travel notes for Tecumseh, US Highway 160, MO-5 and Ozark County roads.">
+<meta name="twitter:title" content="Traffic Brief | The Ozark Gazette">
+<meta name="twitter:description" content="Road status and travel notes for Tecumseh, US Highway 160, MO-5 and Ozark County roads.">
 <meta name="twitter:image" content="https://ozarks.cgnnews.net/OzarkGazetteBanner.png">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"NewsMediaOrganization","name":"The Ozark Gazette","url":"https://ozarks.cgnnews.net/","parentOrganization":{"@type":"NewsMediaOrganization","name":"Cook Global News Network","url":"https://www.cgnnews.net/"},"address":{"@type":"PostalAddress","streetAddress":"33256 US Highway 160","addressLocality":"Tecumseh","addressRegion":"MO","postalCode":"65760","addressCountry":"US"},"telephone":"+1-317-442-1437","email":"tips@cgnnews.net","logo":"https://ozarks.cgnnews.net/OzarkGazetteLogo.png"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Traffic Brief | The Ozark Gazette","url":"https://ozarks.cgnnews.net/traffic/","isPartOf":{"@type":"WebSite","name":"The Ozark Gazette","url":"https://ozarks.cgnnews.net/"},"publisher":{"@type":"NewsMediaOrganization","name":"The Ozark Gazette","parentOrganization":{"@type":"NewsMediaOrganization","name":"Cook Global News Network","url":"https://www.cgnnews.net/"}}}</script>
 <link rel="stylesheet" href="/assets/ozark-site.css">
+<style>
+.traffic-brief-hero{position:relative;overflow:hidden;border:1px solid #07172f;background:#07172f;color:#fff;margin:0 0 22px;min-height:300px;display:flex;align-items:flex-end;box-shadow:0 20px 48px rgba(7,23,47,.18)}
+.traffic-brief-hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.86}.traffic-brief-hero:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(7,23,47,.96),rgba(7,23,47,.72) 48%,rgba(7,23,47,.18)),radial-gradient(circle at 16% 18%,rgba(214,168,79,.22),transparent 30%)}.traffic-brief-copy{position:relative;z-index:2;max-width:850px;padding:32px}.traffic-brief-copy h1{font-family:Georgia,'Times New Roman',serif;font-size:clamp(38px,6vw,66px);line-height:.96;letter-spacing:-.045em;margin:0}.traffic-brief-copy p{font-size:16px;line-height:1.58;color:#dbe4f2;max-width:760px}.traffic-kicker{color:#f2d990;font-size:12px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;margin:0 0 10px}.traffic-dashboard{display:grid;grid-template-columns:1.1fr .9fr;gap:18px;align-items:stretch;margin:0 0 26px}.traffic-live-card,.traffic-source-card,.route-card{background:#fff;border:1px solid #d8dce4;box-shadow:0 12px 28px rgba(7,17,31,.07);overflow:hidden}.traffic-live-card{background:radial-gradient(circle at 12% 16%,rgba(47,137,255,.22),transparent 28%),linear-gradient(135deg,#030712 0%,#07111f 52%,#0b2546 100%);color:#fff;padding:22px;position:relative}.traffic-light-wrap{display:flex;gap:16px;align-items:center}.traffic-signal{width:54px;height:126px;border:2px solid rgba(255,255,255,.74);border-radius:18px;background:#020617;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:10px;box-shadow:0 18px 36px rgba(0,0,0,.35)}.traffic-light{width:23px;height:23px;border-radius:999px;opacity:.28;box-shadow:inset 0 2px 5px rgba(255,255,255,.18),inset 0 -3px 8px rgba(0,0,0,.50)}.traffic-red{background:#ef4444}.traffic-yellow{background:#fbbf24;opacity:1;box-shadow:0 0 0 5px rgba(251,191,36,.18),0 0 24px rgba(251,191,36,.85)}.traffic-green{background:#22c55e}.traffic-live-card h2{font-size:34px;letter-spacing:-.035em;margin:0 0 8px}.traffic-live-card p{color:#d9e1ee;line-height:1.55;margin:0}.traffic-status-pill{display:inline-flex;margin:0 0 12px;padding:7px 10px;border:1px solid rgba(251,191,36,.48);border-radius:999px;color:#fde68a;background:rgba(251,191,36,.14);font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.08em}.route-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:18px}.route-chip{border:1px solid rgba(255,255,255,.18);background:rgba(2,7,17,.42);padding:12px}.route-chip strong{display:block}.route-chip span{display:block;color:#cbd5e1;font-size:12px;margin-top:5px;line-height:1.35}.source-list{display:grid;gap:10px;padding:18px}.traffic-source-card h2,.route-card h2{margin:0;padding:18px 18px 0;color:#07172f;font-family:Georgia,'Times New Roman',serif;font-size:28px;letter-spacing:-.025em}.traffic-source-card p,.route-card p{padding:0 18px;color:#475467;line-height:1.5}.source-list a{display:flex;justify-content:space-between;gap:12px;padding:12px;border:1px solid #dfe4eb;text-decoration:none;color:#07172f;font-weight:900}.source-list a span{display:block;color:#64748b;font-size:12px;font-weight:700;margin-top:3px;line-height:1.35}.source-list a:hover{background:#07172f;color:#fff}.source-list a:hover span{color:#dbe4f2}.traffic-map-shell{margin:0 0 26px;border:1px solid #d8dce4;background:#fff;box-shadow:0 12px 28px rgba(7,17,31,.07);padding:18px}.traffic-map-shell iframe{width:100%;height:420px;border:0;background:#f5f7fa}.traffic-note{font-size:12px;color:#64748b;line-height:1.45;margin:10px 0 0}.traffic-routes{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:0 0 26px}.route-card{padding-bottom:16px}.route-card strong{display:block;padding:0 18px 4px;color:#07172f}.back-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}.back-row a{display:inline-flex;align-items:center;justify-content:center;padding:10px 13px;background:#07172f;color:#fff;text-decoration:none;font-weight:900;font-size:12px;text-transform:uppercase}
+@media(max-width:900px){.traffic-dashboard{grid-template-columns:1fr}.route-grid{grid-template-columns:1fr}.traffic-brief-copy{padding:24px 20px}.traffic-map-shell iframe{height:360px}}
+</style>
 <script defer src="/assets/ozark-shell.js"></script>
 </head>
-<body >
+<body>
 <div id="cgn-site-header"></div>
 <main id="main-content" class="site-main">
+  <section class="traffic-brief-hero">
+    <img src="/OzarkGazetteBanner.png" alt="The Ozark Gazette">
+    <div class="traffic-brief-copy">
+      <p class="traffic-kicker">Traffic Brief</p>
+      <h1>Tecumseh Traffic Brief</h1>
+      <p>Road status, closures, crashes, flooding notes and official-source travel links for Tecumseh, US Highway 160, MO-5 and Ozark County roads.</p>
+    </div>
+  </section>
 
-<section class="page-hero"><img src="/OzarkGazetteBanner.png" alt=""><div class="page-hero-copy"><p class="kicker">Traffic Center</p><h1 class="page-title">Tecumseh Traffic</h1><p>Road status for US Highway 160, MO-5, low-water crossings, Ozark County roads and regional travel impacts.</p></div></section>
-<section class="traffic-map"><div><div class="signal"><span class="light red"></span><span class="light yellow"></span><span class="light green"></span></div><h2>US-160 and Ozark County Roads</h2><p>Live traffic widget space for closures, crashes, flooding, low-water crossings and MoDOT travel notes.</p></div></section>
-<section><div class="section-title"><h2>Traffic Sources</h2><span>Official-source travel information.</span></div><div class="station-grid"><a class="station-card" href="https://traveler.modot.org/" target="_blank" rel="noopener"><strong>MoDOT Traveler Information</strong><span>Road closures, incidents and Missouri travel conditions.</span></a><a class="station-card" href="https://www.mshp.dps.missouri.gov/HP68/search.jsp" target="_blank" rel="noopener"><strong>Missouri State Highway Patrol Crash Reports</strong><span>Crash reports and public safety records where available.</span></a><a class="station-card" href="/weather/radar/"><strong>Weather Radar</strong><span>Storms and flooding can quickly affect Ozark County roads.</span></a></div></section>
-<section><div class="section-title"><h2>Traffic Articles</h2><span>Loaded from the Articles sheet.</span></div><div id="categoryGrid" class="article-grid" data-article-grid data-category="Traffic" data-limit="9"><div class="empty">Loading traffic articles...</div></div></section>
+  <section class="traffic-dashboard" aria-label="Tecumseh traffic status">
+    <article class="traffic-live-card">
+      <div class="traffic-light-wrap">
+        <div class="traffic-signal" aria-hidden="true"><span class="traffic-light traffic-red"></span><span class="traffic-light traffic-yellow"></span><span class="traffic-light traffic-green"></span></div>
+        <div><div class="traffic-status-pill">Official sources linked</div><h2>US-160, MO-5 and Ozark County Roads</h2><p>The Ozark Gazette Traffic Brief gives readers a fast place to check road conditions, crash sources, flooding impacts and travel links before heading out.</p></div>
+      </div>
+      <div class="route-grid">
+        <div class="route-chip"><strong>US-160</strong><span>Tecumseh corridor and east-west travel across Ozark County.</span></div>
+        <div class="route-chip"><strong>MO-5</strong><span>North-south travel toward Gainesville and regional connections.</span></div>
+        <div class="route-chip"><strong>Low-water roads</strong><span>Flood-prone crossings and storm-related closures when reported.</span></div>
+      </div>
+      <div class="back-row"><a href="https://traveler.modot.org/" target="_blank" rel="noopener">Open MoDOT Traveler</a><a href="/weather/radar/">Open Weather Radar</a></div>
+    </article>
 
+    <aside class="traffic-source-card">
+      <h2>Official Traffic Sources</h2>
+      <p>Use official Missouri sources for current travel status and public-safety records. The Ozark Gazette summarizes confirmed local impacts when articles are available.</p>
+      <div class="source-list">
+        <a href="https://traveler.modot.org/" target="_blank" rel="noopener"><div>MoDOT Traveler Information<span>Missouri road closures, work zones and traveler information.</span></div><b>↗</b></a>
+        <a href="https://www.mshp.dps.missouri.gov/HP68/search.jsp" target="_blank" rel="noopener"><div>Missouri State Highway Patrol Crash Reports<span>Search public crash reports when records are available.</span></div><b>↗</b></a>
+        <a href="https://www.modot.org/" target="_blank" rel="noopener"><div>Missouri Department of Transportation<span>State transportation notices and MoDOT resources.</span></div><b>↗</b></a>
+        <a href="/weather/radar/"><div>Weather Radar<span>Storms, flooding and low visibility can affect Ozark County roads quickly.</span></div><b>→</b></a>
+      </div>
+    </aside>
+  </section>
+
+  <section class="traffic-map-shell" aria-label="Traffic map source">
+    <div class="section-title"><h2>Live Traffic Map</h2><span>MoDOT source opens in full for best mobile performance.</span></div>
+    <iframe title="MoDOT Traveler Information" src="https://traveler.modot.org/map/" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+    <p class="traffic-note">If the MoDOT map does not display inside the page, use the Open MoDOT Traveler button above. Some official-source maps restrict embedding or behave differently across devices.</p>
+  </section>
+
+  <section class="traffic-routes" aria-label="Local traffic focus areas">
+    <article class="route-card"><h2>Road Focus</h2><p><strong>US Highway 160</strong><strong>MO-5</strong><strong>County roads and low-water crossings</strong></p></article>
+    <article class="route-card"><h2>Communities</h2><p><strong>Tecumseh</strong><strong>Gainesville</strong><strong>Theodosia, Bakersfield, Dora, Thornfield, Isabella, Pontiac, Wasola and Udall</strong></p></article>
+    <article class="route-card"><h2>When We Update</h2><p><strong>Crashes</strong><strong>Closures</strong><strong>Flooding, severe weather, bridge work and major travel delays</strong></p></article>
+  </section>
+
+  <section><div class="section-title"><h2>Traffic Briefs</h2><span>Loaded from the Articles sheet.</span></div><div id="categoryGrid" class="article-grid" data-article-grid data-category="Traffic" data-limit="9"><div class="empty">Loading traffic briefs...</div></div></section>
 </main>
 <div id="cgn-site-footer"></div>
 </body>
