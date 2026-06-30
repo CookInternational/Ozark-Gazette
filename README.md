@@ -1,17 +1,17 @@
-[README.md](https://github.com/user-attachments/files/29497633/README.md)
+[README.md](https://github.com/user-attachments/files/29523056/README.md)
 <img src="OzarkGazetteLogo.png" alt="The Ozark Gazette" width="260">
 
-# The Ozark Gazette v1.0.3 Production Alpha
+# The Ozark Gazette v1.1.0 Production Alpha
 
 **Plain-English + Technical README / Operating Manual**  
 CGN Shell | Ozark Gazette Local Publishing | Articles + Archives Sheet Routing | CGN LIVE Homepage Takeover | PayPal + Paywall Preservation | Account Access | News Page | Weather Brief | Weather Radar | Traffic Brief | Sports Brief | Markets Brief | Puzzles | Horoscopes | Reporters | Obituaries | Court/Public Records Monitoring | SEO | Favicons | Static GitHub Pages Deployment | Apps Script Extension | One-Week Archive Automation
 
-**Updated:** 30 June 2026 • 09:11:30Z UTC  
-**Site Build Stamp:** 30 June 2026 • 08:16:45Z UTC | Developed by Cook Technology Services  
-**Site Version:** `Ozark Gazette v1.0 Production Alpha`  
-**Site Slug:** `ozark-gazette-v1.0-production-alpha`  
+**Updated:** 30 June 2026 • 20:55:11Z UTC  
+**Site Build Stamp:** 30 June 2026 • 20:55:11Z UTC | Developed by Cook Technology Services  
+**Site Version:** `Ozark Gazette v1.1.0 Production Alpha`  
+**Site Slug:** `ozark-gazette-v1.1.0-production-alpha`  
 **Apps Script Extension:** `apps-script/OzarkGazette.gs`  
-**Apps Script Extension Functions:** `26`  
+**Apps Script Extension Functions:** `102`  
 **Extension doGet / doPost:** `0` / `0`  
 **Duplicate Function Declarations:** `0`  
 **Repository:** `CookInternational/Ozark-Gazette`  
@@ -25,6 +25,20 @@ tips@cgnnews.net | https://ozarks.cgnnews.net | +1 (317) 442-1437
 Copyright © 2026 | Cook Global News Network | All Rights Reserved.
 
 ---
+## What Changed in v1.1.0?
+
+v1.1.0 locks the current Ozark Gazette production-alpha shell and discovery files after the homepage banner-widget and sitemap updates.
+
+### Fixed and locked in this build
+
+- Updated `sitemap.xml` to the current Ozarks canonical route list.
+- Updated the README version, build stamp and acceptance tests to `Ozark Gazette v1.1.0 Production Alpha`.
+- Preserved the homepage banner carousel order and CGN-style News, Weather, Traffic, Sports and Market Watch widgets.
+- Preserved the global shell route order: `News`, `Weather`, `Radar`, `Traffic`, `Sports`.
+- Preserved the footer line: `Developed by Cook Technology Services`, linked to `https://cts.cook-international.com`.
+- Preserved Ozark sheet routing through `ozark_articles`, `ozark_article` and `ozark_archives`.
+- Preserved the single-trigger Ozark AutoNews22 dispatcher for Traffic Brief, Daily Weather Brief, Severe Weather Alert checks and Sports Brief publishing.
+
 ## What Changed in v1.0.3?
 
 v1.0.3 uploaded the Category pages with banners.
@@ -79,9 +93,9 @@ Technical explanation: the static repo renders pages from HTML, CSS and JavaScri
 
 | Item | Current value |
 |---|---|
-| Site version | `Ozark Gazette v1.0.1 Production Alpha` |
-| Site build stamp | `2026-06-30T08:16:45Z` |
-| README updated | `30 June 2026 • 08:16:45Z UTC` |
+| Site version | `Ozark Gazette v1.1.0 Production Alpha` |
+| Site build stamp | `2026-06-30T20:55:11Z` |
+| README updated | `30 June 2026 • 20:55:11Z UTC` |
 | Production site | `https://ozarks.cgnnews.net` |
 | Repository | `CookInternational/Ozark-Gazette` |
 | Public brand | `The Ozark Gazette` |
@@ -90,7 +104,7 @@ Technical explanation: the static repo renders pages from HTML, CSS and JavaScri
 | Primary contact | `tips@cgnnews.net` |
 | Editor contact | `editor@cgnnews.net` for Michael A. Cook only |
 | Apps Script extension source | `apps-script/OzarkGazette.gs` |
-| Apps Script extension functions | `26` |
+| Apps Script extension functions | `102` |
 | Extension doGet / doPost | `0` / `0` |
 | Duplicate extension functions | `0` |
 | Apps Script Web App URL | `https://script.google.com/macros/s/AKfycbx41mQg-Ine3XZ-VrMI_SaQn4_K6cDQHA0cBFyGPgupu_edNFoNRjSLv2hoSe_bOytt/exec` |
@@ -738,6 +752,46 @@ Required icon files:
 /android-chrome-512x512.png
 /site.webmanifest
 ```
+### Sitemap route contract
+
+The root `sitemap.xml` must list these canonical public routes for discovery:
+
+```text
+https://ozarks.cgnnews.net/
+https://ozarks.cgnnews.net/local/
+https://ozarks.cgnnews.net/us/
+https://ozarks.cgnnews.net/world/
+https://ozarks.cgnnews.net/politics/
+https://ozarks.cgnnews.net/investigations/
+https://ozarks.cgnnews.net/markets/
+https://ozarks.cgnnews.net/markets/center/
+https://ozarks.cgnnews.net/technology/
+https://ozarks.cgnnews.net/opinion/
+https://ozarks.cgnnews.net/environment/
+https://ozarks.cgnnews.net/entertainment/
+https://ozarks.cgnnews.net/obituaries/
+https://ozarks.cgnnews.net/weather/
+https://ozarks.cgnnews.net/weather/radar/
+https://ozarks.cgnnews.net/sports/
+https://ozarks.cgnnews.net/traffic/
+https://ozarks.cgnnews.net/horoscopes/
+https://ozarks.cgnnews.net/sudoku/
+https://ozarks.cgnnews.net/puzzles/
+https://ozarks.cgnnews.net/crosswords/
+https://ozarks.cgnnews.net/reporters/
+https://ozarks.cgnnews.net/about/
+https://ozarks.cgnnews.net/contact/
+https://ozarks.cgnnews.net/support/
+https://ozarks.cgnnews.net/account/
+```
+
+Rules:
+
+- Keep the sitemap UTF-8 encoded.
+- Keep the `http://www.sitemaps.org/schemas/sitemap/0.9` namespace.
+- Do not add `ozarkgazette.com` routes.
+- Do not add dynamic article URLs unless static article generation is explicitly added later.
+
 
 ---
 
@@ -774,8 +828,8 @@ Required icon files:
 
 The build is acceptable when:
 
-- README shows `Ozark Gazette v1.0.1` as the current build.
-- README timestamp is `30 June 2026 • 08:16:45Z UTC`.
+- README shows `Ozark Gazette v1.1.0` as the current build.
+- README timestamp is `30 June 2026 • 20:55:11Z UTC`.
 - Site canonical base is `https://ozarks.cgnnews.net/`.
 - No page uses `ozarkgazette.com` as canonical.
 - Header top categories display `News`, `Weather`, `Radar`, `Traffic`, `Sports`.
@@ -795,7 +849,7 @@ The build is acceptable when:
 - Homepage CGN LIVE takes over the widget area when selected.
 - Back to Headlines restores the Ozark headline widget.
 - `apps-script/OzarkGazette.gs` has no `doGet` or `doPost`.
-- `apps-script/OzarkGazette.gs` has 26 function declarations and no duplicate function names.
+- `apps-script/OzarkGazette.gs` has 102 function declarations and no duplicate function names.
 - `ozark_health` returns the Ozark site, URL and spreadsheet ID.
 - `ozark_articles` returns rows from `Articles`.
 - `ozark_archives` returns rows from `Archives`.
@@ -930,11 +984,12 @@ Do not add a fallback to the main CGN `action=articles` route.
 
 ---
 
-## 18. File Inventory for v1.0.1
+## 18. File Inventory for v1.1.0
 
 | File | Status |
 |---|---|
 | `README.md` | Full production-alpha operating manual. |
+| `sitemap.xml` | Current Ozarks canonical sitemap. |
 | `index.html` | Homepage with CGN LIVE takeover. |
 | `news/index.html` | All-news Ozark page. |
 | `assets/ozark-shell.js` | Current Ozark shell. |
@@ -951,6 +1006,6 @@ Do not add a fallback to the main CGN `action=articles` route.
 
 ---
 
-Ozark Gazette v1.0.3 | Last Updated on 30 June 2026 @ 09:11:30Z |  
+Ozark Gazette v1.1.0 | Last Updated on 30 June 2026 • 20:55:11Z UTC |  
 Copyright © 2026 Cook Global News Network | All Rights Reserved |  
 Developed by Cook Technology Services in Chicago, Illinois
