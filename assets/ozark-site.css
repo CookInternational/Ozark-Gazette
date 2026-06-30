@@ -858,3 +858,441 @@ body{
 #cgn-site-header .right-tools .social-x{order:4!important;}
 #cgn-site-header .right-tools .social-youtube{order:5!important;}
 #cgn-site-header .right-tools .support-link{order:6!important;}
+
+/* =========================================================
+   The Ozark Gazette Global Shell Final OG Alignment
+   Build: 30 June 2026
+   Purpose: restore OG header nav/dropdown and bureau weather-time
+   styling while preserving Ozark-specific branding and routes.
+   ========================================================= */
+
+#cgn-site-header .top-bar{
+  display:flex!important;
+  justify-content:space-between!important;
+  align-items:center!important;
+  gap:18px!important;
+  padding:10px 20px!important;
+  background:#fff!important;
+  border-bottom:1px solid var(--line,#dfe4eb)!important;
+  position:relative!important;
+  z-index:200!important;
+  overflow:visible!important;
+}
+
+#cgn-site-header .brand-link{
+  display:flex!important;
+  align-items:center!important;
+  gap:12px!important;
+  color:#111!important;
+  text-decoration:none!important;
+  flex:0 0 auto!important;
+}
+
+#cgn-site-header .brand-link .logo,
+#cgn-site-header .brand-link img.logo{
+  height:82px!important;
+  width:auto!important;
+  max-width:290px!important;
+  max-height:none!important;
+  object-fit:contain!important;
+}
+
+#cgn-site-header .brand-text{
+  display:flex!important;
+  flex-direction:column!important;
+  gap:2px!important;
+}
+
+#cgn-site-header .network-name{
+  font:900 11px/1 Arial,Helvetica,sans-serif!important;
+  letter-spacing:.12em!important;
+  text-transform:uppercase!important;
+  color:var(--navy,#07172f)!important;
+}
+
+#cgn-site-header .brand-tagline{
+  font:800 11px/1.2 Arial,Helvetica,sans-serif!important;
+  color:#6b7280!important;
+}
+
+#cgn-site-header .nav{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:16px!important;
+  font-weight:800!important;
+  white-space:nowrap!important;
+  flex-wrap:wrap!important;
+  overflow:visible!important;
+}
+
+#cgn-site-header .nav a,
+#cgn-site-header .nav-more-button,
+#cgn-site-header .nav a:nth-child(n){
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  width:auto!important;
+  min-width:0!important;
+  min-height:0!important;
+  max-width:none!important;
+  padding:4px!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  color:#111!important;
+  text-decoration:none!important;
+  font:900 14px/1 Arial,Helvetica,sans-serif!important;
+  text-transform:none!important;
+  letter-spacing:0!important;
+  white-space:nowrap!important;
+  cursor:pointer!important;
+}
+
+#cgn-site-header .nav a:hover,
+#cgn-site-header .nav a:focus,
+#cgn-site-header .nav-more-button:hover,
+#cgn-site-header .nav-more-button:focus{
+  background:transparent!important;
+  color:#111!important;
+  text-decoration:underline!important;
+}
+
+#cgn-site-header .nav-more{
+  position:relative!important;
+  display:inline-flex!important;
+  align-items:center!important;
+}
+
+#cgn-site-header .nav-dropdown{
+  display:none;
+  position:absolute!important;
+  right:0!important;
+  top:100%!important;
+  min-width:230px!important;
+  background:#fff!important;
+  border:1px solid var(--line,#dfe4eb)!important;
+  box-shadow:0 14px 34px rgba(7,23,47,.14)!important;
+  padding:8px 0!important;
+  z-index:700!important;
+  text-align:left!important;
+}
+
+#cgn-site-header .nav-more.open .nav-dropdown,
+#cgn-site-header .nav-more:hover .nav-dropdown,
+#cgn-site-header .nav-more:focus-within .nav-dropdown{
+  display:block!important;
+}
+
+#cgn-site-header .nav-dropdown a,
+#cgn-site-header .nav-dropdown a:nth-child(n){
+  display:block!important;
+  width:100%!important;
+  justify-content:flex-start!important;
+  padding:10px 14px!important;
+  color:#111!important;
+  font-size:13px!important;
+  line-height:1.15!important;
+  text-decoration:none!important;
+}
+
+#cgn-site-header .nav-dropdown a:hover,
+#cgn-site-header .nav-dropdown a:focus{
+  background:#f8fafc!important;
+  color:#111!important;
+  text-decoration:none!important;
+}
+
+#cgn-site-header .right-tools{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-end!important;
+  gap:10px!important;
+  flex-wrap:wrap!important;
+  white-space:nowrap!important;
+}
+
+#cgn-site-header .account-wrap{order:1!important;}
+#cgn-site-header .cgn-bureau-weather-time{order:2!important;}
+#cgn-site-header .social-instagram{order:3!important;}
+#cgn-site-header .social-x{order:4!important;}
+#cgn-site-header .social-youtube{order:5!important;}
+#cgn-site-header .support-link{order:6!important;}
+
+#cgn-site-header .account-wrap > a,
+#cgn-site-header #account-btn{
+  min-height:34px!important;
+  padding:8px 10px!important;
+  border:1px solid #111!important;
+  border-radius:999px!important;
+  background:#fff!important;
+  color:#111!important;
+  font:900 12px/1 Arial,Helvetica,sans-serif!important;
+  text-transform:none!important;
+}
+
+#cgn-site-header .account-wrap > a:hover,
+#cgn-site-header #account-btn:hover,
+#cgn-site-header .account-wrap > a:focus,
+#cgn-site-header #account-btn:focus{
+  background:#111!important;
+  color:#fff!important;
+  text-decoration:none!important;
+}
+
+#cgn-site-header .cgn-bureau-weather-time{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:flex-end!important;
+  justify-content:center!important;
+  min-width:128px!important;
+  max-width:190px!important;
+  padding:0!important;
+  border:0!important;
+  background:transparent!important;
+  color:#111!important;
+  text-decoration:none!important;
+  font-size:11px!important;
+  line-height:1.25!important;
+  font-weight:800!important;
+  text-align:right!important;
+}
+
+#cgn-site-header .cgn-bureau-mobile-line,
+#cgn-site-header .cgn-mobile-weather-mini,
+#cgn-site-header .cgn-shell-compat-hidden{
+  display:none!important;
+}
+
+#cgn-site-header .cgn-bureau-time{
+  display:block!important;
+  font-size:11px!important;
+  font-weight:800!important;
+  color:#111!important;
+  text-align:right!important;
+}
+
+#cgn-site-header .cgn-bureau-weather{
+  display:block!important;
+  font-size:11px!important;
+  font-weight:800!important;
+  color:#111!important;
+  text-align:right!important;
+}
+
+#cgn-site-header .cgn-bureau-weather span{
+  display:inline!important;
+}
+
+#cgn-site-header .weather-emoji{
+  display:inline!important;
+  width:auto!important;
+  height:auto!important;
+  font-size:inherit!important;
+  line-height:inherit!important;
+}
+
+#cgn-site-header .cgn-bureau-location{
+  display:block!important;
+  color:var(--red,#c1121f)!important;
+  text-transform:uppercase!important;
+  letter-spacing:.06em!important;
+  font-size:10px!important;
+  font-weight:900!important;
+  text-align:right!important;
+}
+
+#cgn-site-header .social-link,
+#cgn-site-header .support-link{
+  width:36px!important;
+  height:36px!important;
+  min-width:36px!important;
+  border-radius:999px!important;
+  border:1px solid var(--line,#dfe4eb)!important;
+  background:#fff!important;
+  color:var(--navy,#07172f)!important;
+}
+
+#cgn-site-header .support-link img{
+  width:28px!important;
+  height:28px!important;
+}
+
+#cgn-site-header .ticker{
+  background:#000!important;
+  color:#fff!important;
+  padding:9px 20px!important;
+}
+
+#cgn-site-header .market-ticker-wrap{
+  position:relative!important;
+  display:block!important;
+  min-height:46px!important;
+  padding:0!important;
+  background:#020711!important;
+}
+
+#cgn-site-header .market-ticker-click{
+  position:absolute!important;
+  inset:0!important;
+  z-index:3!important;
+  display:block!important;
+  text-indent:-9999px!important;
+}
+
+#cgn-site-header .market-ticker-live{
+  max-width:1180px!important;
+  min-height:46px!important;
+  margin:0 auto!important;
+  padding:0 20px!important;
+}
+
+#cgn-site-header .market-ticker-label{
+  padding:5px 8px!important;
+  border:1px solid rgba(214,178,94,.48)!important;
+  border-radius:999px!important;
+  background:rgba(7,17,31,.92)!important;
+  color:var(--gold2,#f2d990)!important;
+  font-size:10px!important;
+}
+
+#cgn-site-header .market-tv-ticker,
+#cgn-site-header .market-tv-ticker .tradingview-widget-container,
+#cgn-site-header .market-tv-ticker .tradingview-widget-container__widget{
+  height:46px!important;
+  min-height:46px!important;
+}
+
+#cgn-site-footer .footer-bottom{
+  text-align:center!important;
+  padding:12px 18px 14px!important;
+}
+
+#cgn-site-footer .footer-developed{
+  margin-top:5px!important;
+  text-align:center!important;
+  color:#dbe4f0!important;
+  font-size:12px!important;
+  font-weight:800!important;
+  line-height:1.5!important;
+}
+
+#cgn-site-footer .footer-developed a{
+  color:var(--gold2,#f2d990)!important;
+  font-size:12px!important;
+  font-weight:900!important;
+  line-height:1.5!important;
+}
+
+@media(max-width:1120px){
+  #cgn-site-header .top-bar{
+    display:grid!important;
+    grid-template-columns:1fr!important;
+    justify-items:center!important;
+  }
+
+  #cgn-site-header .brand-link{
+    justify-content:center!important;
+    text-align:center!important;
+    flex-direction:column!important;
+  }
+
+  #cgn-site-header .brand-text{
+    align-items:center!important;
+  }
+
+  #cgn-site-header .nav,
+  #cgn-site-header .right-tools{
+    justify-content:center!important;
+  }
+
+  #cgn-site-header .brand-link .logo,
+  #cgn-site-header .brand-link img.logo{
+    height:auto!important;
+    max-width:min(92vw,290px)!important;
+  }
+}
+
+@media(max-width:700px){
+  #cgn-site-header .top-bar{
+    padding:10px!important;
+    gap:10px!important;
+  }
+
+  #cgn-site-header .nav{
+    display:flex!important;
+    gap:10px!important;
+    white-space:normal!important;
+  }
+
+  #cgn-site-header .nav a,
+  #cgn-site-header .nav-more-button,
+  #cgn-site-header .nav a:nth-child(n){
+    width:auto!important;
+    padding:4px!important;
+  }
+
+  #cgn-site-header .nav-dropdown{
+    right:auto!important;
+    left:50%!important;
+    transform:translateX(-50%)!important;
+    max-width:calc(100vw - 24px)!important;
+  }
+
+  #cgn-site-header .right-tools{
+    display:flex!important;
+    width:100%!important;
+    justify-content:center!important;
+    gap:7px!important;
+  }
+
+  #cgn-site-header .account-wrap{
+    width:auto!important;
+    grid-column:auto!important;
+  }
+
+  #cgn-site-header .account-wrap > a,
+  #cgn-site-header #account-btn{
+    width:auto!important;
+  }
+
+  #cgn-site-header .cgn-bureau-weather-time{
+    grid-column:auto!important;
+    min-width:120px!important;
+    max-width:190px!important;
+    align-items:flex-end!important;
+  }
+
+  #cgn-site-header .social-link,
+  #cgn-site-header .support-link{
+    width:36px!important;
+    min-width:36px!important;
+    height:36px!important;
+  }
+}
+
+@media(max-width:430px){
+  #cgn-site-header .right-tools{
+    display:flex!important;
+    grid-template-columns:none!important;
+  }
+
+  #cgn-site-header .account-wrap,
+  #cgn-site-header .cgn-bureau-weather-time{
+    grid-column:auto!important;
+  }
+
+  #cgn-site-header .cgn-bureau-weather-time{
+    order:10!important;
+    flex-basis:100%!important;
+    max-width:none!important;
+    align-items:center!important;
+    text-align:center!important;
+  }
+
+  #cgn-site-header .cgn-bureau-time,
+  #cgn-site-header .cgn-bureau-weather,
+  #cgn-site-header .cgn-bureau-location{
+    text-align:center!important;
+  }
+}
