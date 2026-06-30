@@ -6,9 +6,10 @@
 <meta name="theme-color" content="#07172f">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <meta name="cgn-api-base" content="https://script.google.com/macros/s/AKfycbx41mQg-Ine3XZ-VrMI_SaQn4_K6cDQHA0cBFyGPgupu_edNFoNRjSLv2hoSe_bOytt/exec">
-<title>Crosswords | The Ozark Gazette</title>
-<meta name="description" content="A daily crossword-style reader feature from The Ozark Gazette.">
+<title>Daily Crossword | The Ozark Gazette</title>
+<meta name="description" content="Play The Ozark Gazette daily crossword, a polished reader puzzle with clues, keyboard support, checking, hints and saved progress.">
 <link rel="canonical" href="https://ozarks.cgnnews.net/crosswords/">
+<link rel="preload" as="image" href="/news/NewsBanner01.webp">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
 <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
@@ -16,23 +17,169 @@
 <link rel="manifest" href="/site.webmanifest">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="The Ozark Gazette">
-<meta property="og:title" content="Crosswords | The Ozark Gazette">
-<meta property="og:description" content="A daily crossword-style reader feature from The Ozark Gazette.">
+<meta property="og:title" content="Daily Crossword | The Ozark Gazette">
+<meta property="og:description" content="Play The Ozark Gazette daily crossword.">
 <meta property="og:url" content="https://ozarks.cgnnews.net/crosswords/">
-<meta property="og:image" content="https://ozarks.cgnnews.net/OzarkGazetteBanner.png">
+<meta property="og:image" content="https://ozarks.cgnnews.net/news/NewsBanner01.webp">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Crosswords | The Ozark Gazette">
-<meta name="twitter:description" content="A daily crossword-style reader feature from The Ozark Gazette.">
-<meta name="twitter:image" content="https://ozarks.cgnnews.net/OzarkGazetteBanner.png">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"NewsMediaOrganization","name":"The Ozark Gazette","url":"https://ozarks.cgnnews.net/","parentOrganization":{"@type":"NewsMediaOrganization","name":"Cook Global News Network","url":"https://www.cgnnews.net/"},"address":{"@type":"PostalAddress","streetAddress":"33256 US Highway 160","addressLocality":"Tecumseh","addressRegion":"MO","postalCode":"65760","addressCountry":"US"},"telephone":"+1-317-442-1437","email":"tips@cgnnews.net","logo":"https://ozarks.cgnnews.net/OzarkGazetteLogo.png"}</script>
+<meta name="twitter:title" content="Daily Crossword | The Ozark Gazette">
+<meta name="twitter:description" content="Play The Ozark Gazette daily crossword.">
+<meta name="twitter:image" content="https://ozarks.cgnnews.net/news/NewsBanner01.webp">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://ozarks.cgnnews.net/crosswords/#webpage","url":"https://ozarks.cgnnews.net/crosswords/","name":"Daily Crossword | The Ozark Gazette","description":"Play The Ozark Gazette daily crossword.","isPartOf":{"@id":"https://ozarks.cgnnews.net/#website"},"publisher":{"@id":"https://ozarks.cgnnews.net/#organization"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://ozarks.cgnnews.net/news/NewsBanner01.webp"}},{"@type":"WebSite","@id":"https://ozarks.cgnnews.net/#website","url":"https://ozarks.cgnnews.net/","name":"The Ozark Gazette","publisher":{"@id":"https://ozarks.cgnnews.net/#organization"}},{"@type":"NewsMediaOrganization","@id":"https://ozarks.cgnnews.net/#organization","name":"The Ozark Gazette","url":"https://ozarks.cgnnews.net/","parentOrganization":{"@type":"NewsMediaOrganization","name":"Cook Global News Network","url":"https://www.cgnnews.net/"},"address":{"@type":"PostalAddress","postOfficeBoxNumber":"P.O. Box 794","streetAddress":"33256 US Highway 160","addressLocality":"Tecumseh","addressRegion":"MO","postalCode":"65760","addressCountry":"US"},"telephone":"+1-317-442-1437","email":"tips@cgnnews.net","logo":{"@type":"ImageObject","url":"https://ozarks.cgnnews.net/OzarkGazetteLogo.png"}}]}</script>
 <link rel="stylesheet" href="/assets/ozark-site.css">
-<script defer src="/assets/ozark-shell.js"></script>
+<style>
+:root{--oz-navy:#07172f;--oz-navy-2:#0b2344;--oz-red:#c1121f;--oz-gold:#d6a84f;--oz-gold-2:#f2d990;--oz-paper:#fff;--oz-ink:#111827;--oz-muted:#64748b;--oz-line:#d8dce4;--oz-soft:#f5f7fb;--cell:56px}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#f6f8fc 0%,#eef3f9 100%);color:var(--oz-ink);font-family:Arial,Helvetica,sans-serif}a{color:inherit}.crossword-page{width:min(1180px,calc(100% - 32px));margin:34px auto 64px}.crossword-hero{position:relative;min-height:330px;overflow:hidden;color:#fff;border:1px solid rgba(7,23,47,.25);background:#07172f;box-shadow:0 20px 48px rgba(7,23,47,.18);isolation:isolate}.crossword-hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:.86}.crossword-hero:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(7,23,47,.96),rgba(7,23,47,.74) 44%,rgba(7,23,47,.18)),radial-gradient(circle at 16% 22%,rgba(214,168,79,.28),transparent 30%);z-index:1}.crossword-hero-content{position:relative;z-index:2;max-width:850px;min-height:330px;display:flex;flex-direction:column;justify-content:flex-end;padding:36px}.crossword-kicker{display:inline-flex;align-items:center;gap:8px;width:max-content;margin:0 0 10px;color:var(--oz-gold-2);font-size:12px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}.crossword-kicker:before{content:"";width:9px;height:9px;border-radius:50%;background:#ff2d2d;box-shadow:0 0 0 5px rgba(255,45,45,.18),0 0 22px rgba(255,45,45,.6)}.crossword-hero h1{margin:0;font-family:Georgia,"Times New Roman",serif;font-size:clamp(40px,6vw,72px);line-height:.94;letter-spacing:-.055em;text-shadow:0 8px 26px rgba(0,0,0,.32)}.crossword-hero p{max-width:790px;margin:14px 0 0;color:#dbe4f2;font-size:17px;line-height:1.6}.crossword-toolbar{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin:18px 0 18px;padding:14px 16px;background:#fff;border:1px solid var(--oz-line);box-shadow:0 10px 24px rgba(7,23,47,.06)}.toolbar-stat{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.stat-pill{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:8px 10px;border:1px solid #e5e7eb;background:#f8fafc;color:#07172f;font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.055em}.stat-pill span{color:#475467;font-weight:800;text-transform:none;letter-spacing:0}.toolbar-actions{display:flex;gap:8px;flex-wrap:wrap}.xword-btn{border:1px solid #07172f;background:#07172f;color:#fff;min-height:38px;padding:9px 11px;font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.055em;cursor:pointer}.xword-btn.secondary{background:#fff;color:#07172f}.xword-btn.warn{background:#c1121f;border-color:#c1121f}.xword-btn:hover,.xword-btn:focus{transform:translateY(-1px);box-shadow:0 8px 20px rgba(7,23,47,.14)}.crossword-stage{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(350px,.98fr);gap:18px;align-items:start}.board-panel,.clue-panel,.help-panel{background:#fff;border:1px solid var(--oz-line);box-shadow:0 12px 28px rgba(7,23,47,.07)}.board-panel{padding:18px;overflow:hidden}.board-header{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin:0 0 14px}.board-header h2{margin:0;color:#07172f;font-family:Georgia,"Times New Roman",serif;font-size:28px;letter-spacing:-.03em}.board-header p{margin:5px 0 0;color:#64748b;font-size:13px;line-height:1.45}.direction-toggle{display:flex;gap:6px;padding:4px;background:#f1f5f9;border:1px solid #e5e7eb}.direction-toggle button{border:0;background:transparent;color:#07172f;padding:8px 9px;font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.06em;cursor:pointer}.direction-toggle button.active{background:#07172f;color:#fff}.crossword-wrap{display:flex;justify-content:center;margin:8px auto 16px;max-width:100%;overflow:auto;padding:4px}.crossword-grid{display:grid;grid-template-columns:repeat(5,var(--cell));grid-template-rows:repeat(5,var(--cell));background:#07172f;border:4px solid #07172f;box-shadow:0 18px 38px rgba(7,23,47,.16)}.xcell{position:relative;width:var(--cell);height:var(--cell);background:#fff;border:1px solid #0b1020;display:grid;place-items:center}.xcell.block{background:#07172f}.xcell input{width:100%;height:100%;border:0;background:transparent;color:#07172f;text-align:center;text-transform:uppercase;font:900 30px/1 Arial,Helvetica,sans-serif;padding:12px 2px 2px;outline:0;caret-color:transparent}.xcell .num{position:absolute;top:3px;left:4px;color:#07172f;font-size:10px;font-weight:900;line-height:1;z-index:2}.xcell.active{background:#fff7d6}.xcell.in-word{background:#fff3bf}.xcell.correct{background:#dcfce7}.xcell.wrong{background:#fee2e2}.xcell.revealed{background:#e0f2fe}.xcell input[readonly]{color:#07172f}.keyboard{display:grid;grid-template-columns:repeat(13,minmax(0,1fr));gap:6px;margin-top:14px}.key{min-height:34px;border:1px solid #d8dce4;background:#f8fafc;color:#07172f;font-weight:900;cursor:pointer}.key:hover{background:#07172f;color:#fff}.clue-panel{padding:18px}.clue-panel h2{margin:0;color:#07172f;font-family:Georgia,"Times New Roman",serif;font-size:28px;letter-spacing:-.03em}.active-clue{margin:12px 0 16px;padding:14px 16px;background:linear-gradient(135deg,#07172f,#0b2344);color:#fff;border-left:5px solid #d6a84f}.active-clue strong{display:block;color:#f2d990;font-size:12px;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}.active-clue span{display:block;font-size:17px;line-height:1.35}.clue-columns{display:grid;grid-template-columns:1fr 1fr;gap:14px}.clue-list h3{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:0 0 10px;color:#07172f;font-size:15px;text-transform:uppercase;letter-spacing:.08em}.clue-list ol{margin:0;padding:0;list-style:none;display:grid;gap:8px}.clue-list button{width:100%;text-align:left;border:1px solid #e5e7eb;background:#fff;color:#111;padding:9px 10px;cursor:pointer;line-height:1.35}.clue-list button strong{color:#07172f;margin-right:4px}.clue-list button.active{border-color:#c1121f;background:#fff7f7;box-shadow:0 0 0 2px rgba(193,18,31,.08)}.clue-list button.solved{border-color:#86efac;background:#f0fdf4;color:#166534}.progress-bar{height:10px;background:#e5e7eb;border-radius:999px;overflow:hidden;margin-top:12px}.progress-fill{height:100%;width:0;background:linear-gradient(90deg,#c1121f,#d6a84f);transition:width .2s ease}.help-panel{margin-top:18px;padding:18px}.help-panel h2{margin:0 0 8px;color:#07172f;font-family:Georgia,"Times New Roman",serif;font-size:26px}.help-panel p{margin:0;color:#475467;line-height:1.55}.link-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}.link-row a{display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:9px 12px;border:1px solid #07172f;background:#fff;color:#07172f;text-decoration:none;font-size:12px;font-weight:900;text-transform:uppercase}.link-row a:hover{background:#07172f;color:#fff;text-decoration:none}.victory{display:none;margin-top:14px;padding:14px;border:1px solid rgba(22,163,74,.35);background:#f0fdf4;color:#166534;font-weight:900;line-height:1.5}.victory.show{display:block}.fine-print{margin-top:18px;color:#64748b;font-size:12px;line-height:1.5}.print-title{display:none}@media(max-width:980px){:root{--cell:min(15.8vw,56px)}.crossword-page{width:min(100% - 20px,1180px);margin-top:20px}.crossword-stage{grid-template-columns:1fr}.crossword-hero,.crossword-hero-content{min-height:320px}.crossword-hero-content{padding:26px 22px}.toolbar-actions{width:100%;display:grid;grid-template-columns:1fr 1fr}.xword-btn{width:100%}.clue-columns{grid-template-columns:1fr}.keyboard{grid-template-columns:repeat(7,minmax(0,1fr))}}@media(max-width:560px){.toolbar-actions{grid-template-columns:1fr}.board-header{flex-direction:column}.keyboard{grid-template-columns:repeat(6,minmax(0,1fr))}.xcell input{font-size:26px}}@media print{body{background:#fff}.crossword-hero,#cgn-site-header,#cgn-site-footer,.crossword-toolbar,.keyboard,.xword-btn,.link-row,.help-panel{display:none!important}.crossword-page{width:100%;margin:0;padding:0}.crossword-stage{grid-template-columns:1fr 1fr}.board-panel,.clue-panel{box-shadow:none;border:1px solid #111}.print-title{display:block;font-family:Georgia,"Times New Roman",serif;font-size:28px;margin:0 0 12px}.xcell input{color:transparent}.xcell.correct input,.xcell.revealed input{color:transparent}}
+</style>
+<script defer src="/assets/cgn-dynamic-translate.js"></script>
 </head>
-<body >
+<body>
 <div id="cgn-site-header"></div>
-<main id="main-content" class="site-main">
-<section class="page-hero"><img src="/OzarkGazetteBanner.png" alt=""><div class="page-hero-copy"><p class="kicker">Daily Features</p><h1 class="page-title">Crosswords</h1><p>A daily crossword-style reader feature from The Ozark Gazette.</p></div></section><section class="game-card"><h3>Daily Crossword</h3><p>Production-ready crossword slot. Clues and puzzle data can be connected later.</p><div class="crossword"><span class="blk"></span><span class="blk"></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class="blk"></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class="blk"></span><span class="blk"></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class="blk"></span><span class=""></span><span class=""></span><span class="blk"></span><span class=""></span><span class=""></span><span class="blk"></span><span class=""></span><span class=""></span><span class="blk"></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class="blk"></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class="blk"></span><span class=""></span><span class="blk"></span><span class="blk"></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class="blk"></span><span class="blk"></span><span class=""></span><span class="blk"></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class="blk"></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class="blk"></span><span class="blk"></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class="blk"></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class="blk"></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class="blk"></span><span class="blk"></span></div></section>
+<main id="main-content" class="crossword-page">
+  <section class="crossword-hero" aria-label="The Ozark Gazette Daily Crossword">
+    <img src="/news/NewsBanner01.webp" alt="The Ozark Gazette News banner" loading="eager" fetchpriority="high">
+    <div class="crossword-hero-content">
+      <p class="crossword-kicker">Daily Features</p>
+      <h1>Daily Crossword</h1>
+      <p>Play a polished Ozark Gazette crossword with keyboard support, clue navigation, checking, hints and same-device saved progress.</p>
+    </div>
+  </section>
+
+  <section class="crossword-toolbar" aria-label="Crossword tools">
+    <div class="toolbar-stat">
+      <div class="stat-pill">Puzzle <span id="puzzleDate">Today</span></div>
+      <div class="stat-pill">Time <span id="timer">00:00</span></div>
+      <div class="stat-pill">Progress <span id="progressText">0%</span></div>
+      <div class="stat-pill">Mode <span id="modeText">Across</span></div>
+    </div>
+    <div class="toolbar-actions">
+      <button class="xword-btn" type="button" id="checkBtn">Check</button>
+      <button class="xword-btn secondary" type="button" id="hintBtn">Hint</button>
+      <button class="xword-btn secondary" type="button" id="revealWordBtn">Reveal Word</button>
+      <button class="xword-btn warn" type="button" id="resetBtn">Reset</button>
+      <button class="xword-btn secondary" type="button" id="printBtn">Print</button>
+    </div>
+  </section>
+
+  <section class="crossword-stage" aria-label="Daily crossword game">
+    <div>
+      <article class="board-panel">
+        <h2 class="print-title">The Ozark Gazette Daily Crossword</h2>
+        <div class="board-header">
+          <div>
+            <h2>Ozark Mini</h2>
+            <p>Click a clue or square. Type letters to fill the board. Tap the same square to switch direction.</p>
+          </div>
+          <div class="direction-toggle" aria-label="Direction toggle">
+            <button type="button" id="acrossToggle" class="active">Across</button>
+            <button type="button" id="downToggle">Down</button>
+          </div>
+        </div>
+        <div class="crossword-wrap"><div id="crosswordGrid" class="crossword-grid" aria-label="Crossword grid"></div></div>
+        <div class="progress-bar" aria-label="Puzzle progress"><div id="progressFill" class="progress-fill"></div></div>
+        <div id="victory" class="victory">Solved. Nice work — today’s Ozark Gazette crossword is complete.</div>
+        <div id="keyboard" class="keyboard" aria-label="On-screen keyboard"></div>
+      </article>
+      <section class="help-panel" aria-label="More daily features">
+        <h2>More Daily Features</h2>
+        <p>Keep playing with the Ozark Gazette puzzle lineup.</p>
+        <div class="link-row"><a href="/puzzles/">Puzzles</a><a href="/sudoku/">Sudoku</a><a href="/horoscopes/">Horoscopes</a><a href="/news/">News</a></div>
+      </section>
+    </div>
+
+    <aside class="clue-panel" aria-label="Crossword clues">
+      <h2>Clues</h2>
+      <div id="activeClue" class="active-clue"><strong>Across</strong><span>Select a square or clue to begin.</span></div>
+      <div class="clue-columns">
+        <div class="clue-list"><h3>Across <span id="acrossCount"></span></h3><ol id="acrossClues"></ol></div>
+        <div class="clue-list"><h3>Down <span id="downCount"></span></h3><ol id="downClues"></ol></div>
+      </div>
+      <p class="fine-print">Progress is saved on this device. Use Reveal Word only when you want help with the selected clue.</p>
+    </aside>
+  </section>
 </main>
 <div id="cgn-site-footer"></div>
+<script src="/assets/ozark-shell.js"></script>
+<script>
+const PUZZLE = {
+  id:"ozark-mini-heart-001",
+  size:5,
+  rows:["HEART","EMBER","ABUSE","RESIN","TREND"],
+  title:"Ozark Mini",
+  across:{
+    "1":"Core of courage, feeling or compassion.",
+    "6":"Glowing piece left after a fire burns low.",
+    "7":"Misuse or mistreatment.",
+    "8":"Sticky tree substance used in varnish and amber.",
+    "9":"Pattern that is catching on."
+  },
+  down:{
+    "1":"Where compassion is said to live.",
+    "2":"Campfire glow after the flames die down.",
+    "3":"Treat unfairly or use wrongly.",
+    "4":"Pine sap that can harden over time.",
+    "5":"Direction a story, market or conversation may move."
+  }
+};
+const STORAGE_KEY = "ozark_crossword_progress_v1:" + PUZZLE.id + ":" + todayKey();
+let direction = "across";
+let activeCell = {r:0,c:0};
+let cells = [];
+let entries = [];
+let startedAt = Date.now();
+let elapsedBefore = 0;
+let timerHandle = null;
+
+function todayKey(){const parts=new Intl.DateTimeFormat("en-CA",{timeZone:"America/Chicago",year:"numeric",month:"2-digit",day:"2-digit"}).formatToParts(new Date());const map={};parts.forEach(p=>map[p.type]=p.value);return `${map.year}-${map.month}-${map.day}`;}
+function todayLabel(){return new Intl.DateTimeFormat("en-US",{timeZone:"America/Chicago",weekday:"short",month:"short",day:"numeric"}).format(new Date());}
+function safeText(value){return String(value||"").replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c];});}
+function cellId(r,c){return `cell-${r}-${c}`;}
+function answerAt(r,c){return PUZZLE.rows[r][c];}
+function isOpen(r,c){return Boolean(PUZZLE.rows[r] && PUZZLE.rows[r][c] && PUZZLE.rows[r][c] !== "#");}
+function isStartAcross(r,c){return isOpen(r,c) && (c===0 || !isOpen(r,c-1)) && c+1<PUZZLE.size && isOpen(r,c+1);}
+function isStartDown(r,c){return isOpen(r,c) && (r===0 || !isOpen(r-1,c)) && r+1<PUZZLE.size && isOpen(r+1,c);}
+function numberCells(){let num=1;const numbers={};for(let r=0;r<PUZZLE.size;r++){for(let c=0;c<PUZZLE.size;c++){if(isOpen(r,c) && (isStartAcross(r,c) || isStartDown(r,c))){numbers[`${r},${c}`]=num++;}}}return numbers;}
+function buildEntries(numbers){const result=[];for(let r=0;r<PUZZLE.size;r++){for(let c=0;c<PUZZLE.size;c++){const number=numbers[`${r},${c}`];if(!number)continue;if(isStartAcross(r,c)){let answer="";let coords=[];let x=c;while(x<PUZZLE.size && isOpen(r,x)){answer+=answerAt(r,x);coords.push({r:r,c:x});x++;}result.push({id:`A${number}`,number:String(number),direction:"across",answer,coords,clue:PUZZLE.across[String(number)]||"Across clue."});}
+if(isStartDown(r,c)){let answer="";let coords=[];let y=r;while(y<PUZZLE.size && isOpen(y,c)){answer+=answerAt(y,c);coords.push({r:y,c:c});y++;}result.push({id:`D${number}`,number:String(number),direction:"down",answer,coords,clue:PUZZLE.down[String(number)]||"Down clue."});}}}return result;}
+function getEntryAt(r,c,dir){const matches=entries.filter(e=>e.direction===dir && e.coords.some(p=>p.r===r&&p.c===c));if(matches.length)return matches[0];const other=dir==="across"?"down":"across";return entries.find(e=>e.direction===other && e.coords.some(p=>p.r===r&&p.c===c)) || null;}
+function entrySolved(entry){return entry.coords.every(p=>{const input=document.querySelector(`#${cellId(p.r,p.c)} input`);return input && input.value.toUpperCase()===answerAt(p.r,p.c);});}
+function renderGrid(){const grid=document.getElementById("crosswordGrid");const numbers=numberCells();entries=buildEntries(numbers);cells=[];let html="";for(let r=0;r<PUZZLE.size;r++){for(let c=0;c<PUZZLE.size;c++){if(!isOpen(r,c)){html+=`<div class="xcell block" aria-hidden="true"></div>`;continue;}const num=numbers[`${r},${c}`];html+=`<div id="${cellId(r,c)}" class="xcell" data-r="${r}" data-c="${c}">${num?`<span class="num">${num}</span>`:""}<input aria-label="Row ${r+1} column ${c+1}" maxlength="1" inputmode="text" autocomplete="off" spellcheck="false"></div>`;cells.push({r,c});}}grid.innerHTML=html;grid.querySelectorAll(".xcell input").forEach(input=>{input.addEventListener("focus",onCellFocus);input.addEventListener("click",onCellClick);input.addEventListener("keydown",onCellKeydown);input.addEventListener("input",onCellInput);});renderClues();loadState();selectCell(0,0,direction,false);updateProgress();}
+function renderClues(){const across=document.getElementById("acrossClues");const down=document.getElementById("downClues");const acrossEntries=entries.filter(e=>e.direction==="across");const downEntries=entries.filter(e=>e.direction==="down");across.innerHTML=acrossEntries.map(e=>`<li><button type="button" data-entry="${e.id}"><strong>${safeText(e.number)}.</strong> ${safeText(e.clue)}</button></li>`).join("");down.innerHTML=downEntries.map(e=>`<li><button type="button" data-entry="${e.id}"><strong>${safeText(e.number)}.</strong> ${safeText(e.clue)}</button></li>`).join("");document.getElementById("acrossCount").textContent=`${acrossEntries.length}`;document.getElementById("downCount").textContent=`${downEntries.length}`;document.querySelectorAll("[data-entry]").forEach(button=>button.addEventListener("click",()=>{const entry=entries.find(e=>e.id===button.dataset.entry);if(entry){direction=entry.direction;selectCell(entry.coords[0].r,entry.coords[0].c,direction,true);}}));}
+function selectCell(r,c,dir,focus){if(!isOpen(r,c))return;activeCell={r,c};direction=dir||direction;document.getElementById("modeText").textContent=direction==="across"?"Across":"Down";document.getElementById("acrossToggle").classList.toggle("active",direction==="across");document.getElementById("downToggle").classList.toggle("active",direction==="down");document.querySelectorAll(".xcell").forEach(el=>el.classList.remove("active","in-word"));document.querySelectorAll("[data-entry]").forEach(el=>el.classList.remove("active"));const entry=getEntryAt(r,c,direction);if(entry){entry.coords.forEach(p=>document.getElementById(cellId(p.r,p.c))?.classList.add("in-word"));const clueButton=document.querySelector(`[data-entry="${entry.id}"]`);if(clueButton)clueButton.classList.add("active");const active=document.getElementById("activeClue");active.innerHTML=`<strong>${entry.direction === "across" ? "Across" : "Down"} ${safeText(entry.number)}</strong><span>${safeText(entry.clue)}</span>`;}document.getElementById(cellId(r,c))?.classList.add("active");if(focus){const input=document.querySelector(`#${cellId(r,c)} input`);if(input)input.focus();}updateSolvedClues();}
+function onCellFocus(event){const cell=event.target.closest(".xcell");selectCell(Number(cell.dataset.r),Number(cell.dataset.c),direction,false);}
+function onCellClick(event){const cell=event.target.closest(".xcell");const r=Number(cell.dataset.r),c=Number(cell.dataset.c);if(activeCell.r===r&&activeCell.c===c){const other=direction==="across"?"down":"across";if(getEntryAt(r,c,other))direction=other;}selectCell(r,c,direction,true);}
+function onCellKeydown(event){const key=event.key;if(key==="ArrowRight"){event.preventDefault();moveTo(0,1);}else if(key==="ArrowLeft"){event.preventDefault();moveTo(0,-1);}else if(key==="ArrowDown"){event.preventDefault();moveTo(1,0);}else if(key==="ArrowUp"){event.preventDefault();moveTo(-1,0);}else if(key==="Backspace"){const input=event.target;if(input.value){input.value="";saveState();updateProgress();}else{moveStep(-1);}event.preventDefault();}else if(key==="Tab"){event.preventDefault();jumpEntry(event.shiftKey?-1:1);}else if(key===" "){event.preventDefault();direction=direction==="across"?"down":"across";selectCell(activeCell.r,activeCell.c,direction,true);}}
+function onCellInput(event){const value=event.target.value.replace(/[^a-zA-Z]/g,"").slice(-1).toUpperCase();event.target.value=value;event.target.closest(".xcell")?.classList.remove("wrong","correct","revealed");saveState();updateProgress();if(value)moveStep(1);}
+function moveStep(delta){const entry=getEntryAt(activeCell.r,activeCell.c,direction);if(!entry)return;const index=entry.coords.findIndex(p=>p.r===activeCell.r&&p.c===activeCell.c);const next=entry.coords[index+delta];if(next)selectCell(next.r,next.c,direction,true);}
+function moveTo(dr,dc){let r=activeCell.r+dr,c=activeCell.c+dc;while(r>=0&&r<PUZZLE.size&&c>=0&&c<PUZZLE.size){if(isOpen(r,c)){selectCell(r,c,dr!==0?"down":"across",true);return;}r+=dr;c+=dc;}}
+function jumpEntry(delta){const current=getEntryAt(activeCell.r,activeCell.c,direction);const list=entries.filter(e=>e.direction===direction);let index=list.findIndex(e=>current&&e.id===current.id);if(index<0)index=0;const next=list[(index+delta+list.length)%list.length];selectCell(next.coords[0].r,next.coords[0].c,next.direction,true);}
+function checkPuzzle(){let filled=0;cells.forEach(p=>{const wrap=document.getElementById(cellId(p.r,p.c));const input=wrap.querySelector("input");wrap.classList.remove("wrong","correct","revealed");if(input.value){filled++;wrap.classList.add(input.value.toUpperCase()===answerAt(p.r,p.c)?"correct":"wrong");}});updateProgress();if(filled===cells.length&&isComplete())showVictory();}
+function revealLetter(){const p=activeCell;const input=document.querySelector(`#${cellId(p.r,p.c)} input`);const wrap=document.getElementById(cellId(p.r,p.c));if(input){input.value=answerAt(p.r,p.c);wrap.classList.remove("wrong","correct");wrap.classList.add("revealed");saveState();updateProgress();}}
+function revealWord(){const entry=getEntryAt(activeCell.r,activeCell.c,direction);if(!entry)return;entry.coords.forEach(p=>{const input=document.querySelector(`#${cellId(p.r,p.c)} input`);const wrap=document.getElementById(cellId(p.r,p.c));if(input){input.value=answerAt(p.r,p.c);wrap.classList.remove("wrong","correct");wrap.classList.add("revealed");}});saveState();updateProgress();if(isComplete())showVictory();}
+function revealPuzzle(){cells.forEach(p=>{const input=document.querySelector(`#${cellId(p.r,p.c)} input`);if(input)input.value=answerAt(p.r,p.c);});saveState();updateProgress();showVictory();}
+function resetPuzzle(){if(!confirm("Clear today’s crossword progress?"))return;cells.forEach(p=>{const input=document.querySelector(`#${cellId(p.r,p.c)} input`);const wrap=document.getElementById(cellId(p.r,p.c));if(input)input.value="";if(wrap)wrap.classList.remove("wrong","correct","revealed");});elapsedBefore=0;startedAt=Date.now();try{localStorage.removeItem(STORAGE_KEY);}catch(err){}document.getElementById("victory").classList.remove("show");updateProgress();selectCell(0,0,"across",true);}
+function isComplete(){return cells.every(p=>{const input=document.querySelector(`#${cellId(p.r,p.c)} input`);return input&&input.value.toUpperCase()===answerAt(p.r,p.c);});}
+function showVictory(){document.getElementById("victory").classList.add("show");saveState(true);}
+function updateProgress(){let correct=0,filled=0;cells.forEach(p=>{const input=document.querySelector(`#${cellId(p.r,p.c)} input`);if(input&&input.value){filled++;if(input.value.toUpperCase()===answerAt(p.r,p.c))correct++;}});const pct=Math.round((correct/cells.length)*100);document.getElementById("progressText").textContent=pct+"%";document.getElementById("progressFill").style.width=pct+"%";updateSolvedClues();if(correct===cells.length)showVictory();}
+function updateSolvedClues(){entries.forEach(entry=>{const button=document.querySelector(`[data-entry="${entry.id}"]`);if(button)button.classList.toggle("solved",entrySolved(entry));});}
+function currentValues(){return cells.map(p=>{const input=document.querySelector(`#${cellId(p.r,p.c)} input`);return input?input.value.toUpperCase():"";});}
+function saveState(solved){try{localStorage.setItem(STORAGE_KEY,JSON.stringify({values:currentValues(),elapsed:getElapsedMs(),solved:Boolean(solved||isComplete())}));}catch(err){}}
+function loadState(){try{const saved=JSON.parse(localStorage.getItem(STORAGE_KEY)||"null");if(saved&&Array.isArray(saved.values)){cells.forEach((p,i)=>{const input=document.querySelector(`#${cellId(p.r,p.c)} input`);if(input)input.value=String(saved.values[i]||"").slice(0,1).toUpperCase();});elapsedBefore=Number(saved.elapsed)||0;if(saved.solved)document.getElementById("victory").classList.add("show");}}catch(err){}}
+function getElapsedMs(){return elapsedBefore+(Date.now()-startedAt);}
+function updateTimer(){const ms=getElapsedMs();const total=Math.floor(ms/1000);const mins=String(Math.floor(total/60)).padStart(2,"0");const secs=String(total%60).padStart(2,"0");document.getElementById("timer").textContent=`${mins}:${secs}`;}
+function renderKeyboard(){const mount=document.getElementById("keyboard");mount.innerHTML="ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("").map(ch=>`<button class="key" type="button" data-key="${ch}">${ch}</button>`).join("")+`<button class="key" type="button" data-action="back">⌫</button><button class="key" type="button" data-action="space">↔</button>`;mount.addEventListener("click",event=>{const btn=event.target.closest("button");if(!btn)return;const input=document.querySelector(`#${cellId(activeCell.r,activeCell.c)} input`);if(btn.dataset.key&&input){input.value=btn.dataset.key;input.dispatchEvent(new Event("input",{bubbles:true}));}if(btn.dataset.action==="back"&&input){input.value="";saveState();updateProgress();moveStep(-1);}if(btn.dataset.action==="space"){direction=direction==="across"?"down":"across";selectCell(activeCell.r,activeCell.c,direction,true);}});}
+document.getElementById("acrossToggle").addEventListener("click",()=>selectCell(activeCell.r,activeCell.c,"across",true));
+document.getElementById("downToggle").addEventListener("click",()=>selectCell(activeCell.r,activeCell.c,"down",true));
+document.getElementById("checkBtn").addEventListener("click",checkPuzzle);
+document.getElementById("hintBtn").addEventListener("click",revealLetter);
+document.getElementById("revealWordBtn").addEventListener("click",revealWord);
+document.getElementById("resetBtn").addEventListener("click",resetPuzzle);
+document.getElementById("printBtn").addEventListener("click",()=>window.print());
+document.getElementById("puzzleDate").textContent=todayLabel();
+renderKeyboard();
+renderGrid();
+timerHandle=setInterval(()=>{updateTimer();saveState();},1000);
+updateTimer();
+</script>
 </body>
 </html>
