@@ -5,9 +5,8 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#07172f">
 <meta name="robots" content="index,follow,max-image-preview:large">
-<meta name="cgn-api-base" content="https://script.google.com/macros/s/AKfycbx41mQg-Ine3XZ-VrMI_SaQn4_K6cDQHA0cBFyGPgupu_edNFoNRjSLv2hoSe_bOytt/exec">
-<title>Horoscope | The Ozark Gazette</title>
-<meta name="description" content="Daily horoscope-style reader feature from The Ozark Gazette.">
+<title>Daily Horoscopes | The Ozark Gazette</title>
+<meta name="description" content="Daily horoscopes for every zodiac sign from The Ozark Gazette, with a bright reader-friendly zodiac card layout.">
 <link rel="canonical" href="https://ozarks.cgnnews.net/horoscopes/">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
@@ -16,23 +15,290 @@
 <link rel="manifest" href="/site.webmanifest">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="The Ozark Gazette">
-<meta property="og:title" content="Horoscope | The Ozark Gazette">
-<meta property="og:description" content="Daily horoscope-style reader feature from The Ozark Gazette.">
+<meta property="og:title" content="Daily Horoscopes | The Ozark Gazette">
+<meta property="og:description" content="Daily horoscopes for every zodiac sign from The Ozark Gazette.">
 <meta property="og:url" content="https://ozarks.cgnnews.net/horoscopes/">
 <meta property="og:image" content="https://ozarks.cgnnews.net/OzarkGazetteBanner.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Horoscope | The Ozark Gazette">
-<meta name="twitter:description" content="Daily horoscope-style reader feature from The Ozark Gazette.">
+<meta name="twitter:title" content="Daily Horoscopes | The Ozark Gazette">
+<meta name="twitter:description" content="Daily horoscopes for every zodiac sign from The Ozark Gazette.">
 <meta name="twitter:image" content="https://ozarks.cgnnews.net/OzarkGazetteBanner.png">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"NewsMediaOrganization","name":"The Ozark Gazette","url":"https://ozarks.cgnnews.net/","parentOrganization":{"@type":"NewsMediaOrganization","name":"Cook Global News Network","url":"https://www.cgnnews.net/"},"address":{"@type":"PostalAddress","streetAddress":"33256 US Highway 160","addressLocality":"Tecumseh","addressRegion":"MO","postalCode":"65760","addressCountry":"US"},"telephone":"+1-317-442-1437","email":"tips@cgnnews.net","logo":"https://ozarks.cgnnews.net/OzarkGazetteLogo.png"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"CollectionPage","@id":"https://ozarks.cgnnews.net/horoscopes/#webpage","url":"https://ozarks.cgnnews.net/horoscopes/","name":"Daily Horoscopes | The Ozark Gazette","description":"Daily horoscopes for every zodiac sign from The Ozark Gazette.","isPartOf":{"@id":"https://ozarks.cgnnews.net/#website"},"publisher":{"@id":"https://ozarks.cgnnews.net/#organization"}},{"@type":"WebSite","@id":"https://ozarks.cgnnews.net/#website","url":"https://ozarks.cgnnews.net/","name":"The Ozark Gazette","publisher":{"@id":"https://ozarks.cgnnews.net/#organization"}},{"@type":"NewsMediaOrganization","@id":"https://ozarks.cgnnews.net/#organization","name":"The Ozark Gazette","url":"https://ozarks.cgnnews.net/","parentOrganization":{"@type":"NewsMediaOrganization","name":"Cook Global News Network","url":"https://www.cgnnews.net/"},"address":{"@type":"PostalAddress","streetAddress":"33256 US Highway 160","addressLocality":"Tecumseh","addressRegion":"MO","postalCode":"65760","addressCountry":"US"},"telephone":"+1-317-442-1437","email":"tips@cgnnews.net","logo":{"@type":"ImageObject","url":"https://ozarks.cgnnews.net/OzarkGazetteLogo.png"}}]}</script>
 <link rel="stylesheet" href="/assets/ozark-site.css">
-<script defer src="/assets/ozark-shell.js"></script>
+<style>
+:root{--oz-navy:#07172f;--oz-blue:#0d3b78;--oz-red:#c1121f;--oz-gold:#f2d990;--oz-paper:#fff;--oz-ink:#111827;--oz-muted:#64748b;--oz-line:#d8dce4;--star:#fff7cf}
+*{box-sizing:border-box}body{margin:0;background:#f5f7fb;color:var(--oz-ink);font-family:Arial,Helvetica,sans-serif}a{color:inherit}.horoscope-page{width:min(1180px,calc(100% - 32px));margin:34px auto 64px}.zodiac-hero{position:relative;min-height:340px;overflow:hidden;color:#fff;border:1px solid rgba(7,23,47,.25);background:radial-gradient(circle at 16% 18%,rgba(242,217,144,.28),transparent 30%),radial-gradient(circle at 82% 22%,rgba(96,165,250,.32),transparent 32%),linear-gradient(135deg,#020617 0%,#07172f 45%,#102947 100%);box-shadow:0 20px 48px rgba(7,23,47,.18);isolation:isolate}.zodiac-hero:before{content:"";position:absolute;inset:0;background-image:radial-gradient(circle at 10% 18%,rgba(255,255,255,.9) 0 1px,transparent 2px),radial-gradient(circle at 32% 34%,rgba(255,255,255,.65) 0 1px,transparent 2px),radial-gradient(circle at 62% 14%,rgba(255,255,255,.8) 0 1px,transparent 2px),radial-gradient(circle at 86% 42%,rgba(255,255,255,.68) 0 1px,transparent 2px),radial-gradient(circle at 74% 76%,rgba(255,255,255,.8) 0 1px,transparent 2px),linear-gradient(110deg,transparent 0 42%,rgba(255,255,255,.08) 44%,transparent 47%);opacity:.9;z-index:0}.zodiac-hero:after{content:"";position:absolute;right:-120px;top:-100px;width:390px;height:390px;border-radius:50%;border:1px solid rgba(242,217,144,.30);box-shadow:0 0 0 28px rgba(242,217,144,.04),0 0 0 84px rgba(255,255,255,.025);z-index:0}.zodiac-hero-content{position:relative;z-index:2;max-width:860px;min-height:340px;display:flex;flex-direction:column;justify-content:flex-end;padding:36px}.zodiac-kicker{display:inline-flex;align-items:center;gap:8px;width:max-content;margin:0 0 10px;color:var(--oz-gold);font-size:12px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}.zodiac-kicker:before{content:"";width:9px;height:9px;border-radius:50%;background:#ff2d2d;box-shadow:0 0 0 5px rgba(255,45,45,.18),0 0 22px rgba(255,45,45,.6)}.zodiac-hero h1{margin:0;font-family:Georgia,"Times New Roman",serif;font-size:clamp(40px,6vw,72px);line-height:.94;letter-spacing:-.055em;text-shadow:0 8px 26px rgba(0,0,0,.32)}.zodiac-hero p{max-width:780px;margin:14px 0 0;color:#dbe4f2;font-size:17px;line-height:1.6}.zodiac-toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:18px 0 24px;padding:14px 16px;border:1px solid var(--oz-line);background:#fff;box-shadow:0 10px 24px rgba(7,23,47,.06)}.zodiac-toolbar strong{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:#07172f}.zodiac-toolbar span{color:#64748b;font-size:13px}.zodiac-toolbar button{border:1px solid #07172f;background:#07172f;color:#fff;padding:10px 12px;font-weight:900;text-transform:uppercase;font-size:12px;cursor:pointer}.zodiac-toolbar button:hover{background:#c1121f;border-color:#c1121f}.zodiac-order{display:flex;gap:8px;overflow-x:auto;padding:0 0 14px;margin:0 0 18px}.zodiac-chip{flex:0 0 auto;display:inline-flex;align-items:center;gap:7px;min-height:36px;padding:9px 11px;border:1px solid #d8dce4;background:#fff;color:#07172f;text-decoration:none;font-weight:900;font-size:12px;text-transform:uppercase;letter-spacing:.04em}.zodiac-chip:hover{background:#07172f;color:#fff;text-decoration:none}.zodiac-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:18px}.zodiac-card{position:relative;overflow:hidden;min-height:400px;background:#fff;border:1px solid rgba(216,220,228,.96);box-shadow:0 18px 42px rgba(7,23,47,.09);isolation:isolate}.zodiac-card:before{content:"";position:absolute;inset:0 0 auto;height:135px;background:var(--sign-gradient);z-index:0}.zodiac-card:after{content:"";position:absolute;right:-44px;top:-40px;width:150px;height:150px;border-radius:50%;border:1px solid rgba(255,255,255,.42);box-shadow:0 0 0 18px rgba(255,255,255,.07),0 0 0 44px rgba(255,255,255,.035);z-index:1}.zodiac-art{position:relative;z-index:2;height:155px;display:flex;align-items:center;justify-content:center;padding:18px 18px 0}.zodiac-orb{position:relative;width:132px;height:132px;border-radius:38px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.36);box-shadow:inset 0 1px 0 rgba(255,255,255,.45),0 22px 38px rgba(0,0,0,.22);display:grid;place-items:center;backdrop-filter:blur(8px);overflow:hidden}.zodiac-orb:before{content:"";position:absolute;inset:-36%;background:conic-gradient(from 12deg,transparent,rgba(255,255,255,.62),transparent,rgba(242,217,144,.42),transparent);animation:spinStars 12s linear infinite}.zodiac-orb:after{content:"";position:absolute;inset:9px;border-radius:30px;background:linear-gradient(135deg,rgba(255,255,255,.22),rgba(255,255,255,.04));border:1px solid rgba(255,255,255,.26)}.zodiac-svg{position:relative;z-index:3;width:82px;height:82px;filter:drop-shadow(0 10px 14px rgba(0,0,0,.24))}.zodiac-svg svg{width:100%;height:100%;display:block}.zodiac-body{position:relative;z-index:3;padding:8px 20px 20px}.zodiac-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:12px}.zodiac-head h2{margin:0;color:#07172f;font-family:Georgia,"Times New Roman",serif;font-size:28px;line-height:1;letter-spacing:-.035em}.zodiac-glyph{display:inline-grid;place-items:center;min-width:42px;height:42px;border-radius:999px;background:#07172f;color:#fff;font-size:25px;box-shadow:0 8px 18px rgba(7,23,47,.16)}.zodiac-date{margin-top:6px;color:#b68a2e;font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.07em}.zodiac-text{margin:12px 0 0;color:#303846;font-size:15px;line-height:1.58}.zodiac-meta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:16px}.zodiac-meta div{padding:10px 8px;text-align:center;border:1px solid #e5e7eb;background:#f8fafc}.zodiac-meta strong{display:block;color:#07172f;font-size:11px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}.zodiac-meta span{display:block;color:#475467;font-size:12px;font-weight:800}.zodiac-source{margin:22px 0 0;padding:14px 16px;border-left:5px solid #c1121f;background:#fff;color:#475467;line-height:1.55;font-size:13px;box-shadow:0 10px 24px rgba(7,23,47,.05)}.zodiac-source strong{color:#07172f}.horoscope-loading{display:grid;place-items:center;min-height:160px;border:1px dashed #d8dce4;background:#fff;color:#64748b;font-weight:900;text-transform:uppercase;letter-spacing:.08em}.fallback-note{margin-top:10px;color:#7c2d12;font-weight:800}.zodiac-card.is-loading .zodiac-text{color:#64748b}.sparkle{position:absolute;width:4px;height:4px;border-radius:999px;background:var(--star);box-shadow:0 0 11px rgba(255,255,255,.95);animation:twinkle 2.8s ease-in-out infinite}.sparkle.s1{left:18%;top:18%;animation-delay:.2s}.sparkle.s2{left:77%;top:24%;animation-delay:.8s}.sparkle.s3{left:31%;top:67%;animation-delay:1.4s}.sparkle.s4{left:86%;top:72%;animation-delay:2s}@keyframes spinStars{to{transform:rotate(360deg)}}@keyframes twinkle{0%,100%{opacity:.25;transform:scale(.8)}50%{opacity:1;transform:scale(1.35)}}@media(max-width:900px){.horoscope-page{width:min(100% - 20px,1180px);margin-top:20px}.zodiac-hero,.zodiac-hero-content{min-height:330px}.zodiac-hero-content{padding:26px 22px}.zodiac-toolbar{align-items:flex-start;flex-direction:column}.zodiac-toolbar button{width:100%}.zodiac-grid{grid-template-columns:1fr}.zodiac-card{min-height:auto}.zodiac-meta{grid-template-columns:1fr 1fr 1fr}}
+</style>
+<script defer src="/assets/cgn-dynamic-translate.js"></script>
 </head>
-<body >
+<body>
 <div id="cgn-site-header"></div>
-<main id="main-content" class="site-main">
-<section class="page-hero"><img src="/OzarkGazetteBanner.png" alt=""><div class="page-hero-copy"><p class="kicker">Daily Features</p><h1 class="page-title">Horoscope</h1><p>Daily horoscope-style reader feature from The Ozark Gazette.</p></div></section><section><div class="section-title"><h2>Daily Horoscope</h2><span>Reader feature</span></div><div class="card-grid"><div class="game-card"><h3>Aries</h3><p>Check back for today’s Ozark Gazette horoscope.</p></div><div class="game-card"><h3>Taurus</h3><p>Check back for today’s Ozark Gazette horoscope.</p></div><div class="game-card"><h3>Gemini</h3><p>Check back for today’s Ozark Gazette horoscope.</p></div><div class="game-card"><h3>Cancer</h3><p>Check back for today’s Ozark Gazette horoscope.</p></div><div class="game-card"><h3>Leo</h3><p>Check back for today’s Ozark Gazette horoscope.</p></div><div class="game-card"><h3>Virgo</h3><p>Check back for today’s Ozark Gazette horoscope.</p></div><div class="game-card"><h3>Libra</h3><p>Check back for today’s Ozark Gazette horoscope.</p></div><div class="game-card"><h3>Scorpio</h3><p>Check back for today’s Ozark Gazette horoscope.</p></div><div class="game-card"><h3>Sagittarius</h3><p>Check back for today’s Ozark Gazette horoscope.</p></div><div class="game-card"><h3>Capricorn</h3><p>Check back for today’s Ozark Gazette horoscope.</p></div><div class="game-card"><h3>Aquarius</h3><p>Check back for today’s Ozark Gazette horoscope.</p></div><div class="game-card"><h3>Pisces</h3><p>Check back for today’s Ozark Gazette horoscope.</p></div></div></section>
+<main id="main-content" class="horoscope-page">
+  <section class="zodiac-hero" aria-label="The Ozark Gazette Horoscopes">
+    <div class="zodiac-hero-content">
+      <p class="zodiac-kicker">Daily Features</p>
+      <h1>Daily Horoscopes</h1>
+      <p>Read today’s horoscope for every sign. The page checks a free daily horoscope source first, then falls back to an original Ozark Gazette daily reader-feature forecast if the outside source is unavailable.</p>
+    </div>
+  </section>
+
+  <section class="zodiac-toolbar" aria-label="Horoscope status">
+    <div><strong id="horoscopeDate">Loading today’s horoscopes...</strong><br><span id="horoscopeStatus">Checking the daily horoscope source.</span></div>
+    <button type="button" id="refreshHoroscopesBtn">Refresh Horoscopes</button>
+  </section>
+
+  <nav id="zodiacOrder" class="zodiac-order" aria-label="Zodiac signs in January to December order"></nav>
+
+  <section id="zodiacGrid" class="zodiac-grid" aria-live="polite"><div class="horoscope-loading">Loading zodiac cards...</div></section>
+
+  <section class="zodiac-source" aria-label="Horoscope source note">
+    <strong>Source note:</strong> Horoscopes are a reader-entertainment feature. The page attempts to load daily sign text from a free public horoscope endpoint in the browser. If the endpoint, browser CORS policy, or network is unavailable, the page displays an original date-based Ozark Gazette fallback so the feature still updates each day.
+    <div id="sourceDetail" class="fallback-note" hidden></div>
+  </section>
 </main>
 <div id="cgn-site-footer"></div>
+<script src="/assets/ozark-shell.js"></script>
+<script>
+const DAILY_ENDPOINT = "https://horoscope-app-api.vercel.app/api/v1/get-horoscope/daily";
+const AZTRO_ENDPOINT = "https://aztro.sameerkumar.website/";
+const CACHE_PREFIX = "ozark_daily_horoscope_v2";
+
+const ZODIAC_SIGNS = [
+  {key:"aquarius",name:"Aquarius",glyph:"♒",dates:"Jan. 20 – Feb. 18",element:"Air",color:"#0ea5e9",gradient:"linear-gradient(135deg,#082f49 0%,#0ea5e9 54%,#7dd3fc 100%)",shape:"waves"},
+  {key:"pisces",name:"Pisces",glyph:"♓",dates:"Feb. 19 – Mar. 20",element:"Water",color:"#6366f1",gradient:"linear-gradient(135deg,#1e1b4b 0%,#6366f1 52%,#a5b4fc 100%)",shape:"fish"},
+  {key:"aries",name:"Aries",glyph:"♈",dates:"Mar. 21 – Apr. 19",element:"Fire",color:"#dc2626",gradient:"linear-gradient(135deg,#450a0a 0%,#dc2626 52%,#f97316 100%)",shape:"ram"},
+  {key:"taurus",name:"Taurus",glyph:"♉",dates:"Apr. 20 – May 20",element:"Earth",color:"#15803d",gradient:"linear-gradient(135deg,#052e16 0%,#15803d 52%,#86efac 100%)",shape:"bull"},
+  {key:"gemini",name:"Gemini",glyph:"♊",dates:"May 21 – Jun. 20",element:"Air",color:"#d97706",gradient:"linear-gradient(135deg,#451a03 0%,#d97706 48%,#fde68a 100%)",shape:"twins"},
+  {key:"cancer",name:"Cancer",glyph:"♋",dates:"Jun. 21 – Jul. 22",element:"Water",color:"#2563eb",gradient:"linear-gradient(135deg,#0f172a 0%,#2563eb 54%,#93c5fd 100%)",shape:"moon"},
+  {key:"leo",name:"Leo",glyph:"♌",dates:"Jul. 23 – Aug. 22",element:"Fire",color:"#f59e0b",gradient:"linear-gradient(135deg,#3b1600 0%,#f59e0b 48%,#fef08a 100%)",shape:"sun"},
+  {key:"virgo",name:"Virgo",glyph:"♍",dates:"Aug. 23 – Sept. 22",element:"Earth",color:"#65a30d",gradient:"linear-gradient(135deg,#1a2e05 0%,#65a30d 52%,#bef264 100%)",shape:"wheat"},
+  {key:"libra",name:"Libra",glyph:"♎",dates:"Sept. 23 – Oct. 22",element:"Air",color:"#9333ea",gradient:"linear-gradient(135deg,#2e1065 0%,#9333ea 54%,#e9d5ff 100%)",shape:"scales"},
+  {key:"scorpio",name:"Scorpio",glyph:"♏",dates:"Oct. 23 – Nov. 21",element:"Water",color:"#be123c",gradient:"linear-gradient(135deg,#4c0519 0%,#be123c 54%,#fb7185 100%)",shape:"scorpion"},
+  {key:"sagittarius",name:"Sagittarius",glyph:"♐",dates:"Nov. 22 – Dec. 21",element:"Fire",color:"#7c3aed",gradient:"linear-gradient(135deg,#1e1b4b 0%,#7c3aed 52%,#f0abfc 100%)",shape:"arrow"},
+  {key:"capricorn",name:"Capricorn",glyph:"♑",dates:"Dec. 22 – Jan. 19",element:"Earth",color:"#334155",gradient:"linear-gradient(135deg,#020617 0%,#334155 54%,#94a3b8 100%)",shape:"mountain"}
+];
+
+const FALLBACK_OPENERS = [
+  "Keep your plans practical today, but leave enough room for a pleasant surprise.",
+  "A steady approach works better than a rushed answer, especially around family or work.",
+  "A small adjustment can make the rest of the day feel more manageable.",
+  "Listen closely before you commit; the useful detail may be in what someone says casually.",
+  "Your best move is simple: handle the thing you have been putting off and then reset."
+];
+const FALLBACK_FOCUS = [
+  "Money and time both need clearer boundaries.",
+  "A conversation can clear up more than you expect.",
+  "A familiar routine may need one smart update.",
+  "Do not let outside noise talk you out of common sense.",
+  "Home, health and practical errands are favored."
+];
+const FALLBACK_CLOSE = [
+  "Tonight, choose peace over proving a point.",
+  "By evening, a cleaner plan should feel easier to follow.",
+  "A patient tone will carry you farther than pressure.",
+  "Keep the door open, but do not chase a moving target.",
+  "A quiet win still counts."
+];
+
+function todayKey(){
+  const now = new Date();
+  const parts = new Intl.DateTimeFormat("en-CA",{timeZone:"America/Chicago",year:"numeric",month:"2-digit",day:"2-digit"}).formatToParts(now);
+  const map = {};
+  parts.forEach(function(p){map[p.type]=p.value;});
+  return `${map.year}-${map.month}-${map.day}`;
+}
+
+function prettyToday(){
+  return new Intl.DateTimeFormat("en-US",{timeZone:"America/Chicago",weekday:"long",month:"long",day:"numeric",year:"numeric"}).format(new Date());
+}
+
+function hashValue(input){
+  let h = 0;
+  const s = String(input || "");
+  for(let i=0;i<s.length;i++) h = (h * 31 + s.charCodeAt(i)) >>> 0;
+  return h;
+}
+
+function localFallback(sign){
+  const seed = hashValue(todayKey()+":"+sign.key);
+  const opener = FALLBACK_OPENERS[seed % FALLBACK_OPENERS.length];
+  const focus = FALLBACK_FOCUS[Math.floor(seed / 7) % FALLBACK_FOCUS.length];
+  const close = FALLBACK_CLOSE[Math.floor(seed / 13) % FALLBACK_CLOSE.length];
+  return `${opener} ${focus} ${close}`;
+}
+
+function getLucky(sign){
+  const seed = hashValue(todayKey()+":"+sign.key+":lucky");
+  const moods = ["Steady","Curious","Bold","Patient","Bright","Focused","Grounded","Social"];
+  return {
+    mood:moods[seed % moods.length],
+    number:String((seed % 29) + 1),
+    color:["Gold","Blue","Red","Green","Violet","Silver","Rose","Navy"][Math.floor(seed/5)%8]
+  };
+}
+
+function safeText(value){
+  return String(value || "").replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c];});
+}
+
+function zodiacSvg(sign){
+  const stroke = "#fff7cf";
+  const glow = sign.color;
+  const common = `fill="none" stroke="${stroke}" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"`;
+  const dot = `<circle cx="50" cy="50" r="42" fill="none" stroke="rgba(255,255,255,.24)" stroke-width="2"/><circle cx="50" cy="50" r="2.8" fill="${stroke}"/>`;
+  const shapes = {
+    waves:`${dot}<path ${common} d="M14 42c10-13 20 13 31 0s20 13 31 0 13 0 10 0"/><path ${common} d="M14 61c10-13 20 13 31 0s20 13 31 0 13 0 10 0"/>`,
+    fish:`${dot}<path ${common} d="M24 28c26 7 26 37 0 44M76 28c-26 7-26 37 0 44M35 50h30"/>`,
+    ram:`${dot}<path ${common} d="M50 76V44c0-17-25-20-29-5-4 14 13 21 21 11M50 44c0-17 25-20 29-5 4 14-13 21-21 11"/>`,
+    bull:`${dot}<circle cx="50" cy="58" r="21" ${common}/><path ${common} d="M32 43c-16-19 2-28 18-10M68 43c16-19-2-28-18-10"/>`,
+    twins:`${dot}<path ${common} d="M31 25h38M31 75h38M37 28v44M63 28v44"/>`,
+    moon:`${dot}<path ${common} d="M36 38c13-21 47-4 33 19-13 21-47 4-33-19z"/><path ${common} d="M26 65c11 11 28-1 20-12"/>`,
+    sun:`${dot}<circle cx="50" cy="50" r="19" ${common}/><path ${common} d="M50 13v11M50 76v11M13 50h11M76 50h11M24 24l8 8M68 68l8 8M76 24l-8 8M32 68l-8 8"/>`,
+    wheat:`${dot}<path ${common} d="M50 22v58M50 34c-18 0-20-16-8-20M50 48c-19 0-22-16-9-22M50 62c-17 0-23-14-9-21M50 34c18 0 20-16 8-20M50 48c19 0 22-16 9-22M50 62c17 0 23-14 9-21"/>`,
+    scales:`${dot}<path ${common} d="M20 68h60M29 68l12-26 12 26M47 68l12-26 12 26M50 25v50M27 42h46"/>`,
+    scorpion:`${dot}<path ${common} d="M22 32h16v30M38 32h16v30M54 32h13c8 0 13 6 13 14 0 16-18 15-18 30M62 76l12-1M74 75l-8-10"/>`,
+    arrow:`${dot}<path ${common} d="M27 73l46-46M47 27h26v26M56 44l17-17"/>`,
+    mountain:`${dot}<path ${common} d="M18 72l20-34 12 19 12-25 20 40M31 72h40"/>`
+  };
+  return `<svg viewBox="0 0 100 100" role="img" aria-label="${safeText(sign.name)} zodiac illustration"><defs><filter id="glow-${sign.key}"><feDropShadow dx="0" dy="0" stdDeviation="3" flood-color="${glow}" flood-opacity=".9"/></filter></defs><g filter="url(#glow-${sign.key})">${shapes[sign.shape] || shapes.sun}</g></svg>`;
+}
+
+function renderShellCards(horoscopes){
+  const grid = document.getElementById("zodiacGrid");
+  const order = document.getElementById("zodiacOrder");
+  if(!grid || !order) return;
+  order.innerHTML = ZODIAC_SIGNS.map(sign => `<a class="zodiac-chip" href="#${sign.key}"><span>${safeText(sign.glyph)}</span>${safeText(sign.name)}</a>`).join("");
+  grid.innerHTML = ZODIAC_SIGNS.map(function(sign){
+    const lucky = getLucky(sign);
+    const text = horoscopes && horoscopes[sign.key] ? horoscopes[sign.key].text : "Loading today’s horoscope...";
+    const loadingClass = horoscopes && horoscopes[sign.key] ? "" : " is-loading";
+    return `<article id="${sign.key}" class="zodiac-card${loadingClass}" style="--sign-gradient:${sign.gradient}">
+      <span class="sparkle s1"></span><span class="sparkle s2"></span><span class="sparkle s3"></span><span class="sparkle s4"></span>
+      <div class="zodiac-art"><div class="zodiac-orb"><div class="zodiac-svg">${zodiacSvg(sign)}</div></div></div>
+      <div class="zodiac-body">
+        <div class="zodiac-head"><div><h2>${safeText(sign.name)}</h2><div class="zodiac-date">${safeText(sign.dates)} · ${safeText(sign.element)}</div></div><span class="zodiac-glyph" aria-hidden="true">${safeText(sign.glyph)}</span></div>
+        <p class="zodiac-text">${safeText(text)}</p>
+        <div class="zodiac-meta"><div><strong>Mood</strong><span>${safeText(lucky.mood)}</span></div><div><strong>Lucky #</strong><span>${safeText(lucky.number)}</span></div><div><strong>Color</strong><span>${safeText(lucky.color)}</span></div></div>
+      </div>
+    </article>`;
+  }).join("");
+}
+
+function normalizeHoroscopePayload(json){
+  if(!json) return "";
+  if(json.data && typeof json.data.horoscope_data === "string") return json.data.horoscope_data;
+  if(json.data && typeof json.data.horoscope === "string") return json.data.horoscope;
+  if(typeof json.horoscope_data === "string") return json.horoscope_data;
+  if(typeof json.horoscope === "string") return json.horoscope;
+  if(typeof json.description === "string") return json.description;
+  return "";
+}
+
+async function fetchPrimary(sign){
+  const url = new URL(DAILY_ENDPOINT);
+  url.searchParams.set("sign", sign.key);
+  url.searchParams.set("day", "today");
+  const response = await fetch(url.toString(), {cache:"no-store"});
+  if(!response.ok) throw new Error("Primary horoscope source returned " + response.status);
+  const json = await response.json();
+  const text = normalizeHoroscopePayload(json).trim();
+  if(!text) throw new Error("Primary horoscope source returned no text");
+  return text;
+}
+
+async function fetchAztro(sign){
+  const response = await fetch(`${AZTRO_ENDPOINT}?sign=${encodeURIComponent(sign.key)}&day=today`, {method:"POST", cache:"no-store"});
+  if(!response.ok) throw new Error("Aztro returned " + response.status);
+  const json = await response.json();
+  const text = normalizeHoroscopePayload(json).trim();
+  if(!text) throw new Error("Aztro returned no text");
+  return text;
+}
+
+function readCache(){
+  try{
+    const raw = localStorage.getItem(CACHE_PREFIX + ":" + todayKey());
+    if(!raw) return null;
+    const parsed = JSON.parse(raw);
+    if(parsed && parsed.date === todayKey() && parsed.horoscopes) return parsed;
+  }catch(err){}
+  return null;
+}
+
+function writeCache(payload){
+  try{localStorage.setItem(CACHE_PREFIX + ":" + todayKey(), JSON.stringify(payload));}catch(err){}
+}
+
+async function loadHoroscopes(force){
+  const dateEl = document.getElementById("horoscopeDate");
+  const statusEl = document.getElementById("horoscopeStatus");
+  const sourceEl = document.getElementById("sourceDetail");
+  const button = document.getElementById("refreshHoroscopesBtn");
+  if(button) button.disabled = true;
+  if(dateEl) dateEl.textContent = prettyToday();
+  if(statusEl) statusEl.textContent = "Loading daily horoscope cards...";
+  if(sourceEl){sourceEl.hidden = true;sourceEl.textContent = "";}
+
+  if(!force){
+    const cached = readCache();
+    if(cached){
+      renderShellCards(cached.horoscopes);
+      if(statusEl) statusEl.textContent = cached.source === "fallback" ? "Showing today’s Ozark Gazette fallback horoscopes." : "Showing today’s cached daily horoscopes.";
+      if(sourceEl && cached.source === "fallback"){sourceEl.hidden=false;sourceEl.textContent="Outside daily horoscope source was unavailable when this cache was created.";}
+      if(button) button.disabled = false;
+      return;
+    }
+  }
+
+  renderShellCards(null);
+  const horoscopes = {};
+  let source = "primary";
+  let failed = 0;
+
+  await Promise.all(ZODIAC_SIGNS.map(async function(sign){
+    try{
+      const text = await fetchPrimary(sign);
+      horoscopes[sign.key] = {text:text, source:"primary"};
+    }catch(primaryErr){
+      try{
+        const text = await fetchAztro(sign);
+        horoscopes[sign.key] = {text:text, source:"aztro"};
+        if(source === "primary") source = "aztro";
+      }catch(aztroErr){
+        failed += 1;
+        horoscopes[sign.key] = {text:localFallback(sign), source:"fallback"};
+      }
+    }
+  }));
+
+  if(failed === ZODIAC_SIGNS.length){
+    source = "fallback";
+  }else if(failed > 0){
+    source = "mixed";
+  }
+
+  writeCache({date:todayKey(),source:source,horoscopes:horoscopes});
+  renderShellCards(horoscopes);
+
+  if(statusEl){
+    if(source === "fallback") statusEl.textContent = "Daily source unavailable; showing original Ozark Gazette daily fallback horoscopes.";
+    else if(source === "mixed") statusEl.textContent = "Some signs came from the daily source; unavailable signs use the Ozark Gazette fallback.";
+    else statusEl.textContent = "Daily horoscopes loaded.";
+  }
+  if(sourceEl && (source === "fallback" || source === "mixed")){
+    sourceEl.hidden = false;
+    sourceEl.textContent = source === "fallback" ? "The outside horoscope endpoint could not be reached from this browser. The cards still update daily using original date-based text." : "At least one outside horoscope request failed, so fallback text filled the missing signs.";
+  }
+  if(button) button.disabled = false;
+}
+
+document.getElementById("refreshHoroscopesBtn")?.addEventListener("click", function(){
+  try{localStorage.removeItem(CACHE_PREFIX + ":" + todayKey());}catch(err){}
+  loadHoroscopes(true);
+});
+
+renderShellCards(null);
+loadHoroscopes(false);
+</script>
 </body>
 </html>
