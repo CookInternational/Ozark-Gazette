@@ -52,7 +52,7 @@
   <section id="zodiacGrid" class="zodiac-grid" aria-live="polite"><div class="horoscope-loading">Loading zodiac cards...</div></section>
 
   <section class="zodiac-source" aria-label="Horoscope source note">
-    <strong>Source note:</strong> Horoscopes are a reader-entertainment feature. The page attempts to load daily sign text from a free public horoscope endpoint in the browser. If the endpoint, browser CORS policy, or network is unavailable, the page displays an original date-based Ozark Gazette fallback so the feature still updates each day.
+    <strong>Source note:</strong> Horoscopes are a reader-entertainment feature, and do not constitute medical advice.  If the network is unavailable, horoscopes may not display.
     <div id="sourceDetail" class="fallback-note" hidden></div>
   </section>
 </main>
@@ -281,13 +281,13 @@ async function loadHoroscopes(force){
   renderShellCards(horoscopes);
 
   if(statusEl){
-    if(source === "fallback") statusEl.textContent = "Daily source unavailable; showing original Ozark Gazette daily fallback horoscopes.";
-    else if(source === "mixed") statusEl.textContent = "Some signs came from the daily source; unavailable signs use the Ozark Gazette fallback.";
+    if(source === "fallback") statusEl.textContent = "Source unavailable.";
+    else if(source === "mixed") statusEl.textContent = "Showing Ozark Gazette original horoscopes.";
     else statusEl.textContent = "Daily horoscopes loaded.";
   }
   if(sourceEl && (source === "fallback" || source === "mixed")){
     sourceEl.hidden = false;
-    sourceEl.textContent = source === "fallback" ? "The outside horoscope endpoint could not be reached from this browser. The cards still update daily using original date-based text." : "At least one outside horoscope request failed, so fallback text filled the missing signs.";
+    sourceEl.textContent = source === "fallback" ? "The outside horoscope endpoint could not be reached from this browser." : "At least one outside horoscope request failed.";
   }
   if(button) button.disabled = false;
 }
