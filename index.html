@@ -35,6 +35,7 @@
 .live-actions .live-btn{white-space:nowrap}
 button.live-btn{font-family:Arial,Helvetica,sans-serif}
 .ozark-cgn-live-panel[hidden]{display:none!important}
+#ozark-live-original[hidden], .live-app .live-grid[hidden]{display:none!important}
 .ozark-cgn-live-panel{padding:18px;background:#0b1626;border-top:1px solid rgba(255,255,255,.14)}
 .ozark-cgn-live-panel .cgn-live-shell{border:1px solid rgba(255,255,255,.18);background:#07111f;color:#fff;overflow:hidden;box-shadow:0 18px 42px rgba(0,0,0,.24)}
 .ozark-cgn-live-panel .cgn-live-header{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;padding:18px 20px;border-bottom:1px solid rgba(255,255,255,.14);background:linear-gradient(135deg,#07111f,#0b2038)}
@@ -97,9 +98,9 @@ button.live-btn{font-family:Arial,Helvetica,sans-serif}
 <main id="main-content" class="site-main">
 
 <section class="hero-banner"><img src="/OzarkGazetteBanner.png" alt="The Ozark Gazette — Your Source for Ozark News, Weather, Sports and Traffic"></section>
-<section class="live-app" aria-label="The Ozark Gazette live homepage">
-  <div class="live-head"><div><p class="live-kicker">The Ozark Gazette Live</p><h1 class="live-title">Tecumseh and Ozark County at a glance</h1><p class="live-copy">Local headlines, Ozarks weather, radar access, US-160 traffic, sports, markets, obituaries, court records and daily reader features from a CGN-powered local newsroom.</p></div><div class="live-actions"><a class="live-btn" href="/local/">View Local News</a><button id="ozark-open-cgn-live" class="live-btn" type="button" onclick="showOzarkCGNLive()">CGN LIVE</button><button id="ozark-back-to-live" class="live-btn" type="button" onclick="showOzarkOriginalLive()" hidden>Back to Ozark View</button></div></div>
-  <div id="ozark-live-original" class="live-grid">
+<section id="ozark-live-app" class="live-app" aria-label="The Ozark Gazette live homepage">
+  <div class="live-head"><div><p class="live-kicker">The Ozark Gazette Live</p><h1 class="live-title">Tecumseh and Ozark County at a glance</h1><p class="live-copy">Local headlines, Ozarks weather, radar access, US-160 traffic, sports, markets, obituaries, court records and daily reader features from a CGN-powered local newsroom.</p></div><div class="live-actions"><a class="live-btn" href="/local/">View Local News</a><button id="ozark-open-cgn-live" class="live-btn" type="button" onclick="showOzarkCGNLive()">CGN LIVE</button><button id="ozark-back-to-live" class="live-btn" type="button" onclick="showOzarkOriginalLive()" hidden>Back to Headlines</button></div></div>
+  <div id="ozark-live-original" class="live-grid" aria-hidden="false">
     <a id="featureLink" class="live-feature" href="/local/"><div class="live-feature-media"><img id="featureImage" src="/OzarkGazetteBanner.png" alt=""></div><div class="live-feature-content"><p id="featureMeta" class="live-feature-meta">Local · Latest</p><h2 id="featureTitle" class="live-feature-title">The Ozark Gazette launches local coverage for the Missouri Ozarks</h2><p id="featureCopy" class="live-feature-copy">Coverage begins in Tecumseh and follows Ozark County roads, weather, public affairs, schools, sports, obituaries and the community information readers use every day.</p><div class="feature-controls"><span class="feature-counter">Main Story</span><span class="live-btn">Read More</span></div></div></a>
     <div class="live-side">
       <a class="live-widget weather-widget" href="/weather/"><div class="widget-head"><div><div class="widget-kicker">Weather Center</div><h2 class="widget-title">Tecumseh Weather</h2></div><span>🌤</span></div><div class="widget-content"><div class="weather-now"><div><div id="homeWeatherTemp" class="weather-temp">--°F</div><p id="homeWeatherText" class="widget-note">Current conditions loading for Tecumseh.</p></div><div class="metric-grid"><div class="metric"><strong>Radar</strong>Ozarks</div><div class="metric"><strong>Alerts</strong>NWS</div><div class="metric"><strong>Brief</strong>Weekly</div></div></div></div></a>
@@ -109,7 +110,7 @@ button.live-btn{font-family:Arial,Helvetica,sans-serif}
     </div>
   </div>
 
-  <div id="ozark-cgn-live-panel" class="ozark-cgn-live-panel cgn-live" hidden aria-labelledby="ozark-cgn-live-title">
+  <div id="ozark-cgn-live-panel" class="ozark-cgn-live-panel cgn-live" hidden aria-hidden="true" aria-labelledby="ozark-cgn-live-title">
     <div class="cgn-live-shell">
       <div class="cgn-live-header">
         <div>
@@ -127,7 +128,7 @@ button.live-btn{font-family:Arial,Helvetica,sans-serif}
             <svg class="cgn-live-youtube-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M23.5 6.2c-.3-1.2-1.2-2.1-2.4-2.4C19 3.3 12 3.3 12 3.3s-7 0-9.1.5C1.7 4.1.8 5 .5 6.2.1 8.4.1 12 .1 12s0 3.6.5 5.8c.3 1.2 1.2 2.1 2.4 2.4 2.1.5 9.1.5 9.1.5s7 0 9.1-.5c1.2-.3 2.1-1.2 2.4-2.4.5-2.2.5-5.8.5-5.8s0-3.6-.6-5.8zM9.6 15.7V8.3l6.2 3.7-6.2 3.7z"></path></svg>
             @CookGlobalNews
           </a>
-          <button class="cgn-live-back" type="button" onclick="showOzarkOriginalLive()">Back to Ozark View</button>
+          <button class="cgn-live-back" type="button" onclick="showOzarkOriginalLive()">Back to Headlines</button>
         </div>
       </div>
 
@@ -458,25 +459,54 @@ function ozarkWithCGNLiveParams(url){
 }
 
 function showOzarkCGNLive(){
+  const app = document.getElementById("ozark-live-app");
   const original = document.getElementById("ozark-live-original");
   const panel = document.getElementById("ozark-cgn-live-panel");
   const openBtn = document.getElementById("ozark-open-cgn-live");
   const backBtn = document.getElementById("ozark-back-to-live");
-  if(original) original.hidden = true;
-  if(panel) panel.hidden = false;
+
+  if(app) app.classList.add("is-showing-cgn-live");
+
+  if(original){
+    original.hidden = true;
+    original.setAttribute("aria-hidden", "true");
+    original.style.display = "none";
+  }
+
+  if(panel){
+    panel.hidden = false;
+    panel.setAttribute("aria-hidden", "false");
+    panel.style.display = "block";
+  }
+
   if(openBtn) openBtn.hidden = true;
   if(backBtn) backBtn.hidden = false;
+
   ozarkChangeCGNLiveFeed(ozarkCGNLiveCurrentKey || "cgn");
 }
 
 function showOzarkOriginalLive(){
+  const app = document.getElementById("ozark-live-app");
   const original = document.getElementById("ozark-live-original");
   const panel = document.getElementById("ozark-cgn-live-panel");
   const openBtn = document.getElementById("ozark-open-cgn-live");
   const backBtn = document.getElementById("ozark-back-to-live");
   const frame = document.getElementById("ozark-cgn-live-frame");
-  if(original) original.hidden = false;
-  if(panel) panel.hidden = true;
+
+  if(app) app.classList.remove("is-showing-cgn-live");
+
+  if(original){
+    original.hidden = false;
+    original.setAttribute("aria-hidden", "false");
+    original.style.display = "";
+  }
+
+  if(panel){
+    panel.hidden = true;
+    panel.setAttribute("aria-hidden", "true");
+    panel.style.display = "none";
+  }
+
   if(openBtn) openBtn.hidden = false;
   if(backBtn) backBtn.hidden = true;
   if(frame) frame.removeAttribute("src");
