@@ -1,38 +1,354 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#07172f">
-<meta name="robots" content="index,follow,max-image-preview:large">
-<meta name="cgn-api-base" content="https://script.google.com/macros/s/AKfycbx41mQg-Ine3XZ-VrMI_SaQn4_K6cDQHA0cBFyGPgupu_edNFoNRjSLv2hoSe_bOytt/exec">
-<title>Contact | The Ozark Gazette</title>
-<meta name="description" content="Contact The Ozark Gazette newsroom.">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Contact The Ozark Gazette | The Ozark Gazette</title>
+<meta name="description" content="Contact The Ozark Gazette for editorial inquiries, newsroom communication, corrections, community notices and news tips for Tecumseh, Ozark County and the Missouri Ozarks.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="author" content="The Ozark Gazette">
+<meta name="publisher" content="Cook Global News Network">
 <link rel="canonical" href="https://ozarks.cgnnews.net/contact/">
+
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
 <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#07172f">
+
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="The Ozark Gazette">
-<meta property="og:title" content="Contact | The Ozark Gazette">
-<meta property="og:description" content="Contact The Ozark Gazette newsroom.">
+<meta property="og:title" content="Contact The Ozark Gazette">
+<meta property="og:description" content="Contact The Ozark Gazette for newsroom communication, corrections, community notices and news tips.">
 <meta property="og:url" content="https://ozarks.cgnnews.net/contact/">
-<meta property="og:image" content="https://ozarks.cgnnews.net/OzarkGazetteBanner.png">
+<meta property="og:image" content="https://ozarks.cgnnews.net/OzarkGazetteLogo.png">
+
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Contact | The Ozark Gazette">
-<meta name="twitter:description" content="Contact The Ozark Gazette newsroom.">
-<meta name="twitter:image" content="https://ozarks.cgnnews.net/OzarkGazetteBanner.png">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"NewsMediaOrganization","name":"The Ozark Gazette","url":"https://ozarks.cgnnews.net/","parentOrganization":{"@type":"NewsMediaOrganization","name":"Cook Global News Network","url":"https://www.cgnnews.net/"},"address":{"@type":"PostalAddress","streetAddress":"33256 US Highway 160","addressLocality":"Tecumseh","addressRegion":"MO","postalCode":"65760","addressCountry":"US"},"telephone":"+1-317-442-1437","email":"tips@cgnnews.net","logo":"https://ozarks.cgnnews.net/OzarkGazetteLogo.png"}</script>
+<meta name="twitter:title" content="Contact The Ozark Gazette">
+<meta name="twitter:description" content="Contact The Ozark Gazette for newsroom communication, corrections, community notices and news tips.">
+<meta name="twitter:image" content="https://ozarks.cgnnews.net/OzarkGazetteLogo.png">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ContactPage",
+      "@id": "https://ozarks.cgnnews.net/contact/#contactpage",
+      "url": "https://ozarks.cgnnews.net/contact/",
+      "name": "Contact The Ozark Gazette",
+      "description": "Contact The Ozark Gazette for editorial inquiries, newsroom communication, corrections, community notices and news tips.",
+      "isPartOf": {
+        "@id": "https://ozarks.cgnnews.net/#website"
+      },
+      "publisher": {
+        "@id": "https://ozarks.cgnnews.net/#organization"
+      },
+      "about": {
+        "@id": "https://ozarks.cgnnews.net/#organization"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://ozarks.cgnnews.net/#website",
+      "url": "https://ozarks.cgnnews.net/",
+      "name": "The Ozark Gazette",
+      "publisher": {
+        "@id": "https://ozarks.cgnnews.net/#organization"
+      }
+    },
+    {
+      "@type": "NewsMediaOrganization",
+      "@id": "https://ozarks.cgnnews.net/#organization",
+      "name": "The Ozark Gazette",
+      "legalName": "The Ozark Gazette",
+      "url": "https://ozarks.cgnnews.net/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://ozarks.cgnnews.net/OzarkGazetteLogo.png"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "P.O. Box 794, 33256 US Highway 160",
+        "addressLocality": "Tecumseh",
+        "addressRegion": "MO",
+        "postalCode": "65760",
+        "addressCountry": "US"
+      },
+      "email": "tips@cgnnews.net",
+      "telephone": "+1-317-442-1437",
+      "sameAs": [
+        "https://instagram.com/cookglobalnews",
+        "https://x.com/CookGlobalNews",
+        "https://youtube.com/@CookGlobalNews"
+      ]
+    }
+  ]
+}
+</script>
+
+<style>
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin:0;
+  background:#fff;
+  color:#111;
+  line-height:1.6;
+}
+
+.contact-shell {
+  max-width:960px;
+  margin:40px auto 60px;
+  padding:0 20px;
+}
+
+.contact-hero {
+  border-bottom:3px solid #111;
+  padding-bottom:18px;
+  margin-bottom:28px;
+}
+
+.contact-kicker {
+  font-size:12px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:#666;
+  font-weight:700;
+  margin-bottom:8px;
+}
+
+.contact-hero h1 {
+  font-size:42px;
+  line-height:1.08;
+  margin:0 0 10px;
+  letter-spacing:-.02em;
+}
+
+.contact-hero p {
+  max-width:760px;
+  color:#555;
+  font-size:16px;
+  margin:0;
+}
+
+.contact-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:22px;
+  margin-top:26px;
+}
+
+.contact-card,
+.tip-box,
+.form-card {
+  border:1px solid #ddd;
+  background:#fff;
+  padding:22px;
+}
+
+.tip-box {
+  background:#f7f7f7;
+}
+
+.contact-card h2,
+.tip-box h2,
+.form-card h2 {
+  margin-top:0;
+  font-size:24px;
+  line-height:1.2;
+}
+
+.contact-card a,
+.tip-box a,
+.form-card a {
+  color:#111;
+  font-weight:700;
+}
+
+.contact-card p,
+.tip-box p {
+  margin:10px 0;
+}
+
+.form-card {
+  margin-top:24px;
+}
+
+.form-note {
+  font-size:13px;
+  color:#666;
+  margin-top:0;
+}
+
+.form-row {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+input,
+textarea {
+  width:100%;
+  box-sizing:border-box;
+  padding:12px;
+  margin-bottom:12px;
+  border:1px solid #bbb;
+  font:inherit;
+}
+
+input:focus,
+textarea:focus {
+  outline:none;
+  border-color:#111;
+}
+
+button {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:12px 18px;
+  border:1px solid #111;
+  background:#111;
+  color:#fff;
+  font-weight:700;
+  cursor:pointer;
+  font-size:15px;
+}
+
+button:hover {
+  opacity:.85;
+}
+
+@media (max-width: 900px) {
+  .contact-shell {
+    margin:28px auto 42px;
+    padding:0 16px;
+  }
+
+  .contact-hero h1 {
+    font-size:32px;
+  }
+
+  .contact-grid,
+  .form-row {
+    grid-template-columns:1fr;
+  }
+
+  button {
+    width:100%;
+  }
+}
+</style>
+
+<script defer src="/assets/cgn-dynamic-translate.js"></script>
 <link rel="stylesheet" href="/assets/ozark-site.css">
-<script defer src="/assets/ozark-shell.js"></script>
 </head>
-<body >
+
+<body>
+
 <div id="cgn-site-header"></div>
-<main id="main-content" class="site-main">
-<section class="page-hero"><img src="/OzarkGazetteBanner.png" alt=""><div class="page-hero-copy"><p class="kicker">The Ozark Gazette</p><h1 class="page-title">Contact</h1><p>Contact The Ozark Gazette newsroom.</p></div></section><section class="form-card"><h2>Contact The Ozark Gazette</h2><p><strong>The Ozark Gazette</strong><br>P.O. Box 794<br>33256 US Highway 160<br>Tecumseh, Missouri 65760<br>📱 (317) 442-1437<br><a href="mailto:tips@cgnnews.net">tips@cgnnews.net</a></p><form action="mailto:tips@cgnnews.net" method="post" enctype="text/plain"><label>Name</label><input name="name"><label>Email</label><input name="email" type="email"><label>Message</label><textarea name="message" rows="7"></textarea><button type="submit">Send Message</button></form></section>
+
+<main class="contact-shell">
+
+<section class="contact-hero">
+<div class="contact-kicker">Contact The Ozark Gazette</div>
+<h1>Contact The Ozark Gazette</h1>
+<p>For general inquiries, corrections, community notices, media requests, editorial communication, or Ozark County news tips, use the contact information below.</p>
+</section>
+
+<div class="contact-grid">
+
+<section class="contact-card">
+<h2>Contact Information</h2>
+
+<p>
+<strong>Email:</strong><br>
+<a href="mailto:tips@cgnnews.net">tips@cgnnews.net</a>
+</p>
+
+<p>
+<strong>Phone:</strong><br>
+<a href="tel:+13174421437">+1 (317) 442-1437</a>
+</p>
+
+<p>
+<strong>Mailing Address:</strong><br>
+The Ozark Gazette<br>
+P.O. Box 794<br>
+33256 US Highway 160<br>
+Tecumseh, Missouri 65760
+</p>
+</section>
+
+<section class="tip-box">
+<h2>Submit a Tip</h2>
+
+<p>
+If you have information relevant to Tecumseh, Ozark County, local government, courts, schools, roads, weather, sports, obituaries, public safety, business, community life or public-interest reporting, you may submit a tip directly to the newsroom.
+</p>
+
+<p>
+<strong>Tip email:</strong><br>
+<a href="mailto:tips@cgnnews.net?subject=RE%3A%20Ozark%20Gazette%20Tip">tips@cgnnews.net</a>
+</p>
+</section>
+
+</div>
+
+<section class="form-card">
+
+<h2>Send a Message</h2>
+<p class="form-note">
+This form opens your email client and prepares a message to The Ozark Gazette. No message is submitted unless you send it from your email account.
+</p>
+
+<form onsubmit="sendContactMessage(event)">
+<div class="form-row">
+<input id="contact-name" type="text" placeholder="Your Name" autocomplete="name" required>
+<input id="contact-email" type="email" placeholder="Your Email" autocomplete="email" required>
+</div>
+
+<textarea id="contact-message" rows="6" placeholder="Your Message" required></textarea>
+
+<button type="submit">Send Message</button>
+</form>
+
+</section>
+
 </main>
+
 <div id="cgn-site-footer"></div>
+
+<script>
+function sendContactMessage(event){
+  event.preventDefault();
+
+  const name = document.getElementById("contact-name").value.trim();
+  const email = document.getElementById("contact-email").value.trim();
+  const message = document.getElementById("contact-message").value.trim();
+
+  if(!name || !email || !message){
+    alert("Please complete all fields before sending.");
+    return;
+  }
+
+  const subject = "Ozark Gazette Contact Message";
+  const body =
+    "Name: " + name + "\n" +
+    "Email: " + email + "\n\n" +
+    "Message:\n" + message;
+
+  window.location.href =
+    "mailto:tips@cgnnews.net" +
+    "?subject=" + encodeURIComponent(subject) +
+    "&body=" + encodeURIComponent(body);
+}
+</script>
+
+<script src="/assets/ozark-shell.js"></script>
+
 </body>
 </html>
