@@ -1,0 +1,6 @@
+Add this inside the existing CGN Apps Script route handler after request parameters are normalized into payload and before the default/unknown action response:
+
+var ozarkResponse = ozarkGazetteRoute_(payload);
+if (ozarkResponse) return jsonOutput_(ozarkResponse);
+
+If the existing JSON helper is not named jsonOutput_, use the existing project JSON response helper.
