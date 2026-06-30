@@ -1,723 +1,576 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#07172f">
-<meta name="robots" content="index,follow,max-image-preview:large">
-<meta name="cgn-api-base" content="https://script.google.com/macros/s/AKfycbx41mQg-Ine3XZ-VrMI_SaQn4_K6cDQHA0cBFyGPgupu_edNFoNRjSLv2hoSe_bOytt/exec">
-<title>The Ozark Gazette | Ozark News, Weather, Sports and Traffic</title>
-<meta name="description" content="The Ozark Gazette delivers local news, weather, radar, traffic, sports, markets, obituaries, court coverage, opinion, puzzles and community reporting for Tecumseh, Ozark County and the Missouri Ozarks.">
-<link rel="canonical" href="https://ozarks.cgnnews.net/">
-<link rel="icon" href="/favicon.ico" sizes="any">
-<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
-<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="manifest" href="/site.webmanifest">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="The Ozark Gazette">
-<meta property="og:title" content="The Ozark Gazette | Ozark News, Weather, Sports and Traffic">
-<meta property="og:description" content="The Ozark Gazette delivers local news, weather, radar, traffic, sports, markets, obituaries, court coverage, opinion, puzzles and community reporting for Tecumseh, Ozark County and the Missouri Ozarks.">
-<meta property="og:url" content="https://ozarks.cgnnews.net/">
-<meta property="og:image" content="https://ozarks.cgnnews.net/OzarkGazetteBanner.png">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="The Ozark Gazette | Ozark News, Weather, Sports and Traffic">
-<meta name="twitter:description" content="The Ozark Gazette delivers local news, weather, radar, traffic, sports, markets, obituaries, court coverage, opinion, puzzles and community reporting for Tecumseh, Ozark County and the Missouri Ozarks.">
-<meta name="twitter:image" content="https://ozarks.cgnnews.net/OzarkGazetteBanner.png">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"NewsMediaOrganization","name":"The Ozark Gazette","url":"https://ozarks.cgnnews.net/","parentOrganization":{"@type":"NewsMediaOrganization","name":"Cook Global News Network","url":"https://www.cgnnews.net/"},"address":{"@type":"PostalAddress","streetAddress":"33256 US Highway 160","addressLocality":"Tecumseh","addressRegion":"MO","postalCode":"65760","addressCountry":"US"},"telephone":"+1-317-442-1437","email":"tips@cgnnews.net","logo":"https://ozarks.cgnnews.net/OzarkGazetteLogo.png"}</script>
-<link rel="stylesheet" href="/assets/ozark-site.css">
-<script defer src="/assets/ozark-shell.js"></script>
-
-<style id="ozark-home-cgn-live-styles">
-/* Ozark homepage CGN LIVE toggle — kept local to homepage so the repo only needs index.html. */
-.live-head{align-items:flex-start}
-.live-actions{display:flex;align-items:center;justify-content:flex-end;gap:10px;flex-wrap:wrap}
-.live-actions .live-btn{white-space:nowrap}
-button.live-btn{font-family:Arial,Helvetica,sans-serif}
-.ozark-cgn-live-panel[hidden]{display:none!important}
-#ozark-live-original[hidden], .live-app .live-grid[hidden]{display:none!important}
-.ozark-cgn-live-panel{padding:18px;background:#0b1626;border-top:1px solid rgba(255,255,255,.14)}
-.ozark-cgn-live-panel .cgn-live-shell{border:1px solid rgba(255,255,255,.18);background:#07111f;color:#fff;overflow:hidden;box-shadow:0 18px 42px rgba(0,0,0,.24)}
-.ozark-cgn-live-panel .cgn-live-header{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;padding:18px 20px;border-bottom:1px solid rgba(255,255,255,.14);background:linear-gradient(135deg,#07111f,#0b2038)}
-.ozark-cgn-live-panel .cgn-live-kicker{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:900;letter-spacing:.08em;color:#ff3b3b;text-transform:uppercase;margin-bottom:6px}
-.ozark-cgn-live-panel .cgn-live-dot{width:9px;height:9px;border-radius:50%;background:#ff2d2d;box-shadow:0 0 0 4px rgba(255,45,45,.18);display:inline-block}
-.ozark-cgn-live-panel h2{margin:0;font-size:28px;line-height:1.1;letter-spacing:.02em;color:#fff}
-.ozark-cgn-live-panel .cgn-live-subtitle{margin:6px 0 0;color:#d9e1ee;line-height:1.45;font-size:14px;max-width:760px}
-.ozark-cgn-live-panel .cgn-live-header-actions{display:flex;align-items:center;justify-content:flex-end;gap:10px;flex-wrap:wrap;flex:0 0 auto}
-.ozark-cgn-live-panel .cgn-live-open,.ozark-cgn-live-panel .cgn-live-youtube-link,.ozark-cgn-live-panel .cgn-live-back{color:#fff;border:1px solid rgba(255,255,255,.35);background:transparent;padding:9px 12px;text-decoration:none;font-size:12px;font-weight:900;text-transform:uppercase;white-space:nowrap;display:inline-flex;align-items:center;justify-content:center;gap:7px;line-height:1;cursor:pointer;font-family:Arial,Helvetica,sans-serif}
-.ozark-cgn-live-panel .cgn-live-open:hover,.ozark-cgn-live-panel .cgn-live-youtube-link:hover,.ozark-cgn-live-panel .cgn-live-back:hover{background:#fff;color:#07111f;text-decoration:none}
-.ozark-cgn-live-panel .cgn-live-youtube-icon{width:17px;height:17px;display:block;flex:0 0 auto;fill:#ff2d2d}
-.ozark-cgn-live-panel .cgn-live-video-wrap{position:relative;width:100%;aspect-ratio:16/9;min-height:340px;background:#000}
-.ozark-cgn-live-panel .cgn-live-video-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block;background:#000}
-.ozark-cgn-live-panel .cgn-live-fallback{display:none;position:absolute;inset:0;align-items:center;justify-content:center;text-align:center;padding:24px;background:linear-gradient(135deg,#07111f,#111827);color:#fff;z-index:2;box-sizing:border-box;overflow:auto}
-.ozark-cgn-live-panel .cgn-live-fallback-card{width:min(860px,94%);display:grid;grid-template-columns:minmax(180px,300px) 1fr;gap:18px;align-items:center;text-align:left;padding:22px;border:1px solid rgba(255,255,255,.18);background:radial-gradient(circle at 12% 15%,rgba(196,0,0,.22),transparent 34%),linear-gradient(135deg,rgba(255,255,255,.10),rgba(255,255,255,.04));box-shadow:0 18px 46px rgba(0,0,0,.36)}
-.ozark-cgn-live-panel .cgn-live-fallback-image{width:100%;aspect-ratio:16/9;object-fit:cover;background:#050b14;border:1px solid rgba(255,255,255,.16);display:block;max-width:100%}
-.ozark-cgn-live-panel .cgn-live-fallback-copy strong{display:block;font-size:24px;line-height:1.1;margin-bottom:8px}
-.ozark-cgn-live-panel .cgn-live-fallback-copy p{margin:0 0 14px;color:#d9e1ee;line-height:1.45}
-.ozark-cgn-live-panel .cgn-live-fallback-actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-.ozark-cgn-live-panel .cgn-live-fallback-actions a{display:inline-flex;padding:10px 14px;background:#fff;color:#07111f;text-decoration:none;font-weight:900}
-.ozark-cgn-live-panel .cgn-live-fallback-actions a + a{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.35)}
-.ozark-cgn-live-panel .cgn-live-inline-source{display:none;padding:10px 14px;border-top:1px solid rgba(255,255,255,.14);background:#111827;color:#d9e1ee;font-size:12px;line-height:1.4}
-.ozark-cgn-live-panel .cgn-live-inline-source.show{display:block}
-.ozark-cgn-live-panel .cgn-live-inline-source a{color:#fff;font-weight:900}
-.ozark-cgn-live-panel .cgn-live-controls{display:flex;flex-wrap:wrap;gap:8px;padding:14px 20px;border-top:1px solid rgba(255,255,255,.14);background:#0b1626}
-.ozark-cgn-live-panel .cgn-live-controls button{border:1px solid rgba(255,255,255,.28);background:transparent;color:#fff;padding:9px 12px;cursor:pointer;font-weight:900;font-size:12px;text-transform:uppercase;font-family:Arial,Helvetica,sans-serif}
-.ozark-cgn-live-panel .cgn-live-controls button:hover,.ozark-cgn-live-panel .cgn-live-controls button.active{background:#c40000;border-color:#c40000}
-.ozark-cgn-live-panel .cgn-live-meta{padding:0 20px 18px;background:#0b1626}
-.ozark-cgn-live-panel .cgn-live-meta p{margin:0;color:#d9e1ee;font-size:13px;line-height:1.45}
-.ozark-cgn-live-panel .cgn-live-meta strong{color:#fff}
-.ozark-cgn-live-panel .cgn-live-disclaimer{margin-top:8px!important;color:#aeb8c8!important;font-size:12px!important}
-@media(max-width:900px){
-  .live-head{flex-direction:column;align-items:stretch}
-  .live-actions{display:grid;grid-template-columns:1fr;align-items:stretch}
-  .live-actions .live-btn{width:100%}
-  .ozark-cgn-live-panel{padding:14px}
-  .ozark-cgn-live-panel .cgn-live-header{flex-direction:column;align-items:stretch;padding:16px}
-  .ozark-cgn-live-panel h2{font-size:24px}
-  .ozark-cgn-live-panel .cgn-live-header-actions{width:100%;justify-content:stretch}
-  .ozark-cgn-live-panel .cgn-live-open,.ozark-cgn-live-panel .cgn-live-youtube-link,.ozark-cgn-live-panel .cgn-live-back{flex:1 1 180px;text-align:center}
-  .ozark-cgn-live-panel .cgn-live-video-wrap{min-height:220px}
-  .ozark-cgn-live-panel .cgn-live-controls{display:grid;grid-template-columns:1fr 1fr}
-  .ozark-cgn-live-panel .cgn-live-controls button:first-child{grid-column:1/-1}
-  .ozark-cgn-live-panel .cgn-live-fallback{align-items:stretch;justify-content:flex-start;padding:12px}
-  .ozark-cgn-live-panel .cgn-live-fallback-card{width:100%;max-height:100%;overflow:auto;grid-template-columns:1fr;text-align:center;padding:16px;gap:12px}
-  .ozark-cgn-live-panel .cgn-live-fallback-image{max-height:130px;object-fit:contain}
-  .ozark-cgn-live-panel .cgn-live-fallback-actions{justify-content:center}
-  .ozark-cgn-live-panel .cgn-live-fallback-actions a{width:100%;justify-content:center;box-sizing:border-box}
-}
-@media(max-width:560px){
-  .ozark-cgn-live-panel .cgn-live-video-wrap{min-height:235px}
-  .ozark-cgn-live-panel .cgn-live-fallback-card{padding:12px}
-  .ozark-cgn-live-panel .cgn-live-fallback-image{max-height:105px}
-}
-
-/* Ozark homepage featured carousel — CGN-style headline / weather / traffic / sports / market widgets. */
-.oz-hero{width:min(1180px,calc(100% - 32px));margin:24px auto 0}.oz-hero-carousel{position:relative;width:100%;height:min(420px,calc((100vw - 40px)*420/1180));min-height:280px;border:1px solid #d8dce4;background:#07111f;overflow:hidden;box-shadow:0 16px 38px rgba(7,23,47,.12)}.oz-hero-track{display:flex;width:100%;height:100%;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none}.oz-hero-track::-webkit-scrollbar{display:none}.oz-hero-slide{flex:0 0 100%;width:100%;height:100%;scroll-snap-align:center;text-decoration:none;color:#fff;background:#07111f;display:flex;align-items:center;justify-content:center;overflow:hidden}.oz-hero-image-slide img,.oz-hero-subscribe-slide img,.oz-hero-subscribe-slide picture{display:block;width:100%;height:100%;object-fit:contain;object-position:center;background:#07111f}.oz-hero-arrow{position:absolute;top:50%;transform:translateY(-50%);width:42px;height:42px;border:1px solid rgba(255,255,255,.68);border-radius:999px;background:rgba(7,17,31,.74);color:#fff;font-size:28px;line-height:1;cursor:pointer;z-index:5;display:flex;align-items:center;justify-content:center}.oz-hero-arrow:hover{background:#fff;color:#07111f}.oz-hero-prev{left:12px}.oz-hero-next{right:12px}.oz-hero-dots{display:flex;justify-content:center;gap:8px;margin-top:10px}.oz-hero-dots button{width:9px;height:9px;border-radius:999px;border:1px solid #111;background:#fff;cursor:pointer;padding:0}.oz-hero-dots button.active{background:#111}.oz-hero-news-widget,.oz-hero-sports-widget,.oz-hero-market-widget,.oz-hero-traffic-widget,.oz-hero-weather-widget{width:100%;height:100%;min-height:280px;max-height:420px;box-sizing:border-box;position:relative;overflow:hidden;color:#fff;padding:24px 28px;text-align:left}.oz-hero-news-widget{background:radial-gradient(circle at 16% 18%,rgba(255,255,255,.12),transparent 28%),radial-gradient(circle at 84% 16%,rgba(193,18,31,.28),transparent 26%),linear-gradient(135deg,#07111f 0%,#0b2038 55%,#142f52 100%)}.oz-hero-sports-widget{background:radial-gradient(circle at 16% 18%,rgba(255,255,255,.12),transparent 25%),radial-gradient(circle at 82% 25%,rgba(255,198,0,.22),transparent 30%),linear-gradient(135deg,#07111f 0%,#111827 52%,#1f2f46 100%)}.oz-hero-market-widget{background:radial-gradient(circle at 15% 18%,rgba(214,178,94,.22),transparent 28%),radial-gradient(circle at 82% 24%,rgba(41,196,122,.18),transparent 30%),linear-gradient(135deg,#050b16 0%,#07172f 54%,#102947 100%)}.oz-hero-news-widget:before,.oz-hero-sports-widget:before,.oz-hero-market-widget:before,.oz-hero-traffic-widget:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(255,255,255,.08) 1px,transparent 1px),linear-gradient(0deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:42px 42px;opacity:.16;pointer-events:none}.oz-hero-widget-main,.oz-hero-traffic-main{position:relative;z-index:1;display:grid;grid-template-columns:minmax(300px,.98fr) 1.32fr;gap:22px;height:100%;align-items:stretch}.oz-hero-brand-panel{position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.2);background:#050b14;min-height:100%;display:flex;flex-direction:column;justify-content:flex-end;box-shadow:0 18px 40px rgba(0,0,0,.24)}.oz-hero-brand-panel img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;opacity:.92;transform:scale(1.015)}.oz-hero-brand-panel:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(7,17,31,.98) 0%,rgba(7,17,31,.72) 38%,rgba(7,17,31,.12) 100%),linear-gradient(90deg,rgba(7,17,31,.92),rgba(7,17,31,.14));pointer-events:none}.oz-hero-brand-copy{position:relative;z-index:2;padding:18px}.oz-hero-kicker,.oz-hero-sports-kicker,.oz-hero-market-kicker,.oz-hero-traffic-kicker{font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:900;color:#ff4a4a}.oz-hero-sports-kicker{color:#f2d990}.oz-hero-market-kicker{color:#a7f3d0}.oz-hero-traffic-kicker{color:#7dd3fc}.oz-hero h2{margin:7px 0 8px;font-size:35px;line-height:1.02;color:#fff;letter-spacing:-.02em;text-shadow:0 3px 16px rgba(0,0,0,.32)}.oz-hero p{margin:0;color:#d9e1ee;line-height:1.45;font-size:14px}.oz-hero-cta,.oz-hero-weather-cta,.oz-hero-traffic-cta{display:inline-block;margin-top:14px;padding:9px 12px;border:1px solid rgba(255,255,255,.72);background:rgba(7,17,31,.42);color:#fff;font-size:12px;font-weight:900;text-transform:uppercase;text-decoration:none}.oz-hero-news-list{display:grid;gap:9px;align-content:center}.oz-hero-news-item{display:grid;grid-template-columns:78px 1fr;gap:11px;align-items:center;padding:9px;border:1px solid rgba(255,255,255,.18);background:linear-gradient(135deg,rgba(255,255,255,.12),rgba(255,255,255,.055));color:#fff;text-decoration:none;box-shadow:0 10px 22px rgba(0,0,0,.16)}.oz-hero-news-item img{width:78px;height:52px;object-fit:cover;background:#111;display:block}.oz-hero-news-item strong{display:-webkit-box;color:#fff;font-size:14px;line-height:1.25;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.oz-hero-news-item span{display:block;margin-top:3px;color:#cbd5e1;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.04em}.oz-hero-open{display:flex;align-items:center;justify-content:center;min-height:58px;border:1px dashed rgba(255,255,255,.35);color:#fff;text-decoration:none;font-weight:900;text-transform:uppercase;font-size:12px}.oz-hero-weather-widget{background:linear-gradient(135deg,#075bb5 0%,#0b8be8 48%,#62c8ff 100%);display:flex;flex-direction:column;justify-content:space-between}.oz-hero-weather-bg{position:absolute;inset:0;pointer-events:none}.oz-hero-weather-bg:before{content:"";position:absolute;width:140px;height:140px;right:42px;top:28px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.95) 0%,rgba(255,230,120,.72) 38%,rgba(255,255,255,0) 70%);box-shadow:0 0 55px rgba(255,255,255,.55)}.oz-hero-weather-main{position:relative;z-index:1;display:flex;align-items:flex-start;justify-content:space-between;gap:24px}.oz-hero-weather-kicker{font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:900;color:#eef8ff}.oz-hero-weather-details{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.oz-hero-weather-details span{display:inline-flex;align-items:center;padding:7px 9px;border:1px solid rgba(255,255,255,.35);background:rgba(7,17,31,.18);color:#fff;font-size:12px;font-weight:800}.oz-hero-weather-temp-wrap{text-align:right;white-space:nowrap}.oz-hero-weather-temp{font-size:62px;line-height:1;font-weight:900;text-shadow:0 4px 18px rgba(0,0,0,.18)}.oz-hero-weather-updated{margin-top:7px;color:rgba(255,255,255,.86);font-size:12px;font-weight:700}.oz-hero-hourly-strip{position:relative;z-index:1;display:flex;gap:9px;overflow-x:auto;padding-top:20px;scrollbar-width:none}.oz-hero-hourly-card{flex:0 0 auto;min-width:78px;padding:10px;border:1px solid rgba(255,255,255,.32);background:rgba(7,17,31,.22);color:#fff;font-size:12px;line-height:1.35;text-align:center}.oz-hero-hourly-card strong{display:block;font-size:20px;margin-top:2px}.oz-hero-traffic-widget{background:radial-gradient(circle at 12% 16%,rgba(47,137,255,.26),transparent 26%),radial-gradient(circle at 88% 18%,rgba(22,163,74,.16),transparent 24%),linear-gradient(135deg,#030712 0%,#07111f 46%,#0b2546 100%)}.oz-hero-traffic-brand,.oz-hero-traffic-panel,.oz-hero-sports-panel,.oz-hero-market-panel{border:1px solid rgba(255,255,255,.22);box-shadow:0 20px 46px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.10)}.oz-hero-traffic-brand{position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;background:linear-gradient(135deg,#061426,#082141 58%,#0a1629)}.oz-hero-traffic-brand:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(2,7,17,.96) 0%,rgba(2,7,17,.70) 36%,rgba(2,7,17,.08) 100%);pointer-events:none}.oz-hero-traffic-scene{position:absolute;inset:0;overflow:hidden;background:linear-gradient(180deg,rgba(10,36,66,.92),rgba(2,7,17,.96))}.oz-hero-traffic-road{position:absolute;left:-14%;right:-14%;bottom:-22px;height:192px;background:linear-gradient(90deg,transparent 48.6%,rgba(255,255,255,.96) 48.6% 51.4%,transparent 51.4%),linear-gradient(180deg,#0f172a 0%,#050b14 64%,#020617 100%);clip-path:polygon(44% 0,56% 0,100% 100%,0 100%)}.oz-hero-traffic-lane{position:absolute;left:50%;bottom:16px;width:10px;height:116px;transform:translateX(-50%);background:repeating-linear-gradient(180deg,rgba(255,255,255,.96) 0 18px,transparent 18px 34px);border-radius:999px}.oz-hero-traffic-sign{position:absolute;right:22px;top:24px;min-width:132px;padding:10px 13px;border:2px solid rgba(255,255,255,.78);border-radius:10px;background:linear-gradient(180deg,#047857,#065f46);color:#fff;text-align:center;text-transform:uppercase;letter-spacing:.07em;font-weight:900}.oz-hero-traffic-sign span{display:block;font-size:10px;color:#bbf7d0}.oz-hero-traffic-sign strong{display:block;font-size:17px}.oz-hero-traffic-signal{position:absolute;left:24px;top:28px;width:42px;height:94px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;border:2px solid rgba(255,255,255,.70);border-radius:16px;background:linear-gradient(180deg,#111827,#020617)}.oz-hero-traffic-light{width:18px;height:18px;border-radius:999px;display:block;opacity:.24}.oz-hero-traffic-light.red{background:#ef4444}.oz-hero-traffic-light.yellow{background:#fbbf24}.oz-hero-traffic-light.green{background:#22c55e}.oz-hero-traffic-light.active{opacity:1;box-shadow:0 0 0 4px rgba(251,191,36,.16),0 0 22px rgba(251,191,36,.85)}.oz-hero-traffic-panel,.oz-hero-sports-panel,.oz-hero-market-panel{display:flex;flex-direction:column;justify-content:center;gap:12px;padding:18px;background:linear-gradient(135deg,rgba(255,255,255,.13),rgba(255,255,255,.055));min-width:0}.oz-hero-traffic-status,.oz-hero-sports-status,.oz-hero-market-status{display:inline-flex;align-self:flex-start;align-items:center;gap:8px;padding:7px 10px;border-radius:999px;background:rgba(251,191,36,.16);border:1px solid rgba(251,191,36,.48);color:#fde68a;font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.06em}.oz-hero-traffic-route-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}.oz-hero-traffic-chip,.oz-hero-market-chip{position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.18);background:linear-gradient(180deg,rgba(15,23,42,.72),rgba(2,7,17,.44));padding:11px 10px;color:#fff}.oz-hero-traffic-chip strong,.oz-hero-market-chip strong{display:block;font-size:15px;line-height:1.1}.oz-hero-traffic-chip span,.oz-hero-market-chip span{display:block;margin-top:5px;color:#cbd5e1;font-size:11px;font-weight:800;line-height:1.25}.oz-hero-traffic-detail,.oz-hero-sports-detail{color:#d9e1ee;font-size:13px;line-height:1.45}.oz-hero-traffic-source,.oz-hero-sports-source,.oz-hero-market-source{color:#aeb8c8;font-size:11px;text-transform:uppercase;letter-spacing:.06em;font-weight:800}.oz-hero-sports-matchup{font-size:25px;line-height:1.15;font-weight:900;color:#fff;text-shadow:0 3px 16px rgba(0,0,0,.24)}.oz-hero-sports-logo-strip{display:flex;gap:6px;flex-wrap:wrap}.oz-hero-sports-logo-strip span{width:38px;height:34px;border-radius:10px;background:#fff;color:#07111f;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;box-shadow:0 8px 18px rgba(0,0,0,.18)}.oz-hero-market-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.oz-hero-market-chip em{display:block;margin-top:4px;color:#a7f3d0;font-style:normal;font-size:11px;font-weight:900}@media(max-width:900px){.oz-hero{width:min(100% - 20px,1180px);margin-top:18px}.oz-hero-carousel{height:320px;min-height:300px}.oz-hero-arrow{width:34px;height:34px;font-size:22px}.oz-hero-news-widget,.oz-hero-sports-widget,.oz-hero-market-widget,.oz-hero-traffic-widget,.oz-hero-weather-widget{min-height:300px;max-height:320px;padding:18px}.oz-hero-widget-main,.oz-hero-traffic-main{grid-template-columns:42% 1fr;gap:10px}.oz-hero-brand-copy{padding:10px}.oz-hero h2{font-size:27px;margin:4px 0}.oz-hero p{font-size:12px}.oz-hero-news-list{gap:6px;align-content:start;max-height:152px;overflow:hidden}.oz-hero-news-item{grid-template-columns:54px 1fr;padding:6px}.oz-hero-news-item img{width:54px;height:38px}.oz-hero-news-item strong{font-size:12px}.oz-hero-weather-main{flex-direction:column;gap:10px}.oz-hero-weather-temp-wrap{text-align:left}.oz-hero-weather-temp{font-size:42px}.oz-hero-weather-details span{font-size:10px;padding:5px 7px}.oz-hero-hourly-strip{padding-top:8px;gap:6px}.oz-hero-hourly-card{min-width:58px;padding:7px;font-size:10px}.oz-hero-hourly-card strong{font-size:16px}.oz-hero-traffic-route-grid{grid-template-columns:1fr;gap:6px}.oz-hero-sports-matchup{font-size:18px}.oz-hero-market-panel,.oz-hero-sports-panel,.oz-hero-traffic-panel{padding:10px;gap:7px}.oz-hero-market-chip strong,.oz-hero-traffic-chip strong{font-size:12px}.oz-hero-market-chip span,.oz-hero-market-chip em,.oz-hero-traffic-chip span,.oz-hero-sports-detail,.oz-hero-traffic-detail{font-size:10px}}@media(max-width:560px){.oz-hero-widget-main,.oz-hero-traffic-main{grid-template-columns:1fr}.oz-hero-brand-panel,.oz-hero-traffic-brand{min-height:92px}.oz-hero h2{font-size:23px}.oz-hero p{display:none}.oz-hero-news-item:nth-child(n+4){display:none}.oz-hero-traffic-route-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.oz-hero-traffic-chip span,.oz-hero-sports-logo-strip,.oz-hero-traffic-source{display:none}.oz-hero-market-grid{grid-template-columns:1fr 1fr}.oz-hero-weather-temp{font-size:38px}}
-
-</style>
-
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Ozark Gazette | Ozark News, Weather, Sports and Traffic</title>
+  <meta name="description" content="The Ozark Gazette delivers local news, weather, radar, traffic, sports, markets, obituaries, court coverage, opinion, puzzles and community reporting for Tecumseh, Ozark County and the Missouri Ozarks.">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="author" content="The Ozark Gazette">
+  <link rel="canonical" href="https://ozarks.cgnnews.net/">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/favicon-48x48.png" sizes="48x48" type="image/png">
+  <link rel="icon" href="/favicon-96x96.png" sizes="96x96" type="image/png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="The Ozark Gazette | Ozark News, Weather, Sports and Traffic">
+  <meta property="og:description" content="Local reporting, weather, radar, traffic, sports, markets and community coverage for Tecumseh, Ozark County and the Missouri Ozarks.">
+  <meta property="og:url" content="https://ozarks.cgnnews.net/">
+  <meta property="og:image" content="https://ozarks.cgnnews.net/OzarkGazetteBanner.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="/assets/ozark-site.css">
+  <style>
+    .oz-home-banner{width:min(1180px,calc(100% - 32px));margin:22px auto 0}.oz-hero-carousel{position:relative;width:100%;height:min(420px,calc((100vw - 40px) * 420 / 1180));min-height:280px;background:#07111f;border:1px solid rgba(7,23,47,.22);box-shadow:0 20px 48px rgba(7,23,47,.16);overflow:hidden}.oz-hero-track{height:100%;display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none}.oz-hero-track::-webkit-scrollbar{display:none}.oz-hero-slide{flex:0 0 100%;height:100%;scroll-snap-align:center;color:#fff;text-decoration:none;background:#07111f;display:flex;align-items:stretch;justify-content:center;overflow:hidden}.oz-hero-slide img.oz-static-banner{width:100%;height:100%;object-fit:cover;object-position:center;display:block}.oz-hero-image-slide{position:relative}.oz-hero-image-slide:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(7,17,31,.55),rgba(7,17,31,.08),rgba(7,17,31,.20));pointer-events:none}.oz-hero-widget{width:100%;height:100%;padding:24px 28px;position:relative;overflow:hidden;text-align:left;background:radial-gradient(circle at 16% 18%,rgba(255,255,255,.12),transparent 28%),radial-gradient(circle at 84% 16%,rgba(196,0,0,.28),transparent 26%),linear-gradient(135deg,#07111f 0%,#0b2038 55%,#142f52 100%)}.oz-hero-widget:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(255,255,255,.08) 1px,transparent 1px),linear-gradient(0deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:42px 42px;opacity:.16;pointer-events:none}.oz-hero-widget:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(196,0,0,.18),transparent 28%,rgba(255,255,255,.04));pointer-events:none}.oz-hero-weather-widget{background:radial-gradient(circle at 17% 16%,rgba(255,255,255,.22),transparent 28%),linear-gradient(135deg,#075bb5 0%,#0b8be8 50%,#62c8ff 100%)}.oz-hero-traffic-widget{background:radial-gradient(circle at 12% 16%,rgba(47,137,255,.26),transparent 26%),linear-gradient(135deg,#030712 0%,#07111f 46%,#0b2546 100%)}.oz-hero-sports-widget{background:radial-gradient(circle at 16% 18%,rgba(255,255,255,.12),transparent 25%),radial-gradient(circle at 82% 25%,rgba(255,198,0,.22),transparent 30%),linear-gradient(135deg,#07111f 0%,#111827 52%,#1f2f46 100%)}.oz-hero-market-widget{background:radial-gradient(circle at 18% 16%,rgba(214,178,94,.22),transparent 26%),radial-gradient(circle at 84% 20%,rgba(17,148,246,.20),transparent 28%),linear-gradient(135deg,#050b16 0%,#07172f 54%,#102947 100%)}.oz-hero-widget-main{position:relative;z-index:1;display:grid;grid-template-columns:minmax(280px,.9fr) minmax(0,1.35fr);gap:22px;height:100%;align-items:stretch}.oz-hero-brand-panel{position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.22);background:#050b14;min-height:100%;display:flex;flex-direction:column;justify-content:flex-end;box-shadow:0 18px 40px rgba(0,0,0,.24)}.oz-hero-brand-panel img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;opacity:.92;transform:scale(1.015)}.oz-hero-brand-panel:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(7,17,31,.98) 0%,rgba(7,17,31,.70) 38%,rgba(7,17,31,.14) 100%),linear-gradient(90deg,rgba(7,17,31,.92),rgba(7,17,31,.12));pointer-events:none}.oz-hero-brand-copy{position:relative;z-index:2;padding:18px}.oz-hero-kicker{font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:900;color:#ff4a4a}.oz-hero-weather-widget .oz-hero-kicker,.oz-hero-traffic-widget .oz-hero-kicker,.oz-hero-sports-widget .oz-hero-kicker,.oz-hero-market-widget .oz-hero-kicker{color:#f2d990}.oz-hero-widget h2{margin:7px 0 8px;color:#fff;font-family:Georgia,"Times New Roman",serif;font-size:clamp(28px,3.4vw,40px);line-height:1.02;letter-spacing:-.025em;text-shadow:0 3px 16px rgba(0,0,0,.32)}.oz-hero-widget p{margin:0;color:#d9e1ee;line-height:1.45;font-size:14px}.oz-hero-cta,.oz-hero-panel-link{display:inline-flex;align-items:center;justify-content:center;margin-top:14px;min-height:38px;padding:9px 12px;border:1px solid rgba(255,255,255,.72);background:rgba(7,17,31,.42);color:#fff;font-size:12px;font-weight:900;text-transform:uppercase;text-decoration:none;letter-spacing:.05em}.oz-hero-cta:hover,.oz-hero-panel-link:hover{background:#fff;color:#07111f;text-decoration:none}.oz-hero-news-list{display:grid;gap:9px;align-content:center}.oz-hero-news-item{display:grid;grid-template-columns:78px 1fr;gap:11px;align-items:center;padding:9px;border:1px solid rgba(255,255,255,.18);background:linear-gradient(135deg,rgba(255,255,255,.12),rgba(255,255,255,.055));color:#fff;text-decoration:none;box-shadow:0 10px 22px rgba(0,0,0,.16)}.oz-hero-news-item:hover{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.32);text-decoration:none;transform:translateY(-1px)}.oz-hero-news-item img{width:78px;height:52px;object-fit:cover;background:#111;display:block}.oz-hero-news-item strong{display:-webkit-box;color:#fff;font-size:14px;line-height:1.25;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.oz-hero-news-item span{display:block;margin-top:3px;color:#cbd5e1;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.04em}.oz-hero-panel{display:flex;flex-direction:column;justify-content:center;border:1px solid rgba(255,255,255,.22);background:linear-gradient(135deg,rgba(255,255,255,.13),rgba(255,255,255,.06));padding:18px;box-shadow:0 18px 40px rgba(0,0,0,.22);min-width:0}.oz-hero-panel-status{color:#f2d990;font-size:12px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px}.oz-hero-weather-temp{font-size:64px;line-height:.95;font-weight:900;text-shadow:0 5px 22px rgba(0,0,0,.20)}.oz-hero-metric-grid,.oz-hero-market-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:12px}.oz-hero-metric-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.oz-hero-chip,.oz-hero-market-chip{border:1px solid rgba(255,255,255,.28);background:rgba(7,17,31,.28);padding:9px;color:#fff;min-width:0}.oz-hero-chip strong,.oz-hero-market-chip strong{display:block;font-size:11px;letter-spacing:.07em;text-transform:uppercase}.oz-hero-chip span,.oz-hero-market-chip span{display:block;color:#d9e1ee;font-size:12px;margin-top:3px}.oz-hero-market-chip em{display:inline-block;margin-top:5px;color:#f2d990;font-size:11px;font-style:normal;font-weight:900}.oz-hero-market-live{min-height:210px;display:grid;grid-template-rows:auto 1fr auto;gap:10px}.oz-market-tv-box{height:170px;min-height:170px;width:100%;overflow:hidden;border:1px solid rgba(255,255,255,.16);background:#050b14}.oz-market-tv-box .tradingview-widget-container,.oz-market-tv-box .tradingview-widget-container__widget{width:100%;height:100%!important}.oz-market-side-tape{height:74px;min-height:74px;width:100%;overflow:hidden;border:1px solid rgba(255,255,255,.16);background:rgba(5,11,20,.88);margin-top:10px}.oz-market-side-tape .tradingview-widget-container,.oz-market-side-tape .tradingview-widget-container__widget{width:100%;height:74px!important}.oz-hero-market-note{font-size:11px;color:#cbd5e1;line-height:1.3}.oz-hero-arrow{position:absolute;top:50%;transform:translateY(-50%);width:42px;height:42px;border:1px solid rgba(255,255,255,.65);border-radius:999px;background:rgba(7,17,31,.72);color:#fff;font-size:28px;line-height:1;cursor:pointer;z-index:5;display:flex;align-items:center;justify-content:center}.oz-hero-arrow:hover{background:#fff;color:#07111f}.oz-hero-prev{left:12px}.oz-hero-next{right:12px}.oz-hero-dots{display:flex;justify-content:center;gap:8px;margin-top:10px}.oz-hero-dots button{width:9px;height:9px;border-radius:999px;border:1px solid #111;background:#fff;cursor:pointer;padding:0}.oz-hero-dots button.active{background:#111}.live-actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}.ozark-cgn-live-panel{background:#07111f;color:#fff;padding:18px}.cgn-live-shell{border:1px solid rgba(255,255,255,.16);background:#0b1626}.cgn-live-header{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;padding:18px;border-bottom:1px solid rgba(255,255,255,.14)}.cgn-live-kicker{display:inline-flex;align-items:center;gap:8px;color:#ff4545;font-size:12px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}.cgn-live-dot{width:9px;height:9px;border-radius:999px;background:#ff2d2d;box-shadow:0 0 0 5px rgba(255,45,45,.18)}.cgn-live-header h2{font-family:Georgia,"Times New Roman",serif;font-size:clamp(30px,4vw,52px);line-height:1;margin:5px 0;color:#fff}.cgn-live-subtitle{margin:0;color:#d9e1ee}.cgn-live-header-actions,.cgn-live-fallback-actions,.cgn-live-controls{display:flex;flex-wrap:wrap;gap:8px}.cgn-live-open,.cgn-live-youtube-link,.cgn-live-back,.cgn-live-fallback-actions a,.cgn-live-controls button{border:1px solid rgba(255,255,255,.34);background:transparent;color:#fff;min-height:36px;padding:9px 12px;font:900 11px/1 Arial,Helvetica,sans-serif;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;cursor:pointer}.cgn-live-open:hover,.cgn-live-youtube-link:hover,.cgn-live-back:hover,.cgn-live-fallback-actions a:hover,.cgn-live-controls button:hover,.cgn-live-controls button.active{background:#fff;color:#07172f;text-decoration:none}.cgn-live-video-wrap{position:relative;background:#020711;aspect-ratio:16/9}.cgn-live-video-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0}.cgn-live-fallback{display:none;position:absolute;inset:0;background:rgba(2,7,17,.84);padding:18px;align-items:center;justify-content:center}.cgn-live-fallback-card{display:grid;grid-template-columns:160px 1fr;gap:16px;align-items:center;max-width:760px}.cgn-live-fallback-image{width:160px;aspect-ratio:16/10;object-fit:cover}.cgn-live-inline-source{padding:12px 18px;color:#d9e1ee}.cgn-live-inline-source a{color:#f2d990}.cgn-live-controls{padding:0 18px 18px}.cgn-live-now{padding:12px 18px;border-top:1px solid rgba(255,255,255,.12);color:#d9e1ee}.cgn-live-youtube-icon{width:18px;height:18px;fill:currentColor}.live-market-widget{display:block}.live-market-widget:hover{text-decoration:none}.live-market-widget .widget-content{padding:12px 14px 14px}.live-market-widget .oz-market-side-tape{height:86px;min-height:86px}.live-market-widget .oz-market-side-tape .tradingview-widget-container,.live-market-widget .oz-market-side-tape .tradingview-widget-container__widget{height:86px!important}.section-title .section-btn{color:#07172f;border-color:#07172f}.section-title .section-btn:hover{background:#07172f;color:#fff;text-decoration:none}@media(max-width:900px){.oz-home-banner{width:min(100% - 20px,1180px);margin-top:18px}.oz-hero-carousel{height:auto;min-height:0}.oz-hero-slide{height:auto;min-height:520px}.oz-hero-widget{min-height:520px;padding:18px}.oz-hero-widget-main{grid-template-columns:1fr;gap:14px}.oz-hero-brand-panel{min-height:210px}.oz-hero-market-live{min-height:310px}.oz-market-tv-box{height:270px}.cgn-live-header{align-items:flex-start;flex-direction:column}.cgn-live-fallback-card{grid-template-columns:1fr}.cgn-live-fallback-image{width:100%}}@media(max-width:600px){.oz-hero-slide{min-height:560px}.oz-hero-widget{min-height:560px}.oz-hero-metric-grid,.oz-hero-market-grid{grid-template-columns:1fr 1fr}.oz-hero-weather-temp{font-size:54px}.oz-hero-arrow{width:36px;height:36px;font-size:24px}.oz-hero-prev{left:8px}.oz-hero-next{right:8px}.live-actions{justify-content:flex-start}.oz-market-tv-box{height:240px}}
+  </style>
 </head>
 <body data-page="home">
-<div id="cgn-site-header"></div>
-<main id="main-content" class="site-main">
+  <div id="cgn-site-header"></div>
 
-<section class="oz-hero" aria-label="The Ozark Gazette featured coverage">
-  <div class="oz-hero-carousel">
-    <button class="oz-hero-arrow oz-hero-prev" type="button" onclick="moveOzarkHeroSlide(-1)" aria-label="Previous featured banner">‹</button>
-    <div class="oz-hero-track" id="ozarkHeroTrack">
-      <a class="oz-hero-slide oz-hero-image-slide" href="/news/" aria-label="Open The Ozark Gazette news desk">
-        <img src="/OzarkGazetteBanner.png" alt="The Ozark Gazette — Your Source for Ozark News, Weather, Sports and Traffic" loading="eager" fetchpriority="high">
-      </a>
-      <a class="oz-hero-slide oz-hero-subscribe-slide" href="/account/?next=subscribe" aria-label="Subscribe to The Ozark Gazette and CGN News">
-        <picture>
-          <source media="(min-width: 901px)" srcset="https://www.cgnnews.net/CGNSubscribeDesktop01.png">
-          <img src="https://www.cgnnews.net/CGNSubscribes01.png" alt="Subscribe Now to CGN News — unlimited access, special reports, premium email briefings, and independent digital journalism." loading="eager" fetchpriority="high">
-        </picture>
-      </a>
-      <a class="oz-hero-slide oz-hero-news-slide" href="/news/" aria-label="Open The Ozark Gazette latest news">
-        <div class="oz-hero-news-widget">
-          <div class="oz-hero-widget-main">
-            <div class="oz-hero-brand-panel">
-              <img src="/news/NewsBanner01.webp" alt="The Ozark Gazette News Desk" loading="lazy">
-              <div class="oz-hero-brand-copy">
-                <div class="oz-hero-kicker">Latest Headlines</div>
-                <h2>The Ozark Gazette</h2>
-                <p>Local reporting, investigations, public affairs, obituaries, courts, markets and community coverage for Tecumseh and Ozark County.</p>
-                <span class="oz-hero-cta">Open News Desk</span>
-              </div>
-            </div>
-            <div class="oz-hero-news-list" id="ozarkHeroNewsList" aria-label="Latest Ozark Gazette headlines">
-              <span class="oz-hero-open">Loading latest headlines...</span>
-            </div>
-          </div>
-        </div>
-      </a>
-      <a class="oz-hero-slide oz-hero-weather-slide" href="/weather/" aria-label="Open The Ozark Gazette Weather Center">
-        <div class="oz-hero-weather-widget">
-          <div class="oz-hero-weather-bg" aria-hidden="true"></div>
-          <div class="oz-hero-weather-main">
-            <div>
-              <div class="oz-hero-weather-kicker">Weather Center</div>
-              <h2>Tecumseh, Missouri</h2>
-              <p id="ozarkHeroWeatherCondition">Loading current conditions...</p>
-              <div class="oz-hero-weather-details">
-                <span id="ozarkHeroWeatherFeels">Feels like --°F</span>
-                <span id="ozarkHeroWeatherWind">Wind -- mph</span>
-                <span id="ozarkHeroWeatherHumidity">Humidity --%</span>
-              </div>
-              <span class="oz-hero-weather-cta">Open Full Forecast</span>
-            </div>
-            <div class="oz-hero-weather-temp-wrap">
-              <div class="oz-hero-weather-temp" id="ozarkHeroWeatherTemp">--°F</div>
-              <div class="oz-hero-weather-updated" id="ozarkHeroWeatherUpdated">Updating...</div>
-            </div>
-          </div>
-          <div class="oz-hero-hourly-strip" id="ozarkHeroWeatherHourly" aria-label="Hourly Tecumseh forecast">
-            <div class="oz-hero-hourly-card">Now<br><strong>--°</strong></div><div class="oz-hero-hourly-card">+1 hr<br><strong>--°</strong></div><div class="oz-hero-hourly-card">+2 hr<br><strong>--°</strong></div><div class="oz-hero-hourly-card">+3 hr<br><strong>--°</strong></div><div class="oz-hero-hourly-card">+4 hr<br><strong>--°</strong></div>
-          </div>
-        </div>
-      </a>
-      <a class="oz-hero-slide oz-hero-traffic-slide" href="/traffic/" aria-label="Open The Ozark Gazette Traffic Center">
-        <div class="oz-hero-traffic-widget oz-hero-traffic-status-updating">
-          <div class="oz-hero-traffic-main">
-            <div class="oz-hero-traffic-brand">
-              <div class="oz-hero-traffic-scene" aria-hidden="true"><div class="oz-hero-traffic-signal"><span class="oz-hero-traffic-light red"></span><span class="oz-hero-traffic-light yellow active"></span><span class="oz-hero-traffic-light green"></span></div><div class="oz-hero-traffic-sign"><span>US-160</span><strong>TECUMSEH</strong></div><div class="oz-hero-traffic-road"><span class="oz-hero-traffic-lane"></span></div></div>
-              <div class="oz-hero-brand-copy"><div class="oz-hero-traffic-kicker">Traffic Center</div><h2>Tecumseh Traffic</h2><p>MoDOT Traveler map, US Highway 160, MO-5, low-water crossings, closures, work zones and Ozark County road notes.</p><span class="oz-hero-traffic-cta">Open Traffic Center</span></div>
-            </div>
-            <div class="oz-hero-traffic-panel" aria-label="Tecumseh traffic update"><div class="oz-hero-traffic-status" id="ozarkHeroTrafficStatus">Current conditions updating...</div><div class="oz-hero-traffic-route-grid"><div class="oz-hero-traffic-chip"><strong>US-160</strong><span>Primary Tecumseh corridor</span></div><div class="oz-hero-traffic-chip"><strong>MO-5</strong><span>Regional Ozark County travel</span></div><div class="oz-hero-traffic-chip"><strong>County Roads</strong><span>Flooding and low-water notes</span></div></div><div class="oz-hero-traffic-detail">Open Traffic Center for the live MoDOT Traveler map and Missouri road-condition sources.</div><div class="oz-hero-traffic-source">Source: MoDOT Traveler / Missouri road sources</div></div>
-          </div>
-        </div>
-      </a>
-      <a class="oz-hero-slide oz-hero-sports-slide" href="/sports/" aria-label="Open The Ozark Gazette Sports Center">
-        <div class="oz-hero-sports-widget">
-          <div class="oz-hero-widget-main">
-            <div class="oz-hero-brand-panel">
-              <img src="/sports/OzarkSportsCenter01.webp" alt="The Ozark Gazette Sports Center" loading="lazy">
-              <div class="oz-hero-brand-copy"><div class="oz-hero-sports-kicker">Sports Center</div><h2>Ozark County Sports</h2><p>Gainesville, Bakersfield, Dora, Lutie, Thornfield, Mizzou, Missouri State and regional sports coverage.</p><span class="oz-hero-cta">Open Sports Center</span></div>
-            </div>
-            <div class="oz-hero-sports-panel" id="ozarkHeroSportsPanel" aria-label="Ozark sports update"><div class="oz-hero-sports-status">Local Coverage</div><div class="oz-hero-sports-matchup">Scores, schedules and sports briefs updating...</div><div class="oz-hero-sports-detail">Sports articles load from The Ozark Gazette sheet and official school / league sources when available.</div><div class="oz-hero-sports-logo-strip"><span>GNV</span><span>BAK</span><span>DOR</span><span>OZK</span><span>MIZ</span><span>MSU</span></div><div class="oz-hero-sports-source">Sources: MSHSAA, official school, conference and team sources</div></div>
-          </div>
-        </div>
-      </a>
-      <a class="oz-hero-slide oz-hero-market-slide" href="/markets/center/" aria-label="Open The Ozark Gazette Market Watch">
-        <div class="oz-hero-market-widget">
-          <div class="oz-hero-widget-main">
-            <div class="oz-hero-brand-panel">
-              <img src="https://www.cgnnews.net/category/markets/CGNMarketWatch01.png" alt="CGN Market Watch — Economy and Stock Market" loading="lazy">
-              <div class="oz-hero-brand-copy"><div class="oz-hero-market-kicker">Market Watch</div><h2>Stocks & Markets</h2><p>Top U.S. stocks, market movement, business headlines and CGN-powered markets coverage.</p><span class="oz-hero-cta">Open Market Watch</span></div>
-            </div>
-            <div class="oz-hero-market-panel" aria-label="Market Watch preview"><div class="oz-hero-market-status">Live / Delayed Market Data</div><div class="oz-hero-market-grid"><div class="oz-hero-market-chip"><strong>S&P 500</strong><span>Broad market</span><em>Watch</em></div><div class="oz-hero-market-chip"><strong>Nasdaq</strong><span>Technology</span><em>Watch</em></div><div class="oz-hero-market-chip"><strong>Dow</strong><span>Blue chips</span><em>Watch</em></div><div class="oz-hero-market-chip"><strong>Russell 2000</strong><span>Small caps</span><em>Watch</em></div></div><div class="oz-hero-market-source">Open full dashboard for charts, stocks and markets reporting.</div></div>
-          </div>
-        </div>
-      </a>
-    </div>
-    <button class="oz-hero-arrow oz-hero-next" type="button" onclick="moveOzarkHeroSlide(1)" aria-label="Next featured banner">›</button>
-  </div>
-  <div class="oz-hero-dots" id="ozarkHeroDots" aria-label="Featured banner controls">
-    <button type="button" class="active" onclick="goOzarkHeroSlide(0)" aria-label="Show Ozark Gazette banner"></button><button type="button" onclick="goOzarkHeroSlide(1)" aria-label="Show Subscribe banner"></button><button type="button" onclick="goOzarkHeroSlide(2)" aria-label="Show News widget"></button><button type="button" onclick="goOzarkHeroSlide(3)" aria-label="Show Weather widget"></button><button type="button" onclick="goOzarkHeroSlide(4)" aria-label="Show Traffic widget"></button><button type="button" onclick="goOzarkHeroSlide(5)" aria-label="Show Sports widget"></button><button type="button" onclick="goOzarkHeroSlide(6)" aria-label="Show Market Watch widget"></button>
-  </div>
-</section>
-<section id="ozark-live-app" class="live-app" aria-label="The Ozark Gazette live homepage">
-  <div class="live-head"><div><p class="live-kicker">The Ozark Gazette Live</p><h1 class="live-title">Tecumseh and Ozark County at a glance</h1><p class="live-copy">Local headlines, Ozarks weather, radar access, US-160 traffic, sports, markets, obituaries, court records and daily reader features from a CGN-powered local newsroom.</p></div><div class="live-actions"><a class="live-btn" href="/local/">View Local News</a><button id="ozark-open-cgn-live" class="live-btn" type="button" onclick="showOzarkCGNLive()">CGN LIVE</button><button id="ozark-back-to-live" class="live-btn" type="button" onclick="showOzarkOriginalLive()" hidden>Back to Headlines</button></div></div>
-  <div id="ozark-live-original" class="live-grid" aria-hidden="false">
-    <a id="featureLink" class="live-feature" href="/local/"><div class="live-feature-media"><img id="featureImage" src="/OzarkGazetteBanner.png" alt=""></div><div class="live-feature-content"><p id="featureMeta" class="live-feature-meta">Local · Latest</p><h2 id="featureTitle" class="live-feature-title">The Ozark Gazette launches local coverage for the Missouri Ozarks</h2><p id="featureCopy" class="live-feature-copy">Coverage begins in Tecumseh and follows Ozark County roads, weather, public affairs, schools, sports, obituaries and the community information readers use every day.</p><div class="feature-controls"><span class="feature-counter">Main Story</span><span class="live-btn">Read More</span></div></div></a>
-    <div class="live-side">
-      <a class="live-widget weather-widget" href="/weather/"><div class="widget-head"><div><div class="widget-kicker">Weather Center</div><h2 class="widget-title">Tecumseh Weather</h2></div><span>🌤</span></div><div class="widget-content"><div class="weather-now"><div><div id="homeWeatherTemp" class="weather-temp">--°F</div><p id="homeWeatherText" class="widget-note">Current conditions loading for Tecumseh.</p></div><div class="metric-grid"><div class="metric"><strong>Radar</strong>Ozarks</div><div class="metric"><strong>Alerts</strong>NWS</div><div class="metric"><strong>Brief</strong>Weekly</div></div></div></div></a>
-      <a class="live-widget traffic-widget" href="/traffic/"><div class="widget-head"><div><div class="widget-kicker">Traffic Center</div><h2 class="widget-title">US-160 and Ozark County Roads</h2></div><span>🚗</span></div><div class="widget-content"><p class="widget-note">Live traffic module for Tecumseh, US Highway 160, MO-5, flooding closures and local road notes.</p></div></a>
-      <a class="live-widget sports-widget" href="/sports/"><div class="widget-head"><div><div class="widget-kicker">Sports Center</div><h2 class="widget-title">Ozark County Sports</h2></div><span>⚾</span></div><div class="widget-content"><p class="widget-note">High school sports, regional schedules, college items and community sports coverage.</p></div></a>
-      <a class="live-widget markets-widget" href="/markets/center/"><div class="widget-head"><div><div class="widget-kicker">Market Center</div><h2 class="widget-title">CGN Market Watch</h2></div><span>📈</span></div><div class="widget-content"><p class="widget-note">Stocks, indexes, market headlines and CGN-style business coverage.</p></div></a>
-    </div>
-  </div>
-
-  <div id="ozark-cgn-live-panel" class="ozark-cgn-live-panel cgn-live" hidden aria-hidden="true" aria-labelledby="ozark-cgn-live-title">
-    <div class="cgn-live-shell">
-      <div class="cgn-live-header">
-        <div>
-          <div class="cgn-live-kicker">
-            <span class="cgn-live-dot" aria-hidden="true"></span>
-            Live Video
-          </div>
-          <h2 id="ozark-cgn-live-title">CGN LIVE</h2>
-          <p class="cgn-live-subtitle">Switch between CGN LIVE, CGN Weather, national sources, and Ozarks / Missouri live source links without leaving The Ozark Gazette homepage.</p>
-        </div>
-
-        <div class="cgn-live-header-actions">
-          <a id="ozark-cgn-live-open" class="cgn-live-open" href="https://www.cgnnews.net/cgn-live/" target="_blank" rel="noopener">Open CGN Live</a>
-          <a class="cgn-live-youtube-link" href="https://www.youtube.com/@CookGlobalNews" target="_blank" rel="noopener" aria-label="Open CGN News YouTube channel @CookGlobalNews">
-            <svg class="cgn-live-youtube-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M23.5 6.2c-.3-1.2-1.2-2.1-2.4-2.4C19 3.3 12 3.3 12 3.3s-7 0-9.1.5C1.7 4.1.8 5 .5 6.2.1 8.4.1 12 .1 12s0 3.6.5 5.8c.3 1.2 1.2 2.1 2.4 2.4 2.1.5 9.1.5 9.1.5s7 0 9.1-.5c1.2-.3 2.1-1.2 2.4-2.4.5-2.2.5-5.8.5-5.8s0-3.6-.6-5.8zM9.6 15.7V8.3l6.2 3.7-6.2 3.7z"></path></svg>
-            @CookGlobalNews
+  <main id="main-content" class="site-main" tabindex="-1">
+    <section class="oz-home-banner" aria-label="Featured Ozark Gazette banner widget">
+      <div class="oz-hero-carousel">
+        <button class="oz-hero-arrow oz-hero-prev" type="button" onclick="moveOzarkHeroSlide(-1)" aria-label="Previous featured banner">‹</button>
+        <div id="ozarkHeroTrack" class="oz-hero-track">
+          <a class="oz-hero-slide oz-hero-image-slide" href="/news/" aria-label="Open The Ozark Gazette news desk">
+            <img class="oz-static-banner" src="/OzarkGazetteBanner.png" alt="The Ozark Gazette">
           </a>
-          <button class="cgn-live-back" type="button" onclick="showOzarkOriginalLive()">Back to Headlines</button>
+
+          <a class="oz-hero-slide oz-hero-image-slide" href="https://www.cgnnews.net/subscribe/" aria-label="Subscribe to CGN News">
+            <picture>
+              <source srcset="https://www.cgnnews.net/CGNSubscribeMobile01.png" media="(max-width: 700px)">
+              <img class="oz-static-banner" src="https://www.cgnnews.net/CGNSubscribeDesktop01.png" alt="Subscribe to CGN News">
+            </picture>
+          </a>
+
+          <section class="oz-hero-slide" aria-label="Ozark Gazette news widget">
+            <div class="oz-hero-widget">
+              <div class="oz-hero-widget-main">
+                <div class="oz-hero-brand-panel">
+                  <img src="/OzarkGazetteBanner.png" alt="">
+                  <div class="oz-hero-brand-copy">
+                    <div class="oz-hero-kicker">Latest Headlines</div>
+                    <h2>The Ozark Gazette</h2>
+                    <p>Local reporting, investigations, public affairs, obituaries, courts, markets and community coverage for Tecumseh and Ozark County.</p>
+                    <a class="oz-hero-cta" href="/news/">Open News Desk</a>
+                  </div>
+                </div>
+                <div id="ozarkHeroNewsList" class="oz-hero-news-list" aria-label="Latest Ozark headlines">
+                  <a class="oz-hero-news-item" href="/news/"><img src="/OzarkGazetteBanner.png" alt=""><span><strong>Loading latest headlines...</strong><span>News Desk</span></span></a>
+                  <a class="oz-hero-news-item" href="/local/"><img src="/OzarkGazetteBanner.png" alt=""><span><strong>Local coverage for Tecumseh and Ozark County</strong><span>Local</span></span></a>
+                  <a class="oz-hero-news-item" href="/obituaries/"><img src="/OzarkGazetteBanner.png" alt=""><span><strong>Community records and remembrance notices</strong><span>Obituaries</span></span></a>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <a class="oz-hero-slide" href="/weather/" aria-label="Open Tecumseh Weather Center">
+            <div class="oz-hero-widget oz-hero-weather-widget">
+              <div class="oz-hero-widget-main">
+                <div class="oz-hero-brand-panel">
+                  <img src="/weather/OzarkWeatherCenter01.webp" alt="Tecumseh Weather Center" onerror="this.src='/OzarkGazetteBanner.png'">
+                  <div class="oz-hero-brand-copy">
+                    <div class="oz-hero-kicker">Weather Center</div>
+                    <h2>Tecumseh, Missouri</h2>
+                    <p>Current conditions, radar, National Weather Service alerts and weekly Ozark weather briefings.</p>
+                    <span class="oz-hero-cta">Open Full Forecast</span>
+                  </div>
+                </div>
+                <div class="oz-hero-panel" aria-label="Current Tecumseh weather">
+                  <div class="oz-hero-panel-status" id="ozarkHeroWeatherStatus">Loading current conditions...</div>
+                  <div class="oz-hero-weather-temp" id="ozarkHeroWeatherTemp">--°F</div>
+                  <p id="ozarkHeroWeatherText">Updating Tecumseh conditions...</p>
+                  <div class="oz-hero-metric-grid">
+                    <div class="oz-hero-chip"><strong>Feels Like</strong><span id="ozarkHeroFeels">--°F</span></div>
+                    <div class="oz-hero-chip"><strong>Wind</strong><span id="ozarkHeroWind">-- mph</span></div>
+                    <div class="oz-hero-chip"><strong>Humidity</strong><span id="ozarkHeroHumidity">--%</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </a>
+
+          <a class="oz-hero-slide" href="/traffic/" aria-label="Open Tecumseh Traffic Center">
+            <div class="oz-hero-widget oz-hero-traffic-widget">
+              <div class="oz-hero-widget-main">
+                <div class="oz-hero-brand-panel">
+                  <img src="/traffic/OzarkTrafficCenter01.webp" alt="Tecumseh Traffic Center" onerror="this.src='/OzarkGazetteBanner.png'">
+                  <div class="oz-hero-brand-copy">
+                    <div class="oz-hero-kicker">US-160 Tecumseh</div>
+                    <h2>Traffic Center</h2>
+                    <p>MoDOT Traveler map, US Highway 160, MO-5, low-water crossings, closures, work zones and Ozark County road notes.</p>
+                    <span class="oz-hero-cta">Open Traffic Center</span>
+                  </div>
+                </div>
+                <div class="oz-hero-panel" aria-label="Tecumseh traffic update">
+                  <div class="oz-hero-panel-status" id="ozarkHeroTrafficStatus">Current conditions updating...</div>
+                  <div class="oz-hero-metric-grid">
+                    <div class="oz-hero-chip"><strong>US-160</strong><span>Primary Tecumseh corridor</span></div>
+                    <div class="oz-hero-chip"><strong>MO-5</strong><span>Regional Ozark County travel</span></div>
+                    <div class="oz-hero-chip"><strong>County Roads</strong><span>Flooding and low-water notes</span></div>
+                  </div>
+                  <p style="margin-top:12px">Open Traffic Center for the live MoDOT Traveler map and Missouri road-condition sources.</p>
+                </div>
+              </div>
+            </div>
+          </a>
+
+          <a class="oz-hero-slide" href="/sports/" aria-label="Open The Ozark Gazette Sports Center">
+            <div class="oz-hero-widget oz-hero-sports-widget">
+              <div class="oz-hero-widget-main">
+                <div class="oz-hero-brand-panel">
+                  <img src="/sports/OzarkSportsCenter01.webp" alt="The Ozark Gazette Sports Center" onerror="this.src='/OzarkGazetteBanner.png'">
+                  <div class="oz-hero-brand-copy">
+                    <div class="oz-hero-kicker">Sports Center</div>
+                    <h2>Ozark County Sports</h2>
+                    <p>Gainesville, Bakersfield, Dora, Lutie, Thornfield, Mizzou, Missouri State and regional sports coverage.</p>
+                    <span class="oz-hero-cta">Open Sports Center</span>
+                  </div>
+                </div>
+                <div class="oz-hero-panel" aria-label="Ozark sports update">
+                  <div class="oz-hero-panel-status">Local Coverage</div>
+                  <h2 style="font-size:30px;margin:0 0 8px">Scores, schedules and sports briefs updating...</h2>
+                  <p>Sports articles load from The Ozark Gazette sheet and official school, conference and team sources when available.</p>
+                  <div class="oz-hero-market-grid">
+                    <div class="oz-hero-market-chip"><strong>GNV</strong><span>Gainesville</span><em>Local</em></div>
+                    <div class="oz-hero-market-chip"><strong>BAK</strong><span>Bakersfield</span><em>Local</em></div>
+                    <div class="oz-hero-market-chip"><strong>MIZ</strong><span>Mizzou</span><em>College</em></div>
+                    <div class="oz-hero-market-chip"><strong>MSU</strong><span>Missouri St.</span><em>College</em></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </a>
+
+          <section class="oz-hero-slide oz-hero-market-slide" aria-label="CGN Market Watch live market widget">
+            <div class="oz-hero-widget oz-hero-market-widget">
+              <div class="oz-hero-widget-main">
+                <div class="oz-hero-brand-panel">
+                  <img src="https://www.cgnnews.net/category/markets/CGNMarketWatch01.png" alt="CGN Market Watch — Economy and Stock Market" loading="lazy">
+                  <div class="oz-hero-brand-copy">
+                    <div class="oz-hero-kicker">Market Watch</div>
+                    <h2>Stocks &amp; Markets</h2>
+                    <p>Top U.S. stocks, indexes, market movement, business headlines and CGN-powered markets coverage.</p>
+                    <a class="oz-hero-cta" href="/markets/center/">Open Market Watch</a>
+                  </div>
+                </div>
+                <div class="oz-hero-panel oz-hero-market-live">
+                  <div>
+                    <div class="oz-hero-panel-status">Live / Delayed Market Data</div>
+                    <p class="oz-hero-market-note">Interactive market overview powered by TradingView. Use the full dashboard for expanded charts and CGN Markets reporting.</p>
+                  </div>
+                  <div id="ozarkHeroMarketWidget" class="oz-market-tv-box" aria-label="TradingView market overview widget">
+                    <div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div></div>
+                  </div>
+                  <a class="oz-hero-panel-link" href="/markets/center/">Open full dashboard</a>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+        <button class="oz-hero-arrow oz-hero-next" type="button" onclick="moveOzarkHeroSlide(1)" aria-label="Next featured banner">›</button>
+      </div>
+      <div class="oz-hero-dots" id="ozarkHeroDots" aria-label="Featured banner controls">
+        <button type="button" class="active" onclick="goOzarkHeroSlide(0)" aria-label="Show Ozark Gazette banner"></button>
+        <button type="button" onclick="goOzarkHeroSlide(1)" aria-label="Show Subscribe banner"></button>
+        <button type="button" onclick="goOzarkHeroSlide(2)" aria-label="Show News widget"></button>
+        <button type="button" onclick="goOzarkHeroSlide(3)" aria-label="Show Weather widget"></button>
+        <button type="button" onclick="goOzarkHeroSlide(4)" aria-label="Show Traffic widget"></button>
+        <button type="button" onclick="goOzarkHeroSlide(5)" aria-label="Show Sports widget"></button>
+        <button type="button" onclick="goOzarkHeroSlide(6)" aria-label="Show Market Watch widget"></button>
+      </div>
+    </section>
+
+    <section id="ozark-live-app" class="live-app" aria-label="The Ozark Gazette live homepage">
+      <div class="live-head">
+        <div>
+          <p class="live-kicker">The Ozark Gazette Live</p>
+          <h1 class="live-title">Tecumseh and Ozark County at a glance</h1>
+          <p class="live-copy">Local headlines, Ozarks weather, radar access, US-160 traffic, sports, markets, obituaries, court records and daily reader features from a CGN-powered local newsroom.</p>
+        </div>
+        <div class="live-actions">
+          <a class="live-btn" href="/local/">View Local News</a>
+          <button id="ozark-open-cgn-live" class="live-btn" type="button" onclick="showOzarkCGNLive()">CGN LIVE</button>
+          <button id="ozark-back-to-live" class="live-btn" type="button" onclick="showOzarkOriginalLive()" hidden>Back to Headlines</button>
         </div>
       </div>
 
-      <div class="cgn-live-video-wrap">
-        <iframe id="ozark-cgn-live-frame" title="CGN LIVE - CGN Live" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+      <div id="ozark-live-original" class="live-grid" aria-hidden="false">
+        <a id="featureLink" class="live-feature" href="/local/">
+          <div class="live-feature-media"><img id="featureImage" src="/OzarkGazetteBanner.png" alt=""></div>
+          <div class="live-feature-content">
+            <p id="featureMeta" class="live-feature-meta">Local · Latest</p>
+            <h2 id="featureTitle" class="live-feature-title">The Ozark Gazette launches local coverage for the Missouri Ozarks</h2>
+            <p id="featureCopy" class="live-feature-copy">Coverage begins in Tecumseh and follows Ozark County roads, weather, public affairs, schools, sports, obituaries and the community information readers use every day.</p>
+            <div class="feature-controls"><span class="feature-counter">Main Story</span><span class="live-btn">Read More</span></div>
+          </div>
+        </a>
+        <div class="live-side">
+          <a class="live-widget weather-widget" href="/weather/">
+            <div class="widget-head"><div><div class="widget-kicker">Weather Center</div><h2 class="widget-title">Tecumseh Weather</h2></div><span></span></div>
+            <div class="widget-content">
+              <div class="weather-now">
+                <div><div id="homeWeatherTemp" class="weather-temp">--°F</div><p id="homeWeatherText" class="widget-note">Current conditions loading for Tecumseh.</p></div>
+                <div class="metric-grid"><div class="metric"><strong>Radar</strong>Ozarks</div><div class="metric"><strong>Alerts</strong>NWS</div><div class="metric"><strong>Brief</strong>Weekly</div></div>
+              </div>
+            </div>
+          </a>
+          <a class="live-widget traffic-widget" href="/traffic/">
+            <div class="widget-head"><div><div class="widget-kicker">Traffic Center</div><h2 class="widget-title">US-160 and Ozark County Roads</h2></div><span></span></div>
+            <div class="widget-content"><p class="widget-note">Live traffic module for Tecumseh, US Highway 160, MO-5, flooding closures and local road notes.</p></div>
+          </a>
+          <a class="live-widget sports-widget" href="/sports/">
+            <div class="widget-head"><div><div class="widget-kicker">Sports Center</div><h2 class="widget-title">Ozark County Sports</h2></div><span>⚾</span></div>
+            <div class="widget-content"><p class="widget-note">High school sports, regional schedules, college items and community sports coverage.</p></div>
+          </a>
+          <section class="live-widget markets-widget live-market-widget" aria-label="CGN Market Watch ticker">
+            <div class="widget-head"><div><div class="widget-kicker">Market Center</div><h2 class="widget-title">CGN Market Watch</h2></div><span></span></div>
+            <div class="widget-content">
+              <p class="widget-note">Live / delayed market data, indexes and CGN-style business coverage.</p>
+              <div id="ozarkSideMarketTicker" class="oz-market-side-tape">
+                <div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div></div>
+              </div>
+              <a class="oz-hero-panel-link" href="/markets/center/">Open Market Watch</a>
+            </div>
+          </section>
+        </div>
+      </div>
 
-        <div id="ozark-cgn-live-fallback" class="cgn-live-fallback" role="status" aria-live="polite">
-          <div class="cgn-live-fallback-card">
-            <img id="ozark-cgn-live-fallback-image" class="cgn-live-fallback-image" src="/OzarkGazetteBanner.png" alt="" loading="lazy">
-            <div class="cgn-live-fallback-copy">
-              <strong id="ozark-cgn-live-fallback-title">CGN Live</strong>
-              <p id="ozark-cgn-live-fallback-text">Open the current live source directly if the embedded player is unavailable on this device.</p>
-              <div class="cgn-live-fallback-actions">
-                <a id="ozark-cgn-live-fallback-link" href="https://www.cgnnews.net/cgn-live/" target="_blank" rel="noopener">Open Live Source</a>
-                <a id="ozark-cgn-live-secondary-link" href="https://www.youtube.com/@CookGlobalNews" target="_blank" rel="noopener">Open Stream Directory</a>
-                <a id="ozark-cgn-live-backup-link" href="https://www.cgnnews.net/weather/weekly-weather-brief/" target="_blank" rel="noopener">Open Backup Source</a>
-                <a id="ozark-cgn-live-coverage-link" href="/news/">Open Ozark Coverage</a>
+      <div id="ozark-cgn-live-panel" class="ozark-cgn-live-panel cgn-live" hidden aria-hidden="true" aria-labelledby="ozark-cgn-live-title">
+        <div class="cgn-live-shell">
+          <div class="cgn-live-header">
+            <div>
+              <div class="cgn-live-kicker"><span class="cgn-live-dot" aria-hidden="true"></span>Live Video</div>
+              <h2 id="ozark-cgn-live-title">CGN LIVE</h2>
+              <p class="cgn-live-subtitle">Switch between CGN LIVE, CGN Weather, national sources, and Ozarks / Missouri live source links without leaving The Ozark Gazette homepage.</p>
+            </div>
+            <div class="cgn-live-header-actions">
+              <a id="ozark-cgn-live-open" class="cgn-live-open" href="https://www.cgnnews.net/cgn-live/" target="_blank" rel="noopener">Open CGN Live</a>
+              <a class="cgn-live-youtube-link" href="https://www.youtube.com/@CookGlobalNews" target="_blank" rel="noopener" aria-label="Open CGN News YouTube channel @CookGlobalNews">
+                <svg class="cgn-live-youtube-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M23.5 6.2c-.3-1.2-1.2-2.1-2.4-2.4C19 3.3 12 3.3 12 3.3s-7 0-9.1.5C1.7 4.1.8 5 .5 6.2.1 8.4.1 12 .1 12s0 3.6.5 5.8c.3 1.2 1.2 2.1 2.4 2.4 2.1.5 9.1.5 9.1.5s7 0 9.1-.5c1.2-.3 2.1-1.2 2.4-2.4.5-2.2.5-5.8.5-5.8s0-3.6-.6-5.8zM9.6 15.7V8.3l6.2 3.7-6.2 3.7z"></path></svg>
+                @CookGlobalNews
+              </a>
+              <button class="cgn-live-back" type="button" onclick="showOzarkOriginalLive()">Back to Headlines</button>
+            </div>
+          </div>
+          <div class="cgn-live-video-wrap">
+            <iframe id="ozark-cgn-live-frame" title="CGN LIVE - CGN Live" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+            <div id="ozark-cgn-live-fallback" class="cgn-live-fallback" role="status" aria-live="polite">
+              <div class="cgn-live-fallback-card">
+                <img id="ozark-cgn-live-fallback-image" class="cgn-live-fallback-image" src="/OzarkGazetteBanner.png" alt="" loading="lazy">
+                <div class="cgn-live-fallback-copy">
+                  <strong id="ozark-cgn-live-fallback-title">CGN Live</strong>
+                  <p id="ozark-cgn-live-fallback-text">Open the current live source directly if the embedded player is unavailable on this device.</p>
+                  <div class="cgn-live-fallback-actions">
+                    <a id="ozark-cgn-live-fallback-link" href="https://www.cgnnews.net/cgn-live/" target="_blank" rel="noopener">Open Live Source</a>
+                    <a id="ozark-cgn-live-secondary-link" href="https://www.youtube.com/@CookGlobalNews" target="_blank" rel="noopener">Open Stream Directory</a>
+                    <a id="ozark-cgn-live-backup-link" href="https://www.cgnnews.net/weather/weekly-weather-brief/" target="_blank" rel="noopener">Open Backup Source</a>
+                    <a id="ozark-cgn-live-coverage-link" href="/news/">Open Ozark Coverage</a>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
+          <div id="ozark-cgn-live-inline-source" class="cgn-live-inline-source">If the embedded player is unavailable on this device, use <a id="ozark-cgn-live-inline-link" href="https://www.cgnnews.net/cgn-live/" target="_blank" rel="noopener">Open CGN Live</a> for the current source.</div>
+          <div class="cgn-live-controls" aria-label="Choose CGN LIVE source">
+            <button type="button" class="active" data-ozark-cgn-live="cgn" onclick="ozarkChangeCGNLiveFeed('cgn')">CGN</button>
+            <button type="button" data-ozark-cgn-live="cgnweather" onclick="ozarkChangeCGNLiveFeed('cgnweather')">CGN Weather</button>
+            <button type="button" data-ozark-cgn-live="world" onclick="ozarkChangeCGNLiveFeed('world')">World</button>
+            <button type="button" data-ozark-cgn-live="politics" onclick="ozarkChangeCGNLiveFeed('politics')">Politics</button>
+            <button type="button" data-ozark-cgn-live="business" onclick="ozarkChangeCGNLiveFeed('business')">Business</button>
+            <button type="button" data-ozark-cgn-live="markets" onclick="ozarkChangeCGNLiveFeed('markets')">Markets</button>
+            <button type="button" data-ozark-cgn-live="technology" onclick="ozarkChangeCGNLiveFeed('technology')">Technology</button>
+            <button type="button" data-ozark-cgn-live="local" onclick="ozarkChangeCGNLiveFeed('local')">Local</button>
+            <button type="button" data-ozark-cgn-live="weather" onclick="ozarkChangeCGNLiveFeed('weather')">Weather</button>
+            <button type="button" data-ozark-cgn-live="sports" onclick="ozarkChangeCGNLiveFeed('sports')">Sports</button>
+            <button type="button" data-ozark-cgn-live="stlouis" onclick="ozarkChangeCGNLiveFeed('stlouis')">St. Louis</button>
+            <button type="button" data-ozark-cgn-live="missouri" onclick="ozarkChangeCGNLiveFeed('missouri')">Missouri</button>
+            <button type="button" data-ozark-cgn-live="ozarks" onclick="ozarkChangeCGNLiveFeed('ozarks')">Ozarks First</button>
+            <button type="button" data-ozark-cgn-live="ky3" onclick="ozarkChangeCGNLiveFeed('ky3')">KY3</button>
+            <button type="button" id="ozark-cgn-live-audio" onclick="ozarkToggleCGNLiveAudio()">Play Audio</button>
+          </div>
+          <div class="cgn-live-now" id="ozark-cgn-live-now">Now showing: CGN — CGN Live</div>
         </div>
       </div>
+    </section>
 
-      <div id="ozark-cgn-live-inline-source" class="cgn-live-inline-source">
-        If the embedded player is unavailable on this device, use <a id="ozark-cgn-live-inline-link" href="https://www.cgnnews.net/cgn-live/" target="_blank" rel="noopener">Open CGN Live</a> for the current source.
+    <section aria-labelledby="latest-articles-title">
+      <div class="section-title"><div><span>Latest Articles</span><h2 id="latest-articles-title">Latest Articles</h2></div><a class="section-btn" href="/news/">Open News Desk</a></div>
+      <div id="homeArticles" class="article-grid"><div class="empty">Loading articles...</div></div>
+    </section>
+
+    <section aria-labelledby="obituaries-title">
+      <div class="section-title"><div><span>Community records and remembrance notices.</span><h2 id="obituaries-title">Obituaries</h2></div><a class="section-btn" href="/obituaries/">View Obituaries</a></div>
+      <div id="obitStrip" class="article-grid"><div class="empty">Loading obituaries...</div></div>
+    </section>
+
+    <section aria-labelledby="courts-title">
+      <div class="section-title"><div><span>Official-source monitoring with editorial review.</span><h2 id="courts-title">Courts &amp; Public Records</h2></div><a class="section-btn" href="/local/">View Local Records</a></div>
+      <div id="courtStrip" class="article-grid"><div class="empty">Loading records...</div></div>
+    </section>
+
+    <section aria-labelledby="features-title">
+      <div class="section-title"><div><span>Crosswords, Sudoku, Puzzles and Horoscopes.</span><h2 id="features-title">Puzzles &amp; Daily Features</h2></div></div>
+      <div class="quick-grid">
+        <a class="station-card" href="/crosswords/"><strong>Crosswords</strong><span>Daily crossword-style features for Ozark Gazette readers.</span></a>
+        <a class="station-card" href="/sudoku/"><strong>Sudoku</strong><span>Classic number puzzles with a clean local-paper presentation.</span></a>
+        <a class="station-card" href="/puzzles/"><strong>Puzzles</strong><span>The hub for daily games and future word-search features.</span></a>
+        <a class="station-card" href="/horoscopes/"><strong>Horoscopes</strong><span>Daily horoscope-style reader feature for the community section.</span></a>
       </div>
+    </section>
+  </main>
 
-      <div class="cgn-live-controls" aria-label="Choose CGN LIVE source">
-        <button type="button" class="active" data-ozark-cgn-live="cgn" onclick="ozarkChangeCGNLiveFeed('cgn')">CGN</button>
-        <button type="button" data-ozark-cgn-live="cgnweather" onclick="ozarkChangeCGNLiveFeed('cgnweather')">CGN Weather</button>
-        <button type="button" data-ozark-cgn-live="world" onclick="ozarkChangeCGNLiveFeed('world')">World</button>
-        <button type="button" data-ozark-cgn-live="politics" onclick="ozarkChangeCGNLiveFeed('politics')">Politics</button>
-        <button type="button" data-ozark-cgn-live="business" onclick="ozarkChangeCGNLiveFeed('business')">Business</button>
-        <button type="button" data-ozark-cgn-live="markets" onclick="ozarkChangeCGNLiveFeed('markets')">Markets</button>
-        <button type="button" data-ozark-cgn-live="technology" onclick="ozarkChangeCGNLiveFeed('technology')">Technology</button>
-        <button type="button" data-ozark-cgn-live="local" onclick="ozarkChangeCGNLiveFeed('local')">Local</button>
-        <button type="button" data-ozark-cgn-live="weather" onclick="ozarkChangeCGNLiveFeed('weather')">Weather</button>
-        <button type="button" data-ozark-cgn-live="sports" onclick="ozarkChangeCGNLiveFeed('sports')">Sports</button>
-        <button type="button" data-ozark-cgn-live="stlouis" onclick="ozarkChangeCGNLiveFeed('stlouis')">St. Louis</button>
-        <button type="button" data-ozark-cgn-live="missouri" onclick="ozarkChangeCGNLiveFeed('missouri')">Missouri</button>
-        <button type="button" data-ozark-cgn-live="ozarkspbs" onclick="ozarkChangeCGNLiveFeed('ozarkspbs')">Ozarks PBS</button>
-        <button type="button" data-ozark-cgn-live="ozarksfirst" onclick="ozarkChangeCGNLiveFeed('ozarksfirst')">Ozarks First</button>
-        <button type="button" data-ozark-cgn-live="ky3" onclick="ozarkChangeCGNLiveFeed('ky3')">KY3</button>
-        <button type="button" id="ozark-cgn-live-audio-toggle" onclick="toggleOzarkCGNLiveAudio()">Play Audio</button>
-      </div>
+  <div id="cgn-site-footer"></div>
+  <script src="/assets/ozark-shell.js"></script>
+  <script>
+    (function(){
+      "use strict";
+      const TECUMSEH = { latitude:36.5836, longitude:-92.2863, timeZone:"America/Chicago" };
+      let ozarkHeroIndex = 0;
+      let ozarkHeroTimer = null;
+      let ozarkCGNLiveAudioEnabled = false;
+      let ozarkCGNLiveCurrentKey = "cgn";
+      const cgnLiveFeeds = {
+        cgn:{category:"CGN",source:"CGN Live",title:"CGN LIVE - CGN Live",sourceUrl:"https://www.cgnnews.net/cgn-live/",directoryUrl:"https://www.youtube.com/@CookGlobalNews",articleFallbackUrl:"/news/",fallbackImage:"/OzarkGazetteBanner.png",fallbackHeadline:"CGN Live",fallbackText:"Open CGN LIVE for the current Cook Global News Network source.",primaryLabel:"Open CGN Live",secondaryLabel:"Open @CookGlobalNews",coverageLabel:"Open Ozark Coverage",canEmbed:false,embeds:[]},
+        cgnweather:{category:"CGN Weather",source:"CGN Weather",title:"CGN LIVE - CGN Weather",sourceUrl:"https://www.cgnnews.net/weather/weekly-weather-brief/",directoryUrl:"https://www.youtube.com/@CookGlobalNews",articleFallbackUrl:"/weather/",fallbackImage:"/OzarkGazetteBanner.png",fallbackHeadline:"CGN Weather",fallbackText:"Open CGN Weather for current weather video and weekly brief coverage.",primaryLabel:"Open CGN Weather",secondaryLabel:"Open @CookGlobalNews",coverageLabel:"Open Weather",canEmbed:false,embeds:[]},
+        world:{category:"World",source:"CGN World",title:"CGN LIVE - World",sourceUrl:"https://www.cgnnews.net/category/world/",directoryUrl:"https://www.youtube.com/@CookGlobalNews",articleFallbackUrl:"/world/",fallbackImage:"/OzarkGazetteBanner.png",fallbackHeadline:"World Live Source",fallbackText:"Open CGN World coverage and source links.",primaryLabel:"Open World",secondaryLabel:"Open @CookGlobalNews",coverageLabel:"Open World",canEmbed:false,embeds:[]},
+        politics:{category:"Politics",source:"CGN Politics",title:"CGN LIVE - Politics",sourceUrl:"https://www.cgnnews.net/category/politics/",directoryUrl:"https://www.youtube.com/@CookGlobalNews",articleFallbackUrl:"/politics/",fallbackImage:"/OzarkGazetteBanner.png",fallbackHeadline:"Politics Live Source",fallbackText:"Open CGN Politics coverage and source links.",primaryLabel:"Open Politics",secondaryLabel:"Open @CookGlobalNews",coverageLabel:"Open Politics",canEmbed:false,embeds:[]},
+        business:{category:"Business",source:"CGN Business",title:"CGN LIVE - Business",sourceUrl:"https://www.cgnnews.net/category/business/",directoryUrl:"https://www.youtube.com/@CookGlobalNews",articleFallbackUrl:"/news/",fallbackImage:"/OzarkGazetteBanner.png",fallbackHeadline:"Business Live Source",fallbackText:"Open CGN Business coverage and source links.",primaryLabel:"Open Business",secondaryLabel:"Open @CookGlobalNews",coverageLabel:"Open News",canEmbed:false,embeds:[]},
+        markets:{category:"Markets",source:"CGN Market Watch",title:"CGN LIVE - Markets",sourceUrl:"/markets/center/",directoryUrl:"https://www.cgnnews.net/category/markets/",articleFallbackUrl:"/markets/",fallbackImage:"https://www.cgnnews.net/category/markets/CGNMarketWatch01.png",fallbackHeadline:"CGN Market Watch",fallbackText:"Open the full Market Watch dashboard for charts, indexes and markets reporting.",primaryLabel:"Open Market Watch",secondaryLabel:"Open CGN Markets",coverageLabel:"Open Markets",canEmbed:false,embeds:[]},
+        technology:{category:"Technology",source:"CGN Technology",title:"CGN LIVE - Technology",sourceUrl:"https://www.cgnnews.net/category/technology/",directoryUrl:"https://www.youtube.com/@CookGlobalNews",articleFallbackUrl:"/technology/",fallbackImage:"/OzarkGazetteBanner.png",fallbackHeadline:"Technology Live Source",fallbackText:"Open CGN Technology coverage and source links.",primaryLabel:"Open Technology",secondaryLabel:"Open @CookGlobalNews",coverageLabel:"Open Technology",canEmbed:false,embeds:[]},
+        local:{category:"Local",source:"Ozark Gazette",title:"CGN LIVE - Local",sourceUrl:"/local/",directoryUrl:"/news/",articleFallbackUrl:"/local/",fallbackImage:"/OzarkGazetteBanner.png",fallbackHeadline:"Ozark Local Coverage",fallbackText:"Open local Ozark Gazette coverage for Tecumseh and Ozark County.",primaryLabel:"Open Local",secondaryLabel:"Open News Desk",coverageLabel:"Open Local",canEmbed:false,embeds:[]},
+        weather:{category:"Weather",source:"Ozark Weather",title:"CGN LIVE - Weather",sourceUrl:"/weather/",directoryUrl:"/weather/radar/",articleFallbackUrl:"/weather/",fallbackImage:"/OzarkGazetteBanner.png",fallbackHeadline:"Ozark Weather",fallbackText:"Open Tecumseh weather, radar and alerts.",primaryLabel:"Open Weather",secondaryLabel:"Open Radar",coverageLabel:"Open Weather",canEmbed:false,embeds:[]},
+        sports:{category:"Sports",source:"Ozark Sports",title:"CGN LIVE - Sports",sourceUrl:"/sports/",directoryUrl:"https://www.youtube.com/@CookGlobalNews",articleFallbackUrl:"/sports/",fallbackImage:"/OzarkGazetteBanner.png",fallbackHeadline:"Ozark Sports",fallbackText:"Open sports coverage for Ozark County and regional teams.",primaryLabel:"Open Sports",secondaryLabel:"Open @CookGlobalNews",coverageLabel:"Open Sports",canEmbed:false,embeds:[]},
+        stlouis:{category:"St. Louis",source:"Regional Missouri",title:"CGN LIVE - St. Louis",sourceUrl:"https://www.cgnnews.net/weather/radar/st-louis/",directoryUrl:"https://www.youtube.com/@CookGlobalNews",articleFallbackUrl:"/news/",fallbackImage:"/OzarkGazetteBanner.png",fallbackHeadline:"St. Louis Regional Source",fallbackText:"Open St. Louis regional coverage and radar sources.",primaryLabel:"Open St. Louis",secondaryLabel:"Open @CookGlobalNews",coverageLabel:"Open News",canEmbed:false,embeds:[]},
+        missouri:{category:"Missouri",source:"Missouri Sources",title:"CGN LIVE - Missouri",sourceUrl:"/news/",directoryUrl:"https://www.youtube.com/@CookGlobalNews",articleFallbackUrl:"/news/",fallbackImage:"/OzarkGazetteBanner.png",fallbackHeadline:"Missouri Regional Source",fallbackText:"Open Missouri and Ozark regional coverage.",primaryLabel:"Open Missouri",secondaryLabel:"Open @CookGlobalNews",coverageLabel:"Open News",canEmbed:false,embeds:[]},
+        ozarks:{category:"Ozarks First",source:"Ozarks First",title:"CGN LIVE - Ozarks First",sourceUrl:"https://www.ozarksfirst.com/",directoryUrl:"https://www.ozarksfirst.com/",articleFallbackUrl:"/news/",fallbackImage:"/OzarkGazetteBanner.png",fallbackHeadline:"Ozarks First Live Source",fallbackText:"Open Ozarks First for regional Springfield/Ozarks live source pages and video coverage.",primaryLabel:"Open Ozarks First",secondaryLabel:"Open Ozarks Source",coverageLabel:"Open Local",canEmbed:false,embeds:[]},
+        ky3:{category:"KY3",source:"KY3 / Springfield",title:"CGN LIVE - KY3",sourceUrl:"https://www.ky3.com/",directoryUrl:"https://www.ky3.com/",articleFallbackUrl:"/weather/",fallbackImage:"/OzarkGazetteBanner.png",fallbackHeadline:"KY3 Live Source",fallbackText:"Open KY3 for regional news, weather and community coverage for the Missouri Ozarks.",primaryLabel:"Open KY3",secondaryLabel:"Open KY3 Source",coverageLabel:"Open Weather",canEmbed:false,embeds:[]}
+      };
 
-      <div class="cgn-live-meta">
-        <p id="ozark-cgn-live-now"><strong>Now showing:</strong> CGN — CGN Live</p>
-        <p class="cgn-live-disclaimer">Live video streams and station links are provided by official CGN and third-party source pages. The Ozark Gazette does not own or control outside live feeds. Availability, embed permissions, audio, and programming can change; use Open Live Source when a provider needs to open directly.</p>
-      </div>
-    </div>
-  </div>
+      function slideCount(){ return document.querySelectorAll("#ozarkHeroTrack .oz-hero-slide").length; }
+      function heroTrack(){ return document.getElementById("ozarkHeroTrack"); }
+      function goOzarkHeroSlide(index){
+        const track = heroTrack();
+        const count = slideCount();
+        if(!track || !count) return;
+        ozarkHeroIndex = ((index % count) + count) % count;
+        const slide = track.children[ozarkHeroIndex];
+        if(slide) track.scrollTo({left:slide.offsetLeft,behavior:"smooth"});
+        document.querySelectorAll("#ozarkHeroDots button").forEach((btn,i)=>btn.classList.toggle("active", i === ozarkHeroIndex));
+      }
+      function moveOzarkHeroSlide(delta){ goOzarkHeroSlide(ozarkHeroIndex + delta); }
+      window.goOzarkHeroSlide = goOzarkHeroSlide;
+      window.moveOzarkHeroSlide = moveOzarkHeroSlide;
 
-</section>
+      function loadTradingViewWidget(containerId, scriptSrc, config){
+        const host = document.getElementById(containerId);
+        if(!host || host.dataset.tvLoaded === "true") return;
+        const container = host.querySelector(".tradingview-widget-container") || host;
+        let widget = container.querySelector(".tradingview-widget-container__widget");
+        if(!widget){ widget = document.createElement("div"); widget.className = "tradingview-widget-container__widget"; container.prepend(widget); }
+        const script = document.createElement("script");
+        script.type = "text/javascript";
+        script.async = true;
+        script.src = scriptSrc;
+        script.text = JSON.stringify(config, null, 2);
+        container.appendChild(script);
+        host.dataset.tvLoaded = "true";
+      }
+      function renderOzarkMarketWidgets(){
+        loadTradingViewWidget("ozarkHeroMarketWidget", "https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js", {
+          colorTheme:"dark",
+          dateRange:"12M",
+          showChart:true,
+          locale:"en",
+          largeChartUrl:"/markets/center/",
+          isTransparent:true,
+          showSymbolLogo:true,
+          showFloatingTooltip:true,
+          width:"100%",
+          height:"100%",
+          plotLineColorGrowing:"rgba(41, 98, 255, 1)",
+          plotLineColorFalling:"rgba(41, 98, 255, 1)",
+          gridLineColor:"rgba(240, 243, 250, 0.08)",
+          scaleFontColor:"rgba(209, 212, 220, 1)",
+          belowLineFillColorGrowing:"rgba(41, 98, 255, 0.12)",
+          belowLineFillColorFalling:"rgba(41, 98, 255, 0.12)",
+          belowLineFillColorGrowingBottom:"rgba(41, 98, 255, 0)",
+          belowLineFillColorFallingBottom:"rgba(41, 98, 255, 0)",
+          symbolActiveColor:"rgba(41, 98, 255, 0.16)",
+          tabs:[
+            {title:"Indices",symbols:[{s:"FOREXCOM:SPXUSD",d:"S&P 500"},{s:"NASDAQ:IXIC",d:"Nasdaq Composite"},{s:"DJ:DJI",d:"Dow Jones"},{s:"TVC:RUT",d:"Russell 2000"}]},
+            {title:"Stocks",symbols:[{s:"NASDAQ:AAPL",d:"Apple"},{s:"NASDAQ:MSFT",d:"Microsoft"},{s:"NASDAQ:NVDA",d:"Nvidia"},{s:"NYSE:WMT",d:"Walmart"}]},
+            {title:"Futures",symbols:[{s:"CME_MINI:ES1!",d:"S&P 500 Futures"},{s:"CME_MINI:NQ1!",d:"Nasdaq Futures"},{s:"NYMEX:CL1!",d:"Crude Oil"},{s:"COMEX:GC1!",d:"Gold"}]}
+          ]
+        });
+        loadTradingViewWidget("ozarkSideMarketTicker", "https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js", {
+          symbols:[
+            {description:"S&P 500",proName:"FOREXCOM:SPXUSD"},
+            {description:"Nasdaq",proName:"NASDAQ:IXIC"},
+            {description:"Dow",proName:"DJ:DJI"},
+            {description:"Russell 2000",proName:"TVC:RUT"},
+            {description:"Apple",proName:"NASDAQ:AAPL"},
+            {description:"Microsoft",proName:"NASDAQ:MSFT"},
+            {description:"Nvidia",proName:"NASDAQ:NVDA"},
+            {description:"Walmart",proName:"NYSE:WMT"}
+          ],
+          showSymbolLogo:true,
+          isTransparent:true,
+          displayMode:"regular",
+          colorTheme:"dark",
+          locale:"en"
+        });
+      }
 
-<section><div class="section-title"><h2>Latest Articles</h2><span>Loaded from the Ozark Gazette Articles sheet.</span></div><div id="homeArticles" class="article-grid"><div class="empty">Loading articles...</div></div></section>
-<section><div class="section-title"><h2>Obituaries</h2><span>Community records and remembrance notices.</span></div><div id="obitStrip" class="article-grid"><div class="empty">Loading obituaries...</div></div></section>
-<section><div class="section-title"><h2>Courts & Public Records</h2><span>Official-source monitoring with editorial review.</span></div><div id="courtStrip" class="article-grid"><div class="empty">Loading records...</div></div></section>
-<section><div class="section-title"><h2>Puzzles & Daily Features</h2><span>Crosswords, Sudoku, Puzzles and Horoscopes.</span></div><div class="quick-grid"><a class="game-card" href="/crosswords/"><h3>Crosswords</h3><p>Daily crossword-style features for Ozark Gazette readers.</p></a><a class="game-card" href="/sudoku/"><h3>Sudoku</h3><p>Classic number puzzles with a clean local-paper presentation.</p></a><a class="game-card" href="/puzzles/"><h3>Puzzles</h3><p>The hub for daily games and future word-search features.</p></a><a class="game-card" href="/horoscopes/"><h3>Horoscope</h3><p>Daily horoscope-style reader feature for the community section.</p></a></div></section>
+      function weatherSummary(code){
+        code = Number(code);
+        if(code === 0) return "Clear";
+        if([1,2].includes(code)) return "Partly cloudy";
+        if(code === 3) return "Cloudy";
+        if([45,48].includes(code)) return "Fog";
+        if([51,53,55,61,63,65,66,67,80,81,82].includes(code)) return "Rain nearby";
+        if([71,73,75,77,85,86].includes(code)) return "Snow";
+        if([95,96,99].includes(code)) return "Thunderstorms possible";
+        return "Weather updating";
+      }
+      async function loadOzarkHeroWeather(){
+        try{
+          const url = `https://api.open-meteo.com/v1/forecast?latitude=${TECUMSEH.latitude}&longitude=${TECUMSEH.longitude}&current=temperature_2m,apparent_temperature,relative_humidity_2m,wind_speed_10m,weather_code&hourly=temperature_2m&temperature_unit=fahrenheit&wind_speed_unit=mph&timezone=auto`;
+          const data = await (await fetch(url,{cache:"no-store"})).json();
+          const c = data.current || {};
+          const temp = Math.round(c.temperature_2m);
+          const feels = Math.round(c.apparent_temperature);
+          const wind = Math.round(c.wind_speed_10m);
+          const humidity = Math.round(c.relative_humidity_2m);
+          const text = weatherSummary(c.weather_code);
+          const setText = (id, value) => { const el = document.getElementById(id); if(el) el.textContent = value; };
+          setText("ozarkHeroWeatherStatus", text);
+          setText("ozarkHeroWeatherTemp", Number.isFinite(temp) ? `${temp}°F` : "--°F");
+          setText("ozarkHeroWeatherText", Number.isFinite(temp) ? `${text} in Tecumseh right now.` : "Current conditions updating for Tecumseh.");
+          setText("ozarkHeroFeels", Number.isFinite(feels) ? `${feels}°F` : "--°F");
+          setText("ozarkHeroWind", Number.isFinite(wind) ? `${wind} mph` : "-- mph");
+          setText("ozarkHeroHumidity", Number.isFinite(humidity) ? `${humidity}%` : "--%");
+          setText("homeWeatherTemp", Number.isFinite(temp) ? `${temp}°F` : "--°F");
+          setText("homeWeatherText", Number.isFinite(temp) ? `${text} in Tecumseh. Tap for radar, alerts and the weekly weather brief.` : "Current conditions loading for Tecumseh.");
+        }catch(e){
+          const status = document.getElementById("ozarkHeroWeatherStatus");
+          if(status) status.textContent = "Weather updating";
+        }
+      }
 
+      function esc(v){ return String(v == null ? "" : v).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c])); }
+      function articleUrl(a){
+        if(a && a.url) return a.url;
+        const slug = String((a && (a.slug || a.title)) || "ozark-update").toLowerCase().replace(/[^a-z0-9\s-]/g,"").replace(/\s+/g,"-").replace(/-+/g,"-").replace(/^-+|-+$/g,"");
+        return `/article.html?slug=${encodeURIComponent(slug)}`;
+      }
+      async function loadOzarkHeroHeadlines(){
+        try{
+          if(!window.OzarkGazette || !window.OzarkGazette.api) return;
+          const data = await window.OzarkGazette.api("ozark_articles",{limit:4});
+          const list = (data.articles || data.items || []).slice(0,3);
+          const box = document.getElementById("ozarkHeroNewsList");
+          if(!box || !list.length) return;
+          box.innerHTML = list.map(a => `<a class="oz-hero-news-item" href="${esc(articleUrl(a))}"><img src="${esc(a.hero_image_url || a.image || '/OzarkGazetteBanner.png')}" alt=""><span><strong>${esc(a.title || 'Ozark update')}</strong><span>${esc(a.category || 'Local')}</span></span></a>`).join("") + `<a class="oz-hero-panel-link" href="/news/">Open News Desk</a>`;
+        }catch(e){}
+      }
 
-<script id="ozark-home-hero-carousel-script">
-let ozarkHeroIndex=0;
-function ozarkHeroSlides(){return Array.from(document.querySelectorAll('#ozarkHeroTrack .oz-hero-slide'));}
-function updateOzarkHeroDots(){const dots=Array.from(document.querySelectorAll('#ozarkHeroDots button'));dots.forEach(function(dot,i){dot.classList.toggle('active',i===ozarkHeroIndex);});}
-function goOzarkHeroSlide(index){const slides=ozarkHeroSlides();if(!slides.length)return;ozarkHeroIndex=(index+slides.length)%slides.length;slides[ozarkHeroIndex].scrollIntoView({behavior:'smooth',block:'nearest',inline:'start'});updateOzarkHeroDots();}
-function moveOzarkHeroSlide(delta){goOzarkHeroSlide(ozarkHeroIndex+delta);}
-(function(){const track=document.getElementById('ozarkHeroTrack');if(!track)return;let timer=null;track.addEventListener('scroll',function(){clearTimeout(timer);timer=setTimeout(function(){const slides=ozarkHeroSlides();if(!slides.length)return;const width=track.clientWidth||1;ozarkHeroIndex=Math.round(track.scrollLeft/width);if(ozarkHeroIndex<0)ozarkHeroIndex=0;if(ozarkHeroIndex>=slides.length)ozarkHeroIndex=slides.length-1;updateOzarkHeroDots();},90);});})();
-function ozarkHeroApiBase(){return window.CGN_API_BASE||window.CGN_API_URL||window.CGN_CONFIG?.apiBase||document.querySelector('meta[name="cgn-api-base"]')?.content||'https://script.google.com/macros/s/AKfycbx41mQg-Ine3XZ-VrMI_SaQn4_K6cDQHA0cBFyGPgupu_edNFoNRjSLv2hoSe_bOytt/exec';}
-function ozarkHeroEsc(value){return String(value||'').replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c];});}
-function ozarkHeroSlugify(value){return String(value||'').toLowerCase().replace(/[^a-z0-9\s-]/g,'').replace(/\s+/g,'-').replace(/-+/g,'-').replace(/^-+|-+$/g,'');}
-function ozarkHeroArticleUrl(article){const existing=String((article&&(article.url||article.canonical_url))||'').trim();if(existing){const path=existing.replace(/^https?:\/\/[^/]+/i,'');if(path)return path;}return '/article.html?slug='+encodeURIComponent(article.slug||ozarkHeroSlugify(article.title||'ozark-update'));}
-function ozarkHeroArticleTime(article){const t=Date.parse(article&& (article.published_at||article.updated_at||article.date)||'');return isNaN(t)?0:t;}
-function ozarkHeroFormatDate(value){const t=Date.parse(value||'');if(isNaN(t))return 'Latest';return new Intl.DateTimeFormat('en-US',{timeZone:'America/Chicago',month:'short',day:'numeric'}).format(new Date(t));}
-async function ozarkHeroFetchArticles(params){const api=ozarkHeroApiBase();const qs=new URLSearchParams(Object.assign({site:'ozark',action:'ozark_articles'},params||{}));const res=await fetch(api+'?'+qs.toString(),{cache:'no-store'});const json=await res.json();if(Array.isArray(json))return json;if(json&&Array.isArray(json.articles))return json.articles;if(json&&Array.isArray(json.items))return json.items;return [];}
-async function loadOzarkHeroNews(){const mount=document.getElementById('ozarkHeroNewsList');if(!mount)return;try{const articles=(await ozarkHeroFetchArticles({limit:8})).filter(function(a){return String(a.status||'published').toLowerCase()==='published';}).sort(function(a,b){return ozarkHeroArticleTime(b)-ozarkHeroArticleTime(a);}).slice(0,4);if(!articles.length)throw new Error('no headlines');mount.innerHTML=articles.map(function(a){const title=ozarkHeroEsc(a.title||'Ozark update');const img=ozarkHeroEsc(a.hero_image_url||a.image||'/news/NewsBanner01.webp');return '<span class="oz-hero-news-item"><img src="'+img+'" alt="" loading="lazy"><span><strong>'+title+'</strong><span>'+ozarkHeroEsc(a.category||'Local')+' · '+ozarkHeroEsc(ozarkHeroFormatDate(a.published_at||a.updated_at))+'</span></span></span>';}).join('')+'<span class="oz-hero-open">Open News Desk</span>';}catch(e){mount.innerHTML='<span class="oz-hero-open">Open News Desk</span>';}}
-function ozarkWeatherLabel(code){const c=Number(code);if(c===0)return 'Clear';if([1,2].includes(c))return 'Partly cloudy';if(c===3)return 'Cloudy';if([45,48].includes(c))return 'Fog';if([51,53,55,56,57,61,63,65,66,67,80,81,82].includes(c))return 'Rain nearby';if(c>=70&&c<=86)return 'Snow';if([95,96,99].includes(c))return 'Thunderstorms';return 'Weather updating';}
-async function loadOzarkHeroWeather(){try{const url='https://api.open-meteo.com/v1/forecast?latitude=36.5836&longitude=-92.2863&current=temperature_2m,apparent_temperature,relative_humidity_2m,wind_speed_10m,weather_code&hourly=temperature_2m&temperature_unit=fahrenheit&wind_speed_unit=mph&timezone=America%2FChicago&forecast_days=1';const data=await (await fetch(url,{cache:'no-store'})).json();const cur=data.current||{};document.getElementById('ozarkHeroWeatherTemp').textContent=Math.round(cur.temperature_2m)+'°F';document.getElementById('ozarkHeroWeatherCondition').textContent=ozarkWeatherLabel(cur.weather_code)+' in Tecumseh.';document.getElementById('ozarkHeroWeatherFeels').textContent='Feels like '+Math.round(cur.apparent_temperature)+'°F';document.getElementById('ozarkHeroWeatherWind').textContent='Wind '+Math.round(cur.wind_speed_10m)+' mph';document.getElementById('ozarkHeroWeatherHumidity').textContent='Humidity '+Math.round(cur.relative_humidity_2m)+'%';document.getElementById('ozarkHeroWeatherUpdated').textContent='Updated '+new Intl.DateTimeFormat('en-US',{timeZone:'America/Chicago',hour:'numeric',minute:'2-digit'}).format(new Date());const temps=(data.hourly&&data.hourly.temperature_2m||[]).slice(new Date().getHours(),new Date().getHours()+5);const hourly=document.getElementById('ozarkHeroWeatherHourly');if(hourly&&temps.length){hourly.innerHTML=temps.map(function(t,i){return '<div class="oz-hero-hourly-card">'+(i?'+'+i+' hr':'Now')+'<br><strong>'+Math.round(t)+'°</strong></div>';}).join('');}}catch(e){const el=document.getElementById('ozarkHeroWeatherCondition');if(el)el.textContent='Weather Center is updating.';}}
-async function loadOzarkHeroSports(){const panel=document.getElementById('ozarkHeroSportsPanel');if(!panel)return;try{const articles=(await ozarkHeroFetchArticles({category:'Sports',limit:5})).filter(function(a){return String(a.status||'published').toLowerCase()==='published';}).sort(function(a,b){return ozarkHeroArticleTime(b)-ozarkHeroArticleTime(a);});if(articles[0]){panel.querySelector('.oz-hero-sports-status').textContent='Latest Sports Brief';panel.querySelector('.oz-hero-sports-matchup').textContent=articles[0].title||'Ozark County sports';panel.querySelector('.oz-hero-sports-detail').textContent=articles[0].summary||articles[0].subtitle||'Open Sports Center for the latest local and regional sports coverage.';}}catch(e){}}
-document.addEventListener('DOMContentLoaded',function(){loadOzarkHeroNews();loadOzarkHeroWeather();loadOzarkHeroSports();});
-</script>
+      function showOzarkCGNLive(){
+        const app = document.getElementById("ozark-live-app");
+        const original = document.getElementById("ozark-live-original");
+        const panel = document.getElementById("ozark-cgn-live-panel");
+        const openBtn = document.getElementById("ozark-open-cgn-live");
+        const backBtn = document.getElementById("ozark-back-to-live");
+        if(app) app.classList.add("is-showing-cgn-live");
+        if(original){ original.hidden = true; original.setAttribute("aria-hidden","true"); original.style.display = "none"; }
+        if(panel){ panel.hidden = false; panel.setAttribute("aria-hidden","false"); panel.style.display = "block"; }
+        if(openBtn) openBtn.hidden = true;
+        if(backBtn) backBtn.hidden = false;
+        ozarkChangeCGNLiveFeed(ozarkCGNLiveCurrentKey || "cgn");
+      }
+      function showOzarkOriginalLive(){
+        const app = document.getElementById("ozark-live-app");
+        const original = document.getElementById("ozark-live-original");
+        const panel = document.getElementById("ozark-cgn-live-panel");
+        const openBtn = document.getElementById("ozark-open-cgn-live");
+        const backBtn = document.getElementById("ozark-back-to-live");
+        const frame = document.getElementById("ozark-cgn-live-frame");
+        if(app) app.classList.remove("is-showing-cgn-live");
+        if(original){ original.hidden = false; original.setAttribute("aria-hidden","false"); original.style.display = ""; }
+        if(panel){ panel.hidden = true; panel.setAttribute("aria-hidden","true"); panel.style.display = "none"; }
+        if(frame) frame.removeAttribute("src");
+        if(openBtn) openBtn.hidden = false;
+        if(backBtn) backBtn.hidden = true;
+      }
+      function ozarkNormalizeCGNLiveEmbedUrl(url){
+        const raw = String(url || "").trim();
+        if(!raw) return "";
+        const watchMatch = raw.match(/[?&]v=([A-Za-z0-9_-]{6,})/);
+        if(watchMatch) return "https://www.youtube.com/embed/" + encodeURIComponent(watchMatch[1]);
+        const liveMatch = raw.match(/youtube\.com\/live\/([A-Za-z0-9_-]{6,})/i);
+        if(liveMatch) return "https://www.youtube.com/embed/" + encodeURIComponent(liveMatch[1]);
+        const shortMatch = raw.match(/youtu\.be\/([A-Za-z0-9_-]{6,})/i);
+        if(shortMatch) return "https://www.youtube.com/embed/" + encodeURIComponent(shortMatch[1]);
+        return raw;
+      }
+      function ozarkWithCGNLiveParams(url){
+        if(!url) return "";
+        let clean = String(url).replace(/([?&])autoplay=[^&]*/g, "").replace(/([?&])mute=[^&]*/g, "");
+        const joiner = clean.indexOf("?") === -1 ? "?" : "&";
+        const origin = encodeURIComponent(window.location.origin || "https://ozarks.cgnnews.net");
+        return clean + joiner + "autoplay=0&mute=" + (ozarkCGNLiveAudioEnabled ? "0" : "1") + "&controls=1&rel=0&modestbranding=1&playsinline=1&origin=" + origin;
+      }
+      function ozarkChangeCGNLiveFeed(key){
+        const feed = cgnLiveFeeds[key] || cgnLiveFeeds.cgn;
+        ozarkCGNLiveCurrentKey = key;
+        document.querySelectorAll("[data-ozark-cgn-live]").forEach(btn => btn.classList.toggle("active", btn.getAttribute("data-ozark-cgn-live") === key));
+        const frame = document.getElementById("ozark-cgn-live-frame");
+        const fallback = document.getElementById("ozark-cgn-live-fallback");
+        const embed = feed.canEmbed && feed.embeds && feed.embeds.length ? ozarkNormalizeCGNLiveEmbedUrl(feed.embeds[0]) : "";
+        if(frame){ frame.title = feed.title; if(embed){ frame.src = ozarkWithCGNLiveParams(embed); } else { frame.removeAttribute("src"); } }
+        if(fallback) fallback.style.display = embed ? "none" : "flex";
+        const setText = (id, value) => { const el = document.getElementById(id); if(el) el.textContent = value; };
+        const setHref = (id, href, label) => { const el = document.getElementById(id); if(el){ el.href = href || "#"; if(label) el.textContent = label; } };
+        setText("ozark-cgn-live-fallback-title", feed.fallbackHeadline || feed.title);
+        setText("ozark-cgn-live-fallback-text", feed.fallbackText || "Open the source directly if the embedded player is unavailable.");
+        setText("ozark-cgn-live-now", `Now showing: ${feed.category} — ${feed.source}`);
+        const image = document.getElementById("ozark-cgn-live-fallback-image");
+        if(image) image.src = feed.fallbackImage || "/OzarkGazetteBanner.png";
+        setHref("ozark-cgn-live-open", feed.sourceUrl, feed.primaryLabel || "Open Live Source");
+        setHref("ozark-cgn-live-fallback-link", feed.sourceUrl, feed.primaryLabel || "Open Live Source");
+        setHref("ozark-cgn-live-secondary-link", feed.directoryUrl, feed.secondaryLabel || "Open Stream Directory");
+        setHref("ozark-cgn-live-backup-link", feed.articleFallbackUrl, "Open Backup Source");
+        setHref("ozark-cgn-live-coverage-link", feed.articleFallbackUrl, feed.coverageLabel || "Open Coverage");
+        setHref("ozark-cgn-live-inline-link", feed.sourceUrl, feed.primaryLabel || "Open Live Source");
+      }
+      function ozarkToggleCGNLiveAudio(){
+        ozarkCGNLiveAudioEnabled = !ozarkCGNLiveAudioEnabled;
+        const btn = document.getElementById("ozark-cgn-live-audio");
+        if(btn) btn.textContent = ozarkCGNLiveAudioEnabled ? "Mute" : "Play Audio";
+        ozarkChangeCGNLiveFeed(ozarkCGNLiveCurrentKey || "cgn");
+      }
+      window.showOzarkCGNLive = showOzarkCGNLive;
+      window.showOzarkOriginalLive = showOzarkOriginalLive;
+      window.ozarkChangeCGNLiveFeed = ozarkChangeCGNLiveFeed;
+      window.ozarkToggleCGNLiveAudio = ozarkToggleCGNLiveAudio;
 
-<script id="ozark-home-cgn-live-script">
-let ozarkCGNLiveAudioEnabled = false;
-let ozarkCGNLiveCurrentKey = "cgn";
-
-const OZARK_CGN_LIVE_FEEDS = {
-  cgn: {
-    category: "CGN",
-    source: "CGN Live",
-    title: "CGN LIVE - CGN Live",
-    sourceUrl: "https://www.cgnnews.net/cgn-live/?embed=1",
-    directoryUrl: "https://www.cgnnews.net/cgn-live/",
-    articleFallbackUrl: "/news/",
-    fallbackImage: "/OzarkGazetteBanner.png",
-    fallbackHeadline: "CGN Live",
-    fallbackText: "CGN Live is the default CGN News stream. Audio is off by default; use Play Audio to listen.",
-    primaryLabel: "Open CGN Live",
-    secondaryLabel: "Open CGN Live Page",
-    coverageLabel: "Open Ozark News",
-    canEmbed: true,
-    embeds: ["https://www.cgnnews.net/cgn-live/?embed=1"]
-  },
-  cgnweather: {
-    category: "CGN Weather",
-    source: "CGN Weekly Weather Brief",
-    title: "CGN LIVE - CGN Weather",
-    sourceUrl: "https://www.cgnnews.net/weather/weekly-weather-brief/",
-    directoryUrl: "https://www.cgnnews.net/weather/weekly-weather-brief/",
-    articleFallbackUrl: "/weather/",
-    fallbackImage: "/OzarkGazetteBanner.png",
-    fallbackHeadline: "CGN Weather",
-    fallbackText: "CGN Weather opens the Weekly Weather Brief stream. Audio is off by default; use Play Audio to listen.",
-    primaryLabel: "Open CGN Weather",
-    secondaryLabel: "Open Weekly Weather Brief",
-    coverageLabel: "Open Weather Brief",
-    canEmbed: true,
-    embeds: ["https://www.cgnnews.net/weather/weekly-weather-brief/?embed=1"]
-  },
-  world: {
-    category: "World",
-    source: "EuroNews English Live",
-    title: "CGN LIVE - World",
-    sourceUrl: "https://www.youtube.com/watch?v=pykpO5kQJ98",
-    directoryUrl: "https://www.youtube.com/@euronews/streams",
-    backupSourceUrl: "https://webtv.un.org/en",
-    backupLabel: "Open UN Web TV",
-    articleFallbackUrl: "/world/",
-    fallbackImage: "/OzarkGazetteBanner.png",
-    fallbackHeadline: "World Live Source",
-    fallbackText: "EuroNews English Live may be unavailable or blocked from embedding on some devices. Open EuroNews Live, browse current EuroNews streams, use UN Web TV as a backup, or continue with Ozark World coverage.",
-    primaryLabel: "Open EuroNews Live",
-    secondaryLabel: "Open EuroNews Streams",
-    coverageLabel: "Open World",
-    canEmbed: true,
-    embeds: ["https://www.youtube.com/embed/pykpO5kQJ98"]
-  },
-  politics: {
-    category: "Politics",
-    source: "C-SPAN",
-    title: "CGN LIVE - Politics",
-    sourceUrl: "https://www.youtube.com/@CSPAN/streams",
-    directoryUrl: "https://www.youtube.com/@CSPAN/streams",
-    articleFallbackUrl: "/politics/",
-    fallbackImage: "/OzarkGazetteBanner.png",
-    fallbackHeadline: "Politics Live Source",
-    fallbackText: "Open C-SPAN’s current live streams or continue with Ozark Politics coverage.",
-    primaryLabel: "Open C-SPAN",
-    secondaryLabel: "Open C-SPAN Streams",
-    coverageLabel: "Open Politics",
-    canEmbed: true,
-    embeds: ["https://www.youtube.com/embed/live_stream?channel=UCb--64Gl51jIEVE-GLDAVTg"]
-  },
-  business: {
-    category: "Business",
-    source: "Bloomberg Television / Bloomberg Markets",
-    title: "CGN LIVE - Business",
-    sourceUrl: "https://www.youtube.com/watch?v=iEpJwprxDdk",
-    directoryUrl: "https://www.youtube.com/@markets/streams",
-    articleFallbackUrl: "/markets/",
-    fallbackImage: "/OzarkGazetteBanner.png",
-    fallbackHeadline: "Business Live Source",
-    fallbackText: "Open Bloomberg’s current business live stream or continue with Ozark Markets coverage.",
-    primaryLabel: "Open Bloomberg Live",
-    secondaryLabel: "Open Bloomberg Streams",
-    coverageLabel: "Open Markets",
-    canEmbed: true,
-    embeds: ["https://www.youtube.com/embed/iEpJwprxDdk","https://www.youtube.com/embed/live_stream?channel=UCh_r8gM_C2D_V5OwAilZOaA"]
-  },
-  markets: {
-    category: "Markets",
-    source: "Yahoo Finance",
-    title: "CGN LIVE - Markets",
-    sourceUrl: "https://finance.yahoo.com/live/",
-    directoryUrl: "https://www.youtube.com/@YahooFinance/streams",
-    articleFallbackUrl: "/markets/center/",
-    fallbackImage: "/OzarkGazetteBanner.png",
-    fallbackHeadline: "Markets Live Source",
-    fallbackText: "Yahoo Finance live video may be unavailable or blocked from embedding on some devices. Open Yahoo Finance, browse current Yahoo Finance streams, or continue with the Ozark Markets Brief.",
-    primaryLabel: "Open Yahoo Finance",
-    secondaryLabel: "Open Yahoo Finance Streams",
-    coverageLabel: "Open Markets Brief",
-    canEmbed: false,
-    embeds: []
-  },
-  technology: {
-    category: "Technology",
-    source: "Bloomberg Technology",
-    title: "CGN LIVE - Technology",
-    sourceUrl: "https://www.youtube.com/@BloombergTechnology/streams",
-    directoryUrl: "https://www.youtube.com/@BloombergTechnology/streams",
-    articleFallbackUrl: "/technology/",
-    fallbackImage: "/OzarkGazetteBanner.png",
-    fallbackHeadline: "Technology Live Source",
-    fallbackText: "Open Bloomberg Technology’s current streams or continue with Ozark Technology coverage.",
-    primaryLabel: "Open Bloomberg Technology",
-    secondaryLabel: "Open Technology Streams",
-    coverageLabel: "Open Technology",
-    canEmbed: true,
-    embeds: ["https://www.youtube.com/embed/live_stream?channel=UCrM7B7SL_g1edFOnmj-SDKg"]
-  },
-  local: {
-    category: "Local",
-    source: "WFYI Indianapolis Public Media",
-    title: "CGN LIVE - Local",
-    sourceUrl: "https://www.youtube.com/@WFYIPublicMedia/streams",
-    directoryUrl: "https://www.youtube.com/@WFYIPublicMedia/streams",
-    articleFallbackUrl: "/local/",
-    fallbackImage: "/OzarkGazetteBanner.png",
-    fallbackHeadline: "Local Live Source",
-    fallbackText: "Open WFYI’s current live source or continue with Ozark Local coverage.",
-    primaryLabel: "Open WFYI",
-    secondaryLabel: "Open WFYI Streams",
-    coverageLabel: "Open Local",
-    canEmbed: true,
-    embeds: ["https://www.youtube.com/embed/live_stream?channel=UCDA3qlm3qBFr32CKfYyNqVQ"]
-  },
-  weather: {
-    category: "Weather",
-    source: "AccuWeather",
-    title: "CGN LIVE - Weather",
-    sourceUrl: "https://www.youtube.com/watch?v=ZtQUiLOJ-ig",
-    directoryUrl: "https://www.youtube.com/@accuweather/streams",
-    articleFallbackUrl: "/weather/",
-    fallbackImage: "/OzarkGazetteBanner.png",
-    fallbackHeadline: "Weather Live Source",
-    fallbackText: "AccuWeather’s current live forecast may be unavailable or blocked from embedding. Open the live source or continue with the Ozark Weather Brief.",
-    primaryLabel: "Open AccuWeather",
-    secondaryLabel: "Open AccuWeather Streams",
-    coverageLabel: "Open Weather",
-    canEmbed: true,
-    embeds: ["https://www.youtube.com/embed/ZtQUiLOJ-ig"]
-  },
-  sports: {
-    category: "Sports",
-    source: "ESPN",
-    title: "CGN LIVE - Sports",
-    sourceUrl: "https://www.youtube.com/@espn/streams",
-    directoryUrl: "https://www.youtube.com/@espn/streams",
-    articleFallbackUrl: "/sports/",
-    fallbackImage: "/OzarkGazetteBanner.png",
-    fallbackHeadline: "Sports Live Source",
-    fallbackText: "ESPN’s current stream may be unavailable or blocked from embedding. Open the live source or continue with Sports Brief.",
-    primaryLabel: "Open ESPN",
-    secondaryLabel: "Open ESPN Streams",
-    coverageLabel: "Open Sports",
-    canEmbed: false,
-    embeds: []
-  },
-  stlouis: {
-    category: "St. Louis",
-    source: "5 On Your Side / KSDK",
-    title: "CGN LIVE - St. Louis",
-    sourceUrl: "https://www.ksdk.com/",
-    directoryUrl: "https://www.ksdk.com/",
-    articleFallbackUrl: "/local/",
-    fallbackImage: "/OzarkGazetteBanner.png",
-    fallbackHeadline: "St. Louis Live Source",
-    fallbackText: "Open the St. Louis source page for current regional video and live coverage, or continue with Ozark Gazette local coverage.",
-    primaryLabel: "Open KSDK",
-    secondaryLabel: "Open St. Louis Source",
-    coverageLabel: "Open Local",
-    canEmbed: false,
-    embeds: []
-  },
-  missouri: {
-    category: "Missouri",
-    source: "KY3 Springfield",
-    title: "CGN LIVE - Missouri",
-    sourceUrl: "https://www.ky3.com/",
-    directoryUrl: "https://www.ky3.com/",
-    articleFallbackUrl: "/local/",
-    fallbackImage: "/OzarkGazetteBanner.png",
-    fallbackHeadline: "Missouri Live Source",
-    fallbackText: "Open KY3 for current Springfield and Missouri Ozarks video coverage, or continue with Ozark Gazette local coverage.",
-    primaryLabel: "Open KY3",
-    secondaryLabel: "Open Missouri Source",
-    coverageLabel: "Open Local",
-    canEmbed: false,
-    embeds: []
-  },
-  ozarkspbs: {
-    category: "Ozarks PBS",
-    source: "Ozarks Public Television / KOZK / KOZJ",
-    title: "CGN LIVE - Ozarks PBS",
-    sourceUrl: "https://www.optv.org/",
-    directoryUrl: "https://www.optv.org/",
-    articleFallbackUrl: "/local/",
-    fallbackImage: "/OzarkGazetteBanner.png",
-    fallbackHeadline: "Ozarks Public Television",
-    fallbackText: "Open Ozarks Public Television for public television and PBS source programming for the Ozarks region.",
-    primaryLabel: "Open OPT",
-    secondaryLabel: "Open Ozarks PBS",
-    coverageLabel: "Open Local",
-    canEmbed: false,
-    embeds: []
-  },
-  ozarksfirst: {
-    category: "Ozarks First",
-    source: "Ozarks First / KOLR / KOZL / KRBK",
-    title: "CGN LIVE - Ozarks First",
-    sourceUrl: "https://www.ozarksfirst.com/",
-    directoryUrl: "https://www.ozarksfirst.com/",
-    articleFallbackUrl: "/local/",
-    fallbackImage: "/OzarkGazetteBanner.png",
-    fallbackHeadline: "Ozarks First Live Source",
-    fallbackText: "Open Ozarks First for regional Springfield/Ozarks live source pages and video coverage.",
-    primaryLabel: "Open Ozarks First",
-    secondaryLabel: "Open Ozarks Source",
-    coverageLabel: "Open Local",
-    canEmbed: false,
-    embeds: []
-  },
-  ky3: {
-    category: "KY3",
-    source: "KY3 / Springfield",
-    title: "CGN LIVE - KY3",
-    sourceUrl: "https://www.ky3.com/",
-    directoryUrl: "https://www.ky3.com/",
-    articleFallbackUrl: "/weather/",
-    fallbackImage: "/OzarkGazetteBanner.png",
-    fallbackHeadline: "KY3 Live Source",
-    fallbackText: "Open KY3 for regional news, weather, and community coverage for the Missouri Ozarks.",
-    primaryLabel: "Open KY3",
-    secondaryLabel: "Open KY3 Source",
-    coverageLabel: "Open Weather",
-    canEmbed: false,
-    embeds: []
-  }
-};
-
-function ozarkNormalizeCGNLiveEmbedUrl(url){
-  const raw = String(url || "").trim();
-  if(!raw) return "";
-  const watchMatch = raw.match(/[?&]v=([A-Za-z0-9_-]{6,})/);
-  if(watchMatch) return "https://www.youtube.com/embed/" + encodeURIComponent(watchMatch[1]);
-  const liveMatch = raw.match(/youtube\.com\/live\/([A-Za-z0-9_-]{6,})/i);
-  if(liveMatch) return "https://www.youtube.com/embed/" + encodeURIComponent(liveMatch[1]);
-  const shortMatch = raw.match(/youtu\.be\/([A-Za-z0-9_-]{6,})/i);
-  if(shortMatch) return "https://www.youtube.com/embed/" + encodeURIComponent(shortMatch[1]);
-  return raw;
-}
-
-function ozarkWithCGNLiveParams(url){
-  if(!url) return "";
-  let clean = String(url).replace(/([?&])autoplay=[^&]*/g, "").replace(/([?&])mute=[^&]*/g, "");
-  const joiner = clean.indexOf("?") === -1 ? "?" : "&";
-  const origin = encodeURIComponent(window.location.origin || "https://ozarks.cgnnews.net");
-  return clean + joiner + "autoplay=0&mute=" + (ozarkCGNLiveAudioEnabled ? "0" : "1") + "&controls=1&rel=0&modestbranding=1&playsinline=1&origin=" + origin;
-}
-
-function showOzarkCGNLive(){
-  const app = document.getElementById("ozark-live-app");
-  const original = document.getElementById("ozark-live-original");
-  const panel = document.getElementById("ozark-cgn-live-panel");
-  const openBtn = document.getElementById("ozark-open-cgn-live");
-  const backBtn = document.getElementById("ozark-back-to-live");
-
-  if(app) app.classList.add("is-showing-cgn-live");
-
-  if(original){
-    original.hidden = true;
-    original.setAttribute("aria-hidden", "true");
-    original.style.display = "none";
-  }
-
-  if(panel){
-    panel.hidden = false;
-    panel.setAttribute("aria-hidden", "false");
-    panel.style.display = "block";
-  }
-
-  if(openBtn) openBtn.hidden = true;
-  if(backBtn) backBtn.hidden = false;
-
-  ozarkChangeCGNLiveFeed(ozarkCGNLiveCurrentKey || "cgn");
-}
-
-function showOzarkOriginalLive(){
-  const app = document.getElementById("ozark-live-app");
-  const original = document.getElementById("ozark-live-original");
-  const panel = document.getElementById("ozark-cgn-live-panel");
-  const openBtn = document.getElementById("ozark-open-cgn-live");
-  const backBtn = document.getElementById("ozark-back-to-live");
-  const frame = document.getElementById("ozark-cgn-live-frame");
-
-  if(app) app.classList.remove("is-showing-cgn-live");
-
-  if(original){
-    original.hidden = false;
-    original.setAttribute("aria-hidden", "false");
-    original.style.display = "";
-  }
-
-  if(panel){
-    panel.hidden = true;
-    panel.setAttribute("aria-hidden", "true");
-    panel.style.display = "none";
-  }
-
-  if(openBtn) openBtn.hidden = false;
-  if(backBtn) backBtn.hidden = true;
-  if(frame) frame.removeAttribute("src");
-}
-
-function ozarkSetCGNLiveFallback(feed){
-  const fallback = document.getElementById("ozark-cgn-live-fallback");
-  const fallbackLink = document.getElementById("ozark-cgn-live-fallback-link");
-  const secondaryLink = document.getElementById("ozark-cgn-live-secondary-link");
-  const backupLink = document.getElementById("ozark-cgn-live-backup-link");
-  const coverageLink = document.getElementById("ozark-cgn-live-coverage-link");
-  const fallbackTitle = document.getElementById("ozark-cgn-live-fallback-title");
-  const fallbackText = document.getElementById("ozark-cgn-live-fallback-text");
-  const fallbackImage = document.getElementById("ozark-cgn-live-fallback-image");
-  const inlineSource = document.getElementById("ozark-cgn-live-inline-source");
-  const inlineLink = document.getElementById("ozark-cgn-live-inline-link");
-  const sourceHref = feed && (feed.sourceUrl || feed.directoryUrl) || "#";
-  const secondaryHref = feed && feed.directoryUrl && feed.directoryUrl !== sourceHref ? feed.directoryUrl : "";
-  const backupHref = feed && feed.backupSourceUrl ? feed.backupSourceUrl : "";
-  const coverageHref = feed && (feed.articleFallbackUrl || "/news/") || "/news/";
-  if(fallbackLink){ fallbackLink.href = sourceHref; fallbackLink.textContent = feed.primaryLabel || "Open Live Source"; }
-  if(secondaryLink){ secondaryLink.href = secondaryHref || "#"; secondaryLink.textContent = feed.secondaryLabel || "Open Stream Directory"; secondaryLink.style.display = secondaryHref ? "inline-flex" : "none"; }
-  if(backupLink){ backupLink.href = backupHref || "#"; backupLink.textContent = feed.backupLabel || "Open Backup Source"; backupLink.style.display = backupHref ? "inline-flex" : "none"; }
-  if(coverageLink){ coverageLink.href = coverageHref; coverageLink.textContent = feed.coverageLabel || "Open Coverage"; }
-  if(inlineLink){ inlineLink.href = sourceHref; inlineLink.textContent = feed.primaryLabel || "Open Live Source"; }
-  if(inlineSource) inlineSource.classList.add("show");
-  if(fallbackTitle) fallbackTitle.textContent = feed.fallbackHeadline || feed.source || "Live Source";
-  if(fallbackText) fallbackText.textContent = feed.fallbackText || "Open the current source directly if the embedded player is unavailable.";
-  if(fallbackImage){
-    fallbackImage.src = feed.fallbackImage || "/OzarkGazetteBanner.png";
-    fallbackImage.onerror = function(){ this.onerror = null; this.src = "/OzarkGazetteLogo.png"; };
-  }
-  if(fallback) fallback.style.display = "flex";
-}
-
-function ozarkHideCGNLiveFallback(){
-  const fallback = document.getElementById("ozark-cgn-live-fallback");
-  if(fallback) fallback.style.display = "none";
-}
-
-function ozarkChangeCGNLiveFeed(key){
-  const feedKey = OZARK_CGN_LIVE_FEEDS[key] ? key : "cgn";
-  const feed = OZARK_CGN_LIVE_FEEDS[feedKey];
-  ozarkCGNLiveCurrentKey = feedKey;
-
-  document.querySelectorAll("[data-ozark-cgn-live]").forEach(function(btn){
-    btn.classList.toggle("active", btn.getAttribute("data-ozark-cgn-live") === feedKey);
-  });
-
-  const frame = document.getElementById("ozark-cgn-live-frame");
-  const openLink = document.getElementById("ozark-cgn-live-open");
-  const now = document.getElementById("ozark-cgn-live-now");
-  const inlineSource = document.getElementById("ozark-cgn-live-inline-source");
-  const inlineLink = document.getElementById("ozark-cgn-live-inline-link");
-
-  const sourceHref = feed.sourceUrl || feed.directoryUrl || "#";
-  if(openLink){ openLink.href = sourceHref; openLink.textContent = feed.primaryLabel || "Open Live Source"; }
-  if(inlineLink){ inlineLink.href = sourceHref; inlineLink.textContent = feed.primaryLabel || "Open Live Source"; }
-  if(inlineSource) inlineSource.classList.add("show");
-  if(now){ now.innerHTML = "<strong>Now showing:</strong> " + feed.category + " — " + feed.source; }
-
-  if(!frame) return;
-  frame.title = feed.title || "CGN LIVE";
-
-  const embedUrl = feed.canEmbed && Array.isArray(feed.embeds) && feed.embeds.length ? ozarkNormalizeCGNLiveEmbedUrl(feed.embeds[0]) : "";
-
-  if(embedUrl){
-    ozarkHideCGNLiveFallback();
-    frame.style.display = "block";
-    frame.src = ozarkWithCGNLiveParams(embedUrl);
-  } else {
-    frame.removeAttribute("src");
-    frame.style.display = "none";
-    ozarkSetCGNLiveFallback(feed);
-  }
-}
-
-function toggleOzarkCGNLiveAudio(){
-  ozarkCGNLiveAudioEnabled = !ozarkCGNLiveAudioEnabled;
-  const btn = document.getElementById("ozark-cgn-live-audio-toggle");
-  if(btn) btn.textContent = ozarkCGNLiveAudioEnabled ? "Mute Audio" : "Play Audio";
-  ozarkChangeCGNLiveFeed(ozarkCGNLiveCurrentKey || "cgn");
-}
-</script>
-
-<script>
-(async function(){try{const r=await fetch('https://api.open-meteo.com/v1/forecast?latitude=36.5836&longitude=-92.2863&current=temperature_2m,weather_code&temperature_unit=fahrenheit&timezone=auto'); const d=await r.json(); document.getElementById('homeWeatherTemp').textContent=Math.round(d.current.temperature_2m)+'°F'; document.getElementById('homeWeatherText').textContent='Current conditions for Tecumseh, Missouri.';}catch(e){}})();
-</script>
-
-</main>
-<div id="cgn-site-footer"></div>
+      document.addEventListener("DOMContentLoaded", function(){
+        renderOzarkMarketWidgets();
+        loadOzarkHeroWeather();
+        setTimeout(loadOzarkHeroHeadlines, 600);
+        ozarkHeroTimer = setInterval(() => moveOzarkHeroSlide(1), 9000);
+        const track = heroTrack();
+        if(track){
+          track.addEventListener("mouseenter", () => { if(ozarkHeroTimer) clearInterval(ozarkHeroTimer); });
+          track.addEventListener("mouseleave", () => { ozarkHeroTimer = setInterval(() => moveOzarkHeroSlide(1), 9000); });
+          track.addEventListener("scroll", () => {
+            const children = Array.from(track.children);
+            const current = children.reduce((best, child, i) => Math.abs(child.offsetLeft - track.scrollLeft) < Math.abs(children[best].offsetLeft - track.scrollLeft) ? i : best, 0);
+            if(current !== ozarkHeroIndex){ ozarkHeroIndex = current; document.querySelectorAll("#ozarkHeroDots button").forEach((btn,i)=>btn.classList.toggle("active", i === ozarkHeroIndex)); }
+          }, {passive:true});
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
