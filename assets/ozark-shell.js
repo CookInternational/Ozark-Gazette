@@ -1,81 +1,532 @@
 (function(){
   "use strict";
+
   const API_BASE = "https://script.google.com/macros/s/AKfycbx41mQg-Ine3XZ-VrMI_SaQn4_K6cDQHA0cBFyGPgupu_edNFoNRjSLv2hoSe_bOytt/exec";
   const SITE = "ozark";
   const DEFAULT_IMG = "/OzarkGazetteBanner.png";
-  const TECUMSEH = {name:"Tecumseh", location:"Tecumseh, MO", latitude:36.5836, longitude:-92.2863, timeZone:"America/Chicago"};
+  const TECUMSEH = {
+    name:"Tecumseh",
+    location:"Tecumseh, MO",
+    latitude:36.5836,
+    longitude:-92.2863,
+    timeZone:"America/Chicago"
+  };
 
   window.CGN_API_BASE = API_BASE;
   window.CGN_API_URL = API_BASE;
   window.CGN_CONFIG = Object.assign(window.CGN_CONFIG || {}, {apiBase:API_BASE, site:SITE});
 
-  function esc(v){return String(v == null ? "" : v).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));}
-  function slugify(v){return String(v||"").toLowerCase().replace(/[^a-z0-9\s-]/g,"").replace(/\s+/g,"-").replace(/-+/g,"-").replace(/^-+|-+$/g,"");}
-  function getUser(){return localStorage.getItem("user_id") || "";}
+  let shellClockTimer = null;
+  let shellWeatherTimer = null;
+
+  function esc(v){
+    return String(v == null ? "" : v).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
+  }
+
+  function slugify(v){
+    return String(v || "")
+      .toLowerCase()
+      .replace(/[^a-z0-9\s-]/g, "")
+      .replace(/\s+/g, "-")
+      .replace(/-+/g, "-")
+      .replace(/^-+|-+$/g, "");
+  }
+
+  function getUser(){
+    return localStorage.getItem("user_id") || "";
+  }
 
   function injectShellStyles(){
     if(document.getElementById("ozark-shell-responsive-styles")) return;
     const style = document.createElement("style");
     style.id = "ozark-shell-responsive-styles";
     style.textContent = `
-      #cgn-site-header,#cgn-site-footer{font-family:Arial,Helvetica,sans-serif;box-sizing:border-box}#cgn-site-header *,#cgn-site-footer *{box-sizing:border-box}.skip-link{position:absolute;left:-999px;top:auto;width:1px;height:1px;overflow:hidden}.skip-link:focus{left:12px;top:12px;width:auto;height:auto;z-index:9999;background:#fff;color:#07172f;padding:8px 10px;border:2px solid #07172f}.top-bar{width:100%;display:grid;grid-template-columns:minmax(170px,280px) minmax(0,1fr) auto;align-items:center;gap:12px;padding:10px clamp(12px,2.2vw,28px);background:#fff;color:#07172f;border-bottom:1px solid #dfe4eb;overflow:visible}.brand-link{min-width:0;display:flex;align-items:center;gap:10px;color:#07172f;text-decoration:none}.brand-link .logo{width:clamp(96px,15vw,176px);height:auto;max-height:74px;object-fit:contain;display:block;flex:0 1 auto}.brand-text{display:flex;flex-direction:column;min-width:0}.network-name{font-family:Georgia,'Times New Roman',serif;font-weight:900;font-size:clamp(16px,2vw,26px);line-height:1;color:#07172f;white-space:normal}.brand-tagline{font-size:11px;line-height:1.25;color:#475467;font-weight:800;margin-top:4px;white-space:normal}.nav{min-width:0;display:flex;align-items:center;justify-content:center;gap:7px;flex-wrap:wrap;overflow:visible}.nav a{display:inline-flex;align-items:center;justify-content:center;min-height:34px;padding:8px 11px;border:1px solid #d6dce7;color:#07172f;background:#fff;text-decoration:none;font-size:12px;font-weight:900;line-height:1;text-transform:uppercase;letter-spacing:.04em;white-space:nowrap}.nav a:hover,.nav a:focus{background:#07172f;color:#fff;text-decoration:none}.right-tools{min-width:0;display:flex;align-items:center;justify-content:flex-end;gap:8px;flex-wrap:wrap;overflow:visible}.account-wrap{position:relative;display:inline-flex;align-items:center}.account-wrap>a{display:inline-flex;align-items:center;justify-content:center;min-height:34px;padding:7px 12px;border:1px solid #111;background:#fff;color:#111;border-radius:999px;text-decoration:none;font-size:12px;font-weight:800;text-transform:none;white-space:nowrap;line-height:1}.account-menu{display:none;position:absolute;right:0;top:calc(100% + 6px);min-width:150px;background:#fff;border:1px solid #d6dce7;box-shadow:0 12px 28px rgba(7,23,47,.14);z-index:50;padding:8px}.account-menu.open{display:grid;gap:6px}.account-menu a,.account-menu button{width:100%;display:block;text-align:left;border:0;background:#fff;color:#07172f;text-decoration:none;padding:8px;font-size:12px;font-weight:900;cursor:pointer}.account-menu a:hover,.account-menu button:hover{background:#f1f4f8}.cgn-bureau-weather-time{display:flex;flex-direction:column;align-items:flex-end;justify-content:center;gap:2px;min-width:128px;max-width:210px;color:#111;text-decoration:none;padding:0 2px;line-height:1.12;white-space:normal;overflow-wrap:anywhere}.cgn-bureau-weather-time span{display:block}.cgn-bureau-time{font-size:11px;font-weight:700;color:#111}.cgn-bureau-weather{display:inline-flex!important;align-items:center;justify-content:flex-end;gap:4px;font-size:12px;font-weight:700;color:#111}.weather-emoji{display:inline-flex!important;align-items:center;justify-content:center;width:16px;height:16px;font-size:14px;line-height:1;flex:0 0 16px}.cgn-bureau-weather span{display:inline!important}.social-link,.support-link{width:34px;height:34px;display:inline-flex;align-items:center;justify-content:center;border:1px solid #d6dce7;background:#fff;color:#07172f;text-decoration:none;flex:0 0 auto}.social-link:hover,.support-link:hover,.social-link:focus,.support-link:focus{background:#07172f;color:#fff}.social-link svg{width:19px;height:19px;display:block;fill:currentColor}.support-link img{width:22px;height:22px;object-fit:contain;display:block}.right-tools .account-wrap{order:1!important}.right-tools .cgn-bureau-weather-time{order:2!important}.right-tools .social-instagram{order:3!important}.right-tools .social-x{order:4!important}.right-tools .social-youtube{order:5!important}.right-tools .support-link{order:6!important}.ticker{display:flex;gap:24px;align-items:center;min-height:34px;padding:8px clamp(12px,2.2vw,28px);background:#07172f;color:#fff;overflow:hidden}.ticker a{color:#fff;text-decoration:none;font-size:13px;font-weight:800;line-height:1.35}.market-ticker-wrap{display:flex;align-items:center;gap:10px;background:#020817;color:#fff;border-bottom:1px solid rgba(255,255,255,.12);padding:6px clamp(12px,2.2vw,28px);min-height:42px;overflow:hidden}.market-ticker-click{flex:0 0 auto;color:#f2d990;text-decoration:none;font-size:12px;font-weight:900;text-transform:uppercase}.market-ticker-live{min-width:0;flex:1 1 auto;display:flex;align-items:center;gap:10px;overflow:hidden}.market-ticker-label{flex:0 0 auto;color:#aeb8c8;font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.08em}.market-tv-ticker{min-width:0;flex:1 1 auto;overflow:hidden}.market-tv-ticker .tradingview-widget-container{height:34px!important;max-height:34px;overflow:hidden}.market-tv-ticker .tradingview-widget-container__widget{height:34px!important}.footer{background:#07172f;color:#fff;margin-top:36px}.footer a{color:#fff}.footer-container{max-width:1180px;margin:0 auto;padding:28px 18px;display:grid;grid-template-columns:1.4fr repeat(4,1fr);gap:22px}.footer h4{margin:0 0 10px;color:#f2d990;text-transform:uppercase;letter-spacing:.08em;font-size:12px}.footer p{margin:0 0 10px;color:#dbe4f0;line-height:1.5;font-size:13px}.footer a{text-decoration:none;line-height:1.9;font-size:13px}.footer a:hover{text-decoration:underline}.footer-cgn-logo-link{display:inline-flex;align-items:center;text-decoration:none;color:#fff;margin:0 0 8px}.footer-cgn-mark{width:132px;max-width:100%;height:auto;display:block}.cgn-tag{font-weight:900;text-transform:uppercase;letter-spacing:.06em;color:#fff!important}.footer-bottom{border-top:1px solid rgba(255,255,255,.16);text-align:center;padding:12px 18px;color:#dbe4f0}.footer-bottom a{font-size:12px;color:#dbe4f0}.cgn-shell-login-modal{position:fixed;inset:0;z-index:99999;background:rgba(2,8,23,.72);display:none;align-items:center;justify-content:center;padding:18px}.cgn-shell-login-card{width:min(430px,96vw);background:#fff;color:#07172f;border:1px solid #d6dce7;box-shadow:0 20px 60px rgba(0,0,0,.28);padding:20px}.cgn-shell-login-card h3{margin:0 0 10px}.cgn-shell-login-label{display:block;margin:10px 0 5px;font-size:12px;font-weight:900;text-transform:uppercase}.cgn-shell-login-input{width:100%;padding:11px;border:1px solid #b8c0cc;font-size:15px}.cgn-shell-login-message{min-height:18px;color:#a41212;font-size:13px;margin:10px 0}.cgn-shell-login-actions{display:flex;gap:8px;flex-wrap:wrap}.cgn-shell-login-actions button,.cgn-shell-login-close{border:1px solid #07172f;background:#07172f;color:#fff;padding:10px 12px;font-weight:900;cursor:pointer}.cgn-shell-login-close{margin-top:10px;background:#fff;color:#07172f}.article-card{display:block;color:#07172f;text-decoration:none;border:1px solid #dfe4eb;background:#fff}.article-card img{width:100%;height:160px;object-fit:cover;display:block;background:#e5e7eb}.article-body{padding:14px}.article-body h3{margin:5px 0 7px;font-size:19px;line-height:1.2}.article-meta{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:#667085;font-weight:900}.article-body p{margin:0;color:#475467;line-height:1.45}.empty{border:1px solid #dfe4eb;background:#f7f9fc;color:#475467;padding:16px;line-height:1.45}
-      @media(max-width:1040px){.top-bar{grid-template-columns:1fr}.brand-link{justify-content:center;text-align:center}.brand-text{align-items:center}.nav{justify-content:center}.right-tools{justify-content:center}.cgn-bureau-weather-time{min-width:min(100%,210px)}}
-      @media(max-width:700px){.top-bar{padding:10px 10px;gap:10px}.brand-link{flex-direction:column;gap:6px}.brand-link .logo{width:min(78vw,240px);max-height:96px}.nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:100%;gap:7px}.nav a{width:100%;min-width:0}.right-tools{width:100%;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}.account-wrap{grid-column:1 / 3;width:100%}.account-wrap>a{width:100%}.account-menu{left:0;right:auto}.cgn-bureau-weather-time{grid-column:3 / -1;max-width:none;min-width:0;align-items:flex-end}.social-link,.support-link{width:100%;height:36px}.ticker{padding:8px 10px}.market-ticker-wrap{padding:6px 10px;flex-direction:column;align-items:stretch;gap:4px}.market-ticker-live{width:100%}.footer-container{grid-template-columns:1fr 1fr}.footer-container>div:first-child{grid-column:1 / -1}}
-      @media(max-width:430px){.right-tools{grid-template-columns:1fr 1fr}.account-wrap,.cgn-bureau-weather-time{grid-column:1 / -1}.footer-container{grid-template-columns:1fr}.network-name{font-size:20px}.brand-tagline{font-size:10.5px}}
+      #cgn-site-header,#cgn-site-footer{font-family:Arial,Helvetica,sans-serif;box-sizing:border-box}
+      #cgn-site-header *,#cgn-site-footer *{box-sizing:border-box}
+      .skip-link{position:absolute;left:-999px;top:auto;width:1px;height:1px;overflow:hidden}
+      .skip-link:focus{left:12px;top:12px;width:auto;height:auto;z-index:9999;background:#fff;color:#07172f;padding:8px 10px;border:2px solid #07172f}
+      .top-bar{display:flex;justify-content:space-between;align-items:center;gap:18px;padding:10px 20px;background:#fff;color:#07172f;border-bottom:1px solid #dfe4eb;position:relative;z-index:20;overflow:visible}
+      .brand-link{display:flex;align-items:center;gap:12px;color:#111;text-decoration:none;flex:0 0 auto;min-width:0}
+      .brand-link .logo{height:82px;width:auto;max-width:290px;object-fit:contain;display:block;flex:0 1 auto}
+      .brand-text{display:flex;flex-direction:column;gap:2px;min-width:0}
+      .network-name{font:900 11px/1 Arial,Helvetica,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#07172f;white-space:normal}
+      .brand-tagline{font:800 11px/1.2 Arial,Helvetica,sans-serif;color:#6b7280;white-space:normal}
+      .nav{display:flex;align-items:center;justify-content:center;gap:16px;font-weight:800;white-space:nowrap;overflow:visible;min-width:0;flex-wrap:wrap}
+      .nav a,.nav-more-button{border:0!important;background:transparent!important;color:#111!important;display:inline-flex;align-items:center;justify-content:center;min-height:0;padding:4px!important;text-decoration:none;font:900 14px/1 Arial,Helvetica,sans-serif!important;text-transform:none!important;letter-spacing:0!important;white-space:nowrap;cursor:pointer}
+      .nav a:hover,.nav a:focus,.nav-more-button:hover,.nav-more-button:focus{text-decoration:underline!important;background:transparent!important;color:#111!important;outline-offset:3px}
+      .nav-more{position:relative;display:inline-flex;align-items:center}
+      .nav-dropdown{display:none;position:absolute;right:0;top:100%;min-width:230px;background:#fff;border:1px solid #dfe4eb;box-shadow:0 14px 34px rgba(7,23,47,.14);padding:8px 0;z-index:500;text-align:left}
+      .nav-more.open .nav-dropdown,.nav-more:hover .nav-dropdown,.nav-more:focus-within .nav-dropdown{display:block}
+      .nav-dropdown a{display:block!important;padding:10px 14px!important;font-size:13px!important;line-height:1.15!important;color:#111!important;text-decoration:none!important;justify-content:flex-start!important;width:100%}
+      .nav-dropdown a:hover,.nav-dropdown a:focus{background:#f8fafc!important;text-decoration:none!important;color:#111!important}
+      .right-tools{display:flex;align-items:center;justify-content:flex-end;gap:10px;white-space:nowrap;min-width:0;flex-wrap:wrap;overflow:visible}
+      .account-wrap{position:relative;display:inline-flex;align-items:center;flex:0 0 auto}
+      .account-wrap>a{display:inline-flex;align-items:center;justify-content:center;min-height:34px;padding:8px 10px;border:1px solid #111;background:#fff;color:#111;border-radius:999px;text-decoration:none;font-weight:900;font-size:12px;line-height:1;white-space:nowrap}
+      .account-wrap>a:hover,.account-wrap>a:focus{background:#111;color:#fff;text-decoration:none}
+      .account-menu{display:none;position:absolute;right:0;top:calc(100% + 8px);min-width:150px;background:#fff;border:1px solid #dfe4eb;box-shadow:0 12px 30px rgba(0,0,0,.12);z-index:600;padding:8px 0}
+      .account-menu.open{display:block}
+      .account-menu a,.account-menu button{display:block;width:100%;box-sizing:border-box;text-align:left;border:0;background:#fff;color:#111;padding:9px 14px;font-size:13px;text-decoration:none;cursor:pointer}
+      .account-menu a:hover,.account-menu button:hover{background:#f4f4f4}
+      .cgn-bureau-weather-time{display:flex;flex-direction:column;text-decoration:none;color:#111;font-size:11px;line-height:1.25;font-weight:800;min-width:128px;max-width:190px;text-align:right;white-space:normal;overflow-wrap:anywhere}
+      .cgn-bureau-weather-time span{display:block}
+      .cgn-bureau-mobile-line,.cgn-mobile-weather-mini,.cgn-shell-compat-hidden{display:none!important}
+      .cgn-bureau-time{font-size:11px;font-weight:800;color:#111;text-align:right}
+      .cgn-bureau-weather{font-size:11px;font-weight:800;color:#111;text-align:right;display:block!important}
+      .cgn-bureau-location{display:block!important;color:#c1121f;text-transform:uppercase;letter-spacing:.06em;font-size:10px;font-weight:900;text-align:right}
+      .social-link,.support-link{width:36px;height:36px;display:inline-flex;align-items:center;justify-content:center;border:1px solid #dfe4eb;border-radius:999px;background:#fff;color:#07172f;text-decoration:none;flex:0 0 auto;overflow:hidden}
+      .social-link:hover,.support-link:hover,.social-link:focus,.support-link:focus{background:#07172f;color:#fff;text-decoration:none}
+      .social-link svg{width:19px;height:19px;display:block;fill:currentColor}
+      .support-link img{width:28px;height:28px;object-fit:contain;display:block}
+      .ticker{display:flex;gap:24px;align-items:center;min-height:34px;padding:9px 20px;background:#000;color:#fff;font-size:13px;font-weight:800;overflow:hidden}
+      .ticker a{color:#fff;text-decoration:none;line-height:1.35}
+      .market-ticker-wrap{position:relative;background:#020711;color:#fff;border-top:1px solid rgba(255,255,255,.12);border-bottom:1px solid rgba(255,255,255,.12);overflow:hidden;min-height:46px}
+      .market-ticker-click{position:absolute;inset:0;z-index:3;display:block;text-indent:-9999px;color:#f2d990;text-decoration:none;font-size:12px;font-weight:900;text-transform:uppercase}
+      .market-ticker-live{max-width:1180px;margin:0 auto;padding:0 20px;min-height:46px;display:flex;align-items:center;gap:10px;overflow:hidden}
+      .market-ticker-label{padding:5px 8px;border:1px solid rgba(214,178,94,.48);border-radius:999px;background:rgba(7,17,31,.92);color:#f2d990;font-size:10px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;flex:0 0 auto}
+      .market-tv-ticker{flex:1;height:46px;overflow:hidden;min-width:0}
+      .market-tv-ticker .tradingview-widget-container,.market-tv-ticker .tradingview-widget-container__widget{height:46px!important;min-height:46px!important;overflow:hidden}
+      .footer{background:#07172f;color:#fff;margin-top:36px}
+      .footer a{color:#fff;text-decoration:none}
+      .footer a:hover{text-decoration:underline}
+      .footer-container{max-width:1180px;margin:0 auto;padding:28px 18px;display:grid;grid-template-columns:1.4fr repeat(4,minmax(0,1fr));gap:22px}
+      .footer h4{margin:0 0 10px;color:#f2d990;text-transform:uppercase;letter-spacing:.08em;font-size:12px}
+      .footer p{margin:0 0 10px;color:#dbe4f0;line-height:1.5;font-size:13px}
+      .footer a{line-height:1.9;font-size:13px}
+      .footer-cgn-logo-link{display:inline-flex;align-items:center;text-decoration:none;color:#fff;margin:0 0 8px}
+      .footer-cgn-mark{width:132px;max-width:100%;height:auto;display:block}
+      .cgn-tag{font-weight:900;text-transform:uppercase;letter-spacing:.06em;color:#fff!important}
+      .footer-bottom{border-top:1px solid rgba(255,255,255,.16);text-align:center;padding:12px 18px 14px;color:#dbe4f0}
+      .footer-bottom a{font-size:12px;color:#dbe4f0}
+      .footer-developed{margin-top:5px;text-align:center;color:#dbe4f0;font-size:12px;font-weight:800;line-height:1.5}
+      .footer-developed a{color:#f2d990;font-size:12px;font-weight:900;line-height:1.5}
+      .cgn-shell-login-modal{position:fixed;inset:0;z-index:99999;background:rgba(2,8,23,.72);display:none;align-items:center;justify-content:center;padding:18px}
+      .cgn-shell-login-card{width:min(430px,96vw);background:#fff;color:#07172f;border:1px solid #d6dce7;box-shadow:0 20px 60px rgba(0,0,0,.28);padding:20px}
+      .cgn-shell-login-card h3{margin:0 0 10px}.cgn-shell-login-label{display:block;margin:10px 0 5px;font-size:12px;font-weight:900;text-transform:uppercase}.cgn-shell-login-input{width:100%;padding:11px;border:1px solid #b8c0cc;font-size:15px}.cgn-shell-login-message{min-height:18px;color:#a41212;font-size:13px;margin:10px 0}.cgn-shell-login-actions{display:flex;gap:8px;flex-wrap:wrap}.cgn-shell-login-actions button,.cgn-shell-login-close{border:1px solid #07172f;background:#07172f;color:#fff;padding:10px 12px;font-weight:900;cursor:pointer}.cgn-shell-login-close{margin-top:10px;background:#fff;color:#07172f}
+      .article-card{display:block;color:#07172f;text-decoration:none;border:1px solid #dfe4eb;background:#fff}.article-card img{width:100%;height:160px;object-fit:cover;display:block;background:#e5e7eb}.article-body{padding:14px}.article-body h3{margin:5px 0 7px;font-size:19px;line-height:1.2}.article-meta{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:#667085;font-weight:900}.article-body p{margin:0;color:#475467;line-height:1.45}.empty{border:1px solid #dfe4eb;background:#f7f9fc;color:#475467;padding:16px;line-height:1.45}
+      @media(max-width:1120px){.top-bar{display:grid;grid-template-columns:1fr;justify-items:center}.brand-link{justify-content:center;text-align:center;flex-direction:column}.brand-text{align-items:center}.nav{justify-content:center}.right-tools{justify-content:center}.brand-link .logo{height:auto;max-width:min(92vw,290px)}}
+      @media(max-width:700px){.top-bar{padding:10px;gap:10px}.nav{gap:10px;white-space:normal}.nav-dropdown{right:auto;left:50%;transform:translateX(-50%);max-width:calc(100vw - 24px)}.right-tools{width:100%;justify-content:center}.cgn-bureau-weather-time{min-width:120px}.social-link,.support-link{width:36px;height:36px}.ticker{padding:9px 10px}.market-ticker-live{padding:0 10px}.footer-container{grid-template-columns:1fr 1fr}.footer-container>div:first-child{grid-column:1 / -1}}
+      @media(max-width:430px){.right-tools{gap:7px}.cgn-bureau-weather-time{order:10;flex-basis:100%;max-width:none;text-align:center}.cgn-bureau-time,.cgn-bureau-weather,.cgn-bureau-location{text-align:center}.footer-container{grid-template-columns:1fr}.network-name{font-size:10px}.brand-tagline{font-size:10.5px}}
     `;
     document.head.appendChild(style);
   }
 
-  function updateAccountUI(){const b=document.getElementById("account-btn"); if(b) b.textContent=getUser()?"Account":"Login";}
-  function openShellLogin(){let m=document.getElementById("login-modal"); if(!m){m=document.createElement("div");m.id="login-modal";m.className="cgn-shell-login-modal";m.innerHTML='<div class="cgn-shell-login-card"><h3>Account Access</h3><p class="widget-note" style="color:#475467">Create a free account to unlock free articles. Subscribers get unlimited access.</p><label class="cgn-shell-login-label" for="login-email">Email</label><input id="login-email" class="cgn-shell-login-input" type="email"><label class="cgn-shell-login-label" for="login-password">Password</label><input id="login-password" class="cgn-shell-login-input" type="password"><div id="cgn-shell-login-message" class="cgn-shell-login-message"></div><div class="cgn-shell-login-actions"><button type="button" onclick="loginUser()">Login</button><button type="button" onclick="signupUser()">Create Account</button></div><button type="button" class="cgn-shell-login-close" onclick="closeLogin()">Close</button></div>';document.body.appendChild(m);m.addEventListener("click",e=>{if(e.target===m) closeShellLogin();});}m.style.display="flex";}
-  function closeShellLogin(){const m=document.getElementById("login-modal"); if(m)m.style.display="none";}
-  async function authAction(action){const email=(document.getElementById("login-email")||{}).value||""; const password=(document.getElementById("login-password")||{}).value||""; const msg=document.getElementById("cgn-shell-login-message"); if(!email||!password){if(msg)msg.textContent="Enter email and password.";return;} try{if(msg)msg.textContent="Working..."; const qs=new URLSearchParams({action,email,password,site:SITE}); const res=await fetch(`${API_BASE}?${qs.toString()}`,{cache:"no-store"}); const data=await res.json(); if(data&&data.success){const userId=data.user_id||data.userId||data.user?.id||""; if(userId)localStorage.setItem("user_id",userId); if(data.subscriber||data.user?.subscriber)localStorage.setItem("subscriber","true"); closeShellLogin(); updateAccountUI(); location.reload();}else if(msg)msg.textContent=(data&&data.error)||"Unable to complete request.";}catch(e){if(msg)msg.textContent="Unable to connect right now.";}}
-  window.openLogin=openShellLogin; window.closeLogin=closeShellLogin; window.loginUser=()=>authAction("login"); window.signupUser=()=>authAction("signup");
-  function accountClick(e){e.preventDefault(); if(!getUser()){openShellLogin();return;} const menu=document.getElementById("account-menu"); if(menu) menu.classList.toggle("open");}
-  function logout(){localStorage.removeItem("user_id");localStorage.removeItem("subscriber");updateAccountUI();location.reload();}
+  function updateAccountUI(){
+    const b = document.getElementById("account-btn");
+    if(b) b.textContent = getUser() ? "Account" : "Login";
+  }
+
+  function openShellLogin(){
+    let m = document.getElementById("login-modal");
+    if(!m){
+      m = document.createElement("div");
+      m.id = "login-modal";
+      m.className = "cgn-shell-login-modal";
+      m.innerHTML = '<div class="cgn-shell-login-card"><h3>Account Access</h3><p class="widget-note" style="color:#475467">Create a free account to unlock free articles. Subscribers get unlimited access.</p><label class="cgn-shell-login-label" for="login-email">Email</label><input id="login-email" class="cgn-shell-login-input" type="email"><label class="cgn-shell-login-label" for="login-password">Password</label><input id="login-password" class="cgn-shell-login-input" type="password"><div id="cgn-shell-login-message" class="cgn-shell-login-message"></div><div class="cgn-shell-login-actions"><button type="button" onclick="loginUser()">Login</button><button type="button" onclick="signupUser()">Create Account</button></div><button type="button" class="cgn-shell-login-close" onclick="closeLogin()">Close</button></div>';
+      document.body.appendChild(m);
+      m.addEventListener("click", e => { if(e.target === m) closeShellLogin(); });
+    }
+    m.style.display = "flex";
+  }
+
+  function closeShellLogin(){
+    const m = document.getElementById("login-modal");
+    if(m) m.style.display = "none";
+  }
+
+  async function authAction(action){
+    const email = (document.getElementById("login-email") || {}).value || "";
+    const password = (document.getElementById("login-password") || {}).value || "";
+    const msg = document.getElementById("cgn-shell-login-message");
+    if(!email || !password){
+      if(msg) msg.textContent = "Enter email and password.";
+      return;
+    }
+    try{
+      if(msg) msg.textContent = "Working...";
+      const qs = new URLSearchParams({action,email,password,site:SITE});
+      const res = await fetch(`${API_BASE}?${qs.toString()}`, {cache:"no-store"});
+      const data = await res.json();
+      if(data && data.success){
+        const userId = data.user_id || data.userId || data.user?.id || "";
+        if(userId) localStorage.setItem("user_id", userId);
+        if(data.subscriber || data.user?.subscriber) localStorage.setItem("subscriber", "true");
+        closeShellLogin();
+        updateAccountUI();
+        location.reload();
+      }else if(msg){
+        msg.textContent = (data && data.error) || "Unable to complete request.";
+      }
+    }catch(e){
+      if(msg) msg.textContent = "Unable to connect right now.";
+    }
+  }
+
+  window.openLogin = openShellLogin;
+  window.closeLogin = closeShellLogin;
+  window.loginUser = () => authAction("login");
+  window.signupUser = () => authAction("signup");
+
+  function accountClick(e){
+    e.preventDefault();
+    if(!getUser()){
+      openShellLogin();
+      return;
+    }
+    const menu = document.getElementById("account-menu");
+    if(menu) menu.classList.toggle("open");
+  }
+
+  function logout(){
+    localStorage.removeItem("user_id");
+    localStorage.removeItem("subscriber");
+    updateAccountUI();
+    location.reload();
+  }
+
+  function toggleCategoryMenu(event){
+    event.preventDefault();
+    event.stopPropagation();
+    const menuWrap = event.currentTarget.closest(".nav-more");
+    if(menuWrap) menuWrap.classList.toggle("open");
+  }
 
   const instagramIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.75 2h8.5A5.76 5.76 0 0 1 22 7.75v8.5A5.76 5.76 0 0 1 16.25 22h-8.5A5.76 5.76 0 0 1 2 16.25v-8.5A5.76 5.76 0 0 1 7.75 2Zm0 2A3.75 3.75 0 0 0 4 7.75v8.5A3.75 3.75 0 0 0 7.75 20h8.5A3.75 3.75 0 0 0 20 16.25v-8.5A3.75 3.75 0 0 0 16.25 4h-8.5Zm8.75 1.75a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5ZM12 7.25A4.75 4.75 0 1 1 12 16.75 4.75 4.75 0 0 1 12 7.25Zm0 2A2.75 2.75 0 1 0 12 14.75 2.75 2.75 0 0 0 12 9.25Z"></path></svg>';
   const xIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2H21.5l-7.11 8.13L22.75 22h-6.55l-5.13-6.71L5.2 22H1.94l7.6-8.69L1.5 2h6.72l4.64 6.13L18.244 2Zm-1.15 17.91h1.8L7.24 3.98H5.31l11.784 15.93Z"></path></svg>';
   const youtubeIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2a3.02 3.02 0 0 0-2.13-2.14C19.48 3.56 12 3.56 12 3.56s-7.48 0-9.37.5A3.02 3.02 0 0 0 .5 6.2 31.5 31.5 0 0 0 0 12a31.5 31.5 0 0 0 .5 5.8 3.02 3.02 0 0 0 2.13 2.14c1.89.5 9.37.5 9.37.5s7.48 0 9.37-.5a3.02 3.02 0 0 0 2.13-2.14A31.5 31.5 0 0 0 24 12a31.5 31.5 0 0 0-.5-5.8ZM9.6 15.56V8.44L15.85 12 9.6 15.56Z"></path></svg>';
 
   function renderHeader(){
-    const mount=document.getElementById("cgn-site-header"); if(!mount)return;
+    const mount = document.getElementById("cgn-site-header");
+    if(!mount) return;
     injectShellStyles();
-    mount.innerHTML=`
+    mount.innerHTML = `
       <a class="skip-link" href="#main-content">Skip to content</a>
       <header class="top-bar">
-        <a href="/" class="brand-link" aria-label="The Ozark Gazette homepage"><img src="/OzarkGazetteLogo.png" class="logo" alt="The Ozark Gazette"><span class="brand-text"><span class="network-name">The Ozark Gazette</span><span class="brand-tagline">Your Source for Ozark News, Weather, Sports and Traffic</span></span></a>
-        <nav class="nav" aria-label="Main Navigation"><a href="/news/">News</a><a href="/weather/">Weather</a><a href="/weather/radar/">Radar</a><a href="/traffic/">Traffic</a><a href="/sports/">Sports</a></nav>
-        <div class="right-tools" aria-label="Account, local conditions, social links and support"><span class="account-wrap"><a href="#" id="account-btn">Login</a><span id="account-menu" class="account-menu"><a href="/account/">Account</a><button type="button" id="account-logout-btn">Logout</button></span></span><a id="cgn-bureau-weather-time" class="cgn-bureau-weather-time" href="/weather/"><span id="cgn-bureau-time" class="cgn-bureau-time">Loading local time...</span><span id="cgn-bureau-weather" class="cgn-bureau-weather"><span class="weather-emoji" aria-hidden="true">🌤</span><span>Loading weather...</span></span></a><a class="social-link social-instagram" href="https://www.instagram.com/cookglobalnews/" target="_blank" rel="noopener noreferrer" aria-label="CGN News on Instagram">${instagramIcon}</a><a class="social-link social-x" href="https://x.com/CookGlobalNews" target="_blank" rel="noopener noreferrer" aria-label="CGN News on X">${xIcon}</a><a class="social-link social-youtube" href="https://www.youtube.com/@CookGlobalNews" target="_blank" rel="noopener noreferrer" aria-label="CGN News on YouTube">${youtubeIcon}</a><a class="support-link" href="/support/" aria-label="Support"><img src="/CGNHelpIcon01.png" alt=""></a></div>
+        <a href="/" class="brand-link" aria-label="The Ozark Gazette homepage">
+          <img src="/OzarkGazetteLogo.png" class="logo" alt="The Ozark Gazette">
+          <span class="brand-text">
+            <span class="network-name">The Ozark Gazette</span>
+            <span class="brand-tagline">Your Source for Ozark News, Weather, Sports and Traffic</span>
+          </span>
+        </a>
+        <nav class="nav" aria-label="Main Navigation">
+          <a href="/news/">News</a>
+          <a href="/weather/">Weather</a>
+          <a href="/weather/radar/">Radar</a>
+          <a href="/traffic/">Traffic</a>
+          <a href="/sports/">Sports</a>
+          <span class="nav-more">
+            <button class="nav-more-button" type="button" aria-label="More Ozark Gazette categories" aria-haspopup="true" aria-expanded="false">▾</button>
+            <span id="category-dropdown" class="nav-dropdown" role="menu">
+              <a href="/local/" role="menuitem">Local</a>
+              <a href="/us/" role="menuitem">US</a>
+              <a href="/world/" role="menuitem">World</a>
+              <a href="/politics/" role="menuitem">Politics</a>
+              <a href="/markets/" role="menuitem">Markets</a>
+              <a href="/technology/" role="menuitem">Technology</a>
+              <a href="/entertainment/" role="menuitem">Entertainment</a>
+              <a href="/environment/" role="menuitem">Environment</a>
+              <a href="/investigations/" role="menuitem">Investigations</a>
+              <a href="/opinion/" role="menuitem">Opinion</a>
+              <a href="/obituaries/" role="menuitem">Obituaries</a>
+              <a href="/weather/" role="menuitem">Weather</a>
+              <a href="/traffic/" role="menuitem">Traffic</a>
+              <a href="/sports/" role="menuitem">Sports</a>
+              <a href="/news/" role="menuitem">View All News</a>
+            </span>
+          </span>
+        </nav>
+        <div class="right-tools" aria-label="Account, local conditions, social links and support">
+          <span class="account-wrap">
+            <a href="#" id="account-btn">Login</a>
+            <span id="account-menu" class="account-menu" aria-label="Account menu">
+              <a href="/account/">Account</a>
+              <button type="button" id="account-logout-btn">Logout</button>
+            </span>
+          </span>
+          <a id="cgn-bureau-weather-time" class="cgn-bureau-weather-time" href="/weather/" aria-label="Open Ozark weather">
+            <span id="cgn-bureau-mobile-line" class="cgn-bureau-mobile-line"><span class="cgn-bureau-mobile-date">Loading date...</span><span class="cgn-bureau-mobile-clock">Loading time...</span><span class="cgn-bureau-mobile-city">Tecumseh</span></span>
+            <span id="cgn-bureau-time" class="cgn-bureau-time">Loading local time...</span>
+            <span id="cgn-bureau-weather" class="cgn-bureau-weather">Loading weather...</span>
+            <span id="cgn-bureau-location" class="cgn-bureau-location">Tecumseh</span>
+          </a>
+          <span id="datetime" class="cgn-shell-compat-hidden" aria-hidden="true"></span>
+          <span id="weather" class="cgn-shell-compat-hidden" aria-hidden="true"></span>
+          <a id="cgn-mobile-weather-mini" class="cgn-mobile-weather-mini" href="/weather/" aria-label="Open Ozark weather"><span id="cgn-mobile-weather-compact" class="cgn-mobile-weather-compact">--°F</span></a>
+          <a class="social-link social-instagram" href="https://www.instagram.com/cookglobalnews/" target="_blank" rel="noopener noreferrer" aria-label="CGN News on Instagram">${instagramIcon}</a>
+          <a class="social-link social-x" href="https://x.com/CookGlobalNews" target="_blank" rel="noopener noreferrer" aria-label="CGN News on X">${xIcon}</a>
+          <a class="social-link social-youtube" href="https://www.youtube.com/@CookGlobalNews" target="_blank" rel="noopener noreferrer" aria-label="CGN News on YouTube">${youtubeIcon}</a>
+          <a class="support-link" href="/support/" aria-label="Support"><img src="/CGNHelpIcon01.png" alt=""></a>
+        </div>
       </header>
       <div class="ticker" id="cgn-shell-ticker"><a href="/news/">Loading Ozark headlines...</a></div>
-      <section class="market-ticker-wrap" aria-label="Markets Brief live stock ticker"><a class="market-ticker-click" href="/markets/center/">Open Markets Brief</a><div class="market-ticker-live"><span class="market-ticker-label">Markets Brief</span><div class="market-tv-ticker cgn-shell-market-tv"><div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div></div></div></div></section>`;
-    document.getElementById("account-btn")?.addEventListener("click",accountClick);
-    document.getElementById("account-logout-btn")?.addEventListener("click",logout);
-    document.addEventListener("click",function(e){const wrap=document.querySelector(".account-wrap"); if(wrap && !wrap.contains(e.target)){document.getElementById("account-menu")?.classList.remove("open");}});
-    updateAccountUI(); updateClock(); setInterval(updateClock,1000); loadWeatherMini(); setInterval(loadWeatherMini,600000); loadTicker(); renderTradingViewTicker();
+      <section class="market-ticker-wrap" aria-label="Markets Brief live stock ticker">
+        <a class="market-ticker-click" href="/markets/center/">Open Markets Brief</a>
+        <div class="market-ticker-live">
+          <span class="market-ticker-label">Markets Brief</span>
+          <div class="market-tv-ticker cgn-shell-market-tv" aria-hidden="true"><div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div></div></div>
+        </div>
+      </section>`;
+
+    document.getElementById("account-btn")?.addEventListener("click", accountClick);
+    document.getElementById("account-logout-btn")?.addEventListener("click", logout);
+    const moreBtn = mount.querySelector(".nav-more-button");
+    if(moreBtn){
+      moreBtn.addEventListener("click", function(event){
+        toggleCategoryMenu(event);
+        const wrap = event.currentTarget.closest(".nav-more");
+        event.currentTarget.setAttribute("aria-expanded", wrap && wrap.classList.contains("open") ? "true" : "false");
+      });
+    }
+    document.addEventListener("click", function(e){
+      const accountWrap = document.querySelector(".account-wrap");
+      if(accountWrap && !accountWrap.contains(e.target)) document.getElementById("account-menu")?.classList.remove("open");
+      const navMore = document.querySelector(".nav-more");
+      if(navMore && !navMore.contains(e.target)){
+        navMore.classList.remove("open");
+        navMore.querySelector(".nav-more-button")?.setAttribute("aria-expanded", "false");
+      }
+    });
+    updateAccountUI();
+    initWeatherTime();
+    loadTicker();
+    renderTradingViewTicker();
   }
 
   function renderFooter(){
-    const mount=document.getElementById("cgn-site-footer"); if(!mount)return;
+    const mount = document.getElementById("cgn-site-footer");
+    if(!mount) return;
     injectShellStyles();
-    mount.innerHTML=`<footer class="footer"><div class="footer-container"><div><a class="footer-cgn-logo-link" href="https://www.cgnnews.net/" aria-label="Open CGN News"><svg class="footer-cgn-mark" viewBox="0 0 330 92" role="img" aria-label="CGN"><circle cx="46" cy="46" r="36" fill="none" stroke="currentColor" stroke-width="6"></circle><path d="M12 46h68M46 10c10 10 15 22 15 36S56 72 46 82M46 10C36 20 31 32 31 46s5 26 15 36M18 28h56M18 64h56" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"></path><text x="98" y="64" font-family="Arial Black, Arial, Helvetica, sans-serif" font-size="54" font-weight="900" fill="currentColor" letter-spacing="-2">CGN</text></svg></a><p class="cgn-tag">Real-Time News.<br>Global Perspective.</p><p><strong>The Ozark Gazette</strong><br>P.O. Box 794<br>33256 US Highway 160<br>Tecumseh, Missouri 65760<br>📱 (317) 442-1437<br><a href="mailto:tips@cgnnews.net">tips@cgnnews.net</a></p></div><div><h4><a href="/news/">News</a></h4><a href="/local/">Local</a><br><a href="/us/">US</a><br><a href="/world/">World</a><br><a href="/politics/">Politics</a><br><a href="/investigations/">Investigations</a><br><a href="/opinion/">Opinion</a></div><div><h4>Briefs</h4><a href="/weather/">Weather Brief</a><br><a href="/weather/radar/">Weather Radar</a><br><a href="/traffic/">Traffic Brief</a><br><a href="/sports/">Sports Brief</a><br><a href="/markets/center/">Markets Brief</a><br><a href="/obituaries/">Obituaries</a></div><div><h4>Community</h4><a href="/horoscopes/">Horoscopes</a><br><a href="/sudoku/">Sudoku</a><br><a href="/puzzles/">Puzzles</a><br><a href="/crosswords/">Crosswords</a><br><a href="/reporters/">Reporters</a><br><a href="/about/">About</a></div><div><h4>Support</h4><a href="/contact/">Contact</a><br><a href="/support/">Support</a><br><a href="https://www.cgnnews.net/privacy-policy">Privacy</a><br><a href="https://www.cgnnews.net/terms-of-service">Terms</a><br><a href="https://www.cgnnews.net/editorial-standards/">Editorial Standards</a><br><a href="https://www.cgnnews.net/copyright/">Copyright</a></div></div><div class="footer-bottom"><a href="https://www.cgnnews.net/copyright/">Copyright © 2026 | CGN News — All Rights Reserved</a></div></footer>`;
+    mount.innerHTML = `<footer class="footer"><div class="footer-container"><div><a class="footer-cgn-logo-link" href="https://www.cgnnews.net/" aria-label="Open CGN News"><svg class="footer-cgn-mark" viewBox="0 0 330 92" role="img" aria-label="CGN"><circle cx="46" cy="46" r="36" fill="none" stroke="currentColor" stroke-width="6"></circle><path d="M12 46h68M46 10c10 10 15 22 15 36S56 72 46 82M46 10C36 20 31 32 31 46s5 26 15 36M18 28h56M18 64h56" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"></path><text x="98" y="64" font-family="Arial Black, Arial, Helvetica, sans-serif" font-size="54" font-weight="900" fill="currentColor" letter-spacing="-2">CGN</text></svg></a><p class="cgn-tag">Real-Time News.<br>Global Perspective.</p><p><strong>The Ozark Gazette</strong><br>P.O. Box 794<br>33256 US Highway 160<br>Tecumseh, Missouri 65760<br>📱 (317) 442-1437<br><a href="mailto:tips@cgnnews.net">tips@cgnnews.net</a></p></div><div><h4><a href="/news/">News</a></h4><a href="/local/">Local</a><br><a href="/us/">US</a><br><a href="/world/">World</a><br><a href="/politics/">Politics</a><br><a href="/investigations/">Investigations</a><br><a href="/opinion/">Opinion</a></div><div><h4>Briefs</h4><a href="/weather/">Weather Brief</a><br><a href="/weather/radar/">Weather Radar</a><br><a href="/traffic/">Traffic Brief</a><br><a href="/sports/">Sports Brief</a><br><a href="/markets/center/">Markets Brief</a><br><a href="/obituaries/">Obituaries</a></div><div><h4>Community</h4><a href="/horoscopes/">Horoscopes</a><br><a href="/sudoku/">Sudoku</a><br><a href="/puzzles/">Puzzles</a><br><a href="/crosswords/">Crosswords</a><br><a href="/reporters/">Reporters</a><br><a href="/about/">About</a></div><div><h4>Support</h4><a href="/contact/">Contact</a><br><a href="/support/">Support</a><br><a href="https://www.cgnnews.net/privacy-policy">Privacy</a><br><a href="https://www.cgnnews.net/terms-of-service">Terms</a><br><a href="https://www.cgnnews.net/editorial-standards/">Editorial Standards</a><br><a href="https://www.cgnnews.net/copyright/">Copyright</a></div></div><div class="footer-bottom"><a href="https://www.cgnnews.net/copyright/">Copyright © 2026 | CGN News — All Rights Reserved</a><div class="footer-developed">Developed by <a href="https://cts.cook-international.com" target="_blank" rel="noopener noreferrer">Cook Technology Services</a></div></div></footer>`;
   }
 
-  function updateClock(){const el=document.getElementById("cgn-bureau-time"); if(!el)return; const parts=new Intl.DateTimeFormat("en-US",{day:"2-digit",month:"long",year:"numeric",hour:"numeric",minute:"2-digit",second:"2-digit",hour12:true,timeZone:TECUMSEH.timeZone,timeZoneName:"short"}).format(new Date()); el.textContent=parts;}
-  function weatherCodeIcon(code){code=Number(code); if(code===0)return "☀️"; if([1,2,3].includes(code))return "🌤"; if([45,48].includes(code))return "🌫"; if([51,53,55,61,63,65,66,67,80,81,82].includes(code))return "🌧"; if([71,73,75,77,85,86].includes(code))return "❄️"; if([95,96,99].includes(code))return "⛈"; return "🌤";}
-  async function loadWeatherMini(){const el=document.getElementById("cgn-bureau-weather"); if(!el)return; try{const url=`https://api.open-meteo.com/v1/forecast?latitude=${TECUMSEH.latitude}&longitude=${TECUMSEH.longitude}&current=temperature_2m,weather_code&temperature_unit=fahrenheit&timezone=auto`; const data=await (await fetch(url,{cache:"no-store"})).json(); const t=Math.round(data.current.temperature_2m); const icon=weatherCodeIcon(data.current.weather_code); el.innerHTML=`<span class="weather-emoji" aria-hidden="true">${icon}</span><span>${t}°F</span>`; }catch(e){el.innerHTML='<span class="weather-emoji" aria-hidden="true">🌤</span><span>Weather updating</span>';}}
-  function renderTradingViewTicker(){const container=document.querySelector(".cgn-shell-market-tv .tradingview-widget-container"); if(!container||container.querySelector("script"))return; const script=document.createElement("script"); script.type="text/javascript"; script.src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js"; script.async=true; script.text=JSON.stringify({symbols:[{description:"S&P 500",proName:"FOREXCOM:SPXUSD"},{description:"Nasdaq",proName:"NASDAQ:IXIC"},{description:"Dow",proName:"DJ:DJI"},{description:"Russell 2000",proName:"TVC:RUT"},{description:"Apple",proName:"NASDAQ:AAPL"},{description:"Microsoft",proName:"NASDAQ:MSFT"},{description:"Nvidia",proName:"NASDAQ:NVDA"},{description:"Walmart",proName:"NYSE:WMT"}],showSymbolLogo:true,isTransparent:true,displayMode:"regular",colorTheme:"dark",locale:"en"},null,2); container.appendChild(script);}
-  async function api(action, params={}){const qs=new URLSearchParams(Object.assign({site:SITE, action}, params)); const res=await fetch(`${API_BASE}?${qs.toString()}`,{cache:"no-store"}); return await res.json();}
-  function articleTime(a){const t=Date.parse(a.published_at||a.updated_at||a.date||""); return isNaN(t)?0:t;}
-  function articleUrl(a){if(a.url)return a.url; const slug=a.slug||slugify(a.title||"ozark-update"); return `/article.html?slug=${encodeURIComponent(slug)}`;}
-  function articleCard(a){const img=esc(a.hero_image_url||a.image||DEFAULT_IMG); return `<a class="article-card" href="${esc(articleUrl(a))}"><img src="${img}" alt=""><div class="article-body"><div class="article-meta">${esc(a.category||"Local")} · ${esc(formatDate(a.published_at||a.updated_at))}</div><h3>${esc(a.title||"Ozark update")}</h3><p>${esc(a.summary||a.subtitle||"")}</p></div></a>`;}
-  function formatDate(v){const d=new Date(v); if(isNaN(d))return "Latest"; return new Intl.DateTimeFormat("en-US",{day:"2-digit",month:"long",year:"numeric",timeZone:"America/Chicago"}).format(d);}
-  async function loadTicker(){const el=document.getElementById("cgn-shell-ticker"); if(!el)return; try{const data=await api("ozark_articles",{limit:8}); const list=(data.articles||data.items||[]).sort((a,b)=>articleTime(b)-articleTime(a)); if(!list.length) throw new Error("no articles"); el.innerHTML=list.map(a=>`<a href="${esc(articleUrl(a))}">${esc(a.title)}</a>`).join(" &nbsp; • &nbsp; ");}catch(e){el.innerHTML='<a href="/news/">The Ozark Gazette: Your Source for Ozark News, Weather, Sports and Traffic</a>';}}
-  async function loadArticleGrid(mountId, category, limit=9){const mount=document.getElementById(mountId); if(!mount)return; try{const params={limit}; if(category)params.category=category; const data=await api("ozark_articles",params); const list=(data.articles||data.items||[]).sort((a,b)=>Number(a.display_order||999)-Number(b.display_order||999)||articleTime(b)-articleTime(a)); mount.innerHTML=list.length?list.map(articleCard).join(""):'<div class="empty">No published articles are available yet.</div>'; }catch(e){mount.innerHTML='<div class="empty">Articles are loading. Check back shortly.</div>';}}
-  async function loadHome(){await loadArticleGrid("homeArticles","",12); await loadArticleGrid("obitStrip","Obituaries",3); await loadArticleGrid("courtStrip","Local",3); try{const data=await api("ozark_articles",{limit:5}); const list=(data.articles||data.items||[]); if(list[0]){document.getElementById("featureTitle").textContent=list[0].title||"The Ozark Gazette"; document.getElementById("featureMeta").textContent=(list[0].category||"Local")+" · "+formatDate(list[0].published_at||list[0].updated_at); document.getElementById("featureCopy").textContent=list[0].summary||list[0].subtitle||"Local coverage from Tecumseh, Ozark County and the Missouri Ozarks."; document.getElementById("featureImage").src=list[0].hero_image_url||DEFAULT_IMG; document.getElementById("featureLink").href=articleUrl(list[0]);}}catch(e){}}
-  async function loadCategoryPage(){const mount=document.querySelector("[data-article-grid]"); if(!mount)return; await loadArticleGrid(mount.id, mount.getAttribute("data-category"), Number(mount.getAttribute("data-limit")||12));}
-  async function loadArticlePage(){const mount=document.getElementById("articleMount"); if(!mount)return; const p=new URLSearchParams(location.search); const slug=p.get("slug")||p.get("id")||""; if(!slug){mount.innerHTML='<div class="empty">Article not found.</div>';return;} try{const data=await api("ozark_article",{slug}); const a=data.article||data; if(!a||!a.title) throw new Error("missing"); document.title=(a.seo_title||a.title)+" | The Ozark Gazette"; mount.innerHTML=`<article class="about-section"><div class="article-meta">${esc(a.category||"Local")} · ${esc(formatDate(a.published_at||a.updated_at))} · By ${esc(a.author||"The Ozark Gazette")}</div><h1 style="font-family:Georgia,serif;font-size:clamp(34px,5vw,58px);line-height:1;margin:0 0 10px;color:#07172f">${esc(a.title)}</h1><p style="font-size:18px;color:#475467;line-height:1.55">${esc(a.subtitle||a.summary||"")}</p><img src="${esc(a.hero_image_url||DEFAULT_IMG)}" alt="" style="width:100%;max-height:460px;object-fit:cover;border:1px solid #dfe4eb"><div style="line-height:1.75;font-size:18px;margin-top:22px">${a.body_html||`<p>${esc(a.summary||"")}</p>`}</div>${a.what_this_means?`<aside class="info-card" style="padding:18px;margin-top:20px"><h2>What this means</h2><p>${esc(a.what_this_means)}</p></aside>`:""}</article>`;}catch(e){mount.innerHTML='<div class="empty">Article not found or not yet published.</div>';}}
-  window.OzarkGazette={api,loadArticleGrid,loadHome,loadCategoryPage,loadArticlePage,articleCard,articleUrl,esc};
-  document.addEventListener("DOMContentLoaded",()=>{injectShellStyles(); renderHeader(); renderFooter(); loadCategoryPage(); loadArticlePage(); if(document.body.dataset.page==="home") loadHome();});
+  function normalizeTimeZoneLabel(label){
+    const raw = String(label || "").trim();
+    if(raw === "GMT-5") return "CDT";
+    if(raw === "GMT-6") return "CST";
+    return raw || "CT";
+  }
+
+  function formatLocalParts(){
+    const parts = new Intl.DateTimeFormat("en-US", {
+      day:"2-digit",
+      month:"long",
+      year:"numeric",
+      hour:"numeric",
+      minute:"2-digit",
+      second:"2-digit",
+      hour12:true,
+      timeZone:TECUMSEH.timeZone,
+      timeZoneName:"short"
+    }).formatToParts(new Date());
+    const map = {};
+    parts.forEach(p => { map[p.type] = p.value; });
+    const zone = normalizeTimeZoneLabel(map.timeZoneName);
+    const dateText = `${map.day} ${map.month} ${map.year}`.replace(/\s+/g, " ").trim();
+    const clockText = `${map.hour}:${map.minute}:${map.second} ${map.dayPeriod || ""}${zone ? " " + zone : ""}`.replace(/\s+/g, " ").trim();
+    return {dateText, clockText, fullText:`${dateText} | ${clockText}`};
+  }
+
+  function updateClock(){
+    const timeEl = document.getElementById("cgn-bureau-time");
+    const locationEl = document.getElementById("cgn-bureau-location");
+    const mobileLineEl = document.getElementById("cgn-bureau-mobile-line");
+    const datetimeCompat = document.getElementById("datetime");
+    const parts = formatLocalParts();
+    if(timeEl) timeEl.innerHTML = `${esc(parts.dateText)}<br>${esc(parts.clockText)}`;
+    if(locationEl) locationEl.textContent = TECUMSEH.name;
+    if(mobileLineEl){
+      mobileLineEl.innerHTML = `<span class="cgn-bureau-mobile-date">${esc(parts.dateText)}</span><span class="cgn-bureau-mobile-clock">${esc(parts.clockText)}</span><span class="cgn-bureau-mobile-city">${esc(TECUMSEH.name)}</span>`;
+    }
+    if(datetimeCompat) datetimeCompat.textContent = parts.fullText;
+    updateWeatherAria();
+  }
+
+  function weatherCodeInfo(code){
+    const n = Number(code);
+    if(n === 0) return {icon:"☀️", text:"Clear"};
+    if([1,2,3].includes(n)) return {icon:"🌤", text:"Partly Cloudy"};
+    if([45,48].includes(n)) return {icon:"🌫", text:"Fog"};
+    if([51,53,55,56,57].includes(n)) return {icon:"🌦", text:"Drizzle"};
+    if([61,63,65,66,67,80,81,82].includes(n)) return {icon:"🌧", text:"Rain"};
+    if([71,73,75,77,85,86].includes(n)) return {icon:"❄️", text:"Snow"};
+    if([95,96,99].includes(n)) return {icon:"⛈", text:"Storm"};
+    return {icon:"🌤", text:"Weather"};
+  }
+
+  function updateWeatherAria(){
+    const linkEl = document.getElementById("cgn-bureau-weather-time");
+    const datetimeCompat = document.getElementById("datetime");
+    const weatherCompat = document.getElementById("weather");
+    if(linkEl){
+      linkEl.setAttribute("aria-label", `Open Ozark weather — ${TECUMSEH.name}, ${datetimeCompat?.textContent || "local time"}, ${weatherCompat?.textContent || "weather updating"}`);
+    }
+  }
+
+  async function loadWeatherMini(){
+    const el = document.getElementById("cgn-bureau-weather");
+    const compactEl = document.getElementById("cgn-mobile-weather-compact");
+    const compatEl = document.getElementById("weather");
+    if(!el) return;
+    try{
+      const url = `https://api.open-meteo.com/v1/forecast?latitude=${TECUMSEH.latitude}&longitude=${TECUMSEH.longitude}&current=temperature_2m,weather_code&temperature_unit=fahrenheit&timezone=auto`;
+      const data = await (await fetch(url, {cache:"no-store"})).json();
+      const current = data.current || {};
+      const t = Math.round(Number(current.temperature_2m));
+      if(!Number.isFinite(t)) throw new Error("Missing temperature");
+      const info = weatherCodeInfo(current.weather_code);
+      const text = `${info.icon} ${t}°F · ${info.text}`;
+      el.textContent = text;
+      if(compactEl) compactEl.textContent = `${info.icon} ${t}°`;
+      if(compatEl) compatEl.textContent = text;
+    }catch(e){
+      el.textContent = "--°F · Weather updating";
+      if(compactEl) compactEl.textContent = "--°";
+      if(compatEl) compatEl.textContent = "--°F · Weather updating";
+    }
+    updateWeatherAria();
+  }
+
+  function initWeatherTime(){
+    if(shellClockTimer) clearInterval(shellClockTimer);
+    if(shellWeatherTimer) clearInterval(shellWeatherTimer);
+    updateClock();
+    loadWeatherMini();
+    shellClockTimer = setInterval(updateClock, 1000);
+    shellWeatherTimer = setInterval(loadWeatherMini, 600000);
+  }
+
+  function renderTradingViewTicker(){
+    const container = document.querySelector(".cgn-shell-market-tv .tradingview-widget-container");
+    if(!container || container.querySelector("script")) return;
+    const script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = "https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js";
+    script.async = true;
+    script.text = JSON.stringify({
+      symbols:[
+        {description:"S&P 500", proName:"FOREXCOM:SPXUSD"},
+        {description:"Nasdaq", proName:"NASDAQ:IXIC"},
+        {description:"Dow", proName:"DJ:DJI"},
+        {description:"Russell 2000", proName:"TVC:RUT"},
+        {description:"Apple", proName:"NASDAQ:AAPL"},
+        {description:"Microsoft", proName:"NASDAQ:MSFT"},
+        {description:"Nvidia", proName:"NASDAQ:NVDA"},
+        {description:"Walmart", proName:"NYSE:WMT"}
+      ],
+      showSymbolLogo:true,
+      isTransparent:true,
+      displayMode:"regular",
+      colorTheme:"dark",
+      locale:"en"
+    }, null, 2);
+    container.appendChild(script);
+  }
+
+  async function api(action, params={}){
+    const qs = new URLSearchParams(Object.assign({site:SITE, action}, params));
+    const res = await fetch(`${API_BASE}?${qs.toString()}`, {cache:"no-store"});
+    return await res.json();
+  }
+
+  function articleTime(a){
+    const t = Date.parse(a.published_at || a.updated_at || a.date || "");
+    return isNaN(t) ? 0 : t;
+  }
+
+  function articleUrl(a){
+    if(a.url) return a.url;
+    const slug = a.slug || slugify(a.title || "ozark-update");
+    return `/article.html?slug=${encodeURIComponent(slug)}`;
+  }
+
+  function articleCard(a){
+    const img = esc(a.hero_image_url || a.image || DEFAULT_IMG);
+    return `<a class="article-card" href="${esc(articleUrl(a))}"><img src="${img}" alt=""><div class="article-body"><div class="article-meta">${esc(a.category || "Local")} · ${esc(formatDate(a.published_at || a.updated_at))}</div><h3>${esc(a.title || "Ozark update")}</h3><p>${esc(a.summary || a.subtitle || "")}</p></div></a>`;
+  }
+
+  function formatDate(v){
+    const d = new Date(v);
+    if(isNaN(d)) return "Latest";
+    return new Intl.DateTimeFormat("en-US", {day:"2-digit", month:"long", year:"numeric", timeZone:"America/Chicago"}).format(d);
+  }
+
+  async function loadTicker(){
+    const el = document.getElementById("cgn-shell-ticker");
+    if(!el) return;
+    try{
+      const data = await api("ozark_articles", {limit:8});
+      const list = (data.articles || data.items || []).sort((a,b) => articleTime(b) - articleTime(a));
+      if(!list.length) throw new Error("no articles");
+      el.innerHTML = list.map(a => `<a href="${esc(articleUrl(a))}">${esc(a.title)}</a>`).join(" &nbsp; • &nbsp; ");
+    }catch(e){
+      el.innerHTML = '<a href="/news/">The Ozark Gazette: Your Source for Ozark News, Weather, Sports and Traffic</a>';
+    }
+  }
+
+  async function loadArticleGrid(mountId, category, limit=9){
+    const mount = document.getElementById(mountId);
+    if(!mount) return;
+    try{
+      const params = {limit};
+      if(category) params.category = category;
+      const data = await api("ozark_articles", params);
+      const list = (data.articles || data.items || []).sort((a,b) => Number(a.display_order || 999) - Number(b.display_order || 999) || articleTime(b) - articleTime(a));
+      mount.innerHTML = list.length ? list.map(articleCard).join("") : '<div class="empty">No published articles are available yet.</div>';
+    }catch(e){
+      mount.innerHTML = '<div class="empty">Articles are loading. Check back shortly.</div>';
+    }
+  }
+
+  async function loadHome(){
+    await loadArticleGrid("homeArticles", "", 12);
+    await loadArticleGrid("obitStrip", "Obituaries", 3);
+    await loadArticleGrid("courtStrip", "Local", 3);
+    try{
+      const data = await api("ozark_articles", {limit:5});
+      const list = data.articles || data.items || [];
+      if(list[0]){
+        document.getElementById("featureTitle").textContent = list[0].title || "The Ozark Gazette";
+        document.getElementById("featureMeta").textContent = (list[0].category || "Local") + " · " + formatDate(list[0].published_at || list[0].updated_at);
+        document.getElementById("featureCopy").textContent = list[0].summary || list[0].subtitle || "Local coverage from Tecumseh, Ozark County and the Missouri Ozarks.";
+        document.getElementById("featureImage").src = list[0].hero_image_url || DEFAULT_IMG;
+        document.getElementById("featureLink").href = articleUrl(list[0]);
+      }
+    }catch(e){}
+  }
+
+  async function loadCategoryPage(){
+    const mount = document.querySelector("[data-article-grid]");
+    if(!mount) return;
+    await loadArticleGrid(mount.id, mount.getAttribute("data-category"), Number(mount.getAttribute("data-limit") || 12));
+  }
+
+  async function loadArticlePage(){
+    const mount = document.getElementById("articleMount");
+    if(!mount) return;
+    const p = new URLSearchParams(location.search);
+    const slug = p.get("slug") || p.get("id") || "";
+    if(!slug){
+      mount.innerHTML = '<div class="empty">Article not found.</div>';
+      return;
+    }
+    try{
+      const data = await api("ozark_article", {slug});
+      const a = data.article || data;
+      if(!a || !a.title) throw new Error("missing");
+      document.title = (a.seo_title || a.title) + " | The Ozark Gazette";
+      mount.innerHTML = `<article class="about-section"><div class="article-meta">${esc(a.category || "Local")} · ${esc(formatDate(a.published_at || a.updated_at))} · By ${esc(a.author || "The Ozark Gazette")}</div><h1 style="font-family:Georgia,serif;font-size:clamp(34px,5vw,58px);line-height:1;margin:0 0 10px;color:#07172f">${esc(a.title)}</h1><p style="font-size:18px;color:#475467;line-height:1.55">${esc(a.subtitle || a.summary || "")}</p><img src="${esc(a.hero_image_url || DEFAULT_IMG)}" alt="" style="width:100%;max-height:460px;object-fit:cover;border:1px solid #dfe4eb"><div style="line-height:1.75;font-size:18px;margin-top:22px">${a.body_html || `<p>${esc(a.summary || "")}</p>`}</div>${a.what_this_means ? `<aside class="info-card" style="padding:18px;margin-top:20px"><h2>What this means</h2><p>${esc(a.what_this_means)}</p></aside>` : ""}</article>`;
+    }catch(e){
+      mount.innerHTML = '<div class="empty">Article not found or not yet published.</div>';
+    }
+  }
+
+  window.OzarkGazette = {api, loadArticleGrid, loadHome, loadCategoryPage, loadArticlePage, articleCard, articleUrl, esc};
+  document.addEventListener("DOMContentLoaded", () => {
+    injectShellStyles();
+    renderHeader();
+    renderFooter();
+    loadCategoryPage();
+    loadArticlePage();
+    if(document.body.dataset.page === "home") loadHome();
+  });
 })();
