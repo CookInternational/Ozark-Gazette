@@ -1,38 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#07172f">
-<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="author" content="The Ozark Gazette">
 <meta name="cgn-api-base" content="https://script.google.com/macros/s/AKfycbx41mQg-Ine3XZ-VrMI_SaQn4_K6cDQHA0cBFyGPgupu_edNFoNRjSLv2hoSe_bOytt/exec">
-<title>Article | The Ozark Gazette</title>
-<meta name="description" content="Read the latest article from The Ozark Gazette.">
-<link rel="canonical" href="https://ozarks.cgnnews.net/article.html">
+<title id="page-title">Article | The Ozark Gazette</title>
+<meta name="description" id="meta-description" content="Read the latest article from The Ozark Gazette.">
+<link rel="canonical" id="canonical-link" href="https://ozarks.cgnnews.net/article.html">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
 <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta property="og:type" content="website">
+<meta property="og:type" content="article">
 <meta property="og:site_name" content="The Ozark Gazette">
-<meta property="og:title" content="Article | The Ozark Gazette">
-<meta property="og:description" content="Read the latest article from The Ozark Gazette.">
-<meta property="og:url" content="https://ozarks.cgnnews.net/article.html">
-<meta property="og:image" content="https://ozarks.cgnnews.net/OzarkGazetteBanner.png">
+<meta property="og:title" id="og-title" content="Article | The Ozark Gazette">
+<meta property="og:description" id="og-description" content="Read the latest article from The Ozark Gazette.">
+<meta property="og:url" id="og-url" content="https://ozarks.cgnnews.net/article.html">
+<meta property="og:image" id="og-image" content="https://ozarks.cgnnews.net/OzarkGazetteBanner.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Article | The Ozark Gazette">
-<meta name="twitter:description" content="Read the latest article from The Ozark Gazette.">
-<meta name="twitter:image" content="https://ozarks.cgnnews.net/OzarkGazetteBanner.png">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"NewsMediaOrganization","name":"The Ozark Gazette","url":"https://ozarks.cgnnews.net/","parentOrganization":{"@type":"NewsMediaOrganization","name":"Cook Global News Network","url":"https://www.cgnnews.net/"},"address":{"@type":"PostalAddress","streetAddress":"33256 US Highway 160","addressLocality":"Tecumseh","addressRegion":"MO","postalCode":"65760","addressCountry":"US"},"telephone":"+1-317-442-1437","email":"tips@cgnnews.net","logo":"https://ozarks.cgnnews.net/OzarkGazetteLogo.png"}</script>
+<meta name="twitter:title" id="twitter-title" content="Article | The Ozark Gazette">
+<meta name="twitter:description" id="twitter-description" content="Read the latest article from The Ozark Gazette.">
+<meta name="twitter:image" id="twitter-image" content="https://ozarks.cgnnews.net/OzarkGazetteBanner.png">
+<script type="application/ld+json" id="article-jsonld">{}</script>
 <link rel="stylesheet" href="/assets/ozark-site.css">
-<script defer src="/assets/ozark-shell.js"></script>
+<script defer src="/assets/cgn-dynamic-translate.js"></script>
+<style>
+body{font-family:Arial,Helvetica,sans-serif;margin:0;background:#fff;color:#111}.article-shell{max-width:900px;margin:40px auto;padding:0 20px}.article-kicker{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#666;font-weight:800;margin-bottom:10px}.article-kicker a{color:#666;text-decoration:none}.article-kicker a:hover{color:#111;text-decoration:underline}h1#title{font-family:Georgia,"Times New Roman",serif;font-size:clamp(36px,5vw,62px);line-height:1.02;margin:0 0 10px;letter-spacing:-.04em;color:#07172f}h2#subtitle{font-size:20px;line-height:1.35;color:#444;font-weight:400;margin:0 0 16px}.meta{color:#555;font-size:14px;line-height:1.5;margin:0 0 16px;border-top:1px solid #e2e2e2;border-bottom:1px solid #e2e2e2;padding:12px 0}.meta-row{display:grid;grid-template-columns:98px 1fr;gap:12px;align-items:start;margin:4px 0}.meta-label{color:#666;font-weight:800}.meta-value{color:#222}.meta a{color:#111;font-weight:800}.article-actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:0 0 20px}.article-action-btn{appearance:none;display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:9px 14px;border:1px solid #111;background:#111;color:#fff;text-decoration:none;font-size:13px;font-weight:900;cursor:pointer;line-height:1}.article-action-btn.secondary{background:#fff;color:#111}.article-action-btn:hover{opacity:.85;text-decoration:none}.hero{width:100%;margin:20px 0;display:block;background:#eee;border:1px solid #d8dce4;object-fit:cover;max-height:520px}.image-credit{color:#777;font-size:12px;margin-top:-12px;margin-bottom:24px}.article-content{font-size:18px;line-height:1.75}.article-content p{margin-bottom:18px}.article-content a{color:#111;font-weight:800}.paywall{margin:30px 0;padding:24px;border:2px solid #111;text-align:center;background:#fff}.paywall h2{margin-top:0;color:#07172f}.paywall button{padding:11px 16px;border:1px solid #111;background:#111;color:#fff;font-weight:800;cursor:pointer;margin:6px}.paywall button.secondary{background:#fff;color:#111}.analysis-box{margin-top:34px;padding-top:20px;border-top:1px solid #ddd}.analysis-box h3{font-size:22px;margin-top:0;color:#07172f}.analysis-box p{line-height:1.65}.cgn-article-ad{max-width:1100px;margin:0 auto 34px;padding:0 20px;box-sizing:border-box}.cgn-article-ad-card{border:1px solid #d7dce6;background:#fff;text-align:center;padding:14px 12px;color:#666;font-size:12px;box-shadow:0 8px 22px rgba(7,17,31,.06)}.cgn-article-ad-label{font-size:11px;color:#777;margin-bottom:10px;text-transform:uppercase;letter-spacing:.06em;font-weight:800}.cgn-article-google-slot{position:relative;display:block;width:100%;min-height:180px;box-sizing:border-box;border:1px solid #d7dce6;background:#fff;overflow:hidden}.cgn-google-ad{position:relative;z-index:2;display:block!important;width:100%;min-height:180px;background:transparent}.cgn-article-ad-placeholder{position:absolute;inset:0;z-index:1;display:flex;align-items:center;justify-content:center;padding:24px;box-sizing:border-box;background:#fff;color:#4b5563;font-size:18px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;pointer-events:none}.cgn-article-ad-disclosure{margin-top:9px;color:#777;font-size:11px;line-height:1.35}.article-message{padding:18px;border:1px solid #ddd;background:#f7f7f7;color:#475467;line-height:1.55}.loading-note{font-weight:900;color:#64748b;text-transform:uppercase;letter-spacing:.06em}@media(max-width:900px){.article-shell{margin:28px auto;padding:0 16px}h1#title{font-size:32px}h2#subtitle{font-size:18px}.article-content{font-size:16px}.meta-row{grid-template-columns:86px 1fr;gap:8px}.article-action-btn{flex:1 1 auto}.cgn-article-ad{margin:0 auto 28px;padding:0 16px}.cgn-article-google-slot,.cgn-google-ad{min-height:112px}.cgn-article-ad-placeholder{font-size:14px;padding:18px}}@media print{#cgn-site-footer,.cgn-article-ad,#paywall,.paywall,#login-modal,.article-actions,script,iframe,.adsbygoogle{display:none!important}.article-shell{max-width:none!important;margin:0!important;padding:0!important}body{background:#fff!important;color:#000!important}h1#title{font-size:30pt!important;line-height:1.1!important}.article-content{font-size:12pt!important;line-height:1.6!important}a{color:#000!important;text-decoration:none!important}}
+</style>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5303063222439969" crossorigin="anonymous"></script>
 </head>
-<body >
+<body>
 <div id="cgn-site-header"></div>
-<main id="main-content" class="site-main">
-<div id="articleMount"><div class="empty">Loading article...</div></div>
+<main class="article-shell" itemscope itemtype="https://schema.org/NewsArticle">
+<div id="category" class="article-kicker">The Ozark Gazette</div>
+<h1 id="title" itemprop="headline">Loading article...</h1>
+<h2 id="subtitle"></h2>
+<div id="meta" class="meta"><div class="loading-note">Loading article details...</div></div>
+<div class="article-actions" aria-label="Article actions" style="display:none">
+  <a id="email-reporter-btn" class="article-action-btn" href="mailto:tips@cgnnews.net?subject=RE%3A%20The%20Ozark%20Gazette">Email Reporter</a>
+  <button type="button" class="article-action-btn secondary" onclick="window.print()">Print Article</button>
+</div>
+<img id="hero" class="hero" itemprop="image" alt="" style="display:none">
+<div id="image-credit" class="image-credit"></div>
+<div id="body" class="article-content"></div>
+<div id="paywall"></div>
+<div class="analysis-box" style="display:none">
+  <h3>What This Means</h3>
+  <div id="analysis"></div>
+</div>
 </main>
+<section class="cgn-article-ad" aria-label="Advertisement">
+  <div class="cgn-article-ad-card">
+    <div class="cgn-article-ad-label">Advertisement</div>
+    <div class="cgn-article-google-slot">
+      <div class="cgn-article-ad-placeholder">Advertisement</div>
+      <ins class="adsbygoogle cgn-google-ad" style="display:block" data-ad-client="ca-pub-5303063222439969" data-ad-slot="3184122609" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    </div>
+    <div class="cgn-article-ad-disclosure">Sponsored placement</div>
+  </div>
+</section>
 <div id="cgn-site-footer"></div>
+<script src="/assets/cgn-payments.js"></script>
+<script src="/assets/ozark-shell.js"></script>
+<script>
+try{(adsbygoogle=window.adsbygoogle||[]).push({});}catch(e){}
+const OZARK_API_FALLBACK="https://script.google.com/macros/s/AKfycbx41mQg-Ine3XZ-VrMI_SaQn4_K6cDQHA0cBFyGPgupu_edNFoNRjSLv2hoSe_bOytt/exec";
+const OZARK_DEFAULT_IMAGE="https://ozarks.cgnnews.net/OzarkGazetteBanner.png";
+const OZARK_PAYWALLED_CONTENT_SELECTOR=".cgn-paywalled-content";
+function getOzarkApiBase(){const meta=document.querySelector('meta[name="cgn-api-base"]');return window.CGN_API_BASE||window.CGN_API_URL||window.CGN_BACKEND_URL||window.CGN_CONFIG?.apiBase||window.CGN_CONFIG?.google_apps_script_web_app_url||(meta&&meta.content)||OZARK_API_FALLBACK;}
+function safeHtml(v){return String(v||"").replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c];});}
+function slugify(v){return String(v||"").trim().toLowerCase().replace(/&/g,"and").replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"");}
+function getUser(){return localStorage.getItem("user_id")||"";}
+function getAnonId(){let anon=localStorage.getItem("anon_id");if(!anon){anon="anon_"+Math.random().toString(36).slice(2)+Date.now().toString(36);localStorage.setItem("anon_id",anon);}return anon;}
+function cleanArticleSlug(v){const raw=String(v||"").trim();return !raw||raw.toLowerCase()==="index.html"?"":raw;}
+function deriveSlugFromPath(pathValue){const parts=String(pathValue||"").split("?")[0].split("#")[0].split("/").filter(Boolean).filter(function(p){return String(p).toLowerCase()!=="index.html";});if(!parts.length)return "";const last=parts[parts.length-1];if(["news","weather","sports","article.html"].includes(String(last||"").toLowerCase()))return "";return last||"";}
+const OZARK_SLUG=cleanArticleSlug(new URLSearchParams(location.search).get("slug"))||cleanArticleSlug(new URLSearchParams(location.search).get("id"))||cleanArticleSlug(deriveSlugFromPath(location.pathname));
+function normalizeCategory(category){const raw=String(category||"").trim();const lower=raw.toLowerCase();const map={"local":"Local","us":"US","u.s.":"US","united states":"US","world":"World","politics":"Politics","investigations":"Investigations","investigation":"Investigations","markets":"Markets","market":"Markets","business":"Markets","technology":"Technology","tech":"Technology","opinion":"Opinion","environment":"Environment","entertainment":"Entertainment","obituaries":"Obituaries","obituary":"Obituaries","weather":"Weather","traffic":"Traffic","sports":"Sports","sport":"Sports"};return map[lower]||raw||"Local";}
+function getCategoryPath(category){const clean=normalizeCategory(category);if(clean==="Weather")return "/weather/";if(clean==="Sports")return "/sports/";if(clean==="Traffic")return "/traffic/";if(clean==="Markets")return "/markets/";if(clean==="Obituaries")return "/obituaries/";return "/"+slugify(clean)+"/";}
+function getReporterPath(){return "/reporters/";}
+function reporterEmailFromName(name){return String(name||"").trim().toLowerCase()==="michael a. cook"?"editor@cgnnews.net":"tips@cgnnews.net";}
+function parseOzarkDate(value){if(!value)return null;if(value instanceof Date)return isNaN(value.getTime())?null:value;let raw=String(value||"").trim();if(!raw)return null;const hasZone=/(?:z|[+-]\d{2}:?\d{2})$/i.test(raw)||/\b(?:utc|gmt)\b/i.test(raw);if(hasZone){const d=new Date(raw.replace(" ","T"));return isNaN(d.getTime())?null:d;}const m=raw.match(/^(\d{4})[-\/](\d{1,2})[-\/](\d{1,2})(?:[ T](\d{1,2}):(\d{2})(?::(\d{2}))?)?$/);if(m){const d=new Date(Date.UTC(Number(m[1]),Number(m[2])-1,Number(m[3]),Number(m[4]||0),Number(m[5]||0),Number(m[6]||0)));return isNaN(d.getTime())?null:d;}const d=new Date(raw);return isNaN(d.getTime())?null:d;}
+function formatDate(value){const d=parseOzarkDate(value);if(!d)return "";const parts=new Intl.DateTimeFormat("en-US",{timeZone:"America/Chicago",weekday:"long",day:"numeric",month:"long",year:"numeric",hour:"numeric",minute:"2-digit",second:"2-digit",hour12:true,timeZoneName:"short"}).formatToParts(d);const map={};parts.forEach(function(p){if(p.type!=="literal")map[p.type]=p.value;});return `${map.weekday}, ${map.day} ${map.month} ${map.year} at ${map.hour}:${map.minute}:${map.second} ${String(map.dayPeriod||"").toUpperCase()} ${map.timeZoneName}`;}
+function statusActive(v){const s=String(v||"").trim().toLowerCase();return v===true||s==="true"||s==="active"||s==="paid"||s==="subscriber";}
+function articleLocked(article){return article&& (article.locked===true||String(article.locked||"").toLowerCase()==="true");}
+const ANON_LIMIT=3, USER_LIMIT=6;
+function meterKey(){const u=getUser();return u?"ozark_article_meter_user_v1_"+slugify(u):"ozark_article_meter_anon_v1";}
+function readMeter(){try{const parsed=JSON.parse(localStorage.getItem(meterKey())||"{}");const slugs=Array.isArray(parsed.slugs)?parsed.slugs.map(String).filter(Boolean):[];return {slugs:[...new Set(slugs)]};}catch(e){return {slugs:[]};}}
+function writeMeter(m){try{localStorage.setItem(meterKey(),JSON.stringify({slugs:[...new Set((m.slugs||[]).map(String).filter(Boolean))],updated_at:new Date().toISOString()}));}catch(e){}}
+function accessDecision(article){if(articleLocked(article))return {locked:true,limit:article.paywall_limit|| (getUser()?USER_LIMIT:ANON_LIMIT),reason:"backend"};if(localStorage.getItem("subscriber")==="true"||statusActive(article.subscriber)||statusActive(article.subscription_status)||statusActive(article.reader_access))return {locked:false,limit:0,reason:"subscriber"};const limit=getUser()?USER_LIMIT:ANON_LIMIT;const s=cleanArticleSlug(article.slug)||OZARK_SLUG;if(!s)return {locked:false,limit:limit,reason:"no_slug"};const m=readMeter();if(m.slugs.includes(s))return {locked:false,limit:limit,reason:"already_counted"};if(m.slugs.length>=limit)return {locked:true,limit:limit,reason:"meter"};m.slugs.push(s);writeMeter(m);return {locked:false,limit:limit,reason:"counted"};}
+function previewHtml(article){if(article.preview_html||article.teaser_html||article.excerpt_html)return article.preview_html||article.teaser_html||article.excerpt_html;const summary=article.summary||article.subtitle||"";return summary?`<p>${safeHtml(summary)}</p>`:"<p>This article is available to subscribers.</p>";}
+function requestArticleLogin(){if(typeof window.openLogin==="function"){window.openLogin();return;}location.href="/?login=1";}
+function showPaywall(article,decision){const isLoggedIn=!!getUser();document.getElementById("paywall").innerHTML=`<div class="paywall"><h2>Subscribe to Continue Reading</h2><p>${decision&&decision.limit?`You have reached your ${decision.limit}-article free reading limit.`:"Subscribe to continue reading."}</p><p>${isLoggedIn?"Your free account is active. Subscribe for unlimited access.":"Create a free account to get more free articles. Subscribers get unlimited access."}</p>${isLoggedIn?'<button type="button" onclick="startOzarkSubscription()">Subscribe / Pay With PayPal</button>':'<button class="secondary" type="button" onclick="requestArticleLogin()">Login / Create Account</button>'}<div id="article-paypal-wrap" style="display:none;margin-top:18px;"><div style="margin-bottom:10px;font-size:13px;color:#555;line-height:1.45;">Complete your subscription securely with PayPal.</div><div id="article-paypal-currency-wrap" style="margin-bottom:10px;"></div><div id="article-paypal-container"></div></div></div>`;}
+function clearPaywall(){const el=document.getElementById("paywall");if(el)el.innerHTML="";}
+function startOzarkSubscription(){if(!getUser()){requestArticleLogin();return;}const wrap=document.getElementById("article-paypal-wrap");if(wrap){wrap.style.display="block";wrap.scrollIntoView({behavior:"smooth",block:"center"});}const container=document.getElementById("article-paypal-container");const currencyWrap=document.getElementById("article-paypal-currency-wrap");if(!window.CGNPayments||!container){if(container)container.innerHTML='<p style="font-size:13px;color:#555;">PayPal checkout is loading. Refresh this page or try again in a moment.</p>';return;}if(currencyWrap&&!document.getElementById("article-paypal-currency")){currencyWrap.innerHTML=window.CGNPayments.currencySelectHtml("article-paypal-currency","article");document.getElementById("article-paypal-currency")?.addEventListener("change",startOzarkSubscription);}const select=document.getElementById("article-paypal-currency");const currency=select?select.value:window.CGNPayments.getSelectedCurrency("USD");container.innerHTML='<p style="font-size:13px;color:#555;">Loading secure PayPal checkout...</p>';window.CGNPayments.renderHostedButton({containerId:"article-paypal-container",currency:currency,context:"article"}).catch(function(err){console.error("OZARK ARTICLE PAYPAL ERROR:",err);container.innerHTML='<p style="font-size:13px;color:#7a1111;">PayPal checkout could not load. Refresh this page or try another currency.</p>';});}
+function setReporterEmailButton(article,canonicalUrl){const btn=document.getElementById("email-reporter-btn");if(!btn)return;const author=article.author||"The Ozark Gazette";const email=reporterEmailFromName(author);const body=`Hello ${author},\n\nI read your article in The Ozark Gazette and wanted to contact you regarding:\n\n${article.title||"Article"}\n${canonicalUrl}\n\n`;btn.href=`mailto:${encodeURIComponent(email)}?subject=${encodeURIComponent("RE: "+(article.title||"The Ozark Gazette article"))}&body=${encodeURIComponent(body)}`;btn.setAttribute("aria-label","Email The Ozark Gazette newsroom");}
+function setNotFound(message){document.title="Article Not Found | The Ozark Gazette";document.getElementById("page-title").innerText="Article Not Found | The Ozark Gazette";document.getElementById("title").innerText="Article Not Found";document.getElementById("subtitle").innerText="";document.getElementById("category").innerText="The Ozark Gazette";document.getElementById("meta").innerHTML="";document.getElementById("body").innerHTML=`<div class="article-message"><p>${safeHtml(message||"The article you requested could not be found.")}</p><p><a href="/news/">Return to The Ozark Gazette news page</a></p></div>`;document.querySelector(".article-actions").style.display="none";document.querySelector(".analysis-box").style.display="none";document.getElementById("hero").style.display="none";clearPaywall();const robots=document.querySelector('meta[name="robots"]');if(robots)robots.content="noindex, follow";}
+function canonicalArticleUrl(article){const existing=String(article.canonical_url||article.url||"").trim();if(existing){const path=existing.replace(/^https?:\/\/[^/]+/i,"");return path?location.origin+path:existing;}return location.origin+"/article.html?slug="+encodeURIComponent(article.slug||OZARK_SLUG||"");}
+function renderArticle(article){if(!article||article.error||!article.title){setNotFound(article&&article.error||"Article not found or not yet published.");return;}const decision=accessDecision(article);const locked=decision.locked;const category=normalizeCategory(article.category||"Local");const categoryPath=getCategoryPath(category);const title=article.title||"Article";const summary=article.summary||article.subtitle||article.seo_description||"";const image=article.hero_image_url||article.image_url||article.image||OZARK_DEFAULT_IMAGE;const canonicalUrl=canonicalArticleUrl(article);document.title=title+" | The Ozark Gazette";document.getElementById("page-title").innerText=title+" | The Ozark Gazette";document.getElementById("title").innerText=title;document.getElementById("subtitle").innerText=article.subtitle||"";document.getElementById("category").innerHTML=`<a href="${categoryPath}">${safeHtml(category)}</a>`;document.getElementById("meta").innerHTML=`<div class="meta-row"><div class="meta-label">Category:</div><div class="meta-value"><a href="${categoryPath}">${safeHtml(category)}</a></div></div><div class="meta-row"><div class="meta-label">By:</div><div class="meta-value"><a href="/reporters/">${safeHtml(article.author||"The Ozark Gazette")}</a></div></div><div class="meta-row"><div class="meta-label">Published:</div><div class="meta-value">${safeHtml(formatDate(article.published_at))}</div></div><div class="meta-row"><div class="meta-label">Updated:</div><div class="meta-value">${safeHtml(formatDate(article.updated_at||article.published_at))}</div></div>`;document.querySelector(".article-actions").style.display="";setReporterEmailButton(article,canonicalUrl);const hero=document.getElementById("hero");if(image){hero.src=image;hero.alt=title;hero.style.display="block";}else{hero.style.display="none";}document.getElementById("image-credit").innerText=(article.image_credit||article.credit)?"Image: "+(article.image_credit||article.credit):"";const bodyEl=document.getElementById("body");const analysisEl=document.getElementById("analysis");const analysisBox=document.querySelector(".analysis-box");if(locked){bodyEl.classList.add("cgn-paywalled-content");bodyEl.innerHTML=previewHtml(article);showPaywall(article,decision);analysisEl.innerHTML=article.what_this_means_preview||article.analysis_preview||"";analysisBox.style.display=analysisEl.innerHTML.trim()?"":"none";}else{bodyEl.classList.remove("cgn-paywalled-content");bodyEl.innerHTML=article.body_html||`<p>${safeHtml(summary)}</p>`;clearPaywall();analysisEl.innerHTML=article.what_this_means||article.analysis||"";analysisBox.style.display=analysisEl.innerHTML.trim()?"":"none";}document.getElementById("canonical-link").href=canonicalUrl;document.getElementById("meta-description").content=summary;document.getElementById("og-title").content=title+" | The Ozark Gazette";document.getElementById("og-description").content=summary;document.getElementById("og-url").content=canonicalUrl;document.getElementById("og-image").content=image;document.getElementById("twitter-title").content=title+" | The Ozark Gazette";document.getElementById("twitter-description").content=summary;document.getElementById("twitter-image").content=image;const jsonLd={"@context":"https://schema.org","@type":"NewsArticle","@id":canonicalUrl+"#article","mainEntityOfPage":{"@type":"WebPage","@id":canonicalUrl},"headline":title,"description":summary,"image":[image],"datePublished":article.published_at||"","dateModified":article.updated_at||article.published_at||"","author":{"@type":"Person","name":article.author||"The Ozark Gazette","url":location.origin+"/reporters/"},"publisher":{"@type":"NewsMediaOrganization","name":"The Ozark Gazette","legalName":"The Ozark Gazette","url":location.origin+"/","logo":{"@type":"ImageObject","url":location.origin+"/OzarkGazetteLogo.png"}},"isAccessibleForFree":locked?false:true};if(locked){jsonLd.hasPart={"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":OZARK_PAYWALLED_CONTENT_SELECTOR};}document.getElementById("article-jsonld").textContent=JSON.stringify(jsonLd);}
+async function loadOzarkArticle(){if(!OZARK_SLUG){setNotFound("Missing article slug.");return;}try{const api=getOzarkApiBase();const userId=getUser();const anonId=getAnonId();const qs=new URLSearchParams({site:"ozark",action:"ozark_article",slug:OZARK_SLUG,user_id:userId,anon_id:anonId});const res=await fetch(api+"?"+qs.toString(),{cache:"no-store"});const data=await res.json();renderArticle(data.article||data);}catch(err){console.error("OZARK ARTICLE LOAD ERROR",err);setNotFound("The Ozark Gazette could not reach the live article service. Please refresh this page in a moment.");}}
+document.addEventListener("DOMContentLoaded",loadOzarkArticle);
+</script>
 </body>
 </html>
