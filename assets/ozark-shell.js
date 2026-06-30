@@ -1,9 +1,11 @@
 (function(){
   "use strict";
 
-  const API_BASE = "https://script.google.com/macros/s/AKfycbw2U1Qezn44zJNnonZMZG06LpB7lh6n7cgiJY8hY34RnriYd2Eq66swuxQ7S_VyHobb/exec";
+  const API_BASE = "https://script.google.com/macros/s/AKfycbx41mQg-Ine3XZ-VrMI_SaQn4_K6cDQHA0cBFyGPgupu_edNFoNRjSLv2hoSe_bOytt/exec";
   const SITE = "ozark";
   const DEFAULT_IMG = "/OzarkGazetteBanner.png";
+  const OZARK_SHEET_ID = "1Xz9bnMqb-tkHeo2N2UonUbBr1jpo1VzKcVbBW_PU2n0";
+  const OZARK_SHEETS = { articles:"Articles", archives:"Archives", obituaries:"Obituaries" };
   const TECUMSEH = {
     name:"Tecumseh",
     location:"Tecumseh, MO",
@@ -33,7 +35,7 @@
   }
 
   function getUser(){
-    return localStorage.getItem("user_id") || "";
+    return localStorage.getItem("user_id") || localStorage.getItem("cgn_user_id") || "";
   }
 
   function injectShellStyles(){
@@ -133,47 +135,59 @@
     if(m) m.style.display = "none";
   }
 
-  async function authAction(action){
-    const email = (document.getElementById("login-email") || {}).value || "";
-    const password = (document.getElementById("login-password") || {}).value || "";
+  function setShellLoginMessage(message){
     const msg = document.getElementById("cgn-shell-login-message");
-    if(!email || !password){
-      if(msg) msg.textContent = "Enter email and password.";
-      return;
-    }
-    try{
-      if(msg) msg.textContent = "Working...";
-      const qs = new URLSearchParams({action,email,password,site:SITE});
-      const res = await fetch(`${API_BASE}?${qs.toString()}`, {cache:"no-store"});
-      const data = await res.json();
-      if(data && data.success){
-        const userId = data.user_id || data.userId || data.user?.id || "";
-        if(userId) localStorage.setItem("user_id", userId);
-        if(data.subscriber || data.user?.subscriber) localStorage.setItem("subscriber", "true");
-        closeShellLogin();
-        updateAccountUI();
-        location.reload();
-      }else if(msg){
-        msg.textContent = (data && data.error) || "Unable to complete request.";
-      }
-    }catch(e){
-      if(msg) msg.textContent = "Unable to connect right now.";
-    }
+    if(msg) msg.textContent = message || "";
   }
 
-  async function refreshAccountStatus(){
-    const userId = getUser();
-    if(!userId) return;
+  async function authAction(action){
+    const emailInput = document.getElementById("login-email");
+    const passwordInput = document.getElementById("login-password");
+    const email = emailInput ? emailInput.value.trim() : "";
+    const password = passwordInput ? passwordInput.value : "";
+    if(!email || !password){
+      setShellLoginMessage("Enter email and password.");
+      return;
+    }
+
+    setShellLoginMessage(action === "signup" ? "Creating account..." : "Logging in...");
+
     try{
-      const qs = new URLSearchParams({action:"subscription_status", user_id:userId, site:SITE});
+      const qs = new URLSearchParams({action, email, password});
       const res = await fetch(`${API_BASE}?${qs.toString()}`, {cache:"no-store"});
       const data = await res.json();
+
       if(data && data.success){
-        const active = data.subscriber === true || String(data.subscription_status || "").toLowerCase() === "active";
-        if(active) localStorage.setItem("subscriber", "true");
-        else localStorage.removeItem("subscriber");
+        const userId = data.user_id || data.userId || data.user?.user_id || data.user?.id || "";
+        const userEmail = data.email || data.user?.email || email;
+        if(userId){
+          localStorage.setItem("user_id", userId);
+          localStorage.setItem("cgn_user_id", userId);
+        }
+        if(userEmail) localStorage.setItem("user_email", userEmail);
+        if(data.subscriber || data.user?.subscriber || String(data.subscription_status || data.user?.subscription_status || "").toLowerCase() === "active"){
+          localStorage.setItem("subscriber", "true");
+        } else if(data.subscriber === false || data.user?.subscriber === false){
+          localStorage.removeItem("subscriber");
+        }
+        try{ localStorage.setItem("cgn_user", JSON.stringify(data.user || data)); }catch(e){}
+
+        setShellLoginMessage(action === "signup" ? "Account created." : "Logged in.");
+        closeShellLogin();
+        updateAccountUI();
+        document.dispatchEvent(new CustomEvent(action === "signup" ? "cgn:signup" : "cgn:login", { detail:data }));
+
+        if(typeof window.loadArticle === "function") window.loadArticle();
+        else if(typeof window.loadOzarkArticle === "function") window.loadOzarkArticle();
+        else location.reload();
+        return;
       }
-    }catch(e){}
+
+      setShellLoginMessage((data && (data.error || data.message)) || (action === "signup" ? "Signup failed." : "Login failed."));
+    }catch(e){
+      console.error("CGN ACCOUNT ERROR:", e);
+      setShellLoginMessage(action === "signup" ? "Unable to create account right now." : "Unable to log in right now.");
+    }
   }
 
   window.openLogin = openShellLogin;
@@ -193,8 +207,12 @@
 
   function logout(){
     localStorage.removeItem("user_id");
+    localStorage.removeItem("cgn_user_id");
+    localStorage.removeItem("user_email");
+    localStorage.removeItem("cgn_user");
     localStorage.removeItem("subscriber");
     updateAccountUI();
+    document.dispatchEvent(new CustomEvent("cgn:logout"));
     location.reload();
   }
 
@@ -243,7 +261,6 @@
               <a href="/investigations/" role="menuitem">Investigations</a>
               <a href="/opinion/" role="menuitem">Opinion</a>
               <a href="/obituaries/" role="menuitem">Obituaries</a>
-              <a href="/archives/" role="menuitem">Archives</a>
               <a href="/weather/" role="menuitem">Weather</a>
               <a href="/traffic/" role="menuitem">Traffic</a>
               <a href="/sports/" role="menuitem">Sports</a>
@@ -303,7 +320,6 @@
       }
     });
     updateAccountUI();
-    refreshAccountStatus();
     initWeatherTime();
     loadTicker();
     renderTradingViewTicker();
@@ -313,7 +329,7 @@
     const mount = document.getElementById("cgn-site-footer");
     if(!mount) return;
     injectShellStyles();
-    mount.innerHTML = `<footer class="footer"><div class="footer-container"><div><a class="footer-cgn-logo-link" href="https://www.cgnnews.net/" aria-label="Open CGN News"><svg class="footer-cgn-mark" viewBox="0 0 330 92" role="img" aria-label="CGN"><circle cx="46" cy="46" r="36" fill="none" stroke="currentColor" stroke-width="6"></circle><path d="M12 46h68M46 10c10 10 15 22 15 36S56 72 46 82M46 10C36 20 31 32 31 46s5 26 15 36M18 28h56M18 64h56" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"></path><text x="98" y="64" font-family="Arial Black, Arial, Helvetica, sans-serif" font-size="54" font-weight="900" fill="currentColor" letter-spacing="-2">CGN</text></svg></a><p class="cgn-tag">Real-Time News.<br>Global Perspective.</p><p><strong>The Ozark Gazette</strong><br>P.O. Box 794<br>33256 US Highway 160<br>Tecumseh, Missouri 65760<br>📱 (317) 442-1437<br><a href="mailto:tips@cgnnews.net">tips@cgnnews.net</a></p></div><div><h4><a href="/news/">News</a></h4><a href="/local/">Local</a><br><a href="/us/">US</a><br><a href="/world/">World</a><br><a href="/politics/">Politics</a><br><a href="/investigations/">Investigations</a><br><a href="/opinion/">Opinion</a></div><div><h4>Briefs</h4><a href="/weather/">Weather Brief</a><br><a href="/weather/radar/">Weather Radar</a><br><a href="/traffic/">Traffic Brief</a><br><a href="/sports/">Sports Brief</a><br><a href="/markets/center/">Markets Brief</a><br><a href="/obituaries/">Obituaries</a><br><a href="/archives/">Archives</a></div><div><h4>Community</h4><a href="/horoscopes/">Horoscopes</a><br><a href="/sudoku/">Sudoku</a><br><a href="/puzzles/">Puzzles</a><br><a href="/crosswords/">Crosswords</a><br><a href="/reporters/">Reporters</a><br><a href="/about/">About</a></div><div><h4>Support</h4><a href="/contact/">Contact</a><br><a href="/support/">Support</a><br><a href="/archives/">Archives</a><br><a href="https://www.cgnnews.net/privacy-policy">Privacy</a><br><a href="https://www.cgnnews.net/terms-of-service">Terms</a><br><a href="https://www.cgnnews.net/editorial-standards/">Editorial Standards</a><br><a href="https://www.cgnnews.net/copyright/">Copyright</a></div></div><div class="footer-bottom"><a href="https://www.cgnnews.net/copyright/">Copyright © 2026 | CGN News — All Rights Reserved</a><div class="footer-developed">Developed by <a href="https://cts.cook-international.com" target="_blank" rel="noopener noreferrer">Cook Technology Services</a></div></div></footer>`;
+    mount.innerHTML = `<footer class="footer"><div class="footer-container"><div><a class="footer-cgn-logo-link" href="https://www.cgnnews.net/" aria-label="Open CGN News"><svg class="footer-cgn-mark" viewBox="0 0 330 92" role="img" aria-label="CGN"><circle cx="46" cy="46" r="36" fill="none" stroke="currentColor" stroke-width="6"></circle><path d="M12 46h68M46 10c10 10 15 22 15 36S56 72 46 82M46 10C36 20 31 32 31 46s5 26 15 36M18 28h56M18 64h56" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"></path><text x="98" y="64" font-family="Arial Black, Arial, Helvetica, sans-serif" font-size="54" font-weight="900" fill="currentColor" letter-spacing="-2">CGN</text></svg></a><p class="cgn-tag">Real-Time News.<br>Global Perspective.</p><p><strong>The Ozark Gazette</strong><br>P.O. Box 794<br>33256 US Highway 160<br>Tecumseh, Missouri 65760<br>📱 (317) 442-1437<br><a href="mailto:tips@cgnnews.net">tips@cgnnews.net</a></p></div><div><h4><a href="/news/">News</a></h4><a href="/local/">Local</a><br><a href="/us/">US</a><br><a href="/world/">World</a><br><a href="/politics/">Politics</a><br><a href="/investigations/">Investigations</a><br><a href="/opinion/">Opinion</a></div><div><h4>Briefs</h4><a href="/weather/">Weather Brief</a><br><a href="/weather/radar/">Weather Radar</a><br><a href="/traffic/">Traffic Brief</a><br><a href="/sports/">Sports Brief</a><br><a href="/markets/center/">Markets Brief</a><br><a href="/obituaries/">Obituaries</a></div><div><h4>Community</h4><a href="/horoscopes/">Horoscopes</a><br><a href="/sudoku/">Sudoku</a><br><a href="/puzzles/">Puzzles</a><br><a href="/crosswords/">Crosswords</a><br><a href="/reporters/">Reporters</a><br><a href="/about/">About</a></div><div><h4>Support</h4><a href="/contact/">Contact</a><br><a href="/support/">Support</a><br><a href="https://www.cgnnews.net/privacy-policy">Privacy</a><br><a href="https://www.cgnnews.net/terms-of-service">Terms</a><br><a href="https://www.cgnnews.net/editorial-standards/">Editorial Standards</a><br><a href="https://www.cgnnews.net/copyright/">Copyright</a></div></div><div class="footer-bottom"><a href="https://www.cgnnews.net/copyright/">Copyright © 2026 | CGN News — All Rights Reserved</a><div class="footer-developed">Developed by <a href="https://cts.cook-international.com" target="_blank" rel="noopener noreferrer">Cook Technology Services</a></div></div></footer>`;
   }
 
   function normalizeTimeZoneLabel(label){
@@ -358,6 +374,56 @@
     updateWeatherAria();
   }
 
+
+  function weatherTextInfo(text){
+    const raw = String(text || "").replace(/_/g, " ").replace(/\s+/g, " ").trim();
+    const lower = raw.toLowerCase();
+    if(!raw || /^(unknown|not available|n\/a|null)$/i.test(raw)) return null;
+    if(/thunder|t-?storm|lightning/.test(lower)) return {icon:"⛈", text:raw};
+    if(/freezing rain|freezing drizzle|sleet|ice pellet/.test(lower)) return {icon:"🌧", text:raw};
+    if(/snow|flurr|blizzard/.test(lower)) return {icon:"❄️", text:raw};
+    if(/rain|shower|drizzle|sprinkle/.test(lower)) return {icon:/sun|partly/i.test(raw) ? "🌦" : "🌧", text:raw};
+    if(/fog|mist|haze|smoke|dust/.test(lower)) return {icon:"🌫", text:raw};
+    if(/overcast|cloud|cloudy|few clouds|scattered clouds|broken clouds/.test(lower)) return {icon:/partly|few|scattered/i.test(raw) ? "🌤" : "☁️", text:raw};
+    if(/fair|clear|sunny/.test(lower)) return {icon:"☀️", text:raw};
+    return {icon:"🌤", text:raw};
+  }
+
+  function nwsValue(field){
+    if(field && typeof field === "object" && "value" in field) return Number(field.value);
+    return Number(field);
+  }
+
+  async function fetchNWSHeaderObservation(){
+    try{
+      const pointsUrl = `https://api.weather.gov/points/${TECUMSEH.latitude.toFixed(4)},${TECUMSEH.longitude.toFixed(4)}`;
+      const pointsResponse = await fetch(pointsUrl, {cache:"no-store", headers:{Accept:"application/geo+json"}});
+      if(!pointsResponse.ok) throw new Error("NWS points " + pointsResponse.status);
+      const pointsJson = await pointsResponse.json();
+      const stationsUrl = pointsJson && pointsJson.properties && pointsJson.properties.observationStations;
+      if(!stationsUrl) throw new Error("No observationStations URL");
+      const stationsResponse = await fetch(stationsUrl, {cache:"no-store", headers:{Accept:"application/geo+json"}});
+      if(!stationsResponse.ok) throw new Error("NWS stations " + stationsResponse.status);
+      const stationsJson = await stationsResponse.json();
+      const stations = Array.isArray(stationsJson.features) ? stationsJson.features : [];
+      for(const station of stations.slice(0, 6)){
+        const latestUrl = station && station.id ? station.id.replace(/\/$/, "") + "/observations/latest?require_qc=false" : "";
+        if(!latestUrl) continue;
+        const observationResponse = await fetch(latestUrl, {cache:"no-store", headers:{Accept:"application/geo+json"}});
+        if(!observationResponse.ok) continue;
+        const observationJson = await observationResponse.json();
+        const p = observationJson && observationJson.properties;
+        const info = weatherTextInfo(p && p.textDescription);
+        const tempC = nwsValue(p && p.temperature);
+        const tempF = Number.isFinite(tempC) ? Math.round((tempC * 9 / 5) + 32) : null;
+        if(info && Number.isFinite(tempF)) return {info, tempF};
+      }
+    }catch(e){
+      console.warn("Ozark shell NWS observation fallback:", e);
+    }
+    return null;
+  }
+
   function weatherCodeInfo(code){
     const n = Number(code);
     if(n === 0) return {icon:"☀️", text:"Clear"};
@@ -368,80 +434,6 @@
     if([71,73,75,77,85,86].includes(n)) return {icon:"❄️", text:"Snow"};
     if([95,96,99].includes(n)) return {icon:"⛈", text:"Storm"};
     return {icon:"🌤", text:"Weather"};
-  }
-
-
-  function firstNumber(){
-    for(let i = 0; i < arguments.length; i++){
-      const n = Number(arguments[i]);
-      if(Number.isFinite(n)) return n;
-    }
-    return null;
-  }
-
-  function weatherFromConditionText(value){
-    const raw = String(value || "").replace(/_/g, " ").replace(/\s+/g, " ").trim();
-    const text = raw || "Weather";
-    const lower = text.toLowerCase();
-    if(!raw || /^(unknown|not available|n\/a|null)$/i.test(raw)) return null;
-    if(/thunder|t-?storm|lightning/.test(lower)) return {icon:"⛈", text:text};
-    if(/freezing rain|freezing drizzle|sleet|ice pellet/.test(lower)) return {icon:"🌧", text:text};
-    if(/snow|flurr|blizzard/.test(lower)) return {icon:"❄️", text:text};
-    if(/rain|shower|drizzle|sprinkle/.test(lower)) return {icon:/sun|partly/i.test(text) ? "🌦" : "🌧", text:text};
-    if(/fog|mist|haze|smoke|dust/.test(lower)) return {icon:"🌫", text:text};
-    if(/overcast|cloud|cloudy|few clouds|scattered clouds|broken clouds/.test(lower)) return {icon:/partly|few|scattered/i.test(text) ? "🌤" : "☁️", text:text};
-    if(/fair|clear|sunny/.test(lower)) return {icon:"☀️", text:text};
-    return {icon:"🌤", text:text};
-  }
-
-  function nwsValue(field){
-    if(field && typeof field === "object" && "value" in field) return firstNumber(field.value);
-    return firstNumber(field);
-  }
-
-  function celsiusToF(value){
-    const n = firstNumber(value);
-    return n === null ? null : (n * 9 / 5) + 32;
-  }
-
-  function normalizeNWSMiniObservation(properties){
-    if(!properties) return null;
-    const condition = weatherFromConditionText(properties.textDescription);
-    if(!condition) return null;
-    return {
-      condition,
-      conditionText: condition.text,
-      temperature: celsiusToF(nwsValue(properties.temperature)),
-      timestamp: properties.timestamp || null,
-      source: "National Weather Service observation"
-    };
-  }
-
-  async function fetchNWSMiniObservation(){
-    try{
-      const pointsUrl = `https://api.weather.gov/points/${TECUMSEH.latitude.toFixed(4)},${TECUMSEH.longitude.toFixed(4)}`;
-      const pointsResponse = await fetch(pointsUrl, {cache:"no-store", headers:{"Accept":"application/geo+json"}});
-      if(!pointsResponse.ok) return null;
-      const pointsJson = await pointsResponse.json();
-      const stationsUrl = pointsJson && pointsJson.properties ? pointsJson.properties.observationStations : "";
-      if(!stationsUrl) return null;
-      const stationsResponse = await fetch(stationsUrl, {cache:"no-store", headers:{"Accept":"application/geo+json"}});
-      if(!stationsResponse.ok) return null;
-      const stationsJson = await stationsResponse.json();
-      const stations = Array.isArray(stationsJson.features) ? stationsJson.features : [];
-      for(const station of stations.slice(0, 6)){
-        const latestUrl = station && station.id ? station.id.replace(/\/$/, "") + "/observations/latest?require_qc=false" : "";
-        if(!latestUrl) continue;
-        const observationResponse = await fetch(latestUrl, {cache:"no-store", headers:{"Accept":"application/geo+json"}});
-        if(!observationResponse.ok) continue;
-        const observationJson = await observationResponse.json();
-        const observation = normalizeNWSMiniObservation(observationJson && observationJson.properties);
-        if(observation) return observation;
-      }
-    }catch(e){
-      console.warn("OZARK SHELL NWS CURRENT OBSERVATION ERROR:", e);
-    }
-    return null;
   }
 
   function updateWeatherAria(){
@@ -459,26 +451,23 @@
     const compatEl = document.getElementById("weather");
     if(!el) return;
     try{
-      const url = `https://api.open-meteo.com/v1/forecast?latitude=${TECUMSEH.latitude}&longitude=${TECUMSEH.longitude}&current=temperature_2m,weather_code&temperature_unit=fahrenheit&timezone=auto`;
-      const data = await (await fetch(url, {cache:"no-store"})).json();
-      const current = data.current || {};
-      const openMeteoTemp = firstNumber(current.temperature_2m);
-      if(openMeteoTemp === null) throw new Error("Missing temperature");
-      const openMeteoInfo = weatherCodeInfo(current.weather_code);
-
-      /*
-        Keep the global header matched to the full Weather page: use the
-        latest NWS observed text when available. Forecast alerts and
-        Open-Meteo weather_code values must not force the shell to show
-        Storm unless the current observation actually says thunderstorm.
-      */
-      const observed = await fetchNWSMiniObservation();
-      const info = observed && observed.condition ? observed.condition : openMeteoInfo;
-      const tempValue = firstNumber(observed && observed.temperature, openMeteoTemp);
-      const t = Math.round(tempValue);
-      const text = `${info.icon} ${t}°F · ${info.text}`;
+      let temp = null;
+      let info = null;
+      const nws = await fetchNWSHeaderObservation();
+      if(nws){
+        temp = nws.tempF;
+        info = nws.info;
+      } else {
+        const url = `https://api.open-meteo.com/v1/forecast?latitude=${TECUMSEH.latitude}&longitude=${TECUMSEH.longitude}&current=temperature_2m,weather_code&temperature_unit=fahrenheit&timezone=auto`;
+        const data = await (await fetch(url, {cache:"no-store"})).json();
+        const current = data.current || {};
+        temp = Math.round(Number(current.temperature_2m));
+        info = weatherCodeInfo(current.weather_code);
+      }
+      if(!Number.isFinite(temp)) throw new Error("Missing temperature");
+      const text = `${info.icon} ${temp}°F · ${info.text}`;
       el.textContent = text;
-      if(compactEl) compactEl.textContent = `${info.icon} ${t}°`;
+      if(compactEl) compactEl.textContent = `${info.icon} ${temp}°`;
       if(compatEl) compatEl.textContent = text;
     }catch(e){
       el.textContent = "--°F · Weather updating";
@@ -524,10 +513,179 @@
     container.appendChild(script);
   }
 
-  async function api(action, params={}){
+
+  function gvizCellValue(cell){
+    if(!cell) return "";
+    let value = cell.v;
+    if(typeof value === "string"){
+      const m = value.match(/^Date\((\d+),(\d+),(\d+)(?:,(\d+),(\d+),(\d+))?\)$/);
+      if(m){
+        const d = new Date(Date.UTC(Number(m[1]), Number(m[2]), Number(m[3]), Number(m[4] || 0), Number(m[5] || 0), Number(m[6] || 0)));
+        return d.toISOString();
+      }
+    }
+    if(value === null || value === undefined || value === "") return cell.f || "";
+    return value;
+  }
+
+  function normalizeArticleItem(item, sourceSheet){
+    item = item || {};
+    const title = String(item.title || item.seo_title || "").trim();
+    const slug = item.slug || slugify(title);
+    const published = item.published_at || item.publishedAt || item.updated_at || item.updatedAt || item.created_at || item.date || "";
+    const category = item.category || "Local";
+    const url = item.url || `/article.html?slug=${encodeURIComponent(slug)}`;
+    return Object.assign({}, item, {
+      article_id:item.article_id || item.id || "",
+      title,
+      slug,
+      category,
+      published_at:published,
+      updated_at:item.updated_at || item.updatedAt || published,
+      summary:item.summary || item.subtitle || item.seo_description || "",
+      hero_image_url:item.hero_image_url || item.image_url || item.image || DEFAULT_IMG,
+      image_credit:item.image_credit || item.credit || "",
+      status:item.status || (sourceSheet === OZARK_SHEETS.archives ? "archived" : "published"),
+      url,
+      source:item.source || sourceSheet || "Articles"
+    });
+  }
+
+  function normalizeArticlesPayload(payload, sourceSheet){
+    let list = [];
+    if(Array.isArray(payload)) list = payload;
+    else if(payload && Array.isArray(payload.articles)) list = payload.articles;
+    else if(payload && Array.isArray(payload.items)) list = payload.items;
+    else if(payload && Array.isArray(payload.rows)) list = payload.rows;
+    else if(payload && Array.isArray(payload.data)) list = payload.data;
+    return list.map(item => normalizeArticleItem(item, sourceSheet)).filter(item => item.title);
+  }
+
+  async function fetchApiJson(action, params={}){
     const qs = new URLSearchParams(Object.assign({site:SITE, action}, params));
     const res = await fetch(`${API_BASE}?${qs.toString()}`, {cache:"no-store"});
-    return await res.json();
+    if(!res.ok) throw new Error(`Ozark API ${res.status}`);
+    const json = await res.json();
+    if(json && json.success === false) throw new Error(json.error || `Ozark action failed: ${action}`);
+    return json;
+  }
+
+  async function fetchSheetRows(sheetName){
+    const q = new URLSearchParams({sheet:sheetName, tqx:"out:json", headers:"1"});
+    const url = `https://docs.google.com/spreadsheets/d/${encodeURIComponent(OZARK_SHEET_ID)}/gviz/tq?${q.toString()}`;
+    const res = await fetch(url, {cache:"no-store"});
+    if(!res.ok) throw new Error(`Google Sheet ${sheetName} ${res.status}`);
+    const text = await res.text();
+    const start = text.indexOf("{");
+    const end = text.lastIndexOf("}");
+    if(start < 0 || end < start) throw new Error(`Invalid Google Sheet response for ${sheetName}`);
+    const json = JSON.parse(text.slice(start, end + 1));
+    const table = json.table || {};
+    const headers = (table.cols || []).map((col, index) => String(col.label || col.id || `col${index}`).trim());
+    return (table.rows || []).map(row => {
+      const obj = {};
+      (row.c || []).forEach((cell, index) => {
+        const key = headers[index];
+        if(key) obj[key] = gvizCellValue(cell);
+      });
+      return obj;
+    });
+  }
+
+  function filterArticles(list, params={}){
+    const category = String(params.category || "").trim().toLowerCase();
+    return (Array.isArray(list) ? list : []).filter(a => {
+      const status = String(a.status || "published").toLowerCase();
+      const statusOk = !status || status === "published" || status === "archive" || status === "archived";
+      const categoryOk = !category || String(a.category || "").trim().toLowerCase() === category;
+      return a.title && statusOk && categoryOk;
+    });
+  }
+
+  function sortArticles(list){
+    return (Array.isArray(list) ? list : []).sort((a,b) => {
+      const da = Number(a.display_order || 999999), db = Number(b.display_order || 999999);
+      if(Number.isFinite(da) && Number.isFinite(db) && da !== db) return da - db;
+      return articleTime(b) - articleTime(a);
+    });
+  }
+
+  async function fetchArticles(params={}){
+    const limit = Number(params.limit || 50);
+    const offset = Number(params.offset || 0);
+    try{
+      const json = await fetchApiJson("ozark_articles", params);
+      const apiList = normalizeArticlesPayload(json, OZARK_SHEETS.articles);
+      if(apiList.length) return sortArticles(filterArticles(apiList, params)).slice(offset, limit ? offset + limit : undefined);
+    }catch(e){
+      console.warn("Ozark API Articles fallback to Google Sheet:", e);
+    }
+    const activeRows = normalizeArticlesPayload(await fetchSheetRows(OZARK_SHEETS.articles), OZARK_SHEETS.articles);
+    return sortArticles(filterArticles(activeRows, params)).slice(offset, limit ? offset + limit : undefined);
+  }
+
+  async function fetchArchives(params={}){
+    const limit = Number(params.limit || 50);
+    const offset = Number(params.offset || 0);
+    try{
+      const json = await fetchApiJson("ozark_archives", params);
+      const apiList = normalizeArticlesPayload(json, OZARK_SHEETS.archives);
+      if(apiList.length) return sortArticles(filterArticles(apiList, params)).slice(offset, limit ? offset + limit : undefined);
+    }catch(e){
+      console.warn("Ozark API Archives fallback to Google Sheet:", e);
+    }
+    const rows = normalizeArticlesPayload(await fetchSheetRows(OZARK_SHEETS.archives), OZARK_SHEETS.archives);
+    return sortArticles(filterArticles(rows, params)).slice(offset, limit ? offset + limit : undefined);
+  }
+
+  async function fetchArticle(params={}){
+    const requested = String(params.slug || params.id || params.article_id || "").trim();
+    if(!requested) return null;
+    const clean = slugify(requested);
+    try{
+      const json = await fetchApiJson("ozark_article", params);
+      const article = json.article || (json.title ? json : null);
+      if(article && article.title) return normalizeArticleItem(article, article.source || OZARK_SHEETS.articles);
+    }catch(e){
+      console.warn("Ozark API Article fallback to Google Sheet:", e);
+    }
+    const active = normalizeArticlesPayload(await fetchSheetRows(OZARK_SHEETS.articles), OZARK_SHEETS.articles);
+    let found = active.find(a => String(a.article_id || "") === requested || slugify(a.slug || a.title || "") === clean);
+    if(found) return found;
+    const archives = normalizeArticlesPayload(await fetchSheetRows(OZARK_SHEETS.archives), OZARK_SHEETS.archives);
+    return archives.find(a => String(a.article_id || "") === requested || slugify(a.slug || a.title || "") === clean) || null;
+  }
+
+  async function fetchObituaries(params={}){
+    try{
+      const json = await fetchApiJson("ozark_obituaries", params);
+      if(Array.isArray(json.obituaries)) return json.obituaries;
+      if(Array.isArray(json.items)) return json.items;
+    }catch(e){
+      console.warn("Ozark API Obituaries fallback to Google Sheet:", e);
+    }
+    const rows = await fetchSheetRows(OZARK_SHEETS.obituaries);
+    return rows.filter(row => row.name && String(row.status || "published").toLowerCase() === "published");
+  }
+
+  async function api(action, params={}){
+    if(action === "ozark_articles"){
+      const articles = await fetchArticles(params);
+      return {success:true, site:SITE, sheet:OZARK_SHEETS.articles, total:articles.length, articles};
+    }
+    if(action === "ozark_archives"){
+      const articles = await fetchArchives(params);
+      return {success:true, site:SITE, sheet:OZARK_SHEETS.archives, total:articles.length, articles};
+    }
+    if(action === "ozark_article"){
+      const article = await fetchArticle(params);
+      return article ? {success:true, site:SITE, article} : {success:false, site:SITE, error:"Article not found"};
+    }
+    if(action === "ozark_obituaries"){
+      const obituaries = await fetchObituaries(params);
+      return {success:true, site:SITE, total:obituaries.length, obituaries, items:obituaries};
+    }
+    return await fetchApiJson(action, params);
   }
 
   function articleTime(a){
@@ -556,8 +714,7 @@
     const el = document.getElementById("cgn-shell-ticker");
     if(!el) return;
     try{
-      const data = await api("ozark_articles", {limit:8});
-      const list = (data.articles || data.items || []).sort((a,b) => articleTime(b) - articleTime(a));
+      const list = (await fetchArticles({limit:8})).sort((a,b) => articleTime(b) - articleTime(a));
       if(!list.length) throw new Error("no articles");
       el.innerHTML = list.map(a => `<a href="${esc(articleUrl(a))}">${esc(a.title)}</a>`).join(" &nbsp; • &nbsp; ");
     }catch(e){
@@ -571,8 +728,7 @@
     try{
       const params = {limit};
       if(category) params.category = category;
-      const data = await api("ozark_articles", params);
-      const list = (data.articles || data.items || []).sort((a,b) => Number(a.display_order || 999) - Number(b.display_order || 999) || articleTime(b) - articleTime(a));
+      const list = (await fetchArticles(params)).sort((a,b) => Number(a.display_order || 999) - Number(b.display_order || 999) || articleTime(b) - articleTime(a));
       mount.innerHTML = list.length ? list.map(articleCard).join("") : '<div class="empty">No published articles are available yet.</div>';
     }catch(e){
       mount.innerHTML = '<div class="empty">Articles are loading. Check back shortly.</div>';
@@ -584,8 +740,7 @@
     await loadArticleGrid("obitStrip", "Obituaries", 3);
     await loadArticleGrid("courtStrip", "Local", 3);
     try{
-      const data = await api("ozark_articles", {limit:5});
-      const list = data.articles || data.items || [];
+      const list = await fetchArticles({limit:5});
       if(list[0]){
         document.getElementById("featureTitle").textContent = list[0].title || "The Ozark Gazette";
         document.getElementById("featureMeta").textContent = (list[0].category || "Local") + " · " + formatDate(list[0].published_at || list[0].updated_at);
@@ -612,8 +767,7 @@
       return;
     }
     try{
-      const data = await api("ozark_article", {slug});
-      const a = data.article || data;
+      const a = await fetchArticle({slug});
       if(!a || !a.title) throw new Error("missing");
       document.title = (a.seo_title || a.title) + " | The Ozark Gazette";
       mount.innerHTML = `<article class="about-section"><div class="article-meta">${esc(a.category || "Local")} · ${esc(formatDate(a.published_at || a.updated_at))} · By ${esc(a.author || "The Ozark Gazette")}</div><h1 style="font-family:Georgia,serif;font-size:clamp(34px,5vw,58px);line-height:1;margin:0 0 10px;color:#07172f">${esc(a.title)}</h1><p style="font-size:18px;color:#475467;line-height:1.55">${esc(a.subtitle || a.summary || "")}</p><img src="${esc(a.hero_image_url || DEFAULT_IMG)}" alt="" style="width:100%;max-height:460px;object-fit:cover;border:1px solid #dfe4eb"><div style="line-height:1.75;font-size:18px;margin-top:22px">${a.body_html || `<p>${esc(a.summary || "")}</p>`}</div>${a.what_this_means ? `<aside class="info-card" style="padding:18px;margin-top:20px"><h2>What this means</h2><p>${esc(a.what_this_means)}</p></aside>` : ""}</article>`;
@@ -622,7 +776,7 @@
     }
   }
 
-  window.OzarkGazette = {api, loadArticleGrid, loadHome, loadCategoryPage, loadArticlePage, articleCard, articleUrl, esc};
+  window.OzarkGazette = {api, fetchArticles, fetchArchives, fetchArticle, fetchObituaries, loadArticleGrid, loadHome, loadCategoryPage, loadArticlePage, articleCard, articleUrl, esc};
   document.addEventListener("DOMContentLoaded", () => {
     injectShellStyles();
     renderHeader();

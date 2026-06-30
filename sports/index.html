@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#07172f">
 <meta name="robots" content="index,follow,max-image-preview:large">
-<meta name="cgn-api-base" content="https://script.google.com/macros/s/AKfycbw2U1Qezn44zJNnonZMZG06LpB7lh6n7cgiJY8hY34RnriYd2Eq66swuxQ7S_VyHobb/exec">
+<meta name="cgn-api-base" content="https://script.google.com/macros/s/AKfycbx41mQg-Ine3XZ-VrMI_SaQn4_K6cDQHA0cBFyGPgupu_edNFoNRjSLv2hoSe_bOytt/exec">
 <title>Sports Center | The Ozark Gazette</title>
 <meta name="description" content="Ozark County sports coverage for Tecumseh, Gainesville, Bakersfield, Dora, Lutie, Thornfield, regional Missouri Ozarks athletics, scores, schedules and sports reporting from The Ozark Gazette.">
 <link rel="canonical" href="https://ozarks.cgnnews.net/sports/">
@@ -69,8 +69,9 @@
 </main>
 <section class="cgn-bottom-ad" aria-label="Advertisement"><div class="cgn-bottom-ad-inner"><div class="cgn-ad-label">Advertisement</div><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5303063222439969" data-ad-slot="3184122609" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle=window.adsbygoogle||[]).push({});</script></div></section>
 <div id="cgn-site-footer"></div>
+<script src="/assets/ozark-shell.js"></script>
 <script>
-const CGN_API_BASE = "https://script.google.com/macros/s/AKfycbw2U1Qezn44zJNnonZMZG06LpB7lh6n7cgiJY8hY34RnriYd2Eq66swuxQ7S_VyHobb/exec";
+const CGN_API_BASE = "https://script.google.com/macros/s/AKfycbx41mQg-Ine3XZ-VrMI_SaQn4_K6cDQHA0cBFyGPgupu_edNFoNRjSLv2hoSe_bOytt/exec";
 const OZARK_SPORTS_BANNER = "/sports/OzarkSportsCenter01.webp";
 const OZARK_SPORTS_TEAMS = [
   {id:"gainesville", name:"Gainesville Athletics", badge:"GNV", league:"High School", sport:"School Sports", primary:"#07172f", accent:"#d6a84f", status:"Local Coverage", schedule:"Bulldogs and Gainesville-area school sports coverage.", note:"Send schedules, results, photos and corrections to tips@cgnnews.net.", url:"https://www.mshsaa.org/"},
@@ -99,13 +100,12 @@ function teamCard(team){return `<article class="team-card" style="--primary:${sa
 function renderDashboard(){const mount=document.getElementById("sportsDashboard");const status=document.getElementById("sports-dashboard-status");if(!mount)return;mount.innerHTML=OZARK_SPORTS_TEAMS.map(teamCard).join("");if(status)status.innerText="Coverage areas updated " + new Intl.DateTimeFormat("en-US",{timeZone:"America/Chicago",month:"short",day:"numeric",hour:"numeric",minute:"2-digit",timeZoneName:"short"}).format(new Date());}
 function renderArticleCard(article){const title=safeText(article.title||"Sports Update");const summary=safeText(articleSummary(article));const image=safeText(articleImage(article));const author=safeText(article.author||"The Ozark Gazette Sports Desk");const date=safeText(formatArticleDate(article));const url=buildSportsArticleUrl(article);return `<a class="article-card" href="${url}" aria-label="Read ${title}"><img src="${image}" alt="${title}" loading="lazy" onerror="this.onerror=null;this.src='${OZARK_SPORTS_BANNER}';"><div class="article-body"><div class="article-meta">Sports · ${author}${date?" · "+date:""}</div><h3>${title}</h3><p>${summary}</p></div></a>`;}
 const SPORTS_BATCH_SIZE=12;let sportsArticlePool=[];let sportsVisibleCount=SPORTS_BATCH_SIZE;
-async function fetchOzarkArticles(params){const url=new URL(CGN_API_BASE);url.searchParams.set("site","ozark");url.searchParams.set("action","ozark_articles");Object.keys(params||{}).forEach(function(key){if(params[key]!==undefined&&params[key]!==null&&params[key]!==""){url.searchParams.set(key,params[key]);}});const response=await fetch(url.toString(),{cache:"no-store"});const json=await response.json();return normalizePayload(json);}
+async function fetchOzarkArticles(params){if(window.OzarkGazette&&typeof window.OzarkGazette.fetchArticles==="function"){return window.OzarkGazette.fetchArticles(params||{});}const url=new URL(CGN_API_BASE);url.searchParams.set("site","ozark");url.searchParams.set("action","ozark_articles");Object.keys(params||{}).forEach(function(key){if(params[key]!==undefined&&params[key]!==null&&params[key]!==""){url.searchParams.set(key,params[key]);}});const response=await fetch(url.toString(),{cache:"no-store"});const json=await response.json();return normalizePayload(json);}
 function renderSportsArticles(){const mount=document.getElementById("sportsArticles");if(!mount)return;if(!sportsArticlePool.length){mount.innerHTML=`<div class="article-empty">No Ozark Gazette sports articles are available right now.</div>`;updateLoadMoreButton();return;}mount.innerHTML=sportsArticlePool.slice(0,sportsVisibleCount).map(renderArticleCard).join("");updateLoadMoreButton();}
 function ensureLoadMoreButton(){const mount=document.getElementById("sportsArticles");if(!mount)return null;let wrap=document.getElementById("sportsLoadMoreWrap");if(!wrap){wrap=document.createElement("div");wrap.id="sportsLoadMoreWrap";wrap.className="sports-load-more-wrap";const button=document.createElement("button");button.id="sportsLoadMoreBtn";button.type="button";button.className="sports-load-more-btn";button.textContent="Load More";button.addEventListener("click",function(){sportsVisibleCount+=SPORTS_BATCH_SIZE;renderSportsArticles();});wrap.appendChild(button);mount.insertAdjacentElement("afterend",wrap);}return wrap;}
 function updateLoadMoreButton(){const wrap=ensureLoadMoreButton();const button=document.getElementById("sportsLoadMoreBtn");if(!wrap||!button)return;const hasMore=sportsVisibleCount<sportsArticlePool.length;wrap.style.display=hasMore?"flex":"none";button.disabled=!hasMore;const remaining=Math.max(0,sportsArticlePool.length-sportsVisibleCount);button.textContent=remaining>0?`Load More (${remaining})`:"No More Articles";}
 async function loadSportsArticles(){const mount=document.getElementById("sportsArticles");if(!mount)return;mount.innerHTML=`<div class="article-empty">Loading Ozark Gazette sports articles...</div>`;try{let articles=await fetchOzarkArticles({category:"Sports",limit:96});if(!articles.length){const allArticles=await fetchOzarkArticles({limit:120});articles=allArticles.filter(isSportsArticle);}sportsArticlePool=dedupeArticles(articles).filter(isSportsArticle).sort(function(a,b){return getArticleTime(b)-getArticleTime(a);});sportsVisibleCount=SPORTS_BATCH_SIZE;renderSportsArticles();}catch(err){console.error("OZARK SPORTS ARTICLES LOAD ERROR:",err);mount.innerHTML=`<div class="article-empty">Sports articles are temporarily unavailable.</div>`;sportsArticlePool=[];sportsVisibleCount=0;updateLoadMoreButton();}}
 renderDashboard();ensureLoadMoreButton();loadSportsArticles();
 </script>
-<script src="/assets/ozark-shell.js"></script>
 </body>
 </html>

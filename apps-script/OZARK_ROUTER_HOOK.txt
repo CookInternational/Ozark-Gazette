@@ -1,17 +1,20 @@
-Add this inside the existing CGN Apps Script doGet route handler after request parameters are normalized into payload and before the default/unknown action response. In the current CGN backend, the JSON helper is named json().
+OZARK GAZETTE ROUTER HOOK — REQUIRED IN THE SHARED CGN APPS SCRIPT
 
-Recommended placement in doGet(e), after:
+The Ozark Gazette now runs from the same CGN Apps Script web app URL as account/login/paywall logic:
+https://script.google.com/macros/s/AKfycbx41mQg-Ine3XZ-VrMI_SaQn4_K6cDQHA0cBFyGPgupu_edNFoNRjSLv2hoSe_bOytt/exec
 
-  e = e || { parameter:{} }; var p=e.parameter || {}; var action=safeString_(p.action); var a=lower_(action);
+The file apps-script/OzarkGazette.gs is an extension file only. It does not add doGet/doPost.
+Add this hook inside the existing CGN doGet(e), after payload/action normalization and before the default CGN fallback response:
 
-Insert:
+  var ozarkResponse = ozarkGazetteRoute_(getRequestPayload_(e));
+  if (ozarkResponse) return cgnJsonOrJsonp_(e, ozarkResponse);
+
+If cgnJsonOrJsonp_ is not available in that script version, use the existing CGN json(...) helper:
 
   var ozarkResponse = ozarkGazetteRoute_(getRequestPayload_(e));
   if (ozarkResponse) return json(ozarkResponse);
 
-Why this is safe:
-- ozarkGazetteRoute_(payload) returns null unless action starts with ozark_.
-- CGN account actions such as login, signup, account_details, subscription_status and confirm_payment continue to run from the CGN backend.
-- Ozark article, archive, obituary and AutoNews actions route to the OzarkGazette.gs extension.
+Do not add another doGet or doPost to OzarkGazette.gs. CGN account/login/signup/paywall actions continue to run through the main CGN backend. Ozark article actions read only this spreadsheet:
+1Xz9bnMqb-tkHeo2N2UonUbBr1jpo1VzKcVbBW_PU2n0
 
-If your deployed CGN backend uses a differently named JSON helper, return ozarkResponse through that project standard JSON response helper.
+Required Ozark tabs: Articles, Archives, Obituaries.

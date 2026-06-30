@@ -373,8 +373,9 @@ a{color:inherit}
 
 <div id="cgn-site-footer"></div>
 
+<script src="/assets/ozark-shell.js"></script>
 <script>
-const CGN_API = "https://script.google.com/macros/s/AKfycbw2U1Qezn44zJNnonZMZG06LpB7lh6n7cgiJY8hY34RnriYd2Eq66swuxQ7S_VyHobb/exec";
+const CGN_API = "https://script.google.com/macros/s/AKfycbx41mQg-Ine3XZ-VrMI_SaQn4_K6cDQHA0cBFyGPgupu_edNFoNRjSLv2hoSe_bOytt/exec";
 
 function escapeHtml(value){
   return String(value || "").replace(/[&<>"']/g, function(c){
@@ -418,7 +419,10 @@ async function loadMarketArticles(){
   try {
     let source = [];
 
-    async function readArticlesFrom(url){
+    async function readArticlesFrom(url, params){
+      if(window.OzarkGazette && typeof window.OzarkGazette.fetchArticles === "function"){
+        return window.OzarkGazette.fetchArticles(params || {});
+      }
       const json = await fetchJson(url);
 
       if(Array.isArray(json)) return json;
@@ -429,10 +433,10 @@ async function loadMarketArticles(){
       return [];
     }
 
-    source = await readArticlesFrom(CGN_API + "?site=ozark&action=ozark_articles&category=Markets");
+    source = await readArticlesFrom(CGN_API + "?site=ozark&action=ozark_articles&category=Markets", {category:"Markets", limit:96});
 
     if(!source.length){
-      source = await readArticlesFrom(CGN_API + "?site=ozark&action=ozark_articles");
+      source = await readArticlesFrom(CGN_API + "?site=ozark&action=ozark_articles", {limit:120});
     }
 
     const articles = source.filter(function(a){
@@ -699,7 +703,6 @@ loadMarketArticles();
 changeCGNLiveFeed("markets");
 </script>
 
-<script src="/assets/ozark-shell.js"></script>
 
 </body>
 </html>
