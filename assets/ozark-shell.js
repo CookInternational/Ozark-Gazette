@@ -114,6 +114,8 @@
       .footer-bottom a{font-size:12px;color:#dbe4f0}
       .footer-developed{margin-top:5px;text-align:center;color:#dbe4f0;font-size:12px;font-weight:800;line-height:1.5}
       .footer-developed a{color:#f2d990;font-size:12px;font-weight:900;line-height:1.5}
+      .footer-support-advertise{color:#f2d990!important;font-weight:900}
+      .footer-support-advertise:hover,.footer-support-advertise:focus{color:#fff!important;text-decoration:underline}
       .cgn-shell-login-modal{position:fixed;inset:0;z-index:99999;background:rgba(2,8,23,.72);display:none;align-items:center;justify-content:center;padding:18px}
       .cgn-shell-login-card{width:min(430px,96vw);background:#fff;color:#07172f;border:1px solid #d6dce7;box-shadow:0 20px 60px rgba(0,0,0,.28);padding:20px}
       .cgn-shell-login-card h3{margin:0 0 10px}.cgn-shell-login-label{display:block;margin:10px 0 5px;font-size:12px;font-weight:900;text-transform:uppercase}.cgn-shell-login-input{width:100%;padding:11px;border:1px solid #b8c0cc;font-size:15px}.cgn-shell-login-message{min-height:18px;color:#a41212;font-size:13px;margin:10px 0}.cgn-shell-login-actions{display:flex;gap:8px;flex-wrap:wrap}.cgn-shell-login-actions button,.cgn-shell-login-close{border:1px solid #07172f;background:#07172f;color:#fff;padding:10px 12px;font-weight:900;cursor:pointer}.cgn-shell-login-close{margin-top:10px;background:#fff;color:#07172f}
@@ -342,7 +344,64 @@
     const mount = document.getElementById("cgn-site-footer");
     if(!mount) return;
     injectShellStyles();
-    mount.innerHTML = `<footer class="footer"><div class="footer-container"><div><a class="footer-cgn-logo-link" href="https://www.cgnnews.net/" aria-label="Open CGN News"><svg class="footer-cgn-mark" viewBox="0 0 330 92" role="img" aria-label="CGN"><circle cx="46" cy="46" r="36" fill="none" stroke="currentColor" stroke-width="6"></circle><path d="M12 46h68M46 10c10 10 15 22 15 36S56 72 46 82M46 10C36 20 31 32 31 46s5 26 15 36M18 28h56M18 64h56" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"></path><text x="98" y="64" font-family="Arial Black, Arial, Helvetica, sans-serif" font-size="54" font-weight="900" fill="currentColor" letter-spacing="-2">CGN</text></svg></a><p class="cgn-tag">Real-Time News.<br>Global Perspective.</p><p><strong>The Ozark Gazette</strong><br>P.O. Box 794<br>33256 US Highway 160<br>Tecumseh, Missouri 65760<br>📱 (317) 442-1437<br><a href="mailto:tips@cgnnews.net">tips@cgnnews.net</a></p></div><div><h4><a href="/news/">News</a></h4><a href="/local/">Local</a><br><a href="/us/">US</a><br><a href="/world/">World</a><br><a href="/politics/">Politics</a><br><a href="/investigations/">Investigations</a><br><a href="/opinion/">Opinion</a></div><div><h4>Briefs</h4><a href="/weather/">Weather Brief</a><br><a href="/weather/radar/">Weather Radar</a><br><a href="/traffic/">Traffic Brief</a><br><a href="/sports/">Sports Brief</a><br><a href="/markets/center/">Markets Brief</a><br><a href="/obituaries/">Obituaries</a></div><br><a href="/archives/">Archives</a></div><div><h4>Community</h4><a href="/horoscopes/">Horoscopes</a><br><a href="/sudoku/">Sudoku</a><br><a href="/puzzles/">Puzzles</a><br><a href="/crosswords/">Crosswords</a><br><a href="/reporters/">Reporters</a><br><a href="/about/">About</a></div><div><h4>Support</h4><a href="/contact/">Contact</a><br><a href="/support/">Support</a><br><a href="https://www.cgnnews.net/privacy-policy">Privacy</a><br><a href="https://www.cgnnews.net/terms-of-service">Terms</a><br><a href="https://www.cgnnews.net/editorial-standards/">Editorial Standards</a><br><a href="https://www.cgnnews.net/copyright/">Copyright</a></div></div><div class="footer-bottom"><a href="https://www.cgnnews.net/copyright/">Copyright © 2026 | CGN News — All Rights Reserved</a><div class="footer-developed">Developed by <a href="https://cts.cook-international.com" target="_blank" rel="noopener noreferrer">Cook Technology Services</a></div></div></footer>`;
+    mount.innerHTML = `
+      <footer class="footer">
+        <div class="footer-container">
+          <div>
+            <a class="footer-cgn-logo-link" href="https://www.cgnnews.net/" aria-label="Open CGN News">
+              <svg class="footer-cgn-mark" viewBox="0 0 330 92" role="img" aria-label="CGN">
+                <circle cx="46" cy="46" r="36" fill="none" stroke="currentColor" stroke-width="6"></circle>
+                <path d="M12 46h68M46 10c10 10 15 22 15 36S56 72 46 82M46 10C36 20 31 32 31 46s5 26 15 36M18 28h56M18 64h56" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"></path>
+                <text x="98" y="64" font-family="Arial Black, Arial, Helvetica, sans-serif" font-size="54" font-weight="900" fill="currentColor" letter-spacing="-2">CGN</text>
+              </svg>
+            </a>
+            <p class="cgn-tag">Real-Time News.<br>Global Perspective.</p>
+            <p><strong>The Ozark Gazette</strong><br>P.O. Box 794<br>33256 US Highway 160<br>Tecumseh, Missouri 65760<br>📱 (317) 442-1437<br><a href="mailto:tips@cgnnews.net">tips@cgnnews.net</a></p>
+          </div>
+          <div>
+            <h4><a href="/news/">News</a></h4>
+            <a href="/local/">Local</a><br>
+            <a href="/us/">US</a><br>
+            <a href="/world/">World</a><br>
+            <a href="/politics/">Politics</a><br>
+            <a href="/investigations/">Investigations</a><br>
+            <a href="/opinion/">Opinion</a>
+          </div>
+          <div>
+            <h4>Briefs</h4>
+            <a href="/weather/">Weather Brief</a><br>
+            <a href="/weather/radar/">Weather Radar</a><br>
+            <a href="/traffic/">Traffic Brief</a><br>
+            <a href="/sports/">Sports Brief</a><br>
+            <a href="/markets/center/">Markets Brief</a><br>
+            <a href="/obituaries/">Obituaries</a><br>
+            <a href="/archives/">Archives</a>
+          </div>
+          <div>
+            <h4>Community</h4>
+            <a href="/horoscopes/">Horoscopes</a><br>
+            <a href="/sudoku/">Sudoku</a><br>
+            <a href="/puzzles/">Puzzles</a><br>
+            <a href="/crosswords/">Crosswords</a><br>
+            <a href="/reporters/">Reporters</a><br>
+            <a href="/about/">About</a>
+          </div>
+          <div>
+            <h4>Support</h4>
+            <a href="/contact/">Contact</a><br>
+            <a href="/support/">Support</a><br>
+            <a href="https://www.cgnnews.net/privacy-policy">Privacy</a><br>
+            <a href="https://www.cgnnews.net/terms-of-service">Terms</a><br>
+            <a href="https://www.cgnnews.net/editorial-standards/">Editorial Standards</a><br>
+            <a href="https://www.cgnnews.net/copyright/">Copyright</a><br>
+            <a class="footer-support-advertise" href="https://www.cgnnews.net/advertise/">Advertise With Us</a>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <a href="https://www.cgnnews.net/copyright/">Copyright © 2026 | CGN News — All Rights Reserved</a>
+          <div class="footer-developed">Developed by <a href="https://cts.cook-international.com" target="_blank" rel="noopener noreferrer">Cook Technology Services</a></div>
+        </div>
+      </footer>`;
   }
 
   function normalizeTimeZoneLabel(label){
