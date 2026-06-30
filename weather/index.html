@@ -1,44 +1,3313 @@
 <!DOCTYPE html>
+<!-- The Ozark Gazette Weather Page | Full CGN Weather template adapted for Tecumseh, Missouri | Build date: 30 June 2026 -->
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#07172f">
-<meta name="robots" content="index,follow,max-image-preview:large">
-<meta name="cgn-api-base" content="https://script.google.com/macros/s/AKfycbx41mQg-Ine3XZ-VrMI_SaQn4_K6cDQHA0cBFyGPgupu_edNFoNRjSLv2hoSe_bOytt/exec">
-<title>Tecumseh Weather | The Ozark Gazette</title>
-<meta name="description" content="Live Tecumseh, Missouri weather forecasts, radar, hourly updates, Ozark County alerts and weather reporting.">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Tecumseh Weather Brief | The Ozark Gazette</title>
+<meta name="description" content="Live Tecumseh, Missouri weather forecasts, current conditions, hourly updates, extended forecasts, NWS alerts, radar access, and weather reporting from The Ozark Gazette.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="author" content="The Ozark Gazette">
 <link rel="canonical" href="https://ozarks.cgnnews.net/weather/">
+
+<link rel="icon" type="image/png" href="/favicon.ico">
+<link rel="shortcut icon" type="image/png" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/favicon.ico">
+<meta name="theme-color" content="#07111f">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="The Ozark Gazette">
+<meta property="og:title" content="Tecumseh Weather Brief | The Ozark Gazette">
+<meta property="og:description" content="Live Tecumseh, Missouri weather forecasts, current conditions, hourly updates, extended forecasts, NWS alerts, radar access, and weather reporting from The Ozark Gazette.">
+<meta property="og:url" content="https://ozarks.cgnnews.net/weather/">
+<meta property="og:image" content="https://ozarks.cgnnews.net/OzarkGazetteBanner.png">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Tecumseh Weather Brief | The Ozark Gazette">
+<meta name="twitter:description" content="Live Tecumseh, Missouri weather forecasts, current conditions, hourly updates, extended forecasts, NWS alerts, radar access, and weather reporting from The Ozark Gazette.">
+<meta name="twitter:image" content="https://ozarks.cgnnews.net/OzarkGazetteBanner.png">
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js?client=ca-pub-5303063222439969"
+     crossorigin="anonymous"></script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://ozarks.cgnnews.net/weather/#webpage",
+      "url": "https://ozarks.cgnnews.net/weather/",
+      "name": "Tecumseh Weather Brief | The Ozark Gazette",
+      "description": "Live Tecumseh, Missouri weather forecasts, current conditions, hourly updates, extended forecasts, NWS alerts, radar access, and weather reporting from The Ozark Gazette.",
+      "isPartOf": {
+        "@id": "https://ozarks.cgnnews.net/#website"
+      },
+      "publisher": {
+        "@id": "https://ozarks.cgnnews.net/#organization"
+      },
+      "about": {
+        "@type": "Thing",
+        "name": "Weather forecast"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://ozarks.cgnnews.net/#website",
+      "url": "https://ozarks.cgnnews.net/",
+      "name": "The Ozark Gazette",
+      "publisher": {
+        "@id": "https://ozarks.cgnnews.net/#organization"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://ozarks.cgnnews.net/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@type": "NewsMediaOrganization",
+      "@id": "https://ozarks.cgnnews.net/#organization",
+      "name": "The Ozark Gazette",
+      "legalName": "The Ozark Gazette",
+      "url": "https://ozarks.cgnnews.net/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://ozarks.cgnnews.net/OzarkGazetteLogo.png"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "33256 US Highway 160",
+        "addressLocality": "Tecumseh",
+        "addressRegion": "MO",
+        "postalCode": "65760",
+        "addressCountry": "US"
+      },
+      "email": "tips@cgnnews.net",
+      "telephone": "+1-317-442-1437",
+      "sameAs": [
+        "https://instagram.com/cookglobalnews",
+        "https://x.com/CookGlobalNews",
+        "https://youtube.com/@CookGlobalNews"
+      ]
+    }
+  ]
+}
+</script>
+
+<style>
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin:0;
+  background:#fff;
+  color:#111;
+}
+
+.weather-app {
+  max-width:1100px;
+  margin:34px auto;
+  padding:0 20px 40px;
+}
+
+ .weather-hero {
+  position:relative;
+  overflow:hidden;
+  margin-bottom:22px;
+  border:1px solid #111827;
+  background:#07111f;
+  color:#fff;
+  min-height:230px;
+  display:flex;
+  align-items:flex-end;
+  isolation:isolate;
+}
+
+.weather-hero::before {
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(90deg, rgba(7,17,31,.96) 0%, rgba(7,17,31,.70) 42%, rgba(7,17,31,.12) 100%),
+    url("/OzarkGazetteBanner.png") center/cover no-repeat;
+  z-index:0;
+}
+
+.weather-hero::after {
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at 14% 16%, rgba(255,255,255,.16), transparent 24%),
+    linear-gradient(135deg, rgba(196,0,0,.20), transparent 34%),
+    linear-gradient(315deg, rgba(16,139,232,.18), transparent 40%);
+  z-index:1;
+  pointer-events:none;
+}
+
+.weather-hero-content {
+  position:relative;
+  z-index:2;
+  max-width:720px;
+  padding:28px 32px;
+}
+
+.weather-kicker {
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  font-size:12px;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:#ff4242;
+  font-weight:900;
+  margin-bottom:10px;
+}
+
+.weather-kicker::before {
+  content:"";
+  width:9px;
+  height:9px;
+  border-radius:999px;
+  background:#ff2424;
+  box-shadow:0 0 0 5px rgba(255,36,36,.18);
+}
+
+.weather-hero h1 {
+  font-size:42px;
+  line-height:1.02;
+  margin:0 0 10px;
+  letter-spacing:-.03em;
+  color:#fff;
+  text-shadow:0 3px 18px rgba(0,0,0,.35);
+}
+
+.weather-hero p {
+  max-width:760px;
+  color:#e8edf5;
+  font-size:15px;
+  line-height:1.5;
+  margin:0;
+}
+
+.search-box {
+  margin-bottom:20px;
+  position:relative;
+}
+
+#locationInput {
+  width:100%;
+  box-sizing:border-box;
+  padding:14px 14px;
+  font-size:16px;
+  border:1px solid #bbb;
+  border-radius:0;
+  outline:none;
+}
+
+#locationInput:focus {
+  border-color:#111;
+}
+
+#suggestions {
+  position:absolute;
+  width:100%;
+  background:#fff;
+  border:1px solid #ddd;
+  border-top:none;
+  z-index:100;
+  box-sizing:border-box;
+  box-shadow:0 8px 20px rgba(0,0,0,0.08);
+}
+
+#suggestions div {
+  padding:11px 12px;
+  cursor:pointer;
+  font-size:14px;
+}
+
+#suggestions div:hover {
+  background:#f5f5f5;
+}
+
+.current-weather {
+  position:relative;
+  overflow:hidden;
+  background:linear-gradient(135deg,#0b6bd3 0%,#1593f5 52%,#62c1ff 100%);
+  color:#fff;
+  padding:30px;
+  border-radius:0;
+  box-shadow:0 18px 40px rgba(8,71,135,0.22);
+  isolation:isolate;
+}
+
+.current-weather::before {
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at 16% 18%, rgba(255,255,255,0.28), transparent 26%),
+    radial-gradient(circle at 84% 8%, rgba(255,255,255,0.18), transparent 22%),
+    linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0));
+  pointer-events:none;
+  z-index:0;
+}
+
+.current-weather.weather-clear {
+  background:linear-gradient(135deg,#0873df 0%,#139af2 48%,#7bd4ff 100%);
+}
+
+.current-weather.weather-cloudy {
+  background:linear-gradient(135deg,#2c6fae 0%,#5f9ed2 52%,#a6cbe5 100%);
+}
+
+.current-weather.weather-rain {
+  background:linear-gradient(135deg,#0b326f 0%,#1168a7 52%,#3996c9 100%);
+}
+
+.current-weather.weather-snow {
+  background:linear-gradient(135deg,#4d8fc4 0%,#8bc4ed 55%,#d7f0ff 100%);
+}
+
+.current-weather.weather-fog {
+  background:linear-gradient(135deg,#567995 0%,#83a5bb 54%,#c5d7e1 100%);
+}
+
+.current-weather.weather-storm {
+  background:linear-gradient(135deg,#071d42 0%,#123e73 52%,#1d6b9e 100%);
+}
+
+.current-weather.weather-night {
+  background:linear-gradient(135deg,#061123 0%,#0b2144 55%,#173a63 100%);
+}
+
+.current-weather.weather-night::before {
+  background:
+    radial-gradient(circle at 78% 14%, rgba(255,255,255,.92) 0 20px, rgba(255,255,255,0) 23px),
+    radial-gradient(circle at 18% 24%, rgba(255,255,255,.45), transparent 2px),
+    radial-gradient(circle at 33% 14%, rgba(255,255,255,.34), transparent 2px),
+    radial-gradient(circle at 55% 28%, rgba(255,255,255,.36), transparent 2px),
+    linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0));
+}
+
+.current-weather.weather-night.weather-clear {
+  background:linear-gradient(135deg,#050d1d 0%,#102b55 56%,#1e4d7d 100%);
+}
+
+.current-weather.weather-night.weather-cloudy {
+  background:linear-gradient(135deg,#111827 0%,#1f3d5a 55%,#49677f 100%);
+}
+
+.current-weather.weather-night.weather-rain,
+.current-weather.weather-night.weather-storm {
+  background:linear-gradient(135deg,#020817 0%,#0b1f3b 52%,#143b60 100%);
+}
+
+.current-weather.weather-night.weather-fog {
+  background:linear-gradient(135deg,#1d2a37 0%,#40576a 58%,#708493 100%);
+}
+
+.current-weather.weather-clear .weather-effects::before {
+  content:"";
+  position:absolute;
+  width:150px;
+  height:150px;
+  right:30px;
+  top:86px;
+  border-radius:50%;
+  background:radial-gradient(circle, rgba(255,255,255,.95) 0%, rgba(255,232,113,.75) 38%, rgba(255,255,255,0) 70%);
+  box-shadow:0 0 70px rgba(255,238,150,.42);
+  opacity:.8;
+}
+
+.current-weather.weather-night.weather-clear .weather-effects::before {
+  width:94px;
+  height:94px;
+  right:36px;
+  top:92px;
+  background:radial-gradient(circle, rgba(255,255,255,.94) 0%, rgba(209,224,255,.68) 42%, rgba(255,255,255,0) 72%);
+  box-shadow:0 0 55px rgba(190,210,255,.35);
+  opacity:.78;
+}
+
+.cloud-puff {
+  position:absolute;
+  width:210px;
+  height:74px;
+  border-radius:999px;
+  background:rgba(255,255,255,.28);
+  filter:blur(12px);
+  opacity:.55;
+  animation:cloudDrift linear infinite;
+}
+
+.fog-bank {
+  position:absolute;
+  left:-35%;
+  width:170%;
+  height:34%;
+  background:linear-gradient(90deg, transparent, rgba(255,255,255,.46), rgba(255,255,255,.28), transparent);
+  filter:blur(18px);
+  opacity:.62;
+  animation:fogRoll linear infinite;
+}
+
+.raindrop.heavy {
+  width:3px;
+  height:32px;
+  opacity:.9;
+  box-shadow:0 0 8px rgba(255,255,255,.22);
+}
+
+.sleet-pellet {
+  position:absolute;
+  top:-16px;
+  width:5px;
+  height:10px;
+  border-radius:999px;
+  background:rgba(221,241,255,.9);
+  box-shadow:0 0 8px rgba(255,255,255,.45);
+  animation:sleetFall linear infinite;
+}
+
+.current-weather.weather-storm::after {
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(115deg, transparent 0%, transparent 44%, rgba(255,255,255,0.28) 47%, transparent 51%, transparent 100%);
+  opacity:0;
+  animation:stormFlash 7s infinite;
+  z-index:1;
+  pointer-events:none;
+}
+
+.current-weather.weather-fog .weather-effects::before,
+.current-weather.weather-fog .weather-effects::after {
+  content:"";
+  position:absolute;
+  left:-20%;
+  width:140%;
+  height:42%;
+  background:linear-gradient(90deg, transparent, rgba(255,255,255,0.34), transparent);
+  filter:blur(14px);
+  opacity:.6;
+  animation:fogDrift 18s linear infinite;
+}
+
+.current-weather.weather-fog .weather-effects::before { top:16%; }
+.current-weather.weather-fog .weather-effects::after { bottom:10%; animation-duration:24s; animation-direction:reverse; opacity:.42; }
+
+.weather-effects {
+  position:absolute;
+  inset:0;
+  overflow:hidden;
+  pointer-events:none;
+  z-index:1;
+}
+
+.weather-content {
+  position:relative;
+  z-index:2;
+}
+
+.raindrop {
+  position:absolute;
+  top:-24px;
+  width:2px;
+  height:24px;
+  border-radius:999px;
+  background:linear-gradient(180deg, rgba(255,255,255,0), rgba(255,255,255,0.78));
+  opacity:.78;
+  transform:rotate(8deg);
+  animation:rainFall linear infinite;
+}
+
+.snowflake {
+  position:absolute;
+  top:-18px;
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:rgba(255,255,255,0.92);
+  box-shadow:0 0 8px rgba(255,255,255,0.55);
+  animation:snowFall linear infinite;
+}
+
+@keyframes rainFall {
+  from { transform:translate3d(0,-30px,0) rotate(8deg); }
+  to { transform:translate3d(-34px,560px,0) rotate(8deg); }
+}
+
+@keyframes snowFall {
+  0% { transform:translate3d(0,-20px,0); opacity:0; }
+  10% { opacity:.95; }
+  100% { transform:translate3d(36px,560px,0); opacity:.25; }
+}
+
+@keyframes fogDrift {
+  from { transform:translateX(-12%); }
+  to { transform:translateX(12%); }
+}
+
+@keyframes fogRoll {
+  0% { transform:translateX(-18%) translateY(0); opacity:.18; }
+  20% { opacity:.66; }
+  50% { transform:translateX(0) translateY(-8px); opacity:.52; }
+  100% { transform:translateX(18%) translateY(0); opacity:.18; }
+}
+
+@keyframes cloudDrift {
+  from { transform:translateX(-35vw); }
+  to { transform:translateX(115vw); }
+}
+
+@keyframes sleetFall {
+  from { transform:translate3d(0,-30px,0) rotate(10deg); }
+  to { transform:translate3d(-26px,560px,0) rotate(10deg); }
+}
+
+@keyframes stormFlash {
+  0%, 90%, 100% { opacity:0; }
+  92% { opacity:.48; }
+  93% { opacity:0; }
+  95% { opacity:.22; }
+}
+
+.current-weather h2,
+.current-weather h1 {
+  margin:0 0 18px;
+  font-size:30px;
+  line-height:1.2;
+  text-shadow:0 2px 14px rgba(0,0,0,0.22);
+}
+
+.current-weather-main {
+  display:flex;
+  align-items:center;
+  gap:22px;
+  flex-wrap:wrap;
+}
+
+.temp-main {
+  font-size:72px;
+  font-weight:bold;
+  line-height:1;
+  text-shadow:0 2px 16px rgba(0,0,0,0.22);
+}
+
+.icon-main {
+  font-size:52px;
+  filter:drop-shadow(0 3px 10px rgba(0,0,0,0.22));
+}
+
+#conditionText {
+  font-size:18px;
+  color:#f4fbff;
+  margin-top:6px;
+}
+
+.feels-like-main {
+  margin-top:7px;
+  font-size:14px;
+  color:rgba(255,255,255,0.9);
+  font-weight:700;
+}
+
+.today-summary {
+  margin-top:20px;
+  padding:14px 16px;
+  border:1px solid rgba(255,255,255,0.30);
+  background:rgba(255,255,255,0.14);
+  color:#fff;
+  line-height:1.45;
+  font-size:15px;
+  backdrop-filter:blur(8px);
+}
+
+.weather-stats-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(132px,1fr));
+  gap:10px;
+  margin-top:18px;
+}
+
+.weather-stat-card {
+  min-height:68px;
+  padding:12px;
+  border:1px solid rgba(255,255,255,0.30);
+  background:rgba(255,255,255,0.15);
+  color:#fff;
+  box-sizing:border-box;
+  backdrop-filter:blur(8px);
+}
+
+.weather-stat-card span {
+  display:block;
+  font-size:11px;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,0.78);
+  font-weight:800;
+  margin-bottom:7px;
+}
+
+.weather-stat-card strong {
+  display:block;
+  font-size:18px;
+  line-height:1.15;
+}
+
+#updated {
+  margin-top:18px;
+  font-size:13px;
+  color:rgba(255,255,255,0.86);
+}
+
+.nws-alert-ticker {
+  margin-top:18px;
+  border:1px solid rgba(255,255,255,0.38);
+  background:rgba(7,17,31,0.38);
+  color:#fff;
+  overflow:hidden;
+  backdrop-filter:blur(8px);
+}
+
+.nws-alert-ticker[hidden] {
+  display:none !important;
+}
+
+.nws-alert-ticker a {
+  display:flex;
+  align-items:center;
+  min-height:46px;
+  color:#fff;
+  text-decoration:none;
+}
+
+.nws-alert-ticker a:hover,
+.nws-alert-ticker a:focus {
+  background:rgba(255,255,255,0.10);
+  text-decoration:none;
+}
+
+.nws-alert-label {
+  flex:0 0 auto;
+  align-self:stretch;
+  display:flex;
+  align-items:center;
+  padding:0 13px;
+  background:#c40000;
+  color:#fff;
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:.07em;
+  text-transform:uppercase;
+}
+
+.nws-alert-marquee {
+  flex:1 1 auto;
+  min-width:0;
+  overflow:hidden;
+  white-space:nowrap;
+  font-size:13px;
+  font-weight:800;
+}
+
+.nws-alert-marquee span {
+  display:inline-block;
+  padding-left:100%;
+  animation:nwsAlertScroll 30s linear infinite;
+}
+
+.nws-alert-open {
+  flex:0 0 auto;
+  padding:0 13px;
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,0.88);
+}
+
+@keyframes nwsAlertScroll {
+  from { transform:translateX(0); }
+  to { transform:translateX(-100%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nws-alert-marquee span {
+    padding-left:0;
+    animation:none;
+  }
+}
+
+.weather-toolbar-row {
+  position:relative;
+  z-index:4;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:8px;
+  margin:0 0 18px;
+}
+
+.weather-current-header {
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:16px;
+  margin-bottom:18px;
+}
+
+.weather-current-header h2 {
+  margin-bottom:0;
+}
+
+.weather-unit-actions {
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  gap:8px;
+  flex:0 0 auto;
+}
+
+.weather-tool-btn,
+.saved-location-chip {
+  border:1px solid rgba(255,255,255,0.72);
+  background:rgba(255,255,255,0.14);
+  color:#fff;
+  cursor:pointer;
+  border-radius:0;
+  font-weight:800;
+  backdrop-filter:blur(8px);
+}
+
+.weather-tool-btn {
+  padding:9px 12px;
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:.04em;
+  white-space:nowrap;
+}
+
+.weather-tool-btn:hover,
+.weather-tool-btn:focus,
+.saved-location-chip:hover,
+.saved-location-chip:focus {
+  background:#fff;
+  color:#0b4f93;
+}
+
+.weather-tool-btn:disabled {
+  cursor:not-allowed;
+  opacity:.52;
+}
+
+.saved-locations-row {
+  display:none;
+  flex:1 1 320px;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:8px;
+  margin:0;
+}
+
+.saved-locations-row.has-saved-locations {
+  display:flex;
+}
+
+.saved-location-chip {
+  padding:7px 10px;
+  font-size:13px;
+  line-height:1;
+}
+
+.controls {
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:24px;
+}
+
+.controls button {
+  padding:9px 13px;
+  border:1px solid rgba(255,255,255,0.72);
+  background:rgba(255,255,255,0.14);
+  color:#fff;
+  cursor:pointer;
+  border-radius:0;
+  font-weight:700;
+  backdrop-filter:blur(8px);
+}
+
+.controls button:hover,
+.controls button.active {
+  background:#fff;
+  color:#0b4f93;
+}
+
+.hourly-section,
+.forecast-section,
+.weather-articles-section {
+  margin-top:28px;
+}
+
+.section-title {
+  display:flex;
+  align-items:end;
+  justify-content:space-between;
+  gap:16px;
+  border-bottom:1px solid #ddd;
+  margin-bottom:14px;
+  padding-bottom:10px;
+}
+
+.section-title h2 {
+  margin:0;
+  font-size:22px;
+}
+
+.section-title span {
+  font-size:13px;
+  color:#666;
+}
+
+.hourly {
+  display:flex;
+  overflow-x:auto;
+  gap:12px;
+  padding-bottom:10px;
+}
+
+.hour {
+  min-width:118px;
+  text-align:center;
+  border:1px solid #ddd;
+  padding:12px 8px;
+  background:#fff;
+  box-sizing:border-box;
+}
+
+.hour .hour-icon {
+  font-size:24px;
+  margin:8px 0;
+}
+
+.hour .hour-temp {
+  font-size:20px;
+  font-weight:800;
+  margin-bottom:6px;
+}
+
+.hour .hour-detail {
+  font-size:11px;
+  color:#555;
+  line-height:1.35;
+}
+
+.forecast-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(172px,1fr));
+  gap:15px;
+}
+
+.card {
+  background:#fff;
+  padding:16px 12px;
+  border:1px solid #ddd;
+  text-align:center;
+  box-shadow:none;
+}
+
+.card .forecast-condition {
+  font-size:12px;
+  color:#555;
+  min-height:30px;
+}
+
+.card .forecast-high-low {
+  font-size:18px;
+  font-weight:800;
+  margin:8px 0;
+}
+
+.card .forecast-detail {
+  font-size:11px;
+  color:#555;
+  line-height:1.4;
+  text-align:left;
+  border-top:1px solid #eee;
+  margin-top:10px;
+  padding-top:10px;
+}
+
+.card strong {
+  display:block;
+  margin-bottom:8px;
+}
+
+.weather-note {
+  margin-top:22px;
+  padding:14px;
+  border:1px solid #ddd;
+  background:#f7f7f7;
+  color:#555;
+  font-size:13px;
+  line-height:1.45;
+}
+
+.weather-articles-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+  gap:16px;
+}
+
+.weather-article-card {
+  border:1px solid #ddd;
+  background:#fff;
+  text-decoration:none;
+  color:#111;
+  display:flex;
+  flex-direction:column;
+  min-height:100%;
+}
+
+.weather-article-card:hover h3 {
+  text-decoration:underline;
+}
+
+.weather-article-card img {
+  width:100%;
+  height:145px;
+  object-fit:cover;
+  background:#eee;
+  display:block;
+}
+
+.weather-article-body {
+  padding:14px;
+}
+
+.weather-article-meta {
+  font-size:11px;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+  color:#666;
+  font-weight:800;
+  margin-bottom:7px;
+}
+
+.weather-article-body h3 {
+  margin:0 0 8px;
+  font-size:18px;
+  line-height:1.25;
+}
+
+.weather-article-body p {
+  margin:0;
+  color:#555;
+  line-height:1.45;
+  font-size:13px;
+}
+
+.weather-articles-empty {
+  border:1px solid #ddd;
+  padding:14px;
+  color:#555;
+  background:#f7f7f7;
+}
+
+.weather-articles-actions {
+  display:flex;
+  justify-content:center;
+  margin-top:18px;
+}
+
+.weather-load-more-btn {
+  border:1px solid #111;
+  background:#07111f;
+  color:#fff;
+  cursor:pointer;
+  border-radius:0;
+  padding:12px 18px;
+  font-size:13px;
+  font-weight:900;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+}
+
+.weather-load-more-btn:hover,
+.weather-load-more-btn:focus {
+  background:#c40000;
+  border-color:#c40000;
+}
+
+.weather-load-more-btn[hidden] {
+  display:none;
+}
+
+.weather-load-more-btn:disabled {
+  cursor:not-allowed;
+  opacity:.58;
+}
+
+.cgn-bottom-ad {
+  max-width:1100px;
+  margin:26px auto 34px;
+  padding:0 20px;
+}
+
+.cgn-bottom-ad-inner {
+  border-top:1px solid #ddd;
+  border-bottom:1px solid #ddd;
+  padding:18px 0;
+  text-align:center;
+  background:#fff;
+}
+
+.cgn-ad-label {
+  font-size:11px;
+  color:#777;
+  margin-bottom:10px;
+  text-transform:uppercase;
+  letter-spacing:.06em;
+}
+
+.error-box {
+  margin-top:18px;
+  padding:14px;
+  border:1px solid #e1b5b5;
+  background:#fff5f5;
+  color:#7a1111;
+  display:none;
+}
+
+@media (max-width:900px){
+  .weather-app {
+    margin:28px auto;
+    padding:0 16px 32px;
+  }
+
+  .weather-hero {
+    min-height:190px;
+  }
+
+  .weather-hero-content {
+    padding:22px 20px;
+  }
+
+  .weather-hero h1 {
+    font-size:32px;
+  }
+
+  .weather-hero p {
+    font-size:13px;
+  }
+
+  .current-weather {
+    padding:24px 18px;
+  }
+
+  .weather-toolbar-row {
+    justify-content:center;
+  }
+
+  .weather-current-header {
+    flex-direction:column;
+    align-items:stretch;
+    text-align:center;
+  }
+
+  .weather-unit-actions {
+    width:100%;
+    justify-content:center;
+    flex-wrap:wrap;
+  }
+
+  .weather-tool-btn {
+    flex:1 1 132px;
+  }
+
+  .saved-locations-row {
+    flex:1 1 100%;
+    justify-content:center;
+  }
+
+  .current-weather.weather-clear .weather-effects::before {
+    width:120px;
+    height:120px;
+    right:10px;
+    top:124px;
+    opacity:.62;
+  }
+
+  .current-weather.weather-night.weather-clear .weather-effects::before {
+    width:82px;
+    height:82px;
+    right:16px;
+    top:130px;
+    opacity:.6;
+  }
+
+  .current-weather-main {
+    justify-content:center;
+    text-align:center;
+  }
+
+  .temp-main {
+    font-size:58px;
+  }
+
+  .controls {
+    justify-content:center;
+  }
+
+  .controls button {
+    flex:1 1 84px;
+  }
+
+  .weather-stats-grid {
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+
+  .weather-stat-card strong {
+    font-size:16px;
+  }
+
+
+  .nws-alert-ticker a {
+    flex-wrap:wrap;
+    min-height:0;
+  }
+
+  .nws-alert-label,
+  .nws-alert-open {
+    min-height:38px;
+  }
+
+  .nws-alert-marquee {
+    flex-basis:100%;
+    order:3;
+    min-height:38px;
+    display:flex;
+    align-items:center;
+  }
+
+  .forecast-section {
+    overflow:hidden;
+  }
+
+  .forecast-grid {
+    display:flex;
+    overflow-x:auto;
+    gap:12px;
+    padding-bottom:12px;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+  }
+
+  .forecast-grid .card {
+    flex:0 0 210px;
+    scroll-snap-align:start;
+    box-sizing:border-box;
+  }
+
+  .weather-articles-grid {
+    grid-template-columns:1fr;
+  }
+
+  .weather-load-more-btn {
+    width:100%;
+  }
+
+  .cgn-bottom-ad {
+    padding:0 16px;
+    margin:22px auto 30px;
+  }
+}
+
+/* CGN WEATHER ACTION BUTTONS */
+html {
+  scroll-behavior:smooth;
+}
+
+.weather-action-panel {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:14px;
+  margin:0 0 22px;
+}
+
+.weather-action-btn {
+  position:relative;
+  overflow:hidden;
+  min-height:82px;
+  box-sizing:border-box;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  padding:16px 18px;
+  color:#fff;
+  text-decoration:none;
+  border:1px solid rgba(255,255,255,.16);
+  box-shadow:0 16px 34px rgba(7,17,31,.14);
+  isolation:isolate;
+  transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+
+.weather-action-btn:hover {
+  transform:translateY(-2px);
+  box-shadow:0 20px 44px rgba(7,17,31,.22);
+  text-decoration:none;
+}
+
+.weather-action-btn:focus-visible {
+  outline:3px solid #f2d990;
+  outline-offset:3px;
+}
+
+.weather-action-copy,
+.weather-action-arrow {
+  position:relative;
+  z-index:2;
+}
+
+.weather-action-title {
+  display:flex;
+  align-items:center;
+  gap:9px;
+  font-size:18px;
+  line-height:1.1;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+  font-weight:900;
+}
+
+.weather-action-copy small {
+  display:block;
+  margin-top:6px;
+  font-size:12px;
+  line-height:1.35;
+  letter-spacing:0;
+  text-transform:none;
+  color:rgba(255,255,255,.86);
+  font-weight:800;
+}
+
+.weather-action-arrow {
+  flex:0 0 auto;
+  width:36px;
+  height:36px;
+  border-radius:999px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border:1px solid rgba(255,255,255,.42);
+  background:rgba(255,255,255,.12);
+  font-size:20px;
+  font-weight:900;
+}
+
+.weather-radar-btn {
+  background:
+    radial-gradient(circle at 13% 12%, rgba(96,165,250,.42), transparent 28%),
+    radial-gradient(circle at 80% 18%, rgba(255,255,255,.16), transparent 26%),
+    linear-gradient(135deg,#061226 0%,#0b3a72 48%,#0c7fc0 100%);
+  border-color:rgba(96,165,250,.32);
+}
+
+.weather-radar-btn::before {
+  content:"";
+  position:absolute;
+  inset:-40% -10% auto;
+  height:120%;
+  background:repeating-linear-gradient(105deg, transparent 0 18px, rgba(255,255,255,.18) 19px 21px, transparent 22px 40px);
+  opacity:.7;
+  animation:weatherButtonRainSweep 1.8s linear infinite;
+  z-index:1;
+  pointer-events:none;
+}
+
+.weather-radar-btn::after {
+  content:"";
+  position:absolute;
+  right:-54px;
+  bottom:-54px;
+  width:170px;
+  height:170px;
+  border-radius:50%;
+  border:2px solid rgba(255,255,255,.18);
+  box-shadow:0 0 0 18px rgba(255,255,255,.055), 0 0 0 42px rgba(255,255,255,.035);
+  z-index:1;
+  pointer-events:none;
+}
+
+.radar-icon {
+  position:relative;
+  width:29px;
+  height:29px;
+  flex:0 0 auto;
+  border-radius:50%;
+  border:2px solid rgba(255,255,255,.88);
+  box-shadow:inset 0 0 0 5px rgba(255,255,255,.18), 0 0 18px rgba(125,211,252,.46);
+}
+
+.radar-icon::before,
+.radar-icon::after {
+  content:"";
+  position:absolute;
+  inset:50% auto auto 50%;
+  transform-origin:left center;
+  background:#fff;
+}
+
+.radar-icon::before {
+  width:12px;
+  height:2px;
+  transform:rotate(-34deg);
+  animation:weatherRadarSweep 2.6s linear infinite;
+}
+
+.radar-icon::after {
+  width:5px;
+  height:5px;
+  margin:-2.5px 0 0 -2.5px;
+  border-radius:50%;
+  box-shadow:0 0 12px rgba(255,255,255,.9);
+}
+
+.weather-forecast-btn {
+  background:
+    radial-gradient(circle at 18% 20%, rgba(255,255,255,.92) 0 28px, rgba(255,255,255,.22) 29px 66px, transparent 68px),
+    radial-gradient(circle at 78% 18%, rgba(255,255,255,.28), transparent 30%),
+    linear-gradient(135deg,#fff3b0 0%,#ffc857 44%,#f97316 100%);
+  color:#07111f;
+  border-color:rgba(247,148,30,.5);
+}
+
+.weather-forecast-btn::before {
+  content:"";
+  position:absolute;
+  left:-38px;
+  top:-48px;
+  width:170px;
+  height:170px;
+  background:conic-gradient(from 0deg, rgba(255,255,255,0) 0 11deg, rgba(255,255,255,.44) 12deg 18deg, rgba(255,255,255,0) 19deg 30deg);
+  border-radius:50%;
+  animation:weatherSunSpin 15s linear infinite;
+  z-index:1;
+  pointer-events:none;
+}
+
+.weather-forecast-btn::after {
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(100deg, rgba(255,255,255,.18), rgba(255,255,255,0) 42%, rgba(255,255,255,.24));
+  z-index:1;
+  pointer-events:none;
+}
+
+.weather-forecast-btn .weather-action-copy small {
+  color:rgba(7,17,31,.74);
+}
+
+.weather-forecast-btn .weather-action-arrow {
+  border-color:rgba(7,17,31,.22);
+  background:rgba(255,255,255,.48);
+  color:#07111f;
+}
+
+.youtube-sun-icon {
+  position:relative;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:34px;
+  height:24px;
+  border-radius:8px;
+  background:#ff0000;
+  box-shadow:0 0 0 4px rgba(255,255,255,.34), 0 0 22px rgba(255,217,102,.78);
+  flex:0 0 auto;
+}
+
+.youtube-sun-icon::before {
+  content:"";
+  width:0;
+  height:0;
+  border-top:6px solid transparent;
+  border-bottom:6px solid transparent;
+  border-left:10px solid #fff;
+  margin-left:2px;
+}
+
+.youtube-sun-icon::after {
+  content:"";
+  position:absolute;
+  inset:-10px;
+  border-radius:50%;
+  background:conic-gradient(from 0deg, transparent 0 15deg, rgba(255,255,255,.48) 16deg 22deg, transparent 23deg 45deg);
+  animation:weatherSunSpin 12s linear infinite reverse;
+  z-index:-1;
+}
+
+@keyframes weatherButtonRainSweep {
+  from { transform:translate3d(26px,-22px,0); }
+  to { transform:translate3d(-44px,58px,0); }
+}
+
+@keyframes weatherRadarSweep {
+  from { transform:rotate(-34deg); }
+  to { transform:rotate(326deg); }
+}
+
+@keyframes weatherSunSpin {
+  from { transform:rotate(0deg); }
+  to { transform:rotate(360deg); }
+}
+
+/* CGN LIVE WEATHER PAGE APP */
+.cgn-weather-live {
+  margin-top:30px;
+  scroll-margin-top:120px;
+}
+
+.cgn-weather-live-shell {
+  overflow:hidden;
+  background:#07111f;
+  color:#fff;
+  border:1px solid #d9d9d9;
+  box-shadow:0 18px 44px rgba(7,17,31,.14);
+  isolation:isolate;
+}
+
+.cgn-weather-live-header {
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:18px;
+  padding:18px 20px;
+  border-bottom:1px solid rgba(255,255,255,.14);
+  background:
+    radial-gradient(circle at 14% 16%, rgba(255,255,255,.10), transparent 26%),
+    linear-gradient(135deg,#07111f 0%,#0b2038 58%,#102947 100%);
+}
+
+.cgn-weather-live-kicker {
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  font-size:12px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  font-weight:900;
+  color:#ff4242;
+  margin-bottom:6px;
+}
+
+.cgn-weather-live-dot {
+  width:9px;
+  height:9px;
+  border-radius:50%;
+  background:#ff2d2d;
+  box-shadow:0 0 0 4px rgba(255,45,45,.18);
+}
+
+.cgn-weather-live h2 {
+  margin:0;
+  font-size:28px;
+  line-height:1.1;
+  letter-spacing:.02em;
+  color:#fff;
+}
+
+.cgn-weather-live-subtitle {
+  margin:6px 0 0;
+  color:#d9e1ee;
+  font-size:14px;
+  line-height:1.45;
+}
+
+.cgn-weather-live-open {
+  color:#fff;
+  border:1px solid rgba(255,255,255,.35);
+  padding:9px 12px;
+  text-decoration:none;
+  font-size:12px;
+  font-weight:900;
+  text-transform:uppercase;
+  white-space:nowrap;
+}
+
+.cgn-weather-live-open:hover {
+  background:#fff;
+  color:#07111f;
+  text-decoration:none;
+}
+
+.cgn-weather-live-video-wrap {
+  position:relative;
+  width:100%;
+  aspect-ratio:16 / 9;
+  min-height:260px;
+  background:#000;
+  overflow:hidden;
+  isolation:isolate;
+}
+
+.cgn-weather-live-video-wrap iframe {
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  border:0;
+  display:block;
+  background:#000;
+  pointer-events:auto;
+}
+
+.cgn-weather-live-fallback {
+  display:none;
+  position:absolute;
+  inset:0;
+  z-index:2;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:24px;
+  background:
+    radial-gradient(circle at 18% 18%, rgba(255,200,87,.20), transparent 30%),
+    linear-gradient(135deg,#07111f,#111827);
+  color:#fff;
+}
+
+.cgn-weather-live-fallback.show {
+  display:flex;
+}
+
+.cgn-weather-live-fallback-card {
+  width:min(820px,94%);
+  display:grid;
+  grid-template-columns:minmax(170px,280px) 1fr;
+  gap:18px;
+  align-items:center;
+  text-align:left;
+  padding:22px;
+  border:1px solid rgba(255,255,255,.18);
+  background:linear-gradient(135deg, rgba(255,255,255,.10), rgba(255,255,255,.04));
+  box-shadow:0 18px 46px rgba(0,0,0,.34);
+}
+
+.cgn-weather-live-fallback-image {
+  width:100%;
+  aspect-ratio:16 / 9;
+  object-fit:cover;
+  background:#050b14;
+  border:1px solid rgba(255,255,255,.16);
+}
+
+.cgn-weather-live-fallback-card strong {
+  display:block;
+  font-size:23px;
+  line-height:1.1;
+  margin-bottom:8px;
+}
+
+.cgn-weather-live-fallback-card p {
+  margin:0 0 14px;
+  color:#d9e1ee;
+  line-height:1.45;
+}
+
+.cgn-weather-live-fallback-actions {
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.cgn-weather-live-fallback-actions a {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:10px 14px;
+  background:#fff;
+  color:#07111f;
+  text-decoration:none;
+  font-weight:900;
+}
+
+.cgn-weather-live-fallback-actions a + a {
+  background:transparent;
+  color:#fff;
+  border:1px solid rgba(255,255,255,.35);
+}
+
+.cgn-weather-live-controls {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:8px;
+  padding:14px 20px;
+  border-top:1px solid rgba(255,255,255,.14);
+  background:#0b1626;
+}
+
+.cgn-weather-live-controls button {
+  border:1px solid rgba(255,255,255,.28);
+  background:transparent;
+  color:#fff;
+  padding:10px 12px;
+  cursor:pointer;
+  font-weight:900;
+  font-size:12px;
+  text-transform:uppercase;
+}
+
+.cgn-weather-live-controls button:hover,
+.cgn-weather-live-controls button.active {
+  background:#c40000;
+  border-color:#c40000;
+}
+
+.cgn-weather-live-meta {
+  padding:0 20px 18px;
+  background:#0b1626;
+}
+
+.cgn-weather-live-meta p {
+  margin:0;
+  color:#d9e1ee;
+  font-size:13px;
+  line-height:1.45;
+}
+
+.cgn-weather-live-meta strong {
+  color:#fff;
+}
+
+.cgn-weather-live-disclaimer {
+  margin-top:8px !important;
+  color:#aeb8c8 !important;
+  font-size:12px !important;
+}
+
+@media(max-width:900px){
+  .weather-action-panel {
+    grid-template-columns:1fr;
+    gap:12px;
+    margin-bottom:20px;
+  }
+
+  .weather-action-btn {
+    min-height:78px;
+    padding:15px 16px;
+  }
+
+  .weather-action-title {
+    font-size:16px;
+  }
+
+  .weather-action-copy small {
+    font-size:11px;
+  }
+
+  .cgn-weather-live {
+    margin-top:24px;
+    scroll-margin-top:95px;
+  }
+
+  .cgn-weather-live-header {
+    flex-direction:column;
+    align-items:stretch;
+    padding:16px;
+  }
+
+  .cgn-weather-live h2 {
+    font-size:24px;
+  }
+
+  .cgn-weather-live-open {
+    text-align:center;
+  }
+
+  .cgn-weather-live-video-wrap {
+    min-height:220px;
+  }
+
+  .cgn-weather-live-controls {
+    padding:12px;
+    gap:7px;
+  }
+
+  .cgn-weather-live-controls button {
+    padding:10px 8px;
+    font-size:11px;
+  }
+
+  .cgn-weather-live-fallback {
+    align-items:stretch;
+    justify-content:flex-start;
+    padding:12px;
+  }
+
+  .cgn-weather-live-fallback-card {
+    width:100%;
+    max-height:100%;
+    overflow:auto;
+    grid-template-columns:1fr;
+    text-align:center;
+    padding:16px;
+  }
+
+  .cgn-weather-live-fallback-image {
+    max-height:130px;
+    object-fit:contain;
+  }
+
+  .cgn-weather-live-fallback-actions {
+    justify-content:center;
+  }
+
+  .cgn-weather-live-fallback-actions a {
+    width:100%;
+    box-sizing:border-box;
+  }
+}
+
+@media(max-width:560px){
+  .weather-action-arrow {
+    width:32px;
+    height:32px;
+  }
+
+  .youtube-sun-icon {
+    width:31px;
+    height:22px;
+  }
+
+  .cgn-weather-live-video-wrap {
+    min-height:235px;
+  }
+}
+
+</style>
+
+
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
 <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="The Ozark Gazette">
-<meta property="og:title" content="Tecumseh Weather | The Ozark Gazette">
-<meta property="og:description" content="Live Tecumseh, Missouri weather forecasts, radar, hourly updates, Ozark County alerts and weather reporting.">
-<meta property="og:url" content="https://ozarks.cgnnews.net/weather/">
-<meta property="og:image" content="https://ozarks.cgnnews.net/OzarkGazetteBanner.png">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Tecumseh Weather | The Ozark Gazette">
-<meta name="twitter:description" content="Live Tecumseh, Missouri weather forecasts, radar, hourly updates, Ozark County alerts and weather reporting.">
-<meta name="twitter:image" content="https://ozarks.cgnnews.net/OzarkGazetteBanner.png">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"NewsMediaOrganization","name":"The Ozark Gazette","url":"https://ozarks.cgnnews.net/","parentOrganization":{"@type":"NewsMediaOrganization","name":"Cook Global News Network","url":"https://www.cgnnews.net/"},"address":{"@type":"PostalAddress","streetAddress":"33256 US Highway 160","addressLocality":"Tecumseh","addressRegion":"MO","postalCode":"65760","addressCountry":"US"},"telephone":"+1-317-442-1437","email":"tips@cgnnews.net","logo":"https://ozarks.cgnnews.net/OzarkGazetteLogo.png"}</script>
-<link rel="stylesheet" href="/assets/ozark-site.css">
-<script defer src="/assets/ozark-shell.js"></script>
-</head>
-<body >
-<div id="cgn-site-header"></div>
-<main id="main-content" class="site-main">
+<meta name="theme-color" content="#07172f">
 
-<section class="page-hero"><img src="/OzarkGazetteBanner.png" alt=""><div class="page-hero-copy"><p class="kicker">Weather Center</p><h1 class="page-title">Tecumseh Weather</h1><p>Current conditions, hourly forecast, weekly outlook, radar access and severe-weather information for Tecumseh, Ozark County and the Missouri Ozarks.</p></div></section>
-<div class="category-tools"><a href="/weather/radar/">Open Weather Radar</a><a href="/traffic/">Traffic Center</a></div>
-<section class="weather-app-card"><div class="weather-main"><div id="weatherIcon" class="weather-icon">🌤</div><div><div id="weatherTemp" class="temp-main">--°F</div><div id="conditionText">Loading Tecumseh weather...</div><div id="feelsLike" class="widget-note">Forecast details loading.</div></div></div><p id="updated" class="widget-note"></p><div class="section-title" style="border-color:rgba(255,255,255,.25)"><h2 style="color:#fff">Next 12 Hours</h2><span style="color:#dbe4f2">Tecumseh local time</span></div><div id="hourlyGrid" class="forecast-grid"></div><div class="section-title" style="border-color:rgba(255,255,255,.25)"><h2 style="color:#fff">7-Day Forecast</h2><span style="color:#dbe4f2">Open-Meteo current forecast</span></div><div id="forecastGrid" class="forecast-grid"></div></section>
-<section><div class="section-title"><h2>Weather Articles</h2><span>Loaded from the Articles sheet.</span></div><div id="categoryGrid" class="article-grid" data-article-grid data-category="Weather" data-limit="9"><div class="empty">Loading weather articles...</div></div></section>
-<script defer src="/assets/weather.js"></script>
+<link rel="stylesheet" href="/assets/ozark-site.css">
+<script defer src="/assets/cgn-dynamic-translate.js"></script>
+</head>
+
+<body>
+
+<div id="cgn-site-header"></div>
+
+<main class="weather-app">
+
+<section class="weather-hero" aria-label="The Ozark Gazette Weather Brief">
+  <div class="weather-hero-content">
+    <div class="weather-kicker">Ozark Weather</div>
+    <h1>Tecumseh Weather Brief</h1>
+    <p>Search current conditions and extended forecasts by city or ZIP code. The Ozark Gazette provides live Tecumseh weather data, hourly temperatures, daily highs and lows, NWS alerts, and a clear last-updated timestamp for Ozark County readers.</p>
+  </div>
+</section>
+
+<nav class="weather-action-panel" aria-label="Ozark Weather quick actions">
+  <a class="weather-action-btn weather-radar-btn" href="/weather/radar/" aria-label="Open Weather Radar">
+    <span class="weather-action-copy">
+      <span class="weather-action-title">Weather Radar <span class="radar-icon" aria-hidden="true"></span></span>
+      <small>Open radar, NWS severe weather alerts, and Ozark County weather tools.</small>
+    </span>
+    <span class="weather-action-arrow" aria-hidden="true">→</span>
+  </a>
+
+  <a class="weather-action-btn weather-forecast-btn" href="#cgn-live-weather" onclick="scrollToWeatherLive(event)" aria-label="Open the Ozark Weather Brief">
+    <span class="weather-action-copy">
+      <span class="weather-action-title">Weather Brief <span class="youtube-sun-icon" aria-hidden="true"></span></span>
+      <small>Watch the latest weather brief and live weather source links.</small>
+    </span>
+    <span class="weather-action-arrow" aria-hidden="true">→</span>
+  </a>
+</nav>
+
+<div class="search-box">
+<input id="locationInput" placeholder="Search city or ZIP" oninput="suggestLocation()" autocomplete="off" aria-label="Search city or ZIP code">
+<div id="suggestions"></div>
+</div>
+
+<div id="weatherError" class="error-box"></div>
+
+<section class="current-weather weather-clear" aria-label="Current weather conditions">
+<div class="weather-effects" id="weatherEffects" aria-hidden="true"></div>
+<div class="weather-content">
+<div class="weather-toolbar-row" aria-label="Saved weather locations and weather app actions">
+<div id="savedLocations" class="saved-locations-row" aria-label="Saved weather locations"></div>
+<div class="weather-unit-actions" aria-label="Weather app actions">
+<button type="button" id="saveCityBtn" class="weather-tool-btn" onclick="saveCurrentWeatherCity()">Save City</button>
+<button type="button" id="unitToggleBtn" class="weather-tool-btn" onclick="toggleWeatherUnits()" aria-pressed="false">Imperial / Metric</button>
+</div>
+</div>
+
+<div class="weather-current-header">
+<h2 id="locationTitle">Tecumseh, MO United States</h2>
+</div>
+
+<div class="current-weather-main">
+<div id="weatherIcon" class="icon-main"></div>
+<div>
+<div class="temp-main" id="tempMain"></div>
+<div id="conditionText"></div>
+<div id="feelsLikeMain" class="feels-like-main"></div>
+</div>
+</div>
+
+<div id="todaySummary" class="today-summary"></div>
+
+<div id="weatherStats" class="weather-stats-grid" aria-label="Current weather details"></div>
+
+<div id="nwsAlertTicker" class="nws-alert-ticker" hidden aria-live="polite" aria-label="Active National Weather Service alerts for this location">
+  <a href="/weather/radar/" aria-label="Open Ozark Gazette Weather Radar for active National Weather Service alerts">
+    <span class="nws-alert-label">NWS Alerts</span>
+    <span class="nws-alert-marquee"><span id="nwsAlertTickerText"></span></span>
+    <span class="nws-alert-open">Open Radar →</span>
+  </a>
+</div>
+
+<div id="updated"></div>
+
+<div class="controls" aria-label="Forecast range controls">
+<button id="btn-1" onclick="setDays(1)">1 Day</button>
+<button id="btn-3" onclick="setDays(3)">3 Day</button>
+<button id="btn-5" onclick="setDays(5)">5 Day</button>
+<button id="btn-7" onclick="setDays(7)">7 Day</button>
+<button id="btn-10" onclick="setDays(10)">10 Day</button>
+<button id="btn-14" onclick="setDays(14)">14 Day</button>
+</div>
+</div>
+</section>
+
+<section class="hourly-section">
+<div class="section-title">
+<h2>Next 12 Hours</h2>
+<span>Starts at the current local forecast hour</span>
+</div>
+<div id="hourly" class="hourly"></div>
+</section>
+
+<section class="forecast-section">
+<div class="section-title">
+<h2>Extended Forecast</h2>
+<span id="forecastLabel">7-day outlook</span>
+</div>
+<div id="forecast" class="forecast-grid"></div>
+</section>
+
+<div class="weather-note">
+Weather data is provided for informational purposes and may update throughout the day. Forecasts are generated from live weather data sources and should be checked regularly during severe weather or travel conditions.
+</div>
+
+<section id="cgn-live-weather" class="cgn-weather-live" aria-labelledby="cgn-weather-live-title">
+  <div class="section-title">
+    <h2 id="cgn-weather-live-title">CGN LIVE</h2>
+    <span>News, Weather, and Sports source links</span>
+  </div>
+
+  <div class="cgn-weather-live-shell">
+    <div class="cgn-weather-live-header">
+      <div>
+        <div class="cgn-weather-live-kicker"><span class="cgn-weather-live-dot" aria-hidden="true"></span> Live Video</div>
+        <h2>Ozark Weather Brief</h2>
+        <p class="cgn-weather-live-subtitle">Watch the weather brief, switch to live news, or open sports source links while keeping the Tecumseh weather widget on this page.</p>
+      </div>
+      <a id="weather-cgn-live-open" class="cgn-weather-live-open" href="/weather/weekly-weather-brief/" target="_blank" rel="noopener">Open Weather Brief</a>
+    </div>
+
+    <div class="cgn-weather-live-video-wrap">
+      <iframe
+        id="weather-cgn-live-frame"
+        title="CGN LIVE - Weather"
+        loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen
+        referrerpolicy="strict-origin-when-cross-origin"></iframe>
+
+      <div id="weather-cgn-live-fallback" class="cgn-weather-live-fallback" role="status" aria-live="polite">
+        <div class="cgn-weather-live-fallback-card">
+          <img id="weather-cgn-live-fallback-image" class="cgn-weather-live-fallback-image" src="/CGNWeatherBrief01.png" alt="" loading="lazy">
+          <div>
+            <strong id="weather-cgn-live-fallback-title">Ozark Weather Brief</strong>
+            <p id="weather-cgn-live-fallback-text">Open the current source directly if the embedded player is unavailable on this device.</p>
+            <div class="cgn-weather-live-fallback-actions">
+              <a id="weather-cgn-live-fallback-link" href="/weather/weekly-weather-brief/" target="_blank" rel="noopener">Open Weather Brief</a>
+              <a id="weather-cgn-live-coverage-link" href="/weather/">Open CGN Coverage</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cgn-weather-live-controls" aria-label="Choose CGN LIVE Weather page source">
+      <button type="button" data-weather-cgn-live="news" onclick="changeWeatherCGNLive('news')" aria-label="Show News live video">News</button>
+      <button type="button" class="active" data-weather-cgn-live="weather" onclick="changeWeatherCGNLive('weather')" aria-label="Show Weather video">Weather</button>
+      <button type="button" data-weather-cgn-live="sports" onclick="changeWeatherCGNLive('sports')" aria-label="Show Sports live source">Sports</button>
+    </div>
+
+    <div class="cgn-weather-live-meta">
+      <p id="weather-cgn-live-now"><strong>Now showing:</strong> Weather — Ozark Weather Brief</p>
+      <p class="cgn-weather-live-disclaimer">CGN LIVE sources may include CGN embedded players, YouTube, and official third-party source pages. Availability, embed permissions, and programming can change; use Open Live Source if a stream needs to open directly.</p>
+    </div>
+  </div>
+</section>
+
+<section class="weather-articles-section" aria-labelledby="weather-articles-title">
+<div class="section-title">
+<h2 id="weather-articles-title">Weather Briefs</h2>
+<span>Latest Ozark Gazette weather reporting</span>
+</div>
+<div id="weatherArticles" class="weather-articles-grid">
+  <div class="weather-articles-empty">Loading weather articles...</div>
+</div>
+<div class="weather-articles-actions">
+  <button type="button" id="weatherArticlesLoadMore" class="weather-load-more-btn" onclick="loadMoreWeatherArticles()" hidden>Load More Weather Articles</button>
+</div>
+</section>
 
 </main>
+
+<section class="cgn-bottom-ad" aria-label="Advertisement">
+  <div class="cgn-bottom-ad-inner">
+    <div class="cgn-ad-label">Advertisement</div>
+
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-5303063222439969"
+         data-ad-slot="3184122609"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+  </div>
+</section>
+
 <div id="cgn-site-footer"></div>
+
+<script>
+
+const CGN_API_BASE = "https://script.google.com/macros/s/AKfycbx41mQg-Ine3XZ-VrMI_SaQn4_K6cDQHA0cBFyGPgupu_edNFoNRjSLv2hoSe_bOytt/exec";
+const OZARK_SITE_PARAM = "site=ozark";
+
+let forecastDays = 7;
+let currentLat = 36.5836;
+let currentLon = -92.2863;
+let currentLabel = "Tecumseh, MO United States";
+
+const WEATHER_UNITS_KEY = "cgn_weather_units";
+const WEATHER_SAVED_LOCATIONS_KEY = "cgn_weather_saved_locations";
+const WEATHER_MAX_SAVED_LOCATIONS = 5;
+
+const WEATHER_UNIT_SETTINGS = {
+  imperial: {
+    name: "Imperial",
+    switchLabel: "Metric",
+    apiTemperature: "fahrenheit",
+    apiWind: "mph",
+    apiPrecipitation: "inch",
+    tempSuffix: "°F",
+    windSuffix: " mph",
+    precipSuffix: " in",
+    visibilitySuffix: " mi",
+    visibilityDivisor: 1609.344,
+    visibilityDigits: 1,
+    pressureSuffix: " inHg"
+  },
+  metric: {
+    name: "Metric",
+    switchLabel: "Imperial",
+    apiTemperature: "celsius",
+    apiWind: "kmh",
+    apiPrecipitation: "mm",
+    tempSuffix: "°C",
+    windSuffix: " km/h",
+    precipSuffix: " mm",
+    visibilitySuffix: " km",
+    visibilityDivisor: 1000,
+    visibilityDigits: 1,
+    pressureSuffix: " hPa"
+  }
+};
+
+let weatherUnits = loadWeatherUnits();
+let savedWeatherLocations = loadSavedWeatherLocations();
+
+let currentWeatherRequestId = 0;
+let currentWeatherAbortController = null;
+
+function setActiveButton(){
+  [1,3,5,7,10,14].forEach(days => {
+    const btn = document.getElementById("btn-" + days);
+    if(btn){
+      btn.classList.toggle("active", days === forecastDays);
+    }
+  });
+
+  const label = document.getElementById("forecastLabel");
+  if(label){
+    label.innerText = forecastDays + "-day outlook";
+  }
+}
+
+function setDays(days){
+  forecastDays = days;
+  setActiveButton();
+  loadWeather(currentLat,currentLon,currentLabel);
+}
+
+function getWeather(code){
+  const numericCode = Number(code);
+  if(!Number.isFinite(numericCode)) return {icon:"🌤", text:"Weather", type:"cloudy", intensity:"light"};
+  if(numericCode === 0) return {icon:"☀️", text:"Clear", type:"clear", intensity:"light"};
+  if([1,2].includes(numericCode)) return {icon:"🌤", text:"Partly Cloudy", type:"cloudy", intensity:"light"};
+  if(numericCode === 3) return {icon:"☁️", text:"Cloudy", type:"cloudy", intensity:"moderate"};
+  if([45,48].includes(numericCode)) return {icon:"🌫", text:"Fog", type:"fog", intensity: numericCode === 48 ? "heavy" : "moderate"};
+  if([51,53,55].includes(numericCode)) return {icon:"🌦", text:"Drizzle", type:"rain", intensity: numericCode === 55 ? "moderate" : "light"};
+  if([56,57].includes(numericCode)) return {icon:"🌧", text:"Freezing Drizzle", type:"sleet", intensity:"moderate"};
+  if([61,63,65,80,81,82].includes(numericCode)) return {icon:"🌧", text:"Rain", type:"rain", intensity: [65,82].includes(numericCode) ? "heavy" : "moderate"};
+  if([66,67].includes(numericCode)) return {icon:"🌧", text:"Freezing Rain", type:"sleet", intensity: numericCode === 67 ? "heavy" : "moderate"};
+  if([71,73,75,77,85,86].includes(numericCode)) return {icon:"❄️", text:"Snow", type:"snow", intensity: [75,86].includes(numericCode) ? "heavy" : "moderate"};
+  if([95,96,99].includes(numericCode)) return {icon:"⛈", text:"Storm", type:"storm", intensity: [96,99].includes(numericCode) ? "heavy" : "moderate"};
+  return {icon:"🌤", text:"Weather", type:"cloudy", intensity:"light"};
+}
+
+function getWeatherFromConditionText(value){
+  const raw = String(value || "").replace(/_/g, " ").replace(/\s+/g, " ").trim();
+  const text = raw || "Weather";
+  const lower = text.toLowerCase();
+
+  if(!raw || /^(unknown|not available|n\/a|null)$/i.test(raw)){
+    return null;
+  }
+
+  if(/thunder|t-?storm|lightning/.test(lower)){
+    return { icon:"⛈", text:text, type:"storm", intensity:/heavy|severe/i.test(text) ? "heavy" : "moderate" };
+  }
+
+  if(/freezing rain|freezing drizzle|sleet|ice pellet/.test(lower)){
+    return { icon:"🌧", text:text, type:"sleet", intensity:/heavy/i.test(text) ? "heavy" : "moderate" };
+  }
+
+  if(/snow|flurr|blizzard/.test(lower)){
+    return { icon:"❄️", text:text, type:"snow", intensity:/heavy|blizzard/i.test(text) ? "heavy" : "moderate" };
+  }
+
+  if(/rain|shower|drizzle|sprinkle/.test(lower)){
+    return { icon:/sun|partly/i.test(text) ? "🌦" : "🌧", text:text, type:"rain", intensity:/heavy|downpour/i.test(text) ? "heavy" : "moderate" };
+  }
+
+  if(/fog|mist|haze|smoke|dust/.test(lower)){
+    return { icon:"🌫", text:text, type:"fog", intensity:"moderate" };
+  }
+
+  if(/overcast|cloud|cloudy|few clouds|scattered clouds|broken clouds/.test(lower)){
+    return { icon:/partly|few|scattered/i.test(text) ? "🌤" : "☁️", text:text, type:"cloudy", intensity:/overcast|broken/i.test(text) ? "moderate" : "light" };
+  }
+
+  if(/fair|clear|sunny/.test(lower)){
+    return { icon:"☀️", text:text, type:"clear", intensity:"light" };
+  }
+
+  return { icon:"🌤", text:text, type:"cloudy", intensity:"light" };
+}
+
+function firstNumber(){
+  for(let i = 0; i < arguments.length; i++){
+    const n = num(arguments[i]);
+    if(n !== null) return n;
+  }
+  return null;
+}
+
+function isLikelyUSWeatherPoint(lat, lon, label){
+  const latitude = num(lat);
+  const longitude = num(lon);
+  const name = String(label || "").toLowerCase();
+
+  if(name.includes("united states") || /,\s*[a-z]{2}\b/.test(name)){
+    return true;
+  }
+
+  if(latitude === null || longitude === null) return false;
+
+  const continentalUS = latitude >= 24 && latitude <= 50 && longitude >= -125 && longitude <= -66;
+  const alaska = latitude >= 51 && latitude <= 72 && longitude >= -170 && longitude <= -129;
+  const hawaii = latitude >= 18 && latitude <= 23 && longitude >= -161 && longitude <= -154;
+  return continentalUS || alaska || hawaii;
+}
+
+function nwsValue(field){
+  if(field && typeof field === "object" && "value" in field){
+    return num(field.value);
+  }
+  return num(field);
+}
+
+function celsiusToDisplay(value){
+  const n = num(value);
+  if(n === null) return null;
+  return weatherUnits === "imperial" ? (n * 9 / 5) + 32 : n;
+}
+
+function metersPerSecondToDisplay(value){
+  const n = num(value);
+  if(n === null) return null;
+  return weatherUnits === "imperial" ? n * 2.2369362921 : n * 3.6;
+}
+
+function normalizeNWSObservation(properties){
+  if(!properties) return null;
+
+  const condition = getWeatherFromConditionText(properties.textDescription);
+  if(!condition) return null;
+
+  const heatIndex = celsiusToDisplay(nwsValue(properties.heatIndex));
+  const windChill = celsiusToDisplay(nwsValue(properties.windChill));
+  const temperature = celsiusToDisplay(nwsValue(properties.temperature));
+
+  return {
+    condition: condition,
+    conditionText: condition.text,
+    temperature: temperature,
+    apparentTemperature: firstNumber(heatIndex, windChill, temperature),
+    humidity: nwsValue(properties.relativeHumidity),
+    dewPoint: celsiusToDisplay(nwsValue(properties.dewpoint)),
+    windSpeed: metersPerSecondToDisplay(nwsValue(properties.windSpeed)),
+    windDirection: nwsValue(properties.windDirection),
+    windGusts: metersPerSecondToDisplay(nwsValue(properties.windGust)),
+    pressure: (function(){
+      const pa = nwsValue(properties.barometricPressure);
+      return pa === null ? null : pa / 100;
+    })(),
+    visibilityMeters: nwsValue(properties.visibility),
+    timestamp: properties.timestamp || null,
+    source: "National Weather Service observation"
+  };
+}
+
+async function fetchNWSCurrentObservation(lat, lon, label, signal){
+  if(!isLikelyUSWeatherPoint(lat, lon, label)) return null;
+
+  try {
+    const pointsUrl = `https://api.weather.gov/points/${Number(lat).toFixed(4)},${Number(lon).toFixed(4)}`;
+    const pointsResponse = await fetch(pointsUrl, { cache:"no-store", signal:signal, headers:{ "Accept":"application/geo+json" } });
+    if(!pointsResponse.ok) return null;
+
+    const pointsJson = await pointsResponse.json();
+    const stationsUrl = pointsJson && pointsJson.properties ? pointsJson.properties.observationStations : "";
+    if(!stationsUrl) return null;
+
+    const stationsResponse = await fetch(stationsUrl, { cache:"no-store", signal:signal, headers:{ "Accept":"application/geo+json" } });
+    if(!stationsResponse.ok) return null;
+
+    const stationsJson = await stationsResponse.json();
+    const stations = Array.isArray(stationsJson.features) ? stationsJson.features : [];
+
+    for(const station of stations.slice(0, 6)){
+      const latestUrl = station && station.id ? station.id.replace(/\/$/, "") + "/observations/latest?require_qc=false" : "";
+      if(!latestUrl) continue;
+
+      const observationResponse = await fetch(latestUrl, { cache:"no-store", signal:signal, headers:{ "Accept":"application/geo+json" } });
+      if(!observationResponse.ok) continue;
+
+      const observationJson = await observationResponse.json();
+      const observation = normalizeNWSObservation(observationJson && observationJson.properties);
+      if(observation) return observation;
+    }
+  } catch(err){
+    if(err && err.name === "AbortError") throw err;
+    console.warn("NWS CURRENT OBSERVATION ERROR:", err);
+  }
+
+  return null;
+}
+
+function setError(message){
+  const box = document.getElementById("weatherError");
+  if(!box) return;
+
+  if(message){
+    box.style.display = "block";
+    box.innerText = message;
+  } else {
+    box.style.display = "none";
+    box.innerText = "";
+  }
+}
+
+function num(value){
+  const n = Number(value);
+  return Number.isFinite(n) ? n : null;
+}
+
+function fmt(value, suffix, digits){
+  const n = num(value);
+  if(n === null) return "--";
+  const d = Number.isFinite(digits) ? digits : 0;
+  return `${n.toFixed(d)}${suffix || ""}`;
+}
+
+function getWeatherUnitSettings(){
+  return WEATHER_UNIT_SETTINGS[weatherUnits] || WEATHER_UNIT_SETTINGS.imperial;
+}
+
+function loadWeatherUnits(){
+  try {
+    const stored = localStorage.getItem(WEATHER_UNITS_KEY);
+    return stored === "metric" ? "metric" : "imperial";
+  } catch(err){
+    return "imperial";
+  }
+}
+
+function saveWeatherUnits(){
+  try {
+    localStorage.setItem(WEATHER_UNITS_KEY, weatherUnits);
+  } catch(err){}
+}
+
+function fmtTemp(value){
+  return fmt(value, getWeatherUnitSettings().tempSuffix, 0);
+}
+
+function fmtWind(value){
+  return fmt(value, getWeatherUnitSettings().windSuffix, 0);
+}
+
+function fmtPrecip(value){
+  const digits = weatherUnits === "metric" ? 1 : 2;
+  return fmt(value, getWeatherUnitSettings().precipSuffix, digits);
+}
+
+function fmtVisibilityFromMeters(value){
+  const n = num(value);
+  if(n === null) return "--";
+  const settings = getWeatherUnitSettings();
+  return (n / settings.visibilityDivisor).toFixed(settings.visibilityDigits) + settings.visibilitySuffix;
+}
+
+function fmtPercent(value){
+  return fmt(value,"%",0);
+}
+
+function fmtPressure(value){
+  const n = num(value);
+  if(n === null) return "--";
+  if(weatherUnits === "metric") return n.toFixed(0) + getWeatherUnitSettings().pressureSuffix;
+  return (n / 33.86).toFixed(2) + getWeatherUnitSettings().pressureSuffix;
+}
+
+function shortLocationLabel(label){
+  const first = String(label || "").split(",")[0].trim();
+  return first || String(label || "Saved City").trim() || "Saved City";
+}
+
+function cleanSavedLocation(location){
+  if(!location) return null;
+  const latitude = num(location.latitude);
+  const longitude = num(location.longitude);
+  const label = String(location.label || location.shortLabel || "").trim();
+  if(latitude === null || longitude === null || !label) return null;
+  return {
+    label: label,
+    shortLabel: String(location.shortLabel || shortLocationLabel(label)).trim() || shortLocationLabel(label),
+    latitude: latitude,
+    longitude: longitude,
+    saved_at: String(location.saved_at || new Date().toISOString())
+  };
+}
+
+function loadSavedWeatherLocations(){
+  try {
+    const parsed = JSON.parse(localStorage.getItem(WEATHER_SAVED_LOCATIONS_KEY) || "[]");
+    if(!Array.isArray(parsed)) return [];
+    return parsed.map(cleanSavedLocation).filter(Boolean).slice(-WEATHER_MAX_SAVED_LOCATIONS);
+  } catch(err){
+    return [];
+  }
+}
+
+function persistSavedWeatherLocations(){
+  try {
+    localStorage.setItem(WEATHER_SAVED_LOCATIONS_KEY, JSON.stringify(savedWeatherLocations));
+  } catch(err){}
+}
+
+function sameSavedLocation(a, b){
+  if(!a || !b) return false;
+  const latA = num(a.latitude);
+  const lonA = num(a.longitude);
+  const latB = num(b.latitude);
+  const lonB = num(b.longitude);
+  const sameCoords = latA !== null && lonA !== null && latB !== null && lonB !== null && Math.abs(latA - latB) < 0.0001 && Math.abs(lonA - lonB) < 0.0001;
+  const sameLabel = String(a.label || "").trim().toLowerCase() === String(b.label || "").trim().toLowerCase();
+  return sameCoords || sameLabel;
+}
+
+function renderSavedLocations(){
+  const mount = document.getElementById("savedLocations");
+  if(!mount) return;
+
+  mount.innerHTML = "";
+  mount.classList.toggle("has-saved-locations", savedWeatherLocations.length > 0);
+
+  savedWeatherLocations.forEach(function(location){
+    const chip = document.createElement("button");
+    chip.type = "button";
+    chip.className = "saved-location-chip";
+    chip.textContent = location.shortLabel || shortLocationLabel(location.label);
+    chip.setAttribute("aria-label", "Load saved weather for " + location.label);
+    chip.onclick = function(){
+      loadWeather(location.latitude, location.longitude, location.label);
+    };
+    mount.appendChild(chip);
+  });
+}
+
+function updateWeatherUnitButton(){
+  const button = document.getElementById("unitToggleBtn");
+  if(!button) return;
+  const settings = getWeatherUnitSettings();
+  button.textContent = settings.name + " / " + settings.switchLabel;
+  button.setAttribute("aria-pressed", weatherUnits === "metric" ? "true" : "false");
+  button.title = "Switch to " + settings.switchLabel + " units";
+}
+
+function toggleWeatherUnits(){
+  weatherUnits = weatherUnits === "metric" ? "imperial" : "metric";
+  saveWeatherUnits();
+  updateWeatherUnitButton();
+  loadWeather(currentLat, currentLon, currentLabel);
+}
+
+function saveCurrentWeatherCity(){
+  const location = cleanSavedLocation({
+    label: currentLabel,
+    shortLabel: shortLocationLabel(currentLabel),
+    latitude: currentLat,
+    longitude: currentLon,
+    saved_at: new Date().toISOString()
+  });
+
+  if(!location) return;
+
+  savedWeatherLocations = savedWeatherLocations.filter(function(existing){
+    return !sameSavedLocation(existing, location);
+  });
+
+  savedWeatherLocations.push(location);
+
+  while(savedWeatherLocations.length > WEATHER_MAX_SAVED_LOCATIONS){
+    savedWeatherLocations.shift();
+  }
+
+  persistSavedWeatherLocations();
+  renderSavedLocations();
+}
+
+function formatCGNDate(value){
+  if(!value) return "";
+
+  const date = value instanceof Date ? value : new Date(value);
+
+  if(isNaN(date.getTime())) return "";
+
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone:"America/Chicago",
+    weekday:"long",
+    day:"numeric",
+    month:"long",
+    year:"numeric",
+    hour:"numeric",
+    minute:"2-digit",
+    second:"2-digit",
+    hour12:true,
+    timeZoneName:"short"
+  }).formatToParts(date);
+
+  const map = {};
+  parts.forEach(function(part){
+    if(part.type !== "literal"){
+      map[part.type] = part.value;
+    }
+  });
+
+  return `${map.weekday}, ${map.day} ${map.month} ${map.year} at ${map.hour}:${map.minute}:${map.second} ${map.dayPeriod} ${map.timeZoneName}`;
+}
+
+function fmtTime(value){
+  if(!value) return "--";
+  return new Date(value).toLocaleTimeString('en-US',{hour:'numeric', minute:'2-digit'});
+}
+
+function windDirectionText(deg){
+  const n = num(deg);
+  if(n === null) return "--";
+  const dirs = ["N","NNE","NE","ENE","E","ESE","SE","SSE","S","SSW","SW","WSW","WNW","NW","NNW"];
+  return dirs[Math.round(n / 22.5) % 16];
+}
+
+function isNightTime(currentTime, sunrise, sunset){
+  if(!currentTime || !sunrise || !sunset) return false;
+  const now = new Date(currentTime).getTime();
+  const rise = new Date(sunrise).getTime();
+  const set = new Date(sunset).getTime();
+  if([now, rise, set].some(function(v){ return isNaN(v); })) return false;
+  return now < rise || now >= set;
+}
+
+function nearestHourlyIndex(times, target){
+  if(!Array.isArray(times) || !times.length) return 0;
+  const targetTime = target ? new Date(target).getTime() : Date.now();
+  let bestIndex = 0;
+  let bestDiff = Infinity;
+
+  times.forEach((t,i)=>{
+    const diff = Math.abs(new Date(t).getTime() - targetTime);
+    if(diff < bestDiff){
+      bestDiff = diff;
+      bestIndex = i;
+    }
+  });
+
+  return bestIndex;
+}
+
+function currentHourlyStartIndex(times, currentTime){
+  if(!Array.isArray(times) || !times.length) return 0;
+
+  const base = currentTime ? new Date(currentTime) : new Date();
+
+  if(isNaN(base.getTime())){
+    return nearestHourlyIndex(times, currentTime);
+  }
+
+  /*
+    Open-Meteo returns hourly timestamps in the searched location's local timezone
+    because this page requests timezone=auto. current_weather.time is already rounded
+    to the active local forecast hour, so at 6:30 PM the active hourly card should
+    begin at 6:00 PM, not midnight or a future rounded hour.
+  */
+  base.setMinutes(0, 0, 0);
+  const target = base.getTime();
+
+  for(let i = 0; i < times.length; i++){
+    const t = new Date(times[i]).getTime();
+    if(!isNaN(t) && t >= target){
+      return i;
+    }
+  }
+
+  return Math.max(0, times.length - 12);
+}
+
+function getCurrentDailyIndex(dailyTimes, currentTime){
+  if(!Array.isArray(dailyTimes) || !dailyTimes.length) return 0;
+
+  /*
+    FINAL WEATHER FIX:
+    Extended Forecast must begin with the current local forecast day, not a stale
+    first item from the returned daily array. Open-Meteo returns daily dates as
+    YYYY-MM-DD in the searched location's local timezone because we request
+    timezone=auto. current_weather.time is also local to that forecast location.
+  */
+  const currentLocalDate = String(currentTime || "").slice(0, 10);
+
+  if(currentLocalDate){
+    const exactIndex = dailyTimes.findIndex(function(day){
+      return String(day || "").slice(0, 10) === currentLocalDate;
+    });
+
+    if(exactIndex >= 0) return exactIndex;
+  }
+
+  const now = currentTime ? new Date(currentTime).getTime() : Date.now();
+  let bestIndex = 0;
+  let bestDiff = Infinity;
+
+  dailyTimes.forEach(function(day, index){
+    const parsed = new Date(String(day || "") + "T12:00:00").getTime();
+    if(isNaN(parsed)) return;
+
+    const diff = Math.abs(parsed - now);
+    if(diff < bestDiff){
+      bestDiff = diff;
+      bestIndex = index;
+    }
+  });
+
+  return bestIndex;
+}
+
+function setWeatherMood(type, options){
+  const panel = document.querySelector(".current-weather");
+  const effects = document.getElementById("weatherEffects");
+  if(!panel || !effects) return;
+
+  options = options || {};
+  const intensity = options.intensity || "moderate";
+  const isNight = !!options.isNight;
+
+  panel.classList.remove("weather-clear","weather-cloudy","weather-rain","weather-snow","weather-fog","weather-storm","weather-sleet","weather-night");
+  panel.classList.add("weather-" + (type || "cloudy"));
+  panel.classList.toggle("weather-night", isNight);
+  effects.innerHTML = "";
+
+  if(type === "cloudy" || type === "storm"){
+    const cloudCount = type === "storm" ? 5 : 4;
+    for(let i=0;i<cloudCount;i++){
+      const cloud = document.createElement("span");
+      cloud.className = "cloud-puff";
+      cloud.style.top = (12 + Math.random() * 46) + "%";
+      cloud.style.left = (-35 + Math.random() * 25) + "%";
+      cloud.style.width = (160 + Math.random() * 140) + "px";
+      cloud.style.height = (42 + Math.random() * 46) + "px";
+      cloud.style.animationDuration = (26 + Math.random() * 22) + "s";
+      cloud.style.animationDelay = (-Math.random() * 30) + "s";
+      effects.appendChild(cloud);
+    }
+  }
+
+  if(type === "fog"){
+    for(let i=0;i<5;i++){
+      const fog = document.createElement("span");
+      fog.className = "fog-bank";
+      fog.style.top = (8 + i * 16) + "%";
+      fog.style.animationDuration = (18 + i * 5) + "s";
+      fog.style.animationDelay = (-i * 5) + "s";
+      fog.style.opacity = String(0.32 + i * 0.06);
+      effects.appendChild(fog);
+    }
+  }
+
+  if(type === "rain" || type === "storm"){
+    const count = type === "storm" || intensity === "heavy" ? 116 : 78;
+    for(let i=0;i<count;i++){
+      const drop = document.createElement("span");
+      drop.className = "raindrop" + ((type === "storm" || intensity === "heavy") ? " heavy" : "");
+      drop.style.left = Math.random() * 100 + "%";
+      drop.style.animationDuration = (0.55 + Math.random() * 0.85) + "s";
+      drop.style.animationDelay = (-Math.random() * 2.4) + "s";
+      drop.style.opacity = (0.34 + Math.random() * 0.62).toFixed(2);
+      effects.appendChild(drop);
+    }
+  }
+
+  if(type === "sleet"){
+    for(let i=0;i<70;i++){
+      const pellet = document.createElement("span");
+      pellet.className = "sleet-pellet";
+      pellet.style.left = Math.random() * 100 + "%";
+      pellet.style.animationDuration = (0.8 + Math.random() * 1.2) + "s";
+      pellet.style.animationDelay = (-Math.random() * 2.5) + "s";
+      pellet.style.opacity = (0.42 + Math.random() * 0.5).toFixed(2);
+      effects.appendChild(pellet);
+    }
+  }
+
+  if(type === "snow"){
+    const count = intensity === "heavy" ? 82 : 54;
+    for(let i=0;i<count;i++){
+      const flake = document.createElement("span");
+      flake.className = "snowflake";
+      const size = 3 + Math.random() * 7;
+      flake.style.left = Math.random() * 100 + "%";
+      flake.style.width = size + "px";
+      flake.style.height = size + "px";
+      flake.style.animationDuration = (5 + Math.random() * 7) + "s";
+      flake.style.animationDelay = (-Math.random() * 8) + "s";
+      flake.style.opacity = (0.45 + Math.random() * 0.5).toFixed(2);
+      effects.appendChild(flake);
+    }
+  }
+}
+
+function renderStat(label,value){
+  return `
+    <div class="weather-stat-card">
+      <span>${label}</span>
+      <strong>${value || "--"}</strong>
+    </div>
+  `;
+}
+
+
+function resetNWSAlertTicker(){
+  const ticker = document.getElementById("nwsAlertTicker");
+  const tickerText = document.getElementById("nwsAlertTickerText");
+  if(ticker){
+    ticker.hidden = true;
+    ticker.classList.remove("has-alerts");
+  }
+  if(tickerText){
+    tickerText.textContent = "";
+  }
+}
+
+function nwsAlertPriority(alert){
+  const severityScore = {
+    Extreme: 50,
+    Severe: 40,
+    Moderate: 30,
+    Minor: 20,
+    Unknown: 10
+  };
+
+  const urgencyScore = {
+    Immediate: 5,
+    Expected: 4,
+    Future: 3,
+    Past: 1,
+    Unknown: 0
+  };
+
+  return (severityScore[alert.severity] || 0) + (urgencyScore[alert.urgency] || 0);
+}
+
+function formatNWSAlertTime(value){
+  if(!value) return "until further notice";
+  const date = new Date(value);
+  if(isNaN(date.getTime())) return "until further notice";
+  return date.toLocaleString("en-US", {
+    month:"short",
+    day:"numeric",
+    hour:"numeric",
+    minute:"2-digit",
+    timeZoneName:"short"
+  });
+}
+
+function buildNWSAlertLine(alert, fallbackLabel){
+  const event = String(alert.event || "Weather Alert").trim();
+  const severity = String(alert.severity || "NWS").trim();
+  const urgency = String(alert.urgency || "").trim();
+  const areas = String(alert.areaDesc || fallbackLabel || "this area").replace(/\s+/g," ").trim();
+  const expires = formatNWSAlertTime(alert.expires || alert.ends || alert.effective);
+  const alertType = urgency && urgency !== "Unknown" ? severity + "/" + urgency : severity;
+  return `${event} (${alertType}) — ${areas}; expires ${expires}`;
+}
+
+async function loadNWSAlerts(lat, lon, label){
+  const ticker = document.getElementById("nwsAlertTicker");
+  const tickerText = document.getElementById("nwsAlertTickerText");
+  if(!ticker || !tickerText) return;
+
+  resetNWSAlertTicker();
+
+  const alertLat = num(lat);
+  const alertLon = num(lon);
+  if(alertLat === null || alertLon === null) return;
+
+  try {
+    const alertsUrl = new URL("https://api.weather.gov/alerts/active");
+    alertsUrl.searchParams.set("point", alertLat.toFixed(4) + "," + alertLon.toFixed(4));
+
+    const response = await fetch(alertsUrl.toString(), {
+      cache:"no-store",
+      headers:{ "Accept":"application/geo+json" }
+    });
+
+    if(!response.ok) return;
+
+    const json = await response.json();
+    const features = Array.isArray(json.features) ? json.features : [];
+
+    const alerts = features
+      .map(function(feature){ return feature && feature.properties ? feature.properties : null; })
+      .filter(function(alert){
+        return alert && String(alert.status || "Actual") === "Actual" && String(alert.event || "").trim();
+      })
+      .sort(function(a,b){ return nwsAlertPriority(b) - nwsAlertPriority(a); });
+
+    if(!alerts.length) return;
+
+    const fallbackLabel = shortLocationLabel(label);
+    const alertLines = alerts.slice(0, 8).map(function(alert){
+      return buildNWSAlertLine(alert, fallbackLabel);
+    });
+
+    tickerText.textContent = `Active National Weather Service alerts near ${fallbackLabel}: ` + alertLines.join(" • ") + " • Click to open Ozark Gazette Weather Radar.";
+    ticker.hidden = false;
+    ticker.classList.add("has-alerts");
+  } catch(err){
+    console.warn("NWS ALERT LOAD ERROR:", err);
+    resetNWSAlertTicker();
+  }
+}
+
+async function loadWeather(lat,lon,label){
+
+  const requestId = ++currentWeatherRequestId;
+
+  if(currentWeatherAbortController){
+    try { currentWeatherAbortController.abort(); } catch(err){}
+  }
+
+  const controller = new AbortController();
+  currentWeatherAbortController = controller;
+
+  currentLat = lat;
+  currentLon = lon;
+  currentLabel = label;
+
+  setError("");
+  resetNWSAlertTicker();
+
+  try {
+
+    const unitSettings = getWeatherUnitSettings();
+    const weatherUrl = new URL("https://api.open-meteo.com/v1/forecast");
+    weatherUrl.searchParams.set("latitude", lat);
+    weatherUrl.searchParams.set("longitude", lon);
+    weatherUrl.searchParams.set("current_weather", "true");
+    weatherUrl.searchParams.set("current", "temperature_2m,apparent_temperature,is_day,weather_code,relative_humidity_2m,dew_point_2m,precipitation,cloud_cover,pressure_msl,wind_speed_10m,wind_direction_10m,wind_gusts_10m");
+    weatherUrl.searchParams.set("hourly", "temperature_2m,apparent_temperature,relative_humidity_2m,dew_point_2m,precipitation_probability,precipitation,weathercode,cloudcover,visibility,pressure_msl,windspeed_10m,winddirection_10m,windgusts_10m");
+    weatherUrl.searchParams.set("daily", "temperature_2m_max,temperature_2m_min,weathercode,precipitation_probability_max,precipitation_sum,windspeed_10m_max,windgusts_10m_max,uv_index_max,sunrise,sunset");
+    weatherUrl.searchParams.set("forecast_days", "14");
+    weatherUrl.searchParams.set("temperature_unit", unitSettings.apiTemperature);
+    weatherUrl.searchParams.set("wind_speed_unit", unitSettings.apiWind);
+    weatherUrl.searchParams.set("precipitation_unit", unitSettings.apiPrecipitation);
+    weatherUrl.searchParams.set("timezone", "auto");
+
+    const res = await fetch(weatherUrl.toString(), { cache:"no-store", signal:controller.signal });
+
+    const data = await res.json();
+    if(requestId !== currentWeatherRequestId) return;
+
+    if(!data || (!data.current_weather && !data.current) || !data.hourly || !data.daily){
+      setError("Weather data is temporarily unavailable. Please try another location or refresh the page.");
+      return;
+    }
+
+    const legacyCurrent = data.current_weather || {};
+    const modernCurrent = data.current || {};
+    const currentTime = modernCurrent.time || legacyCurrent.time || new Date().toISOString();
+    const currentIndex = nearestHourlyIndex(data.hourly.time, currentTime);
+    const todayDailyIndex = getCurrentDailyIndex(data.daily.time, currentTime);
+
+    const activeWeatherCode = firstNumber(
+      modernCurrent.weather_code,
+      legacyCurrent.weathercode,
+      data.hourly.weathercode ? data.hourly.weathercode[currentIndex] : null
+    );
+
+    const openMeteoWeather = getWeather(activeWeatherCode);
+
+    /*
+      Current condition and background visuals must be driven by observed
+      weather when available. Active NWS alerts stay separate in the ticker.
+      A Heat Advisory, Severe Thunderstorm Watch, Flood Warning, etc. must
+      never force the main current-condition card to Storm or Rain.
+    */
+    const observedCurrent = await fetchNWSCurrentObservation(lat, lon, label, controller.signal);
+    if(requestId !== currentWeatherRequestId) return;
+
+    const w = observedCurrent && observedCurrent.condition ? observedCurrent.condition : openMeteoWeather;
+
+    const openMeteoTemp = firstNumber(modernCurrent.temperature_2m, legacyCurrent.temperature);
+    const openMeteoFeelsLike = firstNumber(
+      modernCurrent.apparent_temperature,
+      data.hourly.apparent_temperature ? data.hourly.apparent_temperature[currentIndex] : null
+    );
+
+    const currentTemp = firstNumber(observedCurrent && observedCurrent.temperature, openMeteoTemp);
+    const feelsLike = firstNumber(observedCurrent && observedCurrent.apparentTemperature, openMeteoFeelsLike);
+    const humidity = firstNumber(observedCurrent && observedCurrent.humidity, modernCurrent.relative_humidity_2m, data.hourly.relative_humidity_2m ? data.hourly.relative_humidity_2m[currentIndex] : null);
+    const dewPoint = firstNumber(observedCurrent && observedCurrent.dewPoint, modernCurrent.dew_point_2m, data.hourly.dew_point_2m ? data.hourly.dew_point_2m[currentIndex] : null);
+    const rainChance = data.hourly.precipitation_probability ? data.hourly.precipitation_probability[currentIndex] : null;
+    const precip = firstNumber(modernCurrent.precipitation, data.hourly.precipitation ? data.hourly.precipitation[currentIndex] : null);
+    const pressure = firstNumber(observedCurrent && observedCurrent.pressure, modernCurrent.pressure_msl, data.hourly.pressure_msl ? data.hourly.pressure_msl[currentIndex] : null);
+    const visibilityMeters = firstNumber(observedCurrent && observedCurrent.visibilityMeters, data.hourly.visibility ? data.hourly.visibility[currentIndex] : null);
+    const cloudCover = firstNumber(modernCurrent.cloud_cover, data.hourly.cloudcover ? data.hourly.cloudcover[currentIndex] : null);
+    const windSpeed = firstNumber(observedCurrent && observedCurrent.windSpeed, modernCurrent.wind_speed_10m, legacyCurrent.windspeed, data.hourly.windspeed_10m ? data.hourly.windspeed_10m[currentIndex] : null);
+    const windDirection = firstNumber(observedCurrent && observedCurrent.windDirection, modernCurrent.wind_direction_10m, legacyCurrent.winddirection, data.hourly.winddirection_10m ? data.hourly.winddirection_10m[currentIndex] : null);
+    const windGusts = firstNumber(observedCurrent && observedCurrent.windGusts, modernCurrent.wind_gusts_10m, data.hourly.windgusts_10m ? data.hourly.windgusts_10m[currentIndex] : null);
+    const conditionText = observedCurrent && observedCurrent.conditionText ? observedCurrent.conditionText : w.text;
+
+    const nightMode = modernCurrent.is_day === 0
+      ? true
+      : (modernCurrent.is_day === 1 ? false : isNightTime(currentTime, data.daily.sunrise ? data.daily.sunrise[todayDailyIndex] : null, data.daily.sunset ? data.daily.sunset[todayDailyIndex] : null));
+
+    setWeatherMood(w.type, { intensity:w.intensity, isNight:nightMode });
+
+    document.getElementById("locationTitle").innerText = label;
+    document.getElementById("weatherIcon").innerText = w.icon;
+    document.getElementById("conditionText").innerText = conditionText;
+    document.getElementById("tempMain").innerText = fmtTemp(currentTemp);
+    document.getElementById("feelsLikeMain").innerText = "Feels Like " + fmtTemp(feelsLike);
+
+    console.info("Ozark Gazette weather current conditions", {
+      label: label,
+      condition: conditionText,
+      visualMood: w.type,
+      source: observedCurrent ? observedCurrent.source : "Open-Meteo current weather code",
+      openMeteoWeatherCode: activeWeatherCode
+    });
+
+    const todayMax = data.daily.temperature_2m_max ? data.daily.temperature_2m_max[todayDailyIndex] : null;
+    const todayMin = data.daily.temperature_2m_min ? data.daily.temperature_2m_min[todayDailyIndex] : null;
+    const todayRainChance = data.daily.precipitation_probability_max ? data.daily.precipitation_probability_max[todayDailyIndex] : rainChance;
+    const todayWind = data.daily.windspeed_10m_max ? data.daily.windspeed_10m_max[todayDailyIndex] : windSpeed;
+
+    document.getElementById("todaySummary").innerText =
+      `Currently: ${conditionText}. Today: High ${fmtTemp(todayMax)} / Low ${fmtTemp(todayMin)}. Wind ${windDirectionText(windDirection)} at ${fmtWind(todayWind)}. Chance of rain ${fmtPercent(todayRainChance)}.`;
+
+    const stats = document.getElementById("weatherStats");
+    stats.innerHTML =
+      renderStat("Feels Like", fmtTemp(feelsLike)) +
+      renderStat("Wind Speed", `${fmtWind(windSpeed)} ${windDirectionText(windDirection)}`) +
+      renderStat("Wind Gusts", fmtWind(windGusts)) +
+      renderStat("Wind Direction", windDirectionText(windDirection)) +
+      renderStat("Humidity", fmtPercent(humidity)) +
+      renderStat("Dew Point", fmtTemp(dewPoint)) +
+      renderStat("Pressure", fmtPressure(pressure)) +
+      renderStat("Visibility", fmtVisibilityFromMeters(visibilityMeters)) +
+      renderStat("Cloud Cover", fmtPercent(cloudCover)) +
+      renderStat("Rain Chance", fmtPercent(rainChance)) +
+      renderStat("Precipitation", fmtPrecip(precip)) +
+      renderStat("UV Index", data.daily.uv_index_max ? fmt(data.daily.uv_index_max[todayDailyIndex],"",1) : "--") +
+      renderStat("Sunrise", data.daily.sunrise ? fmtTime(data.daily.sunrise[todayDailyIndex]) : "--") +
+      renderStat("Sunset", data.daily.sunset ? fmtTime(data.daily.sunset[todayDailyIndex]) : "--");
+
+    if(requestId === currentWeatherRequestId){
+      loadNWSAlerts(lat, lon, label);
+    }
+
+    document.getElementById("updated").innerText =
+      "Last Updated: " + formatCGNDate(new Date());
+
+    const hourly = document.getElementById("hourly");
+    hourly.innerHTML = "";
+
+    const hourlyStartIndex = currentHourlyStartIndex(data.hourly.time, currentTime);
+    const hourlyTimes = data.hourly.time.slice(hourlyStartIndex, hourlyStartIndex + 12);
+
+    hourlyTimes.forEach((t,offset)=>{
+      const i = hourlyStartIndex + offset;
+      const hw = getWeather(data.hourly.weathercode[i]);
+      const temp = data.hourly.temperature_2m[i];
+      const hourlyFeels = data.hourly.apparent_temperature ? data.hourly.apparent_temperature[i] : null;
+      const hourlyRain = data.hourly.precipitation_probability ? data.hourly.precipitation_probability[i] : null;
+      const hourlyWind = data.hourly.windspeed_10m ? data.hourly.windspeed_10m[i] : null;
+
+      hourly.innerHTML += `
+        <div class="hour">
+          <strong>${new Date(t).toLocaleTimeString('en-US',{hour:'numeric'})}</strong><br>
+          <div class="hour-icon">${hw.icon}</div>
+          <div class="hour-temp">${fmtTemp(temp)}</div>
+          <div class="hour-detail">Feels ${fmtTemp(hourlyFeels)}</div>
+          <div class="hour-detail">Rain ${fmtPercent(hourlyRain)}</div>
+          <div class="hour-detail">Wind ${fmtWind(hourlyWind)}</div>
+        </div>
+      `;
+    });
+
+    const forecast = document.getElementById("forecast");
+    forecast.innerHTML = "";
+
+    data.daily.time.slice(todayDailyIndex, todayDailyIndex + forecastDays).forEach((d,offset)=>{
+      const i = todayDailyIndex + offset;
+      const dw = getWeather(data.daily.weathercode[i]);
+      const max = data.daily.temperature_2m_max[i];
+      const min = data.daily.temperature_2m_min[i];
+      const dailyRain = data.daily.precipitation_probability_max ? data.daily.precipitation_probability_max[i] : null;
+      const dailyWind = data.daily.windspeed_10m_max ? data.daily.windspeed_10m_max[i] : null;
+      const dailyUv = data.daily.uv_index_max ? data.daily.uv_index_max[i] : null;
+      const sunrise = data.daily.sunrise ? data.daily.sunrise[i] : null;
+      const sunset = data.daily.sunset ? data.daily.sunset[i] : null;
+      const dailyPrecip = data.daily.precipitation_sum ? data.daily.precipitation_sum[i] : null;
+
+      forecast.innerHTML += `
+        <div class="card">
+          <strong>${new Date(d).toLocaleDateString('en-US',{weekday:'short', month:'short', day:'numeric'})}</strong>
+          <div style="font-size:30px;margin:8px 0;">${dw.icon}</div>
+          <div class="forecast-condition">${dw.text}</div>
+          <div class="forecast-high-low">${fmtTemp(max)} / ${fmtTemp(min)}</div>
+          <div class="forecast-detail">
+            Rain: ${fmtPercent(dailyRain)}<br>
+            Wind: ${fmtWind(dailyWind)}<br>
+            UV Index: ${fmt(dailyUv,"",1)}<br>
+            Precip: ${fmtPrecip(dailyPrecip)}<br>
+            Sunrise: ${fmtTime(sunrise)}<br>
+            Sunset: ${fmtTime(sunset)}
+          </div>
+        </div>
+      `;
+    });
+
+    setActiveButton();
+
+  } catch(err){
+
+    if(err && err.name === "AbortError") return;
+
+    console.error("WEATHER LOAD ERROR:", err);
+    setError("Weather data is temporarily unavailable. Please check your connection and try again.");
+  }
+}
+
+let suggestionTimer = null;
+
+function suggestLocation(){
+
+  clearTimeout(suggestionTimer);
+
+  suggestionTimer = setTimeout(async function(){
+
+    const input = document.getElementById("locationInput");
+    const suggestions = document.getElementById("suggestions");
+
+    const q = input.value.trim();
+
+    if(q.length < 2){
+      suggestions.innerHTML = "";
+      return;
+    }
+
+    try {
+
+      const res = await fetch(
+        `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(q)}&count=5`
+      );
+
+      const data = await res.json();
+      suggestions.innerHTML = "";
+
+      if(!data.results){
+        return;
+      }
+
+      data.results.forEach(loc=>{
+        const label =
+          `${loc.name}, ${loc.admin1 || ""} ${loc.country}`.replace(/\s+/g, " ").trim();
+
+        const div = document.createElement("div");
+        div.innerText = label;
+
+        div.onclick = ()=>{
+          input.value = label;
+          suggestions.innerHTML="";
+          loadWeather(loc.latitude, loc.longitude, label);
+        };
+
+        suggestions.appendChild(div);
+      });
+
+    } catch(err){
+      console.error("LOCATION SUGGEST ERROR:", err);
+    }
+
+  }, 250);
+}
+
+function safeText(value){
+  return String(value || "").replace(/[&<>"']/g, function(c){
+    return {
+      "&":"&amp;",
+      "<":"&lt;",
+      ">":"&gt;",
+      '"':"&quot;",
+      "'":"&#039;"
+    }[c];
+  });
+}
+
+function slugify(value){
+  return String(value || "")
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+function getArticleTime(article){
+  if(!article) return 0;
+
+  const directDate =
+    article.published_at ||
+    article.updated_at ||
+    article.date ||
+    article.created_at ||
+    "";
+
+  if(directDate){
+    const parsed = new Date(directDate).getTime();
+    if(!isNaN(parsed)) return parsed;
+  }
+
+  const year = String(article.year || "").trim();
+  const month = String(article.month || "").trim().padStart(2, "0");
+  const day = String(article.day || "").trim().padStart(2, "0");
+
+  if(year && month && day){
+    const parsedParts = new Date(`${year}-${month}-${day}T00:00:00Z`).getTime();
+    if(!isNaN(parsedParts)) return parsedParts;
+  }
+
+  return 0;
+}
+
+function buildWeatherArticleUrl(article){
+  const existingUrl = String(article.url || article.canonical_url || "").trim();
+
+  if(existingUrl){
+    let pathOnly = existingUrl.replace(/^https?:\/\/[^/]+/i, "");
+    if(pathOnly.indexOf("/article.html") === 0) return pathOnly;
+  }
+
+  const slug = slugify(article.slug || article.title || "weather-story");
+  const time = getArticleTime(article);
+  const date = time ? new Date(time) : new Date();
+
+  const year = date.getUTCFullYear();
+  const month = String(date.getUTCMonth() + 1).padStart(2, "0");
+  const day = String(date.getUTCDate()).padStart(2, "0");
+
+  return `/article.html?slug=${encodeURIComponent(slug)}`;
+}
+
+function formatArticleDate(article){
+  const time = getArticleTime(article);
+  if(!time) return "";
+  return formatCGNDate(new Date(time));
+}
+
+const WEATHER_ARTICLES_PAGE_SIZE = 12;
+const WEATHER_ARTICLES_FETCH_LIMIT = 72;
+
+let weatherArticlesCache = [];
+let weatherArticlesVisibleCount = 0;
+
+function normalizeWeatherArticleList(json){
+  if(Array.isArray(json)) return json;
+  if(json && Array.isArray(json.articles)) return json.articles;
+  if(json && json.success && Array.isArray(json.data)) return json.data;
+  if(json && json.success && Array.isArray(json.items)) return json.items;
+  return [];
+}
+
+function dedupeWeatherArticles(articles){
+  const seen = new Set();
+
+  return (Array.isArray(articles) ? articles : []).filter(function(article){
+    if(!article) return false;
+
+    const category = slugify(article.category || "");
+    if(category && category !== "weather") return false;
+
+    const key = String(
+      article.article_id ||
+      article.id ||
+      article.canonical_url ||
+      article.url ||
+      article.slug ||
+      article.title ||
+      ""
+    ).trim().toLowerCase();
+
+    if(!key || seen.has(key)) return false;
+
+    seen.add(key);
+    return true;
+  });
+}
+
+function sortWeatherArticles(articles){
+  return (Array.isArray(articles) ? articles : []).slice().sort(function(a, b){
+    return getArticleTime(b) - getArticleTime(a);
+  });
+}
+
+function renderWeatherArticleCard(article){
+  const mount = document.getElementById("weatherArticles");
+  if(!mount || !article) return;
+
+  const title = safeText(article.title || "Weather Update");
+  const summary = safeText(article.summary || article.subtitle || "");
+  const image = safeText(article.hero_image_url || article.image || "/OzarkGazetteBanner.png");
+  const author = safeText(article.author || "The Ozark Gazette");
+  const date = safeText(formatArticleDate(article));
+  const url = buildWeatherArticleUrl(article);
+
+  mount.insertAdjacentHTML("beforeend", `
+    <a class="weather-article-card" href="${url}" aria-label="Read ${title}">
+      <img src="${image}" alt="${title}" loading="lazy">
+      <div class="weather-article-body">
+        <div class="weather-article-meta">Weather • ${author}${date ? " • " + date : ""}</div>
+        <h3>${title}</h3>
+        <p>${summary}</p>
+      </div>
+    </a>
+  `);
+}
+
+function updateWeatherArticleLoadMoreButton(){
+  const button = document.getElementById("weatherArticlesLoadMore");
+  if(!button) return;
+
+  const remaining = Math.max(0, weatherArticlesCache.length - weatherArticlesVisibleCount);
+
+  if(remaining > 0){
+    button.hidden = false;
+    button.disabled = false;
+    button.textContent = remaining >= WEATHER_ARTICLES_PAGE_SIZE
+      ? "Load More Weather Articles"
+      : `Load ${remaining} More Weather ${remaining === 1 ? "Article" : "Articles"}`;
+  } else {
+    button.hidden = true;
+    button.disabled = true;
+    button.textContent = "No More Weather Articles";
+  }
+}
+
+function renderNextWeatherArticleBatch(){
+  const mount = document.getElementById("weatherArticles");
+  if(!mount) return;
+
+  if(!weatherArticlesVisibleCount){
+    mount.innerHTML = "";
+  }
+
+  const nextArticles = weatherArticlesCache.slice(
+    weatherArticlesVisibleCount,
+    weatherArticlesVisibleCount + WEATHER_ARTICLES_PAGE_SIZE
+  );
+
+  nextArticles.forEach(renderWeatherArticleCard);
+
+  weatherArticlesVisibleCount += nextArticles.length;
+  updateWeatherArticleLoadMoreButton();
+}
+
+function loadMoreWeatherArticles(){
+  const button = document.getElementById("weatherArticlesLoadMore");
+  if(button) button.disabled = true;
+  renderNextWeatherArticleBatch();
+}
+
+async function loadWeatherArticles(){
+
+  const mount = document.getElementById("weatherArticles");
+  const loadMoreButton = document.getElementById("weatherArticlesLoadMore");
+  if(!mount) return;
+
+  weatherArticlesCache = [];
+  weatherArticlesVisibleCount = 0;
+  mount.innerHTML = `<div class="weather-articles-empty">Loading weather articles...</div>`;
+  if(loadMoreButton){
+    loadMoreButton.hidden = true;
+    loadMoreButton.disabled = true;
+  }
+
+  try{
+    async function readArticlesFrom(url){
+      const response = await fetch(url, { cache: "no-store" });
+      const json = await response.json();
+      return normalizeWeatherArticleList(json);
+    }
+
+    let articles = await readArticlesFrom(`${CGN_API_BASE}?${OZARK_SITE_PARAM}&action=ozark_articles&category=Weather&limit=${WEATHER_ARTICLES_FETCH_LIMIT}`);
+
+    if(!articles.length){
+      articles = await readArticlesFrom(`${CGN_API_BASE}?${OZARK_SITE_PARAM}&action=articles&category=Weather&limit=${WEATHER_ARTICLES_FETCH_LIMIT}`);
+    }
+
+    if(!articles.length){
+      const allArticles = await readArticlesFrom(`${CGN_API_BASE}?${OZARK_SITE_PARAM}&action=ozark_articles&limit=${WEATHER_ARTICLES_FETCH_LIMIT}`);
+      articles = allArticles.filter(function(article){
+        return slugify(article.category || "") === "weather";
+      });
+    }
+
+    weatherArticlesCache = sortWeatherArticles(dedupeWeatherArticles(articles));
+
+    if(!weatherArticlesCache.length){
+      mount.innerHTML = `<div class="weather-articles-empty">No weather articles are available right now.</div>`;
+      updateWeatherArticleLoadMoreButton();
+      return;
+    }
+
+    renderNextWeatherArticleBatch();
+
+  } catch(err){
+    console.error("WEATHER ARTICLES ERROR:", err);
+    weatherArticlesCache = [];
+    weatherArticlesVisibleCount = 0;
+    mount.innerHTML = `<div class="weather-articles-empty">Weather articles are temporarily unavailable.</div>`;
+    updateWeatherArticleLoadMoreButton();
+  }
+}
+
+
+/* CGN LIVE WEATHER PAGE */
+const WEATHER_CGN_LIVE_FEEDS = {
+  news: {
+    label: "News",
+    source: "CGN Live",
+    title: "CGN LIVE - News",
+    embed: "/cgn-live/?embed=1",
+    sourceUrl: "/cgn-live/",
+    directoryUrl: "/cgn-live/",
+    coverageUrl: "/local/",
+    fallbackImage: "/OzarkGazetteBanner.png",
+    fallbackTitle: "CGN Live",
+    fallbackText: "Watch the CGN Live embedded player. If the embedded player is unavailable on this device, open CGN Live directly."
+  },
+  weather: {
+    label: "Weather",
+    source: "Ozark Weather Brief",
+    title: "CGN LIVE - Weather",
+    embed: "/weather/weekly-weather-brief/?embed=1",
+    sourceUrl: "/weather/weekly-weather-brief/",
+    directoryUrl: "/weather/weekly-weather-brief/",
+    coverageUrl: "/weather/",
+    fallbackImage: "/OzarkGazetteBanner.png",
+    fallbackTitle: "Ozark Weather Brief",
+    fallbackText: "Watch the Ozark Weather Brief embedded player. If the embedded player is unavailable on this device, open the Weather Brief directly."
+  },
+  sports: {
+    label: "Sports",
+    source: "ESPN Streams",
+    title: "CGN LIVE - Sports",
+    embed: "",
+    sourceUrl: "https://www.youtube.com/@espn/streams",
+    directoryUrl: "https://www.youtube.com/@espn/streams",
+    coverageUrl: "/sports/",
+    fallbackImage: "/OzarkGazetteBanner.png",
+    fallbackTitle: "ESPN Live Streams",
+    fallbackText: "ESPN live streams open from ESPN's current YouTube stream directory. Continue to CGN Sports Center for sports articles and local team coverage."
+  }
+};
+
+function withWeatherCGNLiveParams(url){
+  if(!url) return "";
+  const clean = String(url);
+  if(clean.charAt(0) === "/"){
+    const joiner = clean.indexOf("?") === -1 ? "?" : "&";
+    return clean + joiner + "mute=1";
+  }
+  const stripped = clean.replace(/([?&])autoplay=[^&]*/g, "").replace(/([?&])mute=[^&]*/g, "");
+  const joiner = stripped.indexOf("?") === -1 ? "?" : "&";
+  const origin = encodeURIComponent(window.location.origin || "https://ozarks.cgnnews.net");
+  return stripped + joiner + "autoplay=0&mute=1&controls=1&rel=0&modestbranding=1&playsinline=1&enablejsapi=1&origin=" + origin;
+}
+
+function muteWeatherCGNLiveFrameAudio(){
+  const frame = document.getElementById("weather-cgn-live-frame");
+  if(!frame) return;
+
+  try{
+    const doc = frame.contentDocument || (frame.contentWindow && frame.contentWindow.document);
+    if(!doc) return;
+
+    doc.querySelectorAll("audio, video").forEach(function(media){
+      media.muted = true;
+      media.volume = 0;
+    });
+  }catch(err){}
+}
+
+function changeWeatherCGNLive(key){
+  const feed = WEATHER_CGN_LIVE_FEEDS[key] || WEATHER_CGN_LIVE_FEEDS.weather;
+  const frame = document.getElementById("weather-cgn-live-frame");
+  const fallback = document.getElementById("weather-cgn-live-fallback");
+  const open = document.getElementById("weather-cgn-live-open");
+  const now = document.getElementById("weather-cgn-live-now");
+  const fallbackLink = document.getElementById("weather-cgn-live-fallback-link");
+  const coverageLink = document.getElementById("weather-cgn-live-coverage-link");
+  const fallbackTitle = document.getElementById("weather-cgn-live-fallback-title");
+  const fallbackText = document.getElementById("weather-cgn-live-fallback-text");
+  const fallbackImage = document.getElementById("weather-cgn-live-fallback-image");
+
+  document.querySelectorAll("[data-weather-cgn-live]").forEach(function(button){
+    button.classList.toggle("active", button.getAttribute("data-weather-cgn-live") === key);
+  });
+
+  if(open){
+    open.href = feed.sourceUrl || feed.directoryUrl || "#";
+    open.textContent = key === "weather" ? "Open Weather Brief" : "Open Live Source";
+  }
+
+  if(now){
+    now.innerHTML = "<strong>Now showing:</strong> " + safeText(feed.label) + " — " + safeText(feed.source);
+  }
+
+  if(fallbackLink) fallbackLink.href = feed.sourceUrl || feed.directoryUrl || "#";
+  if(coverageLink) coverageLink.href = feed.coverageUrl || "/";
+  if(fallbackTitle) fallbackTitle.textContent = feed.fallbackTitle || feed.source || "Live Source";
+  if(fallbackText) fallbackText.textContent = feed.fallbackText || "Open the current source directly if the embedded player is unavailable.";
+  if(fallbackImage) fallbackImage.src = feed.fallbackImage || "/favicon.ico";
+
+  if(frame){
+    frame.title = feed.title || "CGN LIVE";
+
+    if(feed.embed){
+      frame.style.display = "block";
+      frame.onload = function(){
+        muteWeatherCGNLiveFrameAudio();
+        setTimeout(muteWeatherCGNLiveFrameAudio, 350);
+        setTimeout(muteWeatherCGNLiveFrameAudio, 1200);
+      };
+      frame.src = withWeatherCGNLiveParams(feed.embed);
+      setTimeout(muteWeatherCGNLiveFrameAudio, 1800);
+      if(fallback) fallback.classList.remove("show");
+    } else {
+      frame.removeAttribute("src");
+      frame.style.display = "none";
+      if(fallback) fallback.classList.add("show");
+    }
+  }
+}
+
+function scrollToWeatherLive(event){
+  const target = document.getElementById("cgn-live-weather");
+  if(!target) return;
+  if(event) event.preventDefault();
+  changeWeatherCGNLive("weather");
+  target.scrollIntoView({ behavior:"smooth", block:"start" });
+}
+
+setActiveButton();
+renderSavedLocations();
+updateWeatherUnitButton();
+loadWeather(currentLat,currentLon,currentLabel);
+changeWeatherCGNLive("weather");
+loadWeatherArticles();
+
+function scheduleMidnightWeatherRefresh(){
+  const now = new Date();
+  const nextMidnight = new Date(now);
+  nextMidnight.setHours(24, 0, 5, 0);
+
+  setTimeout(function(){
+    loadWeather(currentLat, currentLon, currentLabel);
+    scheduleMidnightWeatherRefresh();
+  }, Math.max(1000, nextMidnight.getTime() - now.getTime()));
+}
+
+scheduleMidnightWeatherRefresh();
+
+</script>
+
+<script src="/assets/ozark-shell.js"></script>
+
 </body>
 </html>
