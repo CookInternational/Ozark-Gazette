@@ -1,15 +1,15 @@
 [README.md](https://github.com/user-attachments/files/29497633/README.md)
 <img src="OzarkGazetteLogo.png" alt="The Ozark Gazette" width="260">
 
-# The Ozark Gazette v1.0.1 Production Alpha
+# The Ozark Gazette v1.0.2 Production Alpha
 
 **Plain-English + Technical README / Operating Manual**  
 CGN Shell | Ozark Gazette Local Publishing | Articles + Archives Sheet Routing | CGN LIVE Homepage Takeover | PayPal + Paywall Preservation | Account Access | News Page | Weather Brief | Weather Radar | Traffic Brief | Sports Brief | Markets Brief | Puzzles | Horoscopes | Reporters | Obituaries | Court/Public Records Monitoring | SEO | Favicons | Static GitHub Pages Deployment | Apps Script Extension | One-Week Archive Automation
 
-**Updated:** 30 June 2026 • 08:16:45Z UTC  
+**Updated:** 30 June 2026 • 08:37:30Z UTC  
 **Site Build Stamp:** 30 June 2026 • 08:16:45Z UTC | Developed by Cook Technology Services  
-**Site Version:** `Ozark Gazette v1.0.1 Production Alpha`  
-**Site Slug:** `ozark-gazette-v1.0.1-production-alpha`  
+**Site Version:** `Ozark Gazette v1.0 Production Alpha`  
+**Site Slug:** `ozark-gazette-v1.0-production-alpha`  
 **Apps Script Extension:** `apps-script/OzarkGazette.gs`  
 **Apps Script Extension Functions:** `26`  
 **Extension doGet / doPost:** `0` / `0`  
@@ -25,6 +25,9 @@ tips@cgnnews.net | https://ozarks.cgnnews.net | +1 (317) 442-1437
 Copyright © 2026 | Cook Global News Network | All Rights Reserved.
 
 ---
+## What Changed in v1.0.2?
+
+v1.0.2 uploaded and added News Banner image.
 
 ## What Changed in v1.0.1?
 
@@ -944,6 +947,6 @@ Do not add a fallback to the main CGN `action=articles` route.
 
 ---
 
-Ozark Gazette v1.0.1 | Last Updated on 30 June 2026 @ 08:16:45Z |  
+Ozark Gazette v1.0.1 | Last Updated on 30 June 2026 @ 08:37:30Z |  
 Copyright © 2026 Cook Global News Network | All Rights Reserved |  
 Developed by Cook Technology Services in Chicago, Illinois
