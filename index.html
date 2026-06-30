@@ -27,6 +27,70 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"NewsMediaOrganization","name":"The Ozark Gazette","url":"https://ozarks.cgnnews.net/","parentOrganization":{"@type":"NewsMediaOrganization","name":"Cook Global News Network","url":"https://www.cgnnews.net/"},"address":{"@type":"PostalAddress","streetAddress":"33256 US Highway 160","addressLocality":"Tecumseh","addressRegion":"MO","postalCode":"65760","addressCountry":"US"},"telephone":"+1-317-442-1437","email":"tips@cgnnews.net","logo":"https://ozarks.cgnnews.net/OzarkGazetteLogo.png"}</script>
 <link rel="stylesheet" href="/assets/ozark-site.css">
 <script defer src="/assets/ozark-shell.js"></script>
+
+<style id="ozark-home-cgn-live-styles">
+/* Ozark homepage CGN LIVE toggle — kept local to homepage so the repo only needs index.html. */
+.live-head{align-items:flex-start}
+.live-actions{display:flex;align-items:center;justify-content:flex-end;gap:10px;flex-wrap:wrap}
+.live-actions .live-btn{white-space:nowrap}
+button.live-btn{font-family:Arial,Helvetica,sans-serif}
+.ozark-cgn-live-panel[hidden]{display:none!important}
+.ozark-cgn-live-panel{padding:18px;background:#0b1626;border-top:1px solid rgba(255,255,255,.14)}
+.ozark-cgn-live-panel .cgn-live-shell{border:1px solid rgba(255,255,255,.18);background:#07111f;color:#fff;overflow:hidden;box-shadow:0 18px 42px rgba(0,0,0,.24)}
+.ozark-cgn-live-panel .cgn-live-header{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;padding:18px 20px;border-bottom:1px solid rgba(255,255,255,.14);background:linear-gradient(135deg,#07111f,#0b2038)}
+.ozark-cgn-live-panel .cgn-live-kicker{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:900;letter-spacing:.08em;color:#ff3b3b;text-transform:uppercase;margin-bottom:6px}
+.ozark-cgn-live-panel .cgn-live-dot{width:9px;height:9px;border-radius:50%;background:#ff2d2d;box-shadow:0 0 0 4px rgba(255,45,45,.18);display:inline-block}
+.ozark-cgn-live-panel h2{margin:0;font-size:28px;line-height:1.1;letter-spacing:.02em;color:#fff}
+.ozark-cgn-live-panel .cgn-live-subtitle{margin:6px 0 0;color:#d9e1ee;line-height:1.45;font-size:14px;max-width:760px}
+.ozark-cgn-live-panel .cgn-live-header-actions{display:flex;align-items:center;justify-content:flex-end;gap:10px;flex-wrap:wrap;flex:0 0 auto}
+.ozark-cgn-live-panel .cgn-live-open,.ozark-cgn-live-panel .cgn-live-youtube-link,.ozark-cgn-live-panel .cgn-live-back{color:#fff;border:1px solid rgba(255,255,255,.35);background:transparent;padding:9px 12px;text-decoration:none;font-size:12px;font-weight:900;text-transform:uppercase;white-space:nowrap;display:inline-flex;align-items:center;justify-content:center;gap:7px;line-height:1;cursor:pointer;font-family:Arial,Helvetica,sans-serif}
+.ozark-cgn-live-panel .cgn-live-open:hover,.ozark-cgn-live-panel .cgn-live-youtube-link:hover,.ozark-cgn-live-panel .cgn-live-back:hover{background:#fff;color:#07111f;text-decoration:none}
+.ozark-cgn-live-panel .cgn-live-youtube-icon{width:17px;height:17px;display:block;flex:0 0 auto;fill:#ff2d2d}
+.ozark-cgn-live-panel .cgn-live-video-wrap{position:relative;width:100%;aspect-ratio:16/9;min-height:340px;background:#000}
+.ozark-cgn-live-panel .cgn-live-video-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block;background:#000}
+.ozark-cgn-live-panel .cgn-live-fallback{display:none;position:absolute;inset:0;align-items:center;justify-content:center;text-align:center;padding:24px;background:linear-gradient(135deg,#07111f,#111827);color:#fff;z-index:2;box-sizing:border-box;overflow:auto}
+.ozark-cgn-live-panel .cgn-live-fallback-card{width:min(860px,94%);display:grid;grid-template-columns:minmax(180px,300px) 1fr;gap:18px;align-items:center;text-align:left;padding:22px;border:1px solid rgba(255,255,255,.18);background:radial-gradient(circle at 12% 15%,rgba(196,0,0,.22),transparent 34%),linear-gradient(135deg,rgba(255,255,255,.10),rgba(255,255,255,.04));box-shadow:0 18px 46px rgba(0,0,0,.36)}
+.ozark-cgn-live-panel .cgn-live-fallback-image{width:100%;aspect-ratio:16/9;object-fit:cover;background:#050b14;border:1px solid rgba(255,255,255,.16);display:block;max-width:100%}
+.ozark-cgn-live-panel .cgn-live-fallback-copy strong{display:block;font-size:24px;line-height:1.1;margin-bottom:8px}
+.ozark-cgn-live-panel .cgn-live-fallback-copy p{margin:0 0 14px;color:#d9e1ee;line-height:1.45}
+.ozark-cgn-live-panel .cgn-live-fallback-actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.ozark-cgn-live-panel .cgn-live-fallback-actions a{display:inline-flex;padding:10px 14px;background:#fff;color:#07111f;text-decoration:none;font-weight:900}
+.ozark-cgn-live-panel .cgn-live-fallback-actions a + a{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.35)}
+.ozark-cgn-live-panel .cgn-live-inline-source{display:none;padding:10px 14px;border-top:1px solid rgba(255,255,255,.14);background:#111827;color:#d9e1ee;font-size:12px;line-height:1.4}
+.ozark-cgn-live-panel .cgn-live-inline-source.show{display:block}
+.ozark-cgn-live-panel .cgn-live-inline-source a{color:#fff;font-weight:900}
+.ozark-cgn-live-panel .cgn-live-controls{display:flex;flex-wrap:wrap;gap:8px;padding:14px 20px;border-top:1px solid rgba(255,255,255,.14);background:#0b1626}
+.ozark-cgn-live-panel .cgn-live-controls button{border:1px solid rgba(255,255,255,.28);background:transparent;color:#fff;padding:9px 12px;cursor:pointer;font-weight:900;font-size:12px;text-transform:uppercase;font-family:Arial,Helvetica,sans-serif}
+.ozark-cgn-live-panel .cgn-live-controls button:hover,.ozark-cgn-live-panel .cgn-live-controls button.active{background:#c40000;border-color:#c40000}
+.ozark-cgn-live-panel .cgn-live-meta{padding:0 20px 18px;background:#0b1626}
+.ozark-cgn-live-panel .cgn-live-meta p{margin:0;color:#d9e1ee;font-size:13px;line-height:1.45}
+.ozark-cgn-live-panel .cgn-live-meta strong{color:#fff}
+.ozark-cgn-live-panel .cgn-live-disclaimer{margin-top:8px!important;color:#aeb8c8!important;font-size:12px!important}
+@media(max-width:900px){
+  .live-head{flex-direction:column;align-items:stretch}
+  .live-actions{display:grid;grid-template-columns:1fr;align-items:stretch}
+  .live-actions .live-btn{width:100%}
+  .ozark-cgn-live-panel{padding:14px}
+  .ozark-cgn-live-panel .cgn-live-header{flex-direction:column;align-items:stretch;padding:16px}
+  .ozark-cgn-live-panel h2{font-size:24px}
+  .ozark-cgn-live-panel .cgn-live-header-actions{width:100%;justify-content:stretch}
+  .ozark-cgn-live-panel .cgn-live-open,.ozark-cgn-live-panel .cgn-live-youtube-link,.ozark-cgn-live-panel .cgn-live-back{flex:1 1 180px;text-align:center}
+  .ozark-cgn-live-panel .cgn-live-video-wrap{min-height:220px}
+  .ozark-cgn-live-panel .cgn-live-controls{display:grid;grid-template-columns:1fr 1fr}
+  .ozark-cgn-live-panel .cgn-live-controls button:first-child{grid-column:1/-1}
+  .ozark-cgn-live-panel .cgn-live-fallback{align-items:stretch;justify-content:flex-start;padding:12px}
+  .ozark-cgn-live-panel .cgn-live-fallback-card{width:100%;max-height:100%;overflow:auto;grid-template-columns:1fr;text-align:center;padding:16px;gap:12px}
+  .ozark-cgn-live-panel .cgn-live-fallback-image{max-height:130px;object-fit:contain}
+  .ozark-cgn-live-panel .cgn-live-fallback-actions{justify-content:center}
+  .ozark-cgn-live-panel .cgn-live-fallback-actions a{width:100%;justify-content:center;box-sizing:border-box}
+}
+@media(max-width:560px){
+  .ozark-cgn-live-panel .cgn-live-video-wrap{min-height:235px}
+  .ozark-cgn-live-panel .cgn-live-fallback-card{padding:12px}
+  .ozark-cgn-live-panel .cgn-live-fallback-image{max-height:105px}
+}
+</style>
+
 </head>
 <body data-page="home">
 <div id="cgn-site-header"></div>
@@ -34,8 +98,8 @@
 
 <section class="hero-banner"><img src="/OzarkGazetteBanner.png" alt="The Ozark Gazette — Your Source for Ozark News, Weather, Sports and Traffic"></section>
 <section class="live-app" aria-label="The Ozark Gazette live homepage">
-  <div class="live-head"><div><p class="live-kicker">The Ozark Gazette Live</p><h1 class="live-title">Tecumseh and Ozark County at a glance</h1><p class="live-copy">Local headlines, Ozarks weather, radar access, US-160 traffic, sports, markets, obituaries, court records and daily reader features from a CGN-powered local newsroom.</p></div><a class="live-btn" href="/local/">View Local News</a></div>
-  <div class="live-grid">
+  <div class="live-head"><div><p class="live-kicker">The Ozark Gazette Live</p><h1 class="live-title">Tecumseh and Ozark County at a glance</h1><p class="live-copy">Local headlines, Ozarks weather, radar access, US-160 traffic, sports, markets, obituaries, court records and daily reader features from a CGN-powered local newsroom.</p></div><div class="live-actions"><a class="live-btn" href="/local/">View Local News</a><button id="ozark-open-cgn-live" class="live-btn" type="button" onclick="showOzarkCGNLive()">CGN LIVE</button><button id="ozark-back-to-live" class="live-btn" type="button" onclick="showOzarkOriginalLive()" hidden>Back to Ozark View</button></div></div>
+  <div id="ozark-live-original" class="live-grid">
     <a id="featureLink" class="live-feature" href="/local/"><div class="live-feature-media"><img id="featureImage" src="/OzarkGazetteBanner.png" alt=""></div><div class="live-feature-content"><p id="featureMeta" class="live-feature-meta">Local · Latest</p><h2 id="featureTitle" class="live-feature-title">The Ozark Gazette launches local coverage for the Missouri Ozarks</h2><p id="featureCopy" class="live-feature-copy">Coverage begins in Tecumseh and follows Ozark County roads, weather, public affairs, schools, sports, obituaries and the community information readers use every day.</p><div class="feature-controls"><span class="feature-counter">Main Story</span><span class="live-btn">Read More</span></div></div></a>
     <div class="live-side">
       <a class="live-widget weather-widget" href="/weather/"><div class="widget-head"><div><div class="widget-kicker">Weather Center</div><h2 class="widget-title">Tecumseh Weather</h2></div><span>🌤</span></div><div class="widget-content"><div class="weather-now"><div><div id="homeWeatherTemp" class="weather-temp">--°F</div><p id="homeWeatherText" class="widget-note">Current conditions loading for Tecumseh.</p></div><div class="metric-grid"><div class="metric"><strong>Radar</strong>Ozarks</div><div class="metric"><strong>Alerts</strong>NWS</div><div class="metric"><strong>Brief</strong>Weekly</div></div></div></div></a>
@@ -44,12 +108,460 @@
       <a class="live-widget markets-widget" href="/markets/center/"><div class="widget-head"><div><div class="widget-kicker">Market Center</div><h2 class="widget-title">CGN Market Watch</h2></div><span>📈</span></div><div class="widget-content"><p class="widget-note">Stocks, indexes, market headlines and CGN-style business coverage.</p></div></a>
     </div>
   </div>
+
+  <div id="ozark-cgn-live-panel" class="ozark-cgn-live-panel cgn-live" hidden aria-labelledby="ozark-cgn-live-title">
+    <div class="cgn-live-shell">
+      <div class="cgn-live-header">
+        <div>
+          <div class="cgn-live-kicker">
+            <span class="cgn-live-dot" aria-hidden="true"></span>
+            Live Video
+          </div>
+          <h2 id="ozark-cgn-live-title">CGN LIVE</h2>
+          <p class="cgn-live-subtitle">Switch between CGN LIVE, CGN Weather, national sources, and Ozarks / Missouri live source links without leaving The Ozark Gazette homepage.</p>
+        </div>
+
+        <div class="cgn-live-header-actions">
+          <a id="ozark-cgn-live-open" class="cgn-live-open" href="https://www.cgnnews.net/cgn-live/" target="_blank" rel="noopener">Open CGN Live</a>
+          <a class="cgn-live-youtube-link" href="https://www.youtube.com/@CookGlobalNews" target="_blank" rel="noopener" aria-label="Open CGN News YouTube channel @CookGlobalNews">
+            <svg class="cgn-live-youtube-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M23.5 6.2c-.3-1.2-1.2-2.1-2.4-2.4C19 3.3 12 3.3 12 3.3s-7 0-9.1.5C1.7 4.1.8 5 .5 6.2.1 8.4.1 12 .1 12s0 3.6.5 5.8c.3 1.2 1.2 2.1 2.4 2.4 2.1.5 9.1.5 9.1.5s7 0 9.1-.5c1.2-.3 2.1-1.2 2.4-2.4.5-2.2.5-5.8.5-5.8s0-3.6-.6-5.8zM9.6 15.7V8.3l6.2 3.7-6.2 3.7z"></path></svg>
+            @CookGlobalNews
+          </a>
+          <button class="cgn-live-back" type="button" onclick="showOzarkOriginalLive()">Back to Ozark View</button>
+        </div>
+      </div>
+
+      <div class="cgn-live-video-wrap">
+        <iframe id="ozark-cgn-live-frame" title="CGN LIVE - CGN Live" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+
+        <div id="ozark-cgn-live-fallback" class="cgn-live-fallback" role="status" aria-live="polite">
+          <div class="cgn-live-fallback-card">
+            <img id="ozark-cgn-live-fallback-image" class="cgn-live-fallback-image" src="/OzarkGazetteBanner.png" alt="" loading="lazy">
+            <div class="cgn-live-fallback-copy">
+              <strong id="ozark-cgn-live-fallback-title">CGN Live</strong>
+              <p id="ozark-cgn-live-fallback-text">Open the current live source directly if the embedded player is unavailable on this device.</p>
+              <div class="cgn-live-fallback-actions">
+                <a id="ozark-cgn-live-fallback-link" href="https://www.cgnnews.net/cgn-live/" target="_blank" rel="noopener">Open Live Source</a>
+                <a id="ozark-cgn-live-secondary-link" href="https://www.youtube.com/@CookGlobalNews" target="_blank" rel="noopener">Open Stream Directory</a>
+                <a id="ozark-cgn-live-backup-link" href="https://www.cgnnews.net/weather/weekly-weather-brief/" target="_blank" rel="noopener">Open Backup Source</a>
+                <a id="ozark-cgn-live-coverage-link" href="/news/">Open Ozark Coverage</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="ozark-cgn-live-inline-source" class="cgn-live-inline-source">
+        If the embedded player is unavailable on this device, use <a id="ozark-cgn-live-inline-link" href="https://www.cgnnews.net/cgn-live/" target="_blank" rel="noopener">Open CGN Live</a> for the current source.
+      </div>
+
+      <div class="cgn-live-controls" aria-label="Choose CGN LIVE source">
+        <button type="button" class="active" data-ozark-cgn-live="cgn" onclick="ozarkChangeCGNLiveFeed('cgn')">CGN</button>
+        <button type="button" data-ozark-cgn-live="cgnweather" onclick="ozarkChangeCGNLiveFeed('cgnweather')">CGN Weather</button>
+        <button type="button" data-ozark-cgn-live="world" onclick="ozarkChangeCGNLiveFeed('world')">World</button>
+        <button type="button" data-ozark-cgn-live="politics" onclick="ozarkChangeCGNLiveFeed('politics')">Politics</button>
+        <button type="button" data-ozark-cgn-live="business" onclick="ozarkChangeCGNLiveFeed('business')">Business</button>
+        <button type="button" data-ozark-cgn-live="markets" onclick="ozarkChangeCGNLiveFeed('markets')">Markets</button>
+        <button type="button" data-ozark-cgn-live="technology" onclick="ozarkChangeCGNLiveFeed('technology')">Technology</button>
+        <button type="button" data-ozark-cgn-live="local" onclick="ozarkChangeCGNLiveFeed('local')">Local</button>
+        <button type="button" data-ozark-cgn-live="weather" onclick="ozarkChangeCGNLiveFeed('weather')">Weather</button>
+        <button type="button" data-ozark-cgn-live="sports" onclick="ozarkChangeCGNLiveFeed('sports')">Sports</button>
+        <button type="button" data-ozark-cgn-live="stlouis" onclick="ozarkChangeCGNLiveFeed('stlouis')">St. Louis</button>
+        <button type="button" data-ozark-cgn-live="missouri" onclick="ozarkChangeCGNLiveFeed('missouri')">Missouri</button>
+        <button type="button" data-ozark-cgn-live="ozarkspbs" onclick="ozarkChangeCGNLiveFeed('ozarkspbs')">Ozarks PBS</button>
+        <button type="button" data-ozark-cgn-live="ozarksfirst" onclick="ozarkChangeCGNLiveFeed('ozarksfirst')">Ozarks First</button>
+        <button type="button" data-ozark-cgn-live="ky3" onclick="ozarkChangeCGNLiveFeed('ky3')">KY3</button>
+        <button type="button" id="ozark-cgn-live-audio-toggle" onclick="toggleOzarkCGNLiveAudio()">Play Audio</button>
+      </div>
+
+      <div class="cgn-live-meta">
+        <p id="ozark-cgn-live-now"><strong>Now showing:</strong> CGN — CGN Live</p>
+        <p class="cgn-live-disclaimer">Live video streams and station links are provided by official CGN and third-party source pages. The Ozark Gazette does not own or control outside live feeds. Availability, embed permissions, audio, and programming can change; use Open Live Source when a provider needs to open directly.</p>
+      </div>
+    </div>
+  </div>
+
 </section>
-<section><div class="section-title"><h2>Watch Local & Regional TV</h2><span>Station buttons follow the CGN live layout.</span></div><div class="station-grid"><a class="station-card" href="https://www.optv.org/" target="_blank" rel="noopener"><strong>Ozarks Public Television / KOZK / KOZJ</strong><span>PBS and public television serving the Ozarks region.</span></a><a class="station-card" href="https://www.ozarksfirst.com/" target="_blank" rel="noopener"><strong>Ozarks First / KOLR / KOZL / KRBK</strong><span>Regional Springfield/Ozarks television coverage.</span></a><a class="station-card" href="https://www.ky3.com/" target="_blank" rel="noopener"><strong>KY3 / Springfield</strong><span>Regional news, weather and community coverage.</span></a><a class="station-card" href="https://www.cgnnews.net/" target="_blank" rel="noopener"><strong>CGN News</strong><span>Real Time News. Global Perspective.</span></a></div></section>
+
 <section><div class="section-title"><h2>Latest Articles</h2><span>Loaded from the Ozark Gazette Articles sheet.</span></div><div id="homeArticles" class="article-grid"><div class="empty">Loading articles...</div></div></section>
 <section><div class="section-title"><h2>Obituaries</h2><span>Community records and remembrance notices.</span></div><div id="obitStrip" class="article-grid"><div class="empty">Loading obituaries...</div></div></section>
 <section><div class="section-title"><h2>Courts & Public Records</h2><span>Official-source monitoring with editorial review.</span></div><div id="courtStrip" class="article-grid"><div class="empty">Loading records...</div></div></section>
 <section><div class="section-title"><h2>Puzzles & Daily Features</h2><span>Crosswords, Sudoku, Puzzles and Horoscopes.</span></div><div class="quick-grid"><a class="game-card" href="/crosswords/"><h3>Crosswords</h3><p>Daily crossword-style features for Ozark Gazette readers.</p></a><a class="game-card" href="/sudoku/"><h3>Sudoku</h3><p>Classic number puzzles with a clean local-paper presentation.</p></a><a class="game-card" href="/puzzles/"><h3>Puzzles</h3><p>The hub for daily games and future word-search features.</p></a><a class="game-card" href="/horoscopes/"><h3>Horoscope</h3><p>Daily horoscope-style reader feature for the community section.</p></a></div></section>
+
+<script id="ozark-home-cgn-live-script">
+let ozarkCGNLiveAudioEnabled = false;
+let ozarkCGNLiveCurrentKey = "cgn";
+
+const OZARK_CGN_LIVE_FEEDS = {
+  cgn: {
+    category: "CGN",
+    source: "CGN Live",
+    title: "CGN LIVE - CGN Live",
+    sourceUrl: "https://www.cgnnews.net/cgn-live/?embed=1",
+    directoryUrl: "https://www.cgnnews.net/cgn-live/",
+    articleFallbackUrl: "/news/",
+    fallbackImage: "/OzarkGazetteBanner.png",
+    fallbackHeadline: "CGN Live",
+    fallbackText: "CGN Live is the default CGN News stream. Audio is off by default; use Play Audio to listen.",
+    primaryLabel: "Open CGN Live",
+    secondaryLabel: "Open CGN Live Page",
+    coverageLabel: "Open Ozark News",
+    canEmbed: true,
+    embeds: ["https://www.cgnnews.net/cgn-live/?embed=1"]
+  },
+  cgnweather: {
+    category: "CGN Weather",
+    source: "CGN Weekly Weather Brief",
+    title: "CGN LIVE - CGN Weather",
+    sourceUrl: "https://www.cgnnews.net/weather/weekly-weather-brief/",
+    directoryUrl: "https://www.cgnnews.net/weather/weekly-weather-brief/",
+    articleFallbackUrl: "/weather/",
+    fallbackImage: "/OzarkGazetteBanner.png",
+    fallbackHeadline: "CGN Weather",
+    fallbackText: "CGN Weather opens the Weekly Weather Brief stream. Audio is off by default; use Play Audio to listen.",
+    primaryLabel: "Open CGN Weather",
+    secondaryLabel: "Open Weekly Weather Brief",
+    coverageLabel: "Open Weather Brief",
+    canEmbed: true,
+    embeds: ["https://www.cgnnews.net/weather/weekly-weather-brief/?embed=1"]
+  },
+  world: {
+    category: "World",
+    source: "EuroNews English Live",
+    title: "CGN LIVE - World",
+    sourceUrl: "https://www.youtube.com/watch?v=pykpO5kQJ98",
+    directoryUrl: "https://www.youtube.com/@euronews/streams",
+    backupSourceUrl: "https://webtv.un.org/en",
+    backupLabel: "Open UN Web TV",
+    articleFallbackUrl: "/world/",
+    fallbackImage: "/OzarkGazetteBanner.png",
+    fallbackHeadline: "World Live Source",
+    fallbackText: "EuroNews English Live may be unavailable or blocked from embedding on some devices. Open EuroNews Live, browse current EuroNews streams, use UN Web TV as a backup, or continue with Ozark World coverage.",
+    primaryLabel: "Open EuroNews Live",
+    secondaryLabel: "Open EuroNews Streams",
+    coverageLabel: "Open World",
+    canEmbed: true,
+    embeds: ["https://www.youtube.com/embed/pykpO5kQJ98"]
+  },
+  politics: {
+    category: "Politics",
+    source: "C-SPAN",
+    title: "CGN LIVE - Politics",
+    sourceUrl: "https://www.youtube.com/@CSPAN/streams",
+    directoryUrl: "https://www.youtube.com/@CSPAN/streams",
+    articleFallbackUrl: "/politics/",
+    fallbackImage: "/OzarkGazetteBanner.png",
+    fallbackHeadline: "Politics Live Source",
+    fallbackText: "Open C-SPAN’s current live streams or continue with Ozark Politics coverage.",
+    primaryLabel: "Open C-SPAN",
+    secondaryLabel: "Open C-SPAN Streams",
+    coverageLabel: "Open Politics",
+    canEmbed: true,
+    embeds: ["https://www.youtube.com/embed/live_stream?channel=UCb--64Gl51jIEVE-GLDAVTg"]
+  },
+  business: {
+    category: "Business",
+    source: "Bloomberg Television / Bloomberg Markets",
+    title: "CGN LIVE - Business",
+    sourceUrl: "https://www.youtube.com/watch?v=iEpJwprxDdk",
+    directoryUrl: "https://www.youtube.com/@markets/streams",
+    articleFallbackUrl: "/markets/",
+    fallbackImage: "/OzarkGazetteBanner.png",
+    fallbackHeadline: "Business Live Source",
+    fallbackText: "Open Bloomberg’s current business live stream or continue with Ozark Markets coverage.",
+    primaryLabel: "Open Bloomberg Live",
+    secondaryLabel: "Open Bloomberg Streams",
+    coverageLabel: "Open Markets",
+    canEmbed: true,
+    embeds: ["https://www.youtube.com/embed/iEpJwprxDdk","https://www.youtube.com/embed/live_stream?channel=UCh_r8gM_C2D_V5OwAilZOaA"]
+  },
+  markets: {
+    category: "Markets",
+    source: "Yahoo Finance",
+    title: "CGN LIVE - Markets",
+    sourceUrl: "https://finance.yahoo.com/live/",
+    directoryUrl: "https://www.youtube.com/@YahooFinance/streams",
+    articleFallbackUrl: "/markets/center/",
+    fallbackImage: "/OzarkGazetteBanner.png",
+    fallbackHeadline: "Markets Live Source",
+    fallbackText: "Yahoo Finance live video may be unavailable or blocked from embedding on some devices. Open Yahoo Finance, browse current Yahoo Finance streams, or continue with the Ozark Markets Brief.",
+    primaryLabel: "Open Yahoo Finance",
+    secondaryLabel: "Open Yahoo Finance Streams",
+    coverageLabel: "Open Markets Brief",
+    canEmbed: false,
+    embeds: []
+  },
+  technology: {
+    category: "Technology",
+    source: "Bloomberg Technology",
+    title: "CGN LIVE - Technology",
+    sourceUrl: "https://www.youtube.com/@BloombergTechnology/streams",
+    directoryUrl: "https://www.youtube.com/@BloombergTechnology/streams",
+    articleFallbackUrl: "/technology/",
+    fallbackImage: "/OzarkGazetteBanner.png",
+    fallbackHeadline: "Technology Live Source",
+    fallbackText: "Open Bloomberg Technology’s current streams or continue with Ozark Technology coverage.",
+    primaryLabel: "Open Bloomberg Technology",
+    secondaryLabel: "Open Technology Streams",
+    coverageLabel: "Open Technology",
+    canEmbed: true,
+    embeds: ["https://www.youtube.com/embed/live_stream?channel=UCrM7B7SL_g1edFOnmj-SDKg"]
+  },
+  local: {
+    category: "Local",
+    source: "WFYI Indianapolis Public Media",
+    title: "CGN LIVE - Local",
+    sourceUrl: "https://www.youtube.com/@WFYIPublicMedia/streams",
+    directoryUrl: "https://www.youtube.com/@WFYIPublicMedia/streams",
+    articleFallbackUrl: "/local/",
+    fallbackImage: "/OzarkGazetteBanner.png",
+    fallbackHeadline: "Local Live Source",
+    fallbackText: "Open WFYI’s current live source or continue with Ozark Local coverage.",
+    primaryLabel: "Open WFYI",
+    secondaryLabel: "Open WFYI Streams",
+    coverageLabel: "Open Local",
+    canEmbed: true,
+    embeds: ["https://www.youtube.com/embed/live_stream?channel=UCDA3qlm3qBFr32CKfYyNqVQ"]
+  },
+  weather: {
+    category: "Weather",
+    source: "AccuWeather",
+    title: "CGN LIVE - Weather",
+    sourceUrl: "https://www.youtube.com/watch?v=ZtQUiLOJ-ig",
+    directoryUrl: "https://www.youtube.com/@accuweather/streams",
+    articleFallbackUrl: "/weather/",
+    fallbackImage: "/OzarkGazetteBanner.png",
+    fallbackHeadline: "Weather Live Source",
+    fallbackText: "AccuWeather’s current live forecast may be unavailable or blocked from embedding. Open the live source or continue with the Ozark Weather Brief.",
+    primaryLabel: "Open AccuWeather",
+    secondaryLabel: "Open AccuWeather Streams",
+    coverageLabel: "Open Weather",
+    canEmbed: true,
+    embeds: ["https://www.youtube.com/embed/ZtQUiLOJ-ig"]
+  },
+  sports: {
+    category: "Sports",
+    source: "ESPN",
+    title: "CGN LIVE - Sports",
+    sourceUrl: "https://www.youtube.com/@espn/streams",
+    directoryUrl: "https://www.youtube.com/@espn/streams",
+    articleFallbackUrl: "/sports/",
+    fallbackImage: "/OzarkGazetteBanner.png",
+    fallbackHeadline: "Sports Live Source",
+    fallbackText: "ESPN’s current stream may be unavailable or blocked from embedding. Open the live source or continue with Sports Brief.",
+    primaryLabel: "Open ESPN",
+    secondaryLabel: "Open ESPN Streams",
+    coverageLabel: "Open Sports",
+    canEmbed: false,
+    embeds: []
+  },
+  stlouis: {
+    category: "St. Louis",
+    source: "5 On Your Side / KSDK",
+    title: "CGN LIVE - St. Louis",
+    sourceUrl: "https://www.ksdk.com/",
+    directoryUrl: "https://www.ksdk.com/",
+    articleFallbackUrl: "/local/",
+    fallbackImage: "/OzarkGazetteBanner.png",
+    fallbackHeadline: "St. Louis Live Source",
+    fallbackText: "Open the St. Louis source page for current regional video and live coverage, or continue with Ozark Gazette local coverage.",
+    primaryLabel: "Open KSDK",
+    secondaryLabel: "Open St. Louis Source",
+    coverageLabel: "Open Local",
+    canEmbed: false,
+    embeds: []
+  },
+  missouri: {
+    category: "Missouri",
+    source: "KY3 Springfield",
+    title: "CGN LIVE - Missouri",
+    sourceUrl: "https://www.ky3.com/",
+    directoryUrl: "https://www.ky3.com/",
+    articleFallbackUrl: "/local/",
+    fallbackImage: "/OzarkGazetteBanner.png",
+    fallbackHeadline: "Missouri Live Source",
+    fallbackText: "Open KY3 for current Springfield and Missouri Ozarks video coverage, or continue with Ozark Gazette local coverage.",
+    primaryLabel: "Open KY3",
+    secondaryLabel: "Open Missouri Source",
+    coverageLabel: "Open Local",
+    canEmbed: false,
+    embeds: []
+  },
+  ozarkspbs: {
+    category: "Ozarks PBS",
+    source: "Ozarks Public Television / KOZK / KOZJ",
+    title: "CGN LIVE - Ozarks PBS",
+    sourceUrl: "https://www.optv.org/",
+    directoryUrl: "https://www.optv.org/",
+    articleFallbackUrl: "/local/",
+    fallbackImage: "/OzarkGazetteBanner.png",
+    fallbackHeadline: "Ozarks Public Television",
+    fallbackText: "Open Ozarks Public Television for public television and PBS source programming for the Ozarks region.",
+    primaryLabel: "Open OPT",
+    secondaryLabel: "Open Ozarks PBS",
+    coverageLabel: "Open Local",
+    canEmbed: false,
+    embeds: []
+  },
+  ozarksfirst: {
+    category: "Ozarks First",
+    source: "Ozarks First / KOLR / KOZL / KRBK",
+    title: "CGN LIVE - Ozarks First",
+    sourceUrl: "https://www.ozarksfirst.com/",
+    directoryUrl: "https://www.ozarksfirst.com/",
+    articleFallbackUrl: "/local/",
+    fallbackImage: "/OzarkGazetteBanner.png",
+    fallbackHeadline: "Ozarks First Live Source",
+    fallbackText: "Open Ozarks First for regional Springfield/Ozarks live source pages and video coverage.",
+    primaryLabel: "Open Ozarks First",
+    secondaryLabel: "Open Ozarks Source",
+    coverageLabel: "Open Local",
+    canEmbed: false,
+    embeds: []
+  },
+  ky3: {
+    category: "KY3",
+    source: "KY3 / Springfield",
+    title: "CGN LIVE - KY3",
+    sourceUrl: "https://www.ky3.com/",
+    directoryUrl: "https://www.ky3.com/",
+    articleFallbackUrl: "/weather/",
+    fallbackImage: "/OzarkGazetteBanner.png",
+    fallbackHeadline: "KY3 Live Source",
+    fallbackText: "Open KY3 for regional news, weather, and community coverage for the Missouri Ozarks.",
+    primaryLabel: "Open KY3",
+    secondaryLabel: "Open KY3 Source",
+    coverageLabel: "Open Weather",
+    canEmbed: false,
+    embeds: []
+  }
+};
+
+function ozarkNormalizeCGNLiveEmbedUrl(url){
+  const raw = String(url || "").trim();
+  if(!raw) return "";
+  const watchMatch = raw.match(/[?&]v=([A-Za-z0-9_-]{6,})/);
+  if(watchMatch) return "https://www.youtube.com/embed/" + encodeURIComponent(watchMatch[1]);
+  const liveMatch = raw.match(/youtube\.com\/live\/([A-Za-z0-9_-]{6,})/i);
+  if(liveMatch) return "https://www.youtube.com/embed/" + encodeURIComponent(liveMatch[1]);
+  const shortMatch = raw.match(/youtu\.be\/([A-Za-z0-9_-]{6,})/i);
+  if(shortMatch) return "https://www.youtube.com/embed/" + encodeURIComponent(shortMatch[1]);
+  return raw;
+}
+
+function ozarkWithCGNLiveParams(url){
+  if(!url) return "";
+  let clean = String(url).replace(/([?&])autoplay=[^&]*/g, "").replace(/([?&])mute=[^&]*/g, "");
+  const joiner = clean.indexOf("?") === -1 ? "?" : "&";
+  const origin = encodeURIComponent(window.location.origin || "https://ozarks.cgnnews.net");
+  return clean + joiner + "autoplay=0&mute=" + (ozarkCGNLiveAudioEnabled ? "0" : "1") + "&controls=1&rel=0&modestbranding=1&playsinline=1&origin=" + origin;
+}
+
+function showOzarkCGNLive(){
+  const original = document.getElementById("ozark-live-original");
+  const panel = document.getElementById("ozark-cgn-live-panel");
+  const openBtn = document.getElementById("ozark-open-cgn-live");
+  const backBtn = document.getElementById("ozark-back-to-live");
+  if(original) original.hidden = true;
+  if(panel) panel.hidden = false;
+  if(openBtn) openBtn.hidden = true;
+  if(backBtn) backBtn.hidden = false;
+  ozarkChangeCGNLiveFeed(ozarkCGNLiveCurrentKey || "cgn");
+}
+
+function showOzarkOriginalLive(){
+  const original = document.getElementById("ozark-live-original");
+  const panel = document.getElementById("ozark-cgn-live-panel");
+  const openBtn = document.getElementById("ozark-open-cgn-live");
+  const backBtn = document.getElementById("ozark-back-to-live");
+  const frame = document.getElementById("ozark-cgn-live-frame");
+  if(original) original.hidden = false;
+  if(panel) panel.hidden = true;
+  if(openBtn) openBtn.hidden = false;
+  if(backBtn) backBtn.hidden = true;
+  if(frame) frame.removeAttribute("src");
+}
+
+function ozarkSetCGNLiveFallback(feed){
+  const fallback = document.getElementById("ozark-cgn-live-fallback");
+  const fallbackLink = document.getElementById("ozark-cgn-live-fallback-link");
+  const secondaryLink = document.getElementById("ozark-cgn-live-secondary-link");
+  const backupLink = document.getElementById("ozark-cgn-live-backup-link");
+  const coverageLink = document.getElementById("ozark-cgn-live-coverage-link");
+  const fallbackTitle = document.getElementById("ozark-cgn-live-fallback-title");
+  const fallbackText = document.getElementById("ozark-cgn-live-fallback-text");
+  const fallbackImage = document.getElementById("ozark-cgn-live-fallback-image");
+  const inlineSource = document.getElementById("ozark-cgn-live-inline-source");
+  const inlineLink = document.getElementById("ozark-cgn-live-inline-link");
+  const sourceHref = feed && (feed.sourceUrl || feed.directoryUrl) || "#";
+  const secondaryHref = feed && feed.directoryUrl && feed.directoryUrl !== sourceHref ? feed.directoryUrl : "";
+  const backupHref = feed && feed.backupSourceUrl ? feed.backupSourceUrl : "";
+  const coverageHref = feed && (feed.articleFallbackUrl || "/news/") || "/news/";
+  if(fallbackLink){ fallbackLink.href = sourceHref; fallbackLink.textContent = feed.primaryLabel || "Open Live Source"; }
+  if(secondaryLink){ secondaryLink.href = secondaryHref || "#"; secondaryLink.textContent = feed.secondaryLabel || "Open Stream Directory"; secondaryLink.style.display = secondaryHref ? "inline-flex" : "none"; }
+  if(backupLink){ backupLink.href = backupHref || "#"; backupLink.textContent = feed.backupLabel || "Open Backup Source"; backupLink.style.display = backupHref ? "inline-flex" : "none"; }
+  if(coverageLink){ coverageLink.href = coverageHref; coverageLink.textContent = feed.coverageLabel || "Open Coverage"; }
+  if(inlineLink){ inlineLink.href = sourceHref; inlineLink.textContent = feed.primaryLabel || "Open Live Source"; }
+  if(inlineSource) inlineSource.classList.add("show");
+  if(fallbackTitle) fallbackTitle.textContent = feed.fallbackHeadline || feed.source || "Live Source";
+  if(fallbackText) fallbackText.textContent = feed.fallbackText || "Open the current source directly if the embedded player is unavailable.";
+  if(fallbackImage){
+    fallbackImage.src = feed.fallbackImage || "/OzarkGazetteBanner.png";
+    fallbackImage.onerror = function(){ this.onerror = null; this.src = "/OzarkGazetteLogo.png"; };
+  }
+  if(fallback) fallback.style.display = "flex";
+}
+
+function ozarkHideCGNLiveFallback(){
+  const fallback = document.getElementById("ozark-cgn-live-fallback");
+  if(fallback) fallback.style.display = "none";
+}
+
+function ozarkChangeCGNLiveFeed(key){
+  const feedKey = OZARK_CGN_LIVE_FEEDS[key] ? key : "cgn";
+  const feed = OZARK_CGN_LIVE_FEEDS[feedKey];
+  ozarkCGNLiveCurrentKey = feedKey;
+
+  document.querySelectorAll("[data-ozark-cgn-live]").forEach(function(btn){
+    btn.classList.toggle("active", btn.getAttribute("data-ozark-cgn-live") === feedKey);
+  });
+
+  const frame = document.getElementById("ozark-cgn-live-frame");
+  const openLink = document.getElementById("ozark-cgn-live-open");
+  const now = document.getElementById("ozark-cgn-live-now");
+  const inlineSource = document.getElementById("ozark-cgn-live-inline-source");
+  const inlineLink = document.getElementById("ozark-cgn-live-inline-link");
+
+  const sourceHref = feed.sourceUrl || feed.directoryUrl || "#";
+  if(openLink){ openLink.href = sourceHref; openLink.textContent = feed.primaryLabel || "Open Live Source"; }
+  if(inlineLink){ inlineLink.href = sourceHref; inlineLink.textContent = feed.primaryLabel || "Open Live Source"; }
+  if(inlineSource) inlineSource.classList.add("show");
+  if(now){ now.innerHTML = "<strong>Now showing:</strong> " + feed.category + " — " + feed.source; }
+
+  if(!frame) return;
+  frame.title = feed.title || "CGN LIVE";
+
+  const embedUrl = feed.canEmbed && Array.isArray(feed.embeds) && feed.embeds.length ? ozarkNormalizeCGNLiveEmbedUrl(feed.embeds[0]) : "";
+
+  if(embedUrl){
+    ozarkHideCGNLiveFallback();
+    frame.style.display = "block";
+    frame.src = ozarkWithCGNLiveParams(embedUrl);
+  } else {
+    frame.removeAttribute("src");
+    frame.style.display = "none";
+    ozarkSetCGNLiveFallback(feed);
+  }
+}
+
+function toggleOzarkCGNLiveAudio(){
+  ozarkCGNLiveAudioEnabled = !ozarkCGNLiveAudioEnabled;
+  const btn = document.getElementById("ozark-cgn-live-audio-toggle");
+  if(btn) btn.textContent = ozarkCGNLiveAudioEnabled ? "Mute Audio" : "Play Audio";
+  ozarkChangeCGNLiveFeed(ozarkCGNLiveCurrentKey || "cgn");
+}
+</script>
+
 <script>
 (async function(){try{const r=await fetch('https://api.open-meteo.com/v1/forecast?latitude=36.5836&longitude=-92.2863&current=temperature_2m,weather_code&temperature_unit=fahrenheit&timezone=auto'); const d=await r.json(); document.getElementById('homeWeatherTemp').textContent=Math.round(d.current.temperature_2m)+'°F'; document.getElementById('homeWeatherText').textContent='Current conditions for Tecumseh, Missouri.';}catch(e){}})();
 </script>
