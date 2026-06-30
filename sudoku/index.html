@@ -6,9 +6,10 @@
 <meta name="theme-color" content="#07172f">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <meta name="cgn-api-base" content="https://script.google.com/macros/s/AKfycbx41mQg-Ine3XZ-VrMI_SaQn4_K6cDQHA0cBFyGPgupu_edNFoNRjSLv2hoSe_bOytt/exec">
-<title>Sudoku | The Ozark Gazette</title>
-<meta name="description" content="A daily Sudoku-style reader feature from The Ozark Gazette.">
+<title>Daily Sudoku | The Ozark Gazette</title>
+<meta name="description" content="Play The Ozark Gazette Daily Sudoku, a fully playable reader puzzle with notes, hints, difficulty controls, timer, checking and saved progress.">
 <link rel="canonical" href="https://ozarks.cgnnews.net/sudoku/">
+<link rel="preload" as="image" href="/news/NewsBanner01.webp">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
 <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
@@ -16,23 +17,831 @@
 <link rel="manifest" href="/site.webmanifest">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="The Ozark Gazette">
-<meta property="og:title" content="Sudoku | The Ozark Gazette">
-<meta property="og:description" content="A daily Sudoku-style reader feature from The Ozark Gazette.">
+<meta property="og:title" content="Daily Sudoku | The Ozark Gazette">
+<meta property="og:description" content="Play The Ozark Gazette Daily Sudoku with notes, hints, timer, checking and saved progress.">
 <meta property="og:url" content="https://ozarks.cgnnews.net/sudoku/">
-<meta property="og:image" content="https://ozarks.cgnnews.net/OzarkGazetteBanner.png">
+<meta property="og:image" content="https://ozarks.cgnnews.net/news/NewsBanner01.webp">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Sudoku | The Ozark Gazette">
-<meta name="twitter:description" content="A daily Sudoku-style reader feature from The Ozark Gazette.">
-<meta name="twitter:image" content="https://ozarks.cgnnews.net/OzarkGazetteBanner.png">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"NewsMediaOrganization","name":"The Ozark Gazette","url":"https://ozarks.cgnnews.net/","parentOrganization":{"@type":"NewsMediaOrganization","name":"Cook Global News Network","url":"https://www.cgnnews.net/"},"address":{"@type":"PostalAddress","streetAddress":"33256 US Highway 160","addressLocality":"Tecumseh","addressRegion":"MO","postalCode":"65760","addressCountry":"US"},"telephone":"+1-317-442-1437","email":"tips@cgnnews.net","logo":"https://ozarks.cgnnews.net/OzarkGazetteLogo.png"}</script>
+<meta name="twitter:title" content="Daily Sudoku | The Ozark Gazette">
+<meta name="twitter:description" content="Play The Ozark Gazette Daily Sudoku with notes, hints, timer, checking and saved progress.">
+<meta name="twitter:image" content="https://ozarks.cgnnews.net/news/NewsBanner01.webp">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://ozarks.cgnnews.net/sudoku/#webpage","url":"https://ozarks.cgnnews.net/sudoku/","name":"Daily Sudoku | The Ozark Gazette","description":"Play The Ozark Gazette Daily Sudoku with notes, hints, timer, checking and saved progress.","isPartOf":{"@id":"https://ozarks.cgnnews.net/#website"},"publisher":{"@id":"https://ozarks.cgnnews.net/#organization"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://ozarks.cgnnews.net/news/NewsBanner01.webp"}},{"@type":"WebSite","@id":"https://ozarks.cgnnews.net/#website","url":"https://ozarks.cgnnews.net/","name":"The Ozark Gazette","publisher":{"@id":"https://ozarks.cgnnews.net/#organization"}},{"@type":"NewsMediaOrganization","@id":"https://ozarks.cgnnews.net/#organization","name":"The Ozark Gazette","url":"https://ozarks.cgnnews.net/","parentOrganization":{"@type":"NewsMediaOrganization","name":"Cook Global News Network","url":"https://www.cgnnews.net/"},"address":{"@type":"PostalAddress","streetAddress":"33256 US Highway 160","addressLocality":"Tecumseh","addressRegion":"MO","postalCode":"65760","addressCountry":"US"},"telephone":"+1-317-442-1437","email":"tips@cgnnews.net","logo":{"@type":"ImageObject","url":"https://ozarks.cgnnews.net/OzarkGazetteLogo.png"}}]}</script>
 <link rel="stylesheet" href="/assets/ozark-site.css">
-<script defer src="/assets/ozark-shell.js"></script>
+<style>
+:root{
+  --oz-navy:#07172f;
+  --oz-navy-2:#0b2344;
+  --oz-red:#c1121f;
+  --oz-gold:#d6a84f;
+  --oz-gold-2:#f2d990;
+  --oz-ink:#111827;
+  --oz-muted:#64748b;
+  --oz-line:#d8dce4;
+  --oz-soft:#f5f7fb;
+  --cell-size:min(9.25vw,58px);
+}
+*{box-sizing:border-box}
+body{margin:0;background:#f5f7fb;color:var(--oz-ink);font-family:Arial,Helvetica,sans-serif}
+a{color:inherit}
+button,input,select{font:inherit}
+.sudoku-page{width:min(1180px,calc(100% - 32px));margin:34px auto 64px}
+.sudoku-hero{position:relative;min-height:330px;overflow:hidden;background:#07172f;color:#fff;border:1px solid rgba(7,23,47,.25);box-shadow:0 20px 48px rgba(7,23,47,.18);isolation:isolate}
+.sudoku-hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:.88}
+.sudoku-hero:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(7,23,47,.96) 0%,rgba(7,23,47,.78) 46%,rgba(7,23,47,.18) 100%),radial-gradient(circle at 14% 18%,rgba(193,18,31,.28),transparent 32%);z-index:1}
+.sudoku-hero-copy{position:relative;z-index:2;max-width:840px;min-height:330px;display:flex;flex-direction:column;justify-content:flex-end;padding:36px}
+.sudoku-kicker{display:inline-flex;align-items:center;gap:8px;width:max-content;margin:0 0 10px;color:var(--oz-gold-2);font-size:12px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}
+.sudoku-kicker:before{content:"";width:9px;height:9px;border-radius:50%;background:#ff2d2d;box-shadow:0 0 0 5px rgba(255,45,45,.18),0 0 22px rgba(255,45,45,.6)}
+.sudoku-hero h1{margin:0;font-family:Georgia,"Times New Roman",serif;font-size:clamp(40px,6vw,72px);line-height:.94;letter-spacing:-.055em;text-shadow:0 8px 26px rgba(0,0,0,.32)}
+.sudoku-hero p{max-width:770px;margin:14px 0 0;color:#dbe4f2;font-size:17px;line-height:1.6}
+.sudoku-shell{display:grid;grid-template-columns:minmax(0,680px) minmax(300px,1fr);gap:22px;align-items:start;margin-top:24px}
+.sudoku-panel,.sudoku-side-card{background:#fff;border:1px solid var(--oz-line);box-shadow:0 14px 34px rgba(7,23,47,.08)}
+.sudoku-panel{padding:18px}
+.sudoku-topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.sudoku-title-block h2{margin:0;color:#07172f;font-family:Georgia,"Times New Roman",serif;font-size:32px;letter-spacing:-.035em;line-height:1}
+.sudoku-title-block p{margin:7px 0 0;color:#64748b;font-size:13px;line-height:1.45}
+.sudoku-status{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.sudoku-pill{display:inline-flex;align-items:center;min-height:34px;padding:7px 10px;border:1px solid #dbe1ea;background:#f8fafc;color:#07172f;font-size:12px;font-weight:900;letter-spacing:.04em;text-transform:uppercase}
+.sudoku-pill strong{margin-left:4px;color:#c1121f}
+.sudoku-grid-wrap{display:flex;justify-content:center;margin:12px auto}
+.sudoku-grid{display:grid;grid-template-columns:repeat(9,var(--cell-size));grid-template-rows:repeat(9,var(--cell-size));border:3px solid #07172f;background:#07172f;box-shadow:0 20px 36px rgba(7,23,47,.12);touch-action:manipulation}
+.sudoku-cell{position:relative;display:grid;place-items:center;width:var(--cell-size);height:var(--cell-size);border:1px solid #b9c2d2;background:#fff;color:#07172f;appearance:none;border-radius:0;cursor:pointer;font-size:clamp(21px,4.2vw,32px);font-weight:900;line-height:1}
+.sudoku-cell:nth-child(3n){border-right:3px solid #07172f}
+.sudoku-cell:nth-child(9n){border-right:1px solid #b9c2d2}
+.sudoku-cell:nth-child(n+19):nth-child(-n+27),
+.sudoku-cell:nth-child(n+46):nth-child(-n+54){border-bottom:3px solid #07172f}
+.sudoku-cell.is-given{background:#eef3fb;color:#07172f;cursor:default}
+.sudoku-cell.is-selected{outline:3px solid #d6a84f;outline-offset:-3px;background:#fff8df}
+.sudoku-cell.is-peer{background:#f3f7fd}
+.sudoku-cell.is-same{background:#eaf3ff}
+.sudoku-cell.is-wrong{background:#fff1f2;color:#c1121f}
+.sudoku-cell.is-complete{background:#ecfdf5;color:#14532d}
+.sudoku-cell.is-given.is-peer{background:#e5edf8}
+.sudoku-cell.is-given.is-same{background:#dcecff}
+.sudoku-cell .note-grid{position:absolute;inset:4px;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);gap:0;place-items:center;font-size:clamp(8px,1.55vw,11px);font-weight:900;color:#667085;line-height:1;pointer-events:none}
+.sudoku-cell .note-grid span{display:grid;place-items:center;min-width:0}
+.sudoku-cell .value{position:relative;z-index:2}
+.number-pad{display:grid;grid-template-columns:repeat(9,1fr);gap:7px;margin-top:16px}
+.number-pad button,.sudoku-actions button,.sudoku-control-row button,.sudoku-control-row select{min-height:42px;border:1px solid #07172f;background:#07172f;color:#fff;font-size:13px;font-weight:900;letter-spacing:.04em;text-transform:uppercase;cursor:pointer}
+.number-pad button{font-size:22px;border-radius:0;background:#fff;color:#07172f}
+.number-pad button:hover,.number-pad button.active{background:#07172f;color:#fff}
+.sudoku-actions{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}
+.sudoku-actions button.secondary,.sudoku-control-row button.secondary{background:#fff;color:#07172f}
+.sudoku-actions button.warn{background:#c1121f;border-color:#c1121f}
+.sudoku-actions button:disabled,.sudoku-control-row button:disabled{opacity:.55;cursor:not-allowed}
+.sudoku-control-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.sudoku-control-row select{background:#fff;color:#07172f;padding:0 10px}
+.sudoku-message{min-height:44px;margin-top:14px;padding:11px 13px;background:#f8fafc;border-left:5px solid #d6a84f;color:#334155;font-size:13px;line-height:1.5}
+.sudoku-message.is-good{border-left-color:#16a34a;background:#f0fdf4;color:#14532d}
+.sudoku-message.is-bad{border-left-color:#c1121f;background:#fff1f2;color:#7f1d1d}
+.sudoku-side{display:grid;gap:14px}
+.sudoku-side-card{padding:18px}
+.sudoku-side-card h3{margin:0 0 8px;color:#07172f;font-family:Georgia,"Times New Roman",serif;font-size:25px;letter-spacing:-.025em;line-height:1.1}
+.sudoku-side-card p{margin:0;color:#475467;font-size:14px;line-height:1.55}
+.rule-list{margin:12px 0 0;padding-left:18px;color:#334155;font-size:14px;line-height:1.55}
+.rule-list li+li{margin-top:5px}
+.progress-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.progress-grid div{padding:10px 8px;border:1px solid #dbe1ea;background:#f8fafc;text-align:center}
+.progress-grid strong{display:block;color:#07172f;font-size:11px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
+.progress-grid span{display:block;color:#c1121f;font-size:18px;font-weight:900}
+.digit-meter{display:grid;grid-template-columns:repeat(9,1fr);gap:6px;margin-top:12px}
+.digit-meter div{display:grid;place-items:center;min-height:34px;border:1px solid #dbe1ea;background:#f8fafc;color:#07172f;font-weight:900}
+.digit-meter div.done{background:#ecfdf5;color:#166534;text-decoration:line-through}
+kbd{display:inline-flex;align-items:center;justify-content:center;min-width:22px;height:22px;padding:0 6px;border:1px solid #cbd5e1;background:#f8fafc;border-bottom-width:2px;border-radius:5px;color:#07172f;font-weight:900;font-size:12px}
+@media(max-width:980px){
+  .sudoku-shell{grid-template-columns:1fr}
+  .sudoku-side{grid-template-columns:1fr 1fr}
+}
+@media(max-width:720px){
+  :root{--cell-size:calc((100vw - 58px) / 9)}
+  .sudoku-page{width:min(100% - 20px,1180px);margin-top:20px}
+  .sudoku-hero,.sudoku-hero-copy{min-height:315px}
+  .sudoku-hero-copy{padding:26px 22px}
+  .sudoku-panel{padding:12px}
+  .number-pad{grid-template-columns:repeat(9,1fr);gap:4px}
+  .number-pad button{min-height:38px;font-size:18px}
+  .sudoku-actions,.sudoku-control-row,.sudoku-side{grid-template-columns:1fr}
+  .progress-grid{grid-template-columns:1fr 1fr 1fr}
+}
+</style>
+<script defer src="/assets/cgn-dynamic-translate.js"></script>
 </head>
-<body >
+<body>
 <div id="cgn-site-header"></div>
-<main id="main-content" class="site-main">
-<section class="page-hero"><img src="/OzarkGazetteBanner.png" alt=""><div class="page-hero-copy"><p class="kicker">Daily Features</p><h1 class="page-title">Sudoku</h1><p>A daily Sudoku-style reader feature from The Ozark Gazette.</p></div></section><section class="game-card"><h3>Daily Sudoku</h3><p>Production-ready puzzle slot. The puzzle generator can be connected later.</p><div class="game-board"><span>5</span><span>3</span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span>6</span><span></span><span></span><span>1</span><span>9</span><span>5</span><span></span><span></span><span></span><span></span><span>9</span><span>8</span><span></span><span></span><span></span><span></span><span>6</span><span></span><span>8</span><span></span><span></span><span></span><span>6</span><span></span><span></span><span></span><span>3</span><span>4</span><span></span><span></span><span>8</span><span></span><span>3</span><span></span><span></span><span>1</span><span>7</span><span></span><span></span><span></span><span>2</span><span></span><span></span><span></span><span>6</span><span></span><span>6</span><span></span><span></span><span></span><span></span><span>2</span><span>8</span><span></span><span></span><span></span><span></span><span>4</span><span>1</span><span>9</span><span></span><span></span><span>5</span><span></span><span></span><span></span><span></span><span>8</span><span></span><span></span><span>7</span><span>9</span></div></section>
+<main id="main-content" class="sudoku-page">
+  <section class="sudoku-hero" aria-label="The Ozark Gazette Daily Sudoku">
+    <img class="sudoku-hero-img" src="/news/NewsBanner01.webp" alt="The Ozark Gazette News banner" loading="eager" fetchpriority="high" onerror="this.onerror=null;this.src='/news/NewsBanner.01webp';">
+    <div class="sudoku-hero-copy">
+      <p class="sudoku-kicker">Daily Features</p>
+      <h1>Daily Sudoku</h1>
+      <p>Play a clean daily Sudoku puzzle with notes, hints, checking, a timer and saved progress. Fill every row, column and 3×3 box with the numbers 1 through 9.</p>
+    </div>
+  </section>
+
+  <section class="sudoku-shell" aria-label="Daily Sudoku game">
+    <article class="sudoku-panel">
+      <div class="sudoku-topbar">
+        <div class="sudoku-title-block">
+          <h2 id="sudokuPuzzleTitle">Today’s Puzzle</h2>
+          <p id="sudokuPuzzleDate">Loading puzzle...</p>
+        </div>
+        <div class="sudoku-status" aria-label="Puzzle status">
+          <span class="sudoku-pill">Time <strong id="sudokuTimer">00:00</strong></span>
+          <span class="sudoku-pill">Filled <strong id="sudokuFilled">0/81</strong></span>
+          <span class="sudoku-pill">Mistakes <strong id="sudokuMistakes">0</strong></span>
+        </div>
+      </div>
+
+      <div class="sudoku-grid-wrap">
+        <div id="sudokuGrid" class="sudoku-grid" role="grid" aria-label="Sudoku puzzle board"></div>
+      </div>
+
+      <div id="numberPad" class="number-pad" aria-label="Number pad"></div>
+
+      <div class="sudoku-actions" aria-label="Sudoku actions">
+        <button type="button" id="notesToggle" class="secondary">Notes Off</button>
+        <button type="button" id="checkPuzzle">Check</button>
+        <button type="button" id="hintPuzzle">Hint</button>
+        <button type="button" id="clearCell" class="warn">Clear</button>
+      </div>
+
+      <div class="sudoku-control-row">
+        <select id="difficultySelect" aria-label="Choose puzzle difficulty">
+          <option value="easy">Easy</option>
+          <option value="medium" selected>Medium</option>
+          <option value="hard">Hard</option>
+        </select>
+        <button type="button" id="newPuzzle" class="secondary">New Puzzle</button>
+        <button type="button" id="dailyPuzzle">Daily Puzzle</button>
+        <button type="button" id="solvePuzzle" class="secondary">Reveal Solution</button>
+      </div>
+
+      <div id="sudokuMessage" class="sudoku-message" role="status" aria-live="polite">Select a square, then use the number pad or your keyboard.</div>
+    </article>
+
+    <aside class="sudoku-side">
+      <section class="sudoku-side-card">
+        <h3>How to Play</h3>
+        <p>Complete the board so each row, column and 3×3 box contains each number from 1 through 9 exactly once.</p>
+        <ul class="rule-list">
+          <li>Select an empty square and enter a number.</li>
+          <li>Use Notes for small candidate numbers.</li>
+          <li>Use Check when you want feedback.</li>
+          <li>Use Hint if you get stuck.</li>
+        </ul>
+      </section>
+
+      <section class="sudoku-side-card">
+        <h3>Progress</h3>
+        <p>Your current puzzle is saved on this device, so you can come back later and keep playing.</p>
+        <div class="progress-grid">
+          <div><strong>Difficulty</strong><span id="progressDifficulty">Medium</span></div>
+          <div><strong>Hints</strong><span id="progressHints">0</span></div>
+          <div><strong>Left</strong><span id="progressLeft">--</span></div>
+        </div>
+      </section>
+
+      <section class="sudoku-side-card">
+        <h3>Number Tracker</h3>
+        <p>Numbers are marked off when all nine are placed correctly.</p>
+        <div id="digitMeter" class="digit-meter" aria-label="Digit completion tracker"></div>
+      </section>
+
+      <section class="sudoku-side-card">
+        <h3>Keyboard</h3>
+        <p>Desktop players can use <kbd>1</kbd>–<kbd>9</kbd> to fill a cell, <kbd>0</kbd>, <kbd>Delete</kbd> or <kbd>Backspace</kbd> to clear, and arrow keys to move around the board.</p>
+      </section>
+    </aside>
+  </section>
 </main>
 <div id="cgn-site-footer"></div>
+<script src="/assets/ozark-shell.js"></script>
+<script>
+(function(){
+  "use strict";
+
+  const BOARD_SIZE = 9;
+  const BOX_SIZE = 3;
+  const STORAGE_PREFIX = "ozark_sudoku_v1";
+  const DIFFICULTY_BLANKS = { easy: 36, medium: 45, hard: 52 };
+  const DIFFICULTY_LABELS = { easy: "Easy", medium: "Medium", hard: "Hard" };
+
+  let puzzle = [];
+  let solution = [];
+  let given = [];
+  let values = [];
+  let notes = Array.from({length:81}, () => new Set());
+  let selected = 0;
+  let notesMode = false;
+  let timerSeconds = 0;
+  let timerHandle = null;
+  let mistakes = 0;
+  let hintsUsed = 0;
+  let currentDifficulty = "medium";
+  let currentSeed = "";
+  let completed = false;
+
+  const gridEl = document.getElementById("sudokuGrid");
+  const padEl = document.getElementById("numberPad");
+  const timerEl = document.getElementById("sudokuTimer");
+  const filledEl = document.getElementById("sudokuFilled");
+  const mistakesEl = document.getElementById("sudokuMistakes");
+  const messageEl = document.getElementById("sudokuMessage");
+  const dateEl = document.getElementById("sudokuPuzzleDate");
+  const titleEl = document.getElementById("sudokuPuzzleTitle");
+  const difficultyEl = document.getElementById("difficultySelect");
+  const notesToggleEl = document.getElementById("notesToggle");
+  const progressDifficultyEl = document.getElementById("progressDifficulty");
+  const progressHintsEl = document.getElementById("progressHints");
+  const progressLeftEl = document.getElementById("progressLeft");
+  const digitMeterEl = document.getElementById("digitMeter");
+
+  function todayKey(){
+    const parts = new Intl.DateTimeFormat("en-CA",{timeZone:"America/Chicago",year:"numeric",month:"2-digit",day:"2-digit"}).formatToParts(new Date());
+    const map = {};
+    parts.forEach(p => map[p.type] = p.value);
+    return `${map.year}-${map.month}-${map.day}`;
+  }
+
+  function prettyToday(){
+    return new Intl.DateTimeFormat("en-US",{timeZone:"America/Chicago",weekday:"long",month:"long",day:"numeric",year:"numeric"}).format(new Date());
+  }
+
+  function makeSeededRandom(seedText){
+    let h = 2166136261 >>> 0;
+    const text = String(seedText || "");
+    for(let i=0;i<text.length;i++){
+      h ^= text.charCodeAt(i);
+      h = Math.imul(h, 16777619);
+    }
+    return function(){
+      h += 0x6D2B79F5;
+      let t = h;
+      t = Math.imul(t ^ (t >>> 15), t | 1);
+      t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+
+  function shuffle(array, rand){
+    const a = array.slice();
+    for(let i=a.length-1;i>0;i--){
+      const j = Math.floor(rand() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  function pattern(row, col){
+    return (BOX_SIZE * (row % BOX_SIZE) + Math.floor(row / BOX_SIZE) + col) % BOARD_SIZE;
+  }
+
+  function generateSolution(seed){
+    const rand = makeSeededRandom(seed + ":solution");
+    const rowBands = shuffle([0,1,2], rand);
+    const colBands = shuffle([0,1,2], rand);
+    const rows = rowBands.flatMap(b => shuffle([0,1,2], rand).map(r => b * 3 + r));
+    const cols = colBands.flatMap(b => shuffle([0,1,2], rand).map(c => b * 3 + c));
+    const nums = shuffle([1,2,3,4,5,6,7,8,9], rand);
+    const board = [];
+    for(const r of rows){
+      for(const c of cols){
+        board.push(nums[pattern(r,c)]);
+      }
+    }
+    return board;
+  }
+
+  function candidatesFor(board, idx){
+    if(board[idx]) return [];
+    const row = Math.floor(idx / 9);
+    const col = idx % 9;
+    const used = new Set();
+    for(let c=0;c<9;c++) if(board[row*9+c]) used.add(board[row*9+c]);
+    for(let r=0;r<9;r++) if(board[r*9+col]) used.add(board[r*9+col]);
+    const br = Math.floor(row/3)*3;
+    const bc = Math.floor(col/3)*3;
+    for(let r=br;r<br+3;r++){
+      for(let c=bc;c<bc+3;c++){
+        if(board[r*9+c]) used.add(board[r*9+c]);
+      }
+    }
+    const vals = [];
+    for(let n=1;n<=9;n++) if(!used.has(n)) vals.push(n);
+    return vals;
+  }
+
+  function countSolutions(board, limit){
+    let count = 0;
+    const work = board.slice();
+
+    function solve(){
+      if(count >= limit) return;
+      let bestIdx = -1;
+      let bestCands = null;
+      for(let i=0;i<81;i++){
+        if(!work[i]){
+          const c = candidatesFor(work, i);
+          if(c.length === 0) return;
+          if(bestCands === null || c.length < bestCands.length){
+            bestCands = c;
+            bestIdx = i;
+            if(c.length === 1) break;
+          }
+        }
+      }
+      if(bestIdx === -1){
+        count += 1;
+        return;
+      }
+      for(const n of bestCands){
+        work[bestIdx] = n;
+        solve();
+        work[bestIdx] = 0;
+        if(count >= limit) return;
+      }
+    }
+
+    solve();
+    return count;
+  }
+
+  function makePuzzleFromSolution(solved, seed, difficulty){
+    const targetBlanks = DIFFICULTY_BLANKS[difficulty] || DIFFICULTY_BLANKS.medium;
+    const rand = makeSeededRandom(seed + ":remove:" + difficulty);
+    const board = solved.slice();
+    const order = shuffle([...Array(81).keys()], rand);
+    let blanks = 0;
+
+    for(const idx of order){
+      if(blanks >= targetBlanks) break;
+      const keep = board[idx];
+      board[idx] = 0;
+      if(countSolutions(board, 2) === 1){
+        blanks += 1;
+      }else{
+        board[idx] = keep;
+      }
+    }
+
+    return board;
+  }
+
+  function generateGame(seed, difficulty){
+    const solved = generateSolution(seed);
+    const puz = makePuzzleFromSolution(solved, seed, difficulty);
+    return { puzzle:puz, solution:solved };
+  }
+
+  function storageKey(){
+    return `${STORAGE_PREFIX}:${todayKey()}:${currentDifficulty}:${currentSeed}`;
+  }
+
+  function serializeNotes(){
+    return notes.map(set => Array.from(set).sort());
+  }
+
+  function hydrateNotes(raw){
+    if(!Array.isArray(raw)) return Array.from({length:81}, () => new Set());
+    return raw.map(item => new Set((Array.isArray(item) ? item : []).map(Number).filter(n => n>=1 && n<=9)));
+  }
+
+  function safeStorageGet(key){
+    try{ return localStorage.getItem(key); }catch(err){ return null; }
+  }
+
+  function safeStorageSet(key, value){
+    try{ localStorage.setItem(key, value); }catch(err){}
+  }
+
+  function safeStorageRemove(key){
+    try{ localStorage.removeItem(key); }catch(err){}
+  }
+
+  function saveState(){
+    if(!currentSeed) return;
+    const payload = {
+      puzzle, solution, given, values,
+      notes: serializeNotes(),
+      selected, notesMode, timerSeconds,
+      mistakes, hintsUsed, completed,
+      difficulty: currentDifficulty,
+      seed: currentSeed,
+      savedAt: Date.now()
+    };
+    safeStorageSet(storageKey(), JSON.stringify(payload));
+  }
+
+  function loadSavedState(seed, difficulty){
+    const key = `${STORAGE_PREFIX}:${todayKey()}:${difficulty}:${seed}`;
+    const raw = safeStorageGet(key);
+    if(!raw) return false;
+    try{
+      const data = JSON.parse(raw);
+      if(!data || !Array.isArray(data.puzzle) || !Array.isArray(data.solution) || !Array.isArray(data.values)) return false;
+      puzzle = data.puzzle.slice(0,81).map(Number);
+      solution = data.solution.slice(0,81).map(Number);
+      values = data.values.slice(0,81).map(Number);
+      given = Array.isArray(data.given) ? data.given.slice(0,81).map(Boolean) : puzzle.map(Boolean);
+      notes = hydrateNotes(data.notes);
+      selected = Number.isInteger(data.selected) ? Math.max(0, Math.min(80, data.selected)) : 0;
+      notesMode = !!data.notesMode;
+      timerSeconds = Number(data.timerSeconds) || 0;
+      mistakes = Number(data.mistakes) || 0;
+      hintsUsed = Number(data.hintsUsed) || 0;
+      completed = !!data.completed;
+      return true;
+    }catch(err){
+      return false;
+    }
+  }
+
+  function formatTime(seconds){
+    const s = Math.max(0, Number(seconds) || 0);
+    const mins = Math.floor(s / 60);
+    const secs = s % 60;
+    if(mins >= 60){
+      const hrs = Math.floor(mins / 60);
+      const rem = mins % 60;
+      return `${String(hrs).padStart(2,"0")}:${String(rem).padStart(2,"0")}:${String(secs).padStart(2,"0")}`;
+    }
+    return `${String(mins).padStart(2,"0")}:${String(secs).padStart(2,"0")}`;
+  }
+
+  function startTimer(){
+    clearInterval(timerHandle);
+    timerHandle = setInterval(function(){
+      if(!completed){
+        timerSeconds += 1;
+        updateStats();
+        saveState();
+      }
+    }, 1000);
+  }
+
+  function setMessage(text, type){
+    if(!messageEl) return;
+    messageEl.textContent = text;
+    messageEl.classList.toggle("is-good", type === "good");
+    messageEl.classList.toggle("is-bad", type === "bad");
+  }
+
+  function notesMarkup(set){
+    let html = '<span class="note-grid">';
+    for(let n=1;n<=9;n++){
+      html += `<span>${set && set.has(n) ? n : ""}</span>`;
+    }
+    html += "</span>";
+    return html;
+  }
+
+  function renderGrid(){
+    if(!gridEl) return;
+    gridEl.innerHTML = "";
+    for(let i=0;i<81;i++){
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "sudoku-cell";
+      button.setAttribute("role","gridcell");
+      button.setAttribute("aria-label", cellLabel(i));
+      button.dataset.index = String(i);
+      button.addEventListener("click", () => selectCell(i));
+      gridEl.appendChild(button);
+    }
+    updateGrid();
+  }
+
+  function cellLabel(i){
+    const row = Math.floor(i/9) + 1;
+    const col = (i % 9) + 1;
+    const val = values[i] || "";
+    return `Row ${row}, column ${col}${val ? ", value " + val : ", empty"}`;
+  }
+
+  function updateGrid(){
+    const cells = gridEl ? gridEl.querySelectorAll(".sudoku-cell") : [];
+    const selectedRow = Math.floor(selected / 9);
+    const selectedCol = selected % 9;
+    const selectedBoxRow = Math.floor(selectedRow / 3);
+    const selectedBoxCol = Math.floor(selectedCol / 3);
+    const selectedValue = values[selected];
+
+    cells.forEach(function(cell, i){
+      const row = Math.floor(i / 9);
+      const col = i % 9;
+      const sameRow = row === selectedRow;
+      const sameCol = col === selectedCol;
+      const sameBox = Math.floor(row/3) === selectedBoxRow && Math.floor(col/3) === selectedBoxCol;
+      const val = values[i] || 0;
+      const isWrong = val && val !== solution[i];
+      const isCompleteCell = completed && val === solution[i];
+
+      cell.className = "sudoku-cell";
+      if(given[i]) cell.classList.add("is-given");
+      if(i === selected) cell.classList.add("is-selected");
+      else if(sameRow || sameCol || sameBox) cell.classList.add("is-peer");
+      if(selectedValue && val === selectedValue && i !== selected) cell.classList.add("is-same");
+      if(isWrong) cell.classList.add("is-wrong");
+      if(isCompleteCell) cell.classList.add("is-complete");
+
+      if(val){
+        cell.innerHTML = `<span class="value">${val}</span>`;
+      }else{
+        cell.innerHTML = notesMarkup(notes[i]);
+      }
+      cell.setAttribute("aria-label", cellLabel(i));
+      cell.setAttribute("aria-selected", i === selected ? "true" : "false");
+    });
+
+    updateStats();
+    updateNumberPadActive();
+    updateDigitMeter();
+  }
+
+  function renderPad(){
+    if(!padEl) return;
+    padEl.innerHTML = "";
+    for(let n=1;n<=9;n++){
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.textContent = String(n);
+      btn.dataset.number = String(n);
+      btn.setAttribute("aria-label", "Enter " + n);
+      btn.addEventListener("click", () => enterNumber(n));
+      padEl.appendChild(btn);
+    }
+  }
+
+  function updateNumberPadActive(){
+    if(!padEl) return;
+    const selectedValue = values[selected];
+    padEl.querySelectorAll("button").forEach(btn => {
+      btn.classList.toggle("active", Number(btn.dataset.number) === selectedValue);
+    });
+  }
+
+  function renderDigitMeter(){
+    if(!digitMeterEl) return;
+    digitMeterEl.innerHTML = "";
+    for(let n=1;n<=9;n++){
+      const div = document.createElement("div");
+      div.dataset.digit = String(n);
+      div.textContent = String(n);
+      digitMeterEl.appendChild(div);
+    }
+    updateDigitMeter();
+  }
+
+  function updateDigitMeter(){
+    if(!digitMeterEl) return;
+    const counts = Array(10).fill(0);
+    for(let i=0;i<81;i++){
+      if(values[i] && values[i] === solution[i]) counts[values[i]] += 1;
+    }
+    digitMeterEl.querySelectorAll("div").forEach(el => {
+      const n = Number(el.dataset.digit);
+      el.classList.toggle("done", counts[n] >= 9);
+    });
+  }
+
+  function updateStats(){
+    const filled = values.filter(Boolean).length;
+    if(timerEl) timerEl.textContent = formatTime(timerSeconds);
+    if(filledEl) filledEl.textContent = `${filled}/81`;
+    if(mistakesEl) mistakesEl.textContent = String(mistakes);
+    if(progressDifficultyEl) progressDifficultyEl.textContent = DIFFICULTY_LABELS[currentDifficulty] || "Medium";
+    if(progressHintsEl) progressHintsEl.textContent = String(hintsUsed);
+    if(progressLeftEl) progressLeftEl.textContent = String(81 - filled);
+    if(notesToggleEl){
+      notesToggleEl.textContent = notesMode ? "Notes On" : "Notes Off";
+      notesToggleEl.classList.toggle("secondary", !notesMode);
+    }
+  }
+
+  function selectCell(i){
+    selected = Math.max(0, Math.min(80, Number(i) || 0));
+    updateGrid();
+    saveState();
+  }
+
+  function enterNumber(n){
+    if(completed){
+      setMessage("Puzzle complete. Start a new puzzle whenever you are ready.", "good");
+      return;
+    }
+    if(given[selected]){
+      setMessage("That square is part of the original puzzle.", "bad");
+      return;
+    }
+
+    if(notesMode){
+      if(values[selected]) values[selected] = 0;
+      if(notes[selected].has(n)) notes[selected].delete(n);
+      else notes[selected].add(n);
+      setMessage(`Note ${n} ${notes[selected].has(n) ? "added" : "removed"}.`, "");
+    }else{
+      values[selected] = n;
+      notes[selected].clear();
+      cleanNotesAround(selected, n);
+      if(n !== solution[selected]){
+        mistakes += 1;
+        setMessage("That number does not fit this square. Try another option.", "bad");
+      }else{
+        setMessage("Good placement.", "good");
+      }
+    }
+    updateGrid();
+    checkCompletion();
+    saveState();
+  }
+
+  function cleanNotesAround(idx, n){
+    const row = Math.floor(idx / 9);
+    const col = idx % 9;
+    const br = Math.floor(row / 3) * 3;
+    const bc = Math.floor(col / 3) * 3;
+    for(let c=0;c<9;c++) notes[row*9+c].delete(n);
+    for(let r=0;r<9;r++) notes[r*9+col].delete(n);
+    for(let r=br;r<br+3;r++){
+      for(let c=bc;c<bc+3;c++) notes[r*9+c].delete(n);
+    }
+  }
+
+  function clearSelected(){
+    if(given[selected]){
+      setMessage("That square is part of the original puzzle.", "bad");
+      return;
+    }
+    values[selected] = 0;
+    notes[selected].clear();
+    setMessage("Square cleared.", "");
+    updateGrid();
+    saveState();
+  }
+
+  function checkPuzzle(){
+    let wrong = 0;
+    let blanks = 0;
+    for(let i=0;i<81;i++){
+      if(!values[i]) blanks += 1;
+      else if(values[i] !== solution[i]) wrong += 1;
+    }
+    updateGrid();
+    if(wrong){
+      setMessage(`${wrong} square${wrong === 1 ? "" : "s"} need another look.`, "bad");
+    }else if(blanks){
+      setMessage(`So far so good. ${blanks} square${blanks === 1 ? "" : "s"} left.`, "good");
+    }else{
+      finishPuzzle();
+    }
+  }
+
+  function giveHint(){
+    if(completed){
+      setMessage("Puzzle complete. Nice work.", "good");
+      return;
+    }
+
+    let idx = selected;
+    if(given[idx] || values[idx] === solution[idx]){
+      idx = values.findIndex((v, i) => !given[i] && v !== solution[i]);
+    }
+    if(idx < 0){
+      finishPuzzle();
+      return;
+    }
+
+    selected = idx;
+    values[idx] = solution[idx];
+    notes[idx].clear();
+    cleanNotesAround(idx, values[idx]);
+    hintsUsed += 1;
+    setMessage(`Hint placed in row ${Math.floor(idx/9)+1}, column ${(idx%9)+1}.`, "good");
+    updateGrid();
+    checkCompletion();
+    saveState();
+  }
+
+  function revealSolution(){
+    if(!confirm("Reveal the full solution for this puzzle?")) return;
+    values = solution.slice();
+    notes = Array.from({length:81}, () => new Set());
+    completed = true;
+    clearInterval(timerHandle);
+    setMessage("Solution revealed.", "good");
+    updateGrid();
+    saveState();
+  }
+
+  function checkCompletion(){
+    for(let i=0;i<81;i++){
+      if(values[i] !== solution[i]) return false;
+    }
+    finishPuzzle();
+    return true;
+  }
+
+  function finishPuzzle(){
+    completed = true;
+    clearInterval(timerHandle);
+    updateGrid();
+    setMessage(`Solved in ${formatTime(timerSeconds)}. Great work.`, "good");
+    saveState();
+  }
+
+  function newGame(mode){
+    currentDifficulty = difficultyEl ? difficultyEl.value : "medium";
+    currentSeed = mode === "random" ? `${todayKey()}:random:${Date.now()}` : `${todayKey()}:daily`;
+    completed = false;
+
+    if(mode !== "random" && loadSavedState(currentSeed, currentDifficulty)){
+      setMessage("Saved puzzle restored.", "good");
+    }else{
+      const game = generateGame(currentSeed, currentDifficulty);
+      puzzle = game.puzzle;
+      solution = game.solution;
+      given = puzzle.map(Boolean);
+      values = puzzle.slice();
+      notes = Array.from({length:81}, () => new Set());
+      selected = puzzle.findIndex(v => !v);
+      if(selected < 0) selected = 0;
+      notesMode = false;
+      timerSeconds = 0;
+      mistakes = 0;
+      hintsUsed = 0;
+      setMessage(mode === "random" ? "New puzzle ready." : "Daily puzzle ready.", "good");
+    }
+
+    if(titleEl) titleEl.textContent = mode === "random" ? "New Sudoku Puzzle" : "Today’s Sudoku Puzzle";
+    if(dateEl) dateEl.textContent = `${prettyToday()} · ${DIFFICULTY_LABELS[currentDifficulty] || "Medium"}`;
+    renderGrid();
+    updateStats();
+    startTimer();
+    saveState();
+  }
+
+  function toggleNotes(){
+    notesMode = !notesMode;
+    setMessage(notesMode ? "Notes mode is on." : "Notes mode is off.", "");
+    updateStats();
+    saveState();
+  }
+
+  function moveSelection(deltaRow, deltaCol){
+    const row = Math.floor(selected / 9);
+    const col = selected % 9;
+    const nextRow = Math.max(0, Math.min(8, row + deltaRow));
+    const nextCol = Math.max(0, Math.min(8, col + deltaCol));
+    selectCell(nextRow * 9 + nextCol);
+  }
+
+  function bindEvents(){
+    document.getElementById("notesToggle")?.addEventListener("click", toggleNotes);
+    document.getElementById("checkPuzzle")?.addEventListener("click", checkPuzzle);
+    document.getElementById("hintPuzzle")?.addEventListener("click", giveHint);
+    document.getElementById("clearCell")?.addEventListener("click", clearSelected);
+    document.getElementById("solvePuzzle")?.addEventListener("click", revealSolution);
+    document.getElementById("newPuzzle")?.addEventListener("click", () => {
+      const seed = `${STORAGE_PREFIX}:${todayKey()}:${difficultyEl.value}:${currentSeed}`;
+      safeStorageRemove(seed);
+      newGame("random");
+    });
+    document.getElementById("dailyPuzzle")?.addEventListener("click", () => newGame("daily"));
+    difficultyEl?.addEventListener("change", () => newGame("daily"));
+
+    document.addEventListener("keydown", function(event){
+      const key = event.key;
+      if(document.activeElement && ["INPUT","TEXTAREA","SELECT"].includes(document.activeElement.tagName)) return;
+      if(/^[1-9]$/.test(key)){
+        enterNumber(Number(key));
+        event.preventDefault();
+      }else if(key === "0" || key === "Backspace" || key === "Delete"){
+        clearSelected();
+        event.preventDefault();
+      }else if(key === "ArrowUp"){
+        moveSelection(-1,0); event.preventDefault();
+      }else if(key === "ArrowDown"){
+        moveSelection(1,0); event.preventDefault();
+      }else if(key === "ArrowLeft"){
+        moveSelection(0,-1); event.preventDefault();
+      }else if(key === "ArrowRight"){
+        moveSelection(0,1); event.preventDefault();
+      }else if(key.toLowerCase() === "n"){
+        toggleNotes(); event.preventDefault();
+      }
+    });
+
+    window.addEventListener("beforeunload", saveState);
+  }
+
+  function boot(){
+    renderPad();
+    renderDigitMeter();
+    bindEvents();
+    newGame("daily");
+  }
+
+  boot();
+})();
+</script>
 </body>
 </html>
