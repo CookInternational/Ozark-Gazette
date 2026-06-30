@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#07172f">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="author" content="The Ozark Gazette">
-<meta name="cgn-api-base" content="https://script.google.com/macros/s/AKfycbx41mQg-Ine3XZ-VrMI_SaQn4_K6cDQHA0cBFyGPgupu_edNFoNRjSLv2hoSe_bOytt/exec">
+<meta name="cgn-api-base" content="https://script.google.com/macros/s/AKfycbw2U1Qezn44zJNnonZMZG06LpB7lh6n7cgiJY8hY34RnriYd2Eq66swuxQ7S_VyHobb/exec">
 <title id="page-title">Article | The Ozark Gazette</title>
 <meta name="description" id="meta-description" content="Read the latest article from The Ozark Gazette.">
 <link rel="canonical" id="canonical-link" href="https://ozarks.cgnnews.net/article.html">
@@ -68,7 +68,7 @@ body{font-family:Arial,Helvetica,sans-serif;margin:0;background:#fff;color:#111}
 <script src="/assets/ozark-shell.js"></script>
 <script>
 try{(adsbygoogle=window.adsbygoogle||[]).push({});}catch(e){}
-const OZARK_API_FALLBACK="https://script.google.com/macros/s/AKfycbx41mQg-Ine3XZ-VrMI_SaQn4_K6cDQHA0cBFyGPgupu_edNFoNRjSLv2hoSe_bOytt/exec";
+const OZARK_API_FALLBACK="https://script.google.com/macros/s/AKfycbw2U1Qezn44zJNnonZMZG06LpB7lh6n7cgiJY8hY34RnriYd2Eq66swuxQ7S_VyHobb/exec";
 const OZARK_DEFAULT_IMAGE="https://ozarks.cgnnews.net/OzarkGazetteBanner.png";
 const OZARK_PAYWALLED_CONTENT_SELECTOR=".cgn-paywalled-content";
 function getOzarkApiBase(){const meta=document.querySelector('meta[name="cgn-api-base"]');return window.CGN_API_BASE||window.CGN_API_URL||window.CGN_BACKEND_URL||window.CGN_CONFIG?.apiBase||window.CGN_CONFIG?.google_apps_script_web_app_url||(meta&&meta.content)||OZARK_API_FALLBACK;}

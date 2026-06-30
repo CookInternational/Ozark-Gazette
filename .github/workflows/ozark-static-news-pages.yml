@@ -1,0 +1,228 @@
+name: Build Ozark Static News Pages
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: 'Type BUILD OZARK STATIC PAGES to confirm writing static article index pages'
+        required: true
+        default: ''
+      api_url:
+        description: 'Ozark/CGN Apps Script Web App URL'
+        required: true
+        default: 'https://script.google.com/macros/s/AKfycbw2U1Qezn44zJNnonZMZG06LpB7lh6n7cgiJY8hY34RnriYd2Eq66swuxQ7S_VyHobb/exec'
+      include_archives:
+        description: 'Also build static pages from the Archives sheet'
+        required: true
+        type: choice
+        options: ['true', 'false']
+        default: 'true'
+      max_articles:
+        description: 'Maximum total articles to build'
+        required: true
+        default: '1000'
+      commit_changes:
+        description: 'Commit generated pages back to main'
+        required: true
+        type: choice
+        options: ['true', 'false']
+        default: 'true'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ozark-static-news-pages
+  cancel-in-progress: false
+
+jobs:
+  build-static-pages:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Confirm manual build
+        run: |
+          if [ "${{ github.event.inputs.confirm }}" != "BUILD OZARK STATIC PAGES" ]; then
+            echo "Static build not confirmed. Re-run and type: BUILD OZARK STATIC PAGES"
+            exit 1
+          fi
+
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Generate static article index pages
+        env:
+          OZARK_API_URL: ${{ github.event.inputs.api_url }}
+          INCLUDE_ARCHIVES: ${{ github.event.inputs.include_archives }}
+          MAX_ARTICLES: ${{ github.event.inputs.max_articles }}
+        run: |
+          cat > /tmp/ozark-static-pages.mjs <<'NODE'
+          const fs = require('fs');
+          const path = require('path');
+
+          const API_URL = String(process.env.OZARK_API_URL || '').replace(/\?+$/, '');
+          const INCLUDE_ARCHIVES = String(process.env.INCLUDE_ARCHIVES || 'true') === 'true';
+          const MAX_ARTICLES = Math.max(1, Number(process.env.MAX_ARTICLES || 1000));
+          const SITE_URL = 'https://ozarks.cgnnews.net';
+          const DEFAULT_IMAGE = '/OzarkGazetteBanner.png';
+          if(!API_URL) throw new Error('Missing OZARK_API_URL');
+
+          function esc(value){
+            return String(value == null ? '' : value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
+          }
+          function slugify(value){
+            return String(value || '').toLowerCase().replace(/&/g, ' and ').replace(/[^a-z0-9\s-]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-').replace(/^-+|-+$/g, '') || 'article';
+          }
+          function normalizeCategory(category){
+            const raw = String(category || '').trim();
+            const lower = raw.toLowerCase();
+            const map = {'local':'Local','us':'US','u.s.':'US','united states':'US','world':'World','politics':'Politics','investigations':'Investigations','investigation':'Investigations','markets':'Markets','market':'Markets','business':'Markets','technology':'Technology','tech':'Technology','opinion':'Opinion','environment':'Environment','entertainment':'Entertainment','obituaries':'Obituaries','obituary':'Obituaries','weather':'Weather','traffic':'Traffic','sports':'Sports','sport':'Sports'};
+            return map[lower] || raw || 'Local';
+          }
+          function articleDate(article){
+            const d = new Date(article.published_at || article.updated_at || new Date().toISOString());
+            return Number.isFinite(d.getTime()) ? d : new Date();
+          }
+          function pad2(n){ return String(n).padStart(2, '0'); }
+          function staticPath(article){
+            const d = articleDate(article);
+            const category = normalizeCategory(article.category);
+            const base = category === 'Weather' ? 'weather' : (category === 'Sports' ? 'sports' : 'news');
+            const slug = slugify(article.slug || article.title || article.article_id);
+            return `${base}/${d.getUTCFullYear()}/${pad2(d.getUTCMonth()+1)}/${pad2(d.getUTCDate())}/${slug}/index.html`;
+          }
+          function publicUrlFromPath(filePath){
+            return SITE_URL + '/' + filePath.replace(/index\.html$/, '').replace(/^\/+/, '');
+          }
+          function categoryUrl(category){
+            const clean = normalizeCategory(category);
+            if(clean === 'Weather') return '/weather/';
+            if(clean === 'Sports') return '/sports/';
+            if(clean === 'Traffic') return '/traffic/';
+            if(clean === 'Markets') return '/markets/';
+            if(clean === 'Obituaries') return '/obituaries/';
+            return '/' + slugify(clean) + '/';
+          }
+          function formatDate(value){
+            const d = new Date(value || '');
+            if(!Number.isFinite(d.getTime())) return '';
+            return new Intl.DateTimeFormat('en-US', {timeZone:'America/Chicago', day:'numeric', month:'long', year:'numeric', hour:'numeric', minute:'2-digit', hour12:true, timeZoneName:'short'}).format(d);
+          }
+          async function fetchArticles(action){
+            let offset = 0;
+            const limit = 250;
+            const out = [];
+            while(out.length < MAX_ARTICLES){
+              const url = new URL(API_URL);
+              url.searchParams.set('site', 'ozark');
+              url.searchParams.set('action', action);
+              url.searchParams.set('limit', String(Math.min(limit, MAX_ARTICLES - out.length)));
+              url.searchParams.set('offset', String(offset));
+              const res = await fetch(url, {cache:'no-store'});
+              if(!res.ok) throw new Error(`${action} failed: HTTP ${res.status}`);
+              const json = await res.json();
+              const list = Array.isArray(json) ? json : (json.articles || json.items || json.data || []);
+              out.push(...list);
+              if(!json.next_offset || !list.length) break;
+              offset = Number(json.next_offset);
+            }
+            return out;
+          }
+          function articleHtml(article, filePath){
+            const title = article.title || 'The Ozark Gazette Article';
+            const summary = article.summary || article.subtitle || article.seo_description || '';
+            const image = article.hero_image_url || article.image_url || article.image || DEFAULT_IMAGE;
+            const category = normalizeCategory(article.category);
+            const canonical = publicUrlFromPath(filePath);
+            const body = article.body_html || `<p>${esc(summary)}</p>`;
+            const what = article.what_this_means || '';
+            const jsonLd = {'@context':'https://schema.org','@type':'NewsArticle','@id':canonical + '#article',mainEntityOfPage:{'@type':'WebPage','@id':canonical},headline:title,description:summary,image:[image],datePublished:article.published_at || '',dateModified:article.updated_at || article.published_at || '',author:{'@type':'Person',name:article.author || 'The Ozark Gazette'},publisher:{'@type':'NewsMediaOrganization',name:'The Ozark Gazette',url:SITE_URL + '/',logo:{'@type':'ImageObject',url:SITE_URL + '/OzarkGazetteLogo.png'}}};
+            return `<!DOCTYPE html>
+          <html lang="en">
+          <head>
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width,initial-scale=1">
+          <meta name="theme-color" content="#07172f">
+          <meta name="robots" content="index,follow,max-image-preview:large">
+          <meta name="cgn-api-base" content="${esc(API_URL)}">
+          <title>${esc(article.seo_title || title)} | The Ozark Gazette</title>
+          <meta name="description" content="${esc(article.seo_description || summary)}">
+          <link rel="canonical" href="${esc(canonical)}">
+          <link rel="icon" href="/favicon.ico" sizes="any">
+          <link rel="stylesheet" href="/assets/ozark-site.css">
+          <meta property="og:type" content="article">
+          <meta property="og:site_name" content="The Ozark Gazette">
+          <meta property="og:title" content="${esc(title)} | The Ozark Gazette">
+          <meta property="og:description" content="${esc(summary)}">
+          <meta property="og:url" content="${esc(canonical)}">
+          <meta property="og:image" content="${esc(image)}">
+          <meta name="twitter:card" content="summary_large_image">
+          <script type="application/ld+json">${JSON.stringify(jsonLd).replace(/</g, '\\u003c')}</script>
+          <style>body{font-family:Arial,Helvetica,sans-serif;margin:0;background:#fff;color:#111}.article-shell{max-width:900px;margin:40px auto;padding:0 20px}.article-kicker{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#666;font-weight:800;margin-bottom:10px}.article-kicker a{color:#666;text-decoration:none}h1{font-family:Georgia,'Times New Roman',serif;font-size:clamp(36px,5vw,62px);line-height:1.02;margin:0 0 10px;color:#07172f}h2.subtitle{font-size:20px;line-height:1.35;color:#444;font-weight:400;margin:0 0 16px}.meta{color:#555;font-size:14px;line-height:1.5;margin:0 0 16px;border-top:1px solid #e2e2e2;border-bottom:1px solid #e2e2e2;padding:12px 0}.hero{width:100%;margin:20px 0;display:block;background:#eee;border:1px solid #d8dce4;object-fit:cover;max-height:520px}.image-credit{color:#777;font-size:12px;margin-top:-12px;margin-bottom:24px}.article-content{font-size:18px;line-height:1.75}.article-content a{color:#111;font-weight:800}.analysis-box{margin-top:34px;padding-top:20px;border-top:1px solid #ddd}@media(max-width:900px){.article-shell{margin:28px auto;padding:0 16px}h1{font-size:32px}.article-content{font-size:16px}}</style>
+          </head>
+          <body>
+          <div id="cgn-site-header"></div>
+          <main id="main-content" class="article-shell">
+          <div class="article-kicker"><a href="${esc(categoryUrl(category))}">${esc(category)}</a></div>
+          <h1>${esc(title)}</h1>
+          ${article.subtitle ? `<h2 class="subtitle">${esc(article.subtitle)}</h2>` : ''}
+          <div class="meta">By <strong>${esc(article.author || 'The Ozark Gazette')}</strong> • Published ${esc(formatDate(article.published_at || article.updated_at))}${article.updated_at ? ` • Updated ${esc(formatDate(article.updated_at))}` : ''}</div>
+          ${image ? `<img class="hero" src="${esc(image)}" alt="${esc(title)}">` : ''}
+          ${article.image_credit ? `<div class="image-credit">Image: ${esc(article.image_credit)}</div>` : ''}
+          <div class="article-content">${body}</div>
+          ${what ? `<aside class="analysis-box"><h2>What this means</h2><div>${what}</div></aside>` : ''}
+          <p style="margin-top:28px"><a href="/article.html?slug=${encodeURIComponent(slugify(article.slug || article.title || 'article'))}">Open live article view</a></p>
+          </main>
+          <div id="cgn-site-footer"></div>
+          <script src="/assets/ozark-shell.js"></script>
+          </body>
+          </html>`;
+          }
+
+          const seen = new Set();
+          const all = [];
+          const articleRows = await fetchArticles('ozark_articles');
+          all.push(...articleRows);
+          if(INCLUDE_ARCHIVES) all.push(...await fetchArticles('ozark_archives'));
+          const published = all.filter(a => {
+            const status = String(a.status || 'published').toLowerCase();
+            const key = String(a.article_id || '') || slugify(a.slug || a.title || 'article');
+            if(seen.has(key)) return false;
+            seen.add(key);
+            return !status || ['published','archive','archived'].includes(status);
+          }).slice(0, MAX_ARTICLES);
+
+          const sitemapUrls = [];
+          for(const article of published){
+            const filePath = staticPath(article);
+            fs.mkdirSync(path.dirname(filePath), {recursive:true});
+            fs.writeFileSync(filePath, articleHtml(article, filePath));
+            sitemapUrls.push(publicUrlFromPath(filePath));
+          }
+          sitemapUrls.sort();
+          const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${sitemapUrls.map(u => `  <url><loc>${u}</loc></url>`).join('\n')}\n</urlset>\n`;
+          fs.writeFileSync('static-news-sitemap.xml', sitemap);
+          console.log(`Generated ${published.length} static Ozark article pages.`);
+
+          NODE
+          node /tmp/ozark-static-pages.mjs
+
+      - name: Commit generated static pages
+        if: ${{ github.event.inputs.commit_changes == 'true' }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add news weather sports static-news-sitemap.xml
+          if git diff --cached --quiet; then
+            echo "No static page changes to commit."
+          else
+            git commit -m "Build Ozark static news pages"
+            git push
+          fi
+
+      - name: Build summary
+        run: |
+          echo "Static build complete."
+          echo "Review generated pages under /news/YYYY/MM/DD/slug/, /weather/YYYY/MM/DD/slug/, and /sports/YYYY/MM/DD/slug/."

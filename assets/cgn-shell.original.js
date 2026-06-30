@@ -6,7 +6,7 @@
   // Site-wide backend configuration.
   // Store the deployed Apps Script Web App URL in Admin Column K as:
   // google_apps_script_web_app_url
-  const CGN_DEFAULT_API_BASE = "https://script.google.com/macros/s/AKfycbx41mQg-Ine3XZ-VrMI_SaQn4_K6cDQHA0cBFyGPgupu_edNFoNRjSLv2hoSe_bOytt/exec";
+  const CGN_DEFAULT_API_BASE = "https://script.google.com/macros/s/AKfycbw2U1Qezn44zJNnonZMZG06LpB7lh6n7cgiJY8hY34RnriYd2Eq66swuxQ7S_VyHobb/exec";
 
   function normalizeApiBase_(value){
     return String(value || "").trim().replace(/\?+$/, "");

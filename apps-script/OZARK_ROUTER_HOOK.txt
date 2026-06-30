@@ -1,6 +1,17 @@
-Add this inside the existing CGN Apps Script route handler after request parameters are normalized into payload and before the default/unknown action response:
+Add this inside the existing CGN Apps Script doGet route handler after request parameters are normalized into payload and before the default/unknown action response. In the current CGN backend, the JSON helper is named json().
 
-var ozarkResponse = ozarkGazetteRoute_(payload);
-if (ozarkResponse) return jsonOutput_(ozarkResponse);
+Recommended placement in doGet(e), after:
 
-If the existing JSON helper is not named jsonOutput_, use the existing project JSON response helper.
+  e = e || { parameter:{} }; var p=e.parameter || {}; var action=safeString_(p.action); var a=lower_(action);
+
+Insert:
+
+  var ozarkResponse = ozarkGazetteRoute_(getRequestPayload_(e));
+  if (ozarkResponse) return json(ozarkResponse);
+
+Why this is safe:
+- ozarkGazetteRoute_(payload) returns null unless action starts with ozark_.
+- CGN account actions such as login, signup, account_details, subscription_status and confirm_payment continue to run from the CGN backend.
+- Ozark article, archive, obituary and AutoNews actions route to the OzarkGazette.gs extension.
+
+If your deployed CGN backend uses a differently named JSON helper, return ozarkResponse through that project standard JSON response helper.

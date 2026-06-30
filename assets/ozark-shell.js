@@ -1,7 +1,7 @@
 (function(){
   "use strict";
 
-  const API_BASE = "https://script.google.com/macros/s/AKfycbx41mQg-Ine3XZ-VrMI_SaQn4_K6cDQHA0cBFyGPgupu_edNFoNRjSLv2hoSe_bOytt/exec";
+  const API_BASE = "https://script.google.com/macros/s/AKfycbw2U1Qezn44zJNnonZMZG06LpB7lh6n7cgiJY8hY34RnriYd2Eq66swuxQ7S_VyHobb/exec";
   const SITE = "ozark";
   const DEFAULT_IMG = "/OzarkGazetteBanner.png";
   const TECUMSEH = {
@@ -161,6 +161,21 @@
     }
   }
 
+  async function refreshAccountStatus(){
+    const userId = getUser();
+    if(!userId) return;
+    try{
+      const qs = new URLSearchParams({action:"subscription_status", user_id:userId, site:SITE});
+      const res = await fetch(`${API_BASE}?${qs.toString()}`, {cache:"no-store"});
+      const data = await res.json();
+      if(data && data.success){
+        const active = data.subscriber === true || String(data.subscription_status || "").toLowerCase() === "active";
+        if(active) localStorage.setItem("subscriber", "true");
+        else localStorage.removeItem("subscriber");
+      }
+    }catch(e){}
+  }
+
   window.openLogin = openShellLogin;
   window.closeLogin = closeShellLogin;
   window.loginUser = () => authAction("login");
@@ -228,6 +243,7 @@
               <a href="/investigations/" role="menuitem">Investigations</a>
               <a href="/opinion/" role="menuitem">Opinion</a>
               <a href="/obituaries/" role="menuitem">Obituaries</a>
+              <a href="/archives/" role="menuitem">Archives</a>
               <a href="/weather/" role="menuitem">Weather</a>
               <a href="/traffic/" role="menuitem">Traffic</a>
               <a href="/sports/" role="menuitem">Sports</a>
@@ -287,6 +303,7 @@
       }
     });
     updateAccountUI();
+    refreshAccountStatus();
     initWeatherTime();
     loadTicker();
     renderTradingViewTicker();
@@ -296,7 +313,7 @@
     const mount = document.getElementById("cgn-site-footer");
     if(!mount) return;
     injectShellStyles();
-    mount.innerHTML = `<footer class="footer"><div class="footer-container"><div><a class="footer-cgn-logo-link" href="https://www.cgnnews.net/" aria-label="Open CGN News"><svg class="footer-cgn-mark" viewBox="0 0 330 92" role="img" aria-label="CGN"><circle cx="46" cy="46" r="36" fill="none" stroke="currentColor" stroke-width="6"></circle><path d="M12 46h68M46 10c10 10 15 22 15 36S56 72 46 82M46 10C36 20 31 32 31 46s5 26 15 36M18 28h56M18 64h56" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"></path><text x="98" y="64" font-family="Arial Black, Arial, Helvetica, sans-serif" font-size="54" font-weight="900" fill="currentColor" letter-spacing="-2">CGN</text></svg></a><p class="cgn-tag">Real-Time News.<br>Global Perspective.</p><p><strong>The Ozark Gazette</strong><br>P.O. Box 794<br>33256 US Highway 160<br>Tecumseh, Missouri 65760<br>📱 (317) 442-1437<br><a href="mailto:tips@cgnnews.net">tips@cgnnews.net</a></p></div><div><h4><a href="/news/">News</a></h4><a href="/local/">Local</a><br><a href="/us/">US</a><br><a href="/world/">World</a><br><a href="/politics/">Politics</a><br><a href="/investigations/">Investigations</a><br><a href="/opinion/">Opinion</a></div><div><h4>Briefs</h4><a href="/weather/">Weather Brief</a><br><a href="/weather/radar/">Weather Radar</a><br><a href="/traffic/">Traffic Brief</a><br><a href="/sports/">Sports Brief</a><br><a href="/markets/center/">Markets Brief</a><br><a href="/obituaries/">Obituaries</a></div><div><h4>Community</h4><a href="/horoscopes/">Horoscopes</a><br><a href="/sudoku/">Sudoku</a><br><a href="/puzzles/">Puzzles</a><br><a href="/crosswords/">Crosswords</a><br><a href="/reporters/">Reporters</a><br><a href="/about/">About</a></div><div><h4>Support</h4><a href="/contact/">Contact</a><br><a href="/support/">Support</a><br><a href="https://www.cgnnews.net/privacy-policy">Privacy</a><br><a href="https://www.cgnnews.net/terms-of-service">Terms</a><br><a href="https://www.cgnnews.net/editorial-standards/">Editorial Standards</a><br><a href="https://www.cgnnews.net/copyright/">Copyright</a></div></div><div class="footer-bottom"><a href="https://www.cgnnews.net/copyright/">Copyright © 2026 | CGN News — All Rights Reserved</a><div class="footer-developed">Developed by <a href="https://cts.cook-international.com" target="_blank" rel="noopener noreferrer">Cook Technology Services</a></div></div></footer>`;
+    mount.innerHTML = `<footer class="footer"><div class="footer-container"><div><a class="footer-cgn-logo-link" href="https://www.cgnnews.net/" aria-label="Open CGN News"><svg class="footer-cgn-mark" viewBox="0 0 330 92" role="img" aria-label="CGN"><circle cx="46" cy="46" r="36" fill="none" stroke="currentColor" stroke-width="6"></circle><path d="M12 46h68M46 10c10 10 15 22 15 36S56 72 46 82M46 10C36 20 31 32 31 46s5 26 15 36M18 28h56M18 64h56" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"></path><text x="98" y="64" font-family="Arial Black, Arial, Helvetica, sans-serif" font-size="54" font-weight="900" fill="currentColor" letter-spacing="-2">CGN</text></svg></a><p class="cgn-tag">Real-Time News.<br>Global Perspective.</p><p><strong>The Ozark Gazette</strong><br>P.O. Box 794<br>33256 US Highway 160<br>Tecumseh, Missouri 65760<br>📱 (317) 442-1437<br><a href="mailto:tips@cgnnews.net">tips@cgnnews.net</a></p></div><div><h4><a href="/news/">News</a></h4><a href="/local/">Local</a><br><a href="/us/">US</a><br><a href="/world/">World</a><br><a href="/politics/">Politics</a><br><a href="/investigations/">Investigations</a><br><a href="/opinion/">Opinion</a></div><div><h4>Briefs</h4><a href="/weather/">Weather Brief</a><br><a href="/weather/radar/">Weather Radar</a><br><a href="/traffic/">Traffic Brief</a><br><a href="/sports/">Sports Brief</a><br><a href="/markets/center/">Markets Brief</a><br><a href="/obituaries/">Obituaries</a><br><a href="/archives/">Archives</a></div><div><h4>Community</h4><a href="/horoscopes/">Horoscopes</a><br><a href="/sudoku/">Sudoku</a><br><a href="/puzzles/">Puzzles</a><br><a href="/crosswords/">Crosswords</a><br><a href="/reporters/">Reporters</a><br><a href="/about/">About</a></div><div><h4>Support</h4><a href="/contact/">Contact</a><br><a href="/support/">Support</a><br><a href="/archives/">Archives</a><br><a href="https://www.cgnnews.net/privacy-policy">Privacy</a><br><a href="https://www.cgnnews.net/terms-of-service">Terms</a><br><a href="https://www.cgnnews.net/editorial-standards/">Editorial Standards</a><br><a href="https://www.cgnnews.net/copyright/">Copyright</a></div></div><div class="footer-bottom"><a href="https://www.cgnnews.net/copyright/">Copyright © 2026 | CGN News — All Rights Reserved</a><div class="footer-developed">Developed by <a href="https://cts.cook-international.com" target="_blank" rel="noopener noreferrer">Cook Technology Services</a></div></div></footer>`;
   }
 
   function normalizeTimeZoneLabel(label){
@@ -353,6 +370,80 @@
     return {icon:"🌤", text:"Weather"};
   }
 
+
+  function firstNumber(){
+    for(let i = 0; i < arguments.length; i++){
+      const n = Number(arguments[i]);
+      if(Number.isFinite(n)) return n;
+    }
+    return null;
+  }
+
+  function weatherFromConditionText(value){
+    const raw = String(value || "").replace(/_/g, " ").replace(/\s+/g, " ").trim();
+    const text = raw || "Weather";
+    const lower = text.toLowerCase();
+    if(!raw || /^(unknown|not available|n\/a|null)$/i.test(raw)) return null;
+    if(/thunder|t-?storm|lightning/.test(lower)) return {icon:"⛈", text:text};
+    if(/freezing rain|freezing drizzle|sleet|ice pellet/.test(lower)) return {icon:"🌧", text:text};
+    if(/snow|flurr|blizzard/.test(lower)) return {icon:"❄️", text:text};
+    if(/rain|shower|drizzle|sprinkle/.test(lower)) return {icon:/sun|partly/i.test(text) ? "🌦" : "🌧", text:text};
+    if(/fog|mist|haze|smoke|dust/.test(lower)) return {icon:"🌫", text:text};
+    if(/overcast|cloud|cloudy|few clouds|scattered clouds|broken clouds/.test(lower)) return {icon:/partly|few|scattered/i.test(text) ? "🌤" : "☁️", text:text};
+    if(/fair|clear|sunny/.test(lower)) return {icon:"☀️", text:text};
+    return {icon:"🌤", text:text};
+  }
+
+  function nwsValue(field){
+    if(field && typeof field === "object" && "value" in field) return firstNumber(field.value);
+    return firstNumber(field);
+  }
+
+  function celsiusToF(value){
+    const n = firstNumber(value);
+    return n === null ? null : (n * 9 / 5) + 32;
+  }
+
+  function normalizeNWSMiniObservation(properties){
+    if(!properties) return null;
+    const condition = weatherFromConditionText(properties.textDescription);
+    if(!condition) return null;
+    return {
+      condition,
+      conditionText: condition.text,
+      temperature: celsiusToF(nwsValue(properties.temperature)),
+      timestamp: properties.timestamp || null,
+      source: "National Weather Service observation"
+    };
+  }
+
+  async function fetchNWSMiniObservation(){
+    try{
+      const pointsUrl = `https://api.weather.gov/points/${TECUMSEH.latitude.toFixed(4)},${TECUMSEH.longitude.toFixed(4)}`;
+      const pointsResponse = await fetch(pointsUrl, {cache:"no-store", headers:{"Accept":"application/geo+json"}});
+      if(!pointsResponse.ok) return null;
+      const pointsJson = await pointsResponse.json();
+      const stationsUrl = pointsJson && pointsJson.properties ? pointsJson.properties.observationStations : "";
+      if(!stationsUrl) return null;
+      const stationsResponse = await fetch(stationsUrl, {cache:"no-store", headers:{"Accept":"application/geo+json"}});
+      if(!stationsResponse.ok) return null;
+      const stationsJson = await stationsResponse.json();
+      const stations = Array.isArray(stationsJson.features) ? stationsJson.features : [];
+      for(const station of stations.slice(0, 6)){
+        const latestUrl = station && station.id ? station.id.replace(/\/$/, "") + "/observations/latest?require_qc=false" : "";
+        if(!latestUrl) continue;
+        const observationResponse = await fetch(latestUrl, {cache:"no-store", headers:{"Accept":"application/geo+json"}});
+        if(!observationResponse.ok) continue;
+        const observationJson = await observationResponse.json();
+        const observation = normalizeNWSMiniObservation(observationJson && observationJson.properties);
+        if(observation) return observation;
+      }
+    }catch(e){
+      console.warn("OZARK SHELL NWS CURRENT OBSERVATION ERROR:", e);
+    }
+    return null;
+  }
+
   function updateWeatherAria(){
     const linkEl = document.getElementById("cgn-bureau-weather-time");
     const datetimeCompat = document.getElementById("datetime");
@@ -371,9 +462,20 @@
       const url = `https://api.open-meteo.com/v1/forecast?latitude=${TECUMSEH.latitude}&longitude=${TECUMSEH.longitude}&current=temperature_2m,weather_code&temperature_unit=fahrenheit&timezone=auto`;
       const data = await (await fetch(url, {cache:"no-store"})).json();
       const current = data.current || {};
-      const t = Math.round(Number(current.temperature_2m));
-      if(!Number.isFinite(t)) throw new Error("Missing temperature");
-      const info = weatherCodeInfo(current.weather_code);
+      const openMeteoTemp = firstNumber(current.temperature_2m);
+      if(openMeteoTemp === null) throw new Error("Missing temperature");
+      const openMeteoInfo = weatherCodeInfo(current.weather_code);
+
+      /*
+        Keep the global header matched to the full Weather page: use the
+        latest NWS observed text when available. Forecast alerts and
+        Open-Meteo weather_code values must not force the shell to show
+        Storm unless the current observation actually says thunderstorm.
+      */
+      const observed = await fetchNWSMiniObservation();
+      const info = observed && observed.condition ? observed.condition : openMeteoInfo;
+      const tempValue = firstNumber(observed && observed.temperature, openMeteoTemp);
+      const t = Math.round(tempValue);
       const text = `${info.icon} ${t}°F · ${info.text}`;
       el.textContent = text;
       if(compactEl) compactEl.textContent = `${info.icon} ${t}°`;

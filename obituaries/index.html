@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#07172f">
 <meta name="robots" content="index,follow,max-image-preview:large">
-<meta name="cgn-api-base" content="https://script.google.com/macros/s/AKfycbx41mQg-Ine3XZ-VrMI_SaQn4_K6cDQHA0cBFyGPgupu_edNFoNRjSLv2hoSe_bOytt/exec">
+<meta name="cgn-api-base" content="https://script.google.com/macros/s/AKfycbw2U1Qezn44zJNnonZMZG06LpB7lh6n7cgiJY8hY34RnriYd2Eq66swuxQ7S_VyHobb/exec">
 <title>Obituaries | The Ozark Gazette</title>
 <meta name="description" content="Obituaries, community records and remembrance notices for Ozark County and the surrounding area.">
 <link rel="canonical" href="https://ozarks.cgnnews.net/obituaries/">
@@ -70,7 +70,7 @@ const OBIT_API_ACTION = "ozark_obituaries";
 const FALLBACK_IMAGE = "/obituaries/RestInPeace.webp";
 let obitPage = 1;
 const obitLimit = 12;
-function apiBase(){const meta=document.querySelector('meta[name="cgn-api-base"]');return (meta&&meta.content?meta.content:"https://script.google.com/macros/s/AKfycbx41mQg-Ine3XZ-VrMI_SaQn4_K6cDQHA0cBFyGPgupu_edNFoNRjSLv2hoSe_bOytt/exec").replace(/\?+$/,"");}
+function apiBase(){const meta=document.querySelector('meta[name="cgn-api-base"]');return (meta&&meta.content?meta.content:"https://script.google.com/macros/s/AKfycbw2U1Qezn44zJNnonZMZG06LpB7lh6n7cgiJY8hY34RnriYd2Eq66swuxQ7S_VyHobb/exec").replace(/\?+$/,"");}
 function safeText(v){return String(v||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));}
 function safeHref(v){const s=String(v||"").trim();if(!s)return"";if(s.startsWith("/")||/^https?:\/\//i.test(s)||/^mailto:/i.test(s))return s.replace(/["'<>]/g,"");return "";}
 function parsePayload(json){if(!json)return[];if(Array.isArray(json))return json;if(Array.isArray(json.obituaries))return json.obituaries;if(Array.isArray(json.items))return json.items;if(Array.isArray(json.data))return json.data;return[];}
