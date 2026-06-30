@@ -79,8 +79,21 @@
       .social-link:hover,.support-link:hover,.social-link:focus,.support-link:focus{background:#07172f;color:#fff;text-decoration:none}
       .social-link svg{width:19px;height:19px;display:block;fill:currentColor}
       .support-link img{width:28px;height:28px;object-fit:contain;display:block}
-      .ticker{display:flex;gap:24px;align-items:center;min-height:34px;padding:9px 20px;background:#000;color:#fff;font-size:13px;font-weight:800;overflow:hidden}
-      .ticker a{color:#fff;text-decoration:none;line-height:1.35}
+      @keyframes ozarkHeadlineTickerScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+      .ticker{display:flex;align-items:center;gap:12px;min-height:40px;height:40px;padding:0 20px;background:#000;color:#fff;font-size:13px;font-weight:900;overflow:hidden;position:relative;isolation:isolate}
+      .ticker-label{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;height:24px;padding:0 9px;border:1px solid rgba(242,217,144,.54);border-radius:999px;background:#c1121f;color:#fff;font-size:10px;font-weight:900;letter-spacing:.09em;text-transform:uppercase;line-height:1;white-space:nowrap}
+      .ticker-viewport{flex:1 1 auto;min-width:0;height:40px;display:flex;align-items:center;overflow:hidden;position:relative}
+      .ticker-viewport:before,.ticker-viewport:after{content:"";position:absolute;top:0;bottom:0;width:34px;z-index:2;pointer-events:none}
+      .ticker-viewport:before{left:0;background:linear-gradient(90deg,#000,rgba(0,0,0,0))}
+      .ticker-viewport:after{right:0;background:linear-gradient(270deg,#000,rgba(0,0,0,0))}
+      .ticker-track{display:inline-flex;align-items:center;white-space:nowrap;min-width:max-content;will-change:transform;animation:ozarkHeadlineTickerScroll 56s linear infinite}
+      .ticker:hover .ticker-track,.ticker:focus-within .ticker-track{animation-play-state:paused}
+      .ticker-group{display:inline-flex;align-items:center;white-space:nowrap;flex:0 0 auto}
+      .ticker-item{display:inline-flex;align-items:center;white-space:nowrap;flex:0 0 auto;line-height:1}
+      .ticker-item:after{content:"•";display:inline-block;margin:0 18px;color:#f2d990;opacity:.9}
+      .ticker a{color:#fff;text-decoration:none;line-height:1;display:inline-block;white-space:nowrap;max-width:none}
+      .ticker a:hover,.ticker a:focus{color:#f2d990;text-decoration:underline;text-underline-offset:3px}
+      @media(prefers-reduced-motion:reduce){.ticker-track{animation:none}.ticker-viewport{overflow-x:auto;scrollbar-width:none}.ticker-viewport::-webkit-scrollbar{display:none}}
       .market-ticker-wrap{position:relative;background:#020711;color:#fff;border-top:1px solid rgba(255,255,255,.12);border-bottom:1px solid rgba(255,255,255,.12);overflow:hidden;min-height:46px}
       .market-ticker-click{position:absolute;inset:0;z-index:3;display:block;text-indent:-9999px;color:#f2d990;text-decoration:none;font-size:12px;font-weight:900;text-transform:uppercase}
       .market-ticker-live{max-width:1180px;margin:0 auto;padding:0 20px;min-height:46px;display:flex;align-items:center;gap:10px;overflow:hidden}
@@ -291,7 +304,7 @@
           <a class="support-link" href="/support/" aria-label="Support"><img src="/CGNHelpIcon01.png" alt=""></a>
         </div>
       </header>
-      <div class="ticker" id="cgn-shell-ticker"><a href="/news/">Loading Ozark headlines...</a></div>
+      <div class="ticker" id="cgn-shell-ticker" aria-label="The Ozark Gazette live headline feed"><span class="ticker-label">Latest</span><div class="ticker-viewport"><div class="ticker-track"><span class="ticker-group"><span class="ticker-item"><a href="/news/">Loading Ozark headlines...</a></span></span></div></div></div>
       <section class="market-ticker-wrap" aria-label="Markets Brief live stock ticker">
         <a class="market-ticker-click" href="/markets/center/">Open Markets Brief</a>
         <div class="market-ticker-live">
@@ -710,15 +723,27 @@
     return new Intl.DateTimeFormat("en-US", {day:"2-digit", month:"long", year:"numeric", timeZone:"America/Chicago"}).format(d);
   }
 
+  function renderHeadlineTicker(items){
+    const safeItems = (Array.isArray(items) ? items : []).filter(Boolean);
+    const fallback = [{title:"The Ozark Gazette: Your Source for Ozark News, Weather, Sports and Traffic", url:"/news/"}];
+    const feed = safeItems.length ? safeItems : fallback;
+    const links = feed.map(a => {
+      const href = a.url || articleUrl(a) || "/news/";
+      const title = a.title || a.summary || "Ozark Gazette update";
+      return `<span class="ticker-item"><a href="${esc(href)}">${esc(title)}</a></span>`;
+    }).join("");
+    return `<span class="ticker-label">Latest</span><div class="ticker-viewport" role="presentation"><div class="ticker-track"><span class="ticker-group">${links}</span><span class="ticker-group" aria-hidden="true">${links}</span></div></div>`;
+  }
+
   async function loadTicker(){
     const el = document.getElementById("cgn-shell-ticker");
     if(!el) return;
     try{
-      const list = (await fetchArticles({limit:8})).sort((a,b) => articleTime(b) - articleTime(a));
+      const list = (await fetchArticles({limit:12})).sort((a,b) => articleTime(b) - articleTime(a));
       if(!list.length) throw new Error("no articles");
-      el.innerHTML = list.map(a => `<a href="${esc(articleUrl(a))}">${esc(a.title)}</a>`).join(" &nbsp; • &nbsp; ");
+      el.innerHTML = renderHeadlineTicker(list);
     }catch(e){
-      el.innerHTML = '<a href="/news/">The Ozark Gazette: Your Source for Ozark News, Weather, Sports and Traffic</a>';
+      el.innerHTML = renderHeadlineTicker([{title:"The Ozark Gazette: Your Source for Ozark News, Weather, Sports and Traffic", url:"/news/"}]);
     }
   }
 
