@@ -3111,27 +3111,46 @@ async function loadWeatherArticles(){
 
   weatherArticlesCache = [];
   weatherArticlesVisibleCount = 0;
-  mount.innerHTML = `<div class="weather-articles-empty">Loading weather articles...</div>`;
+  mount.innerHTML = `<div class="weather-articles-empty">Loading Ozark Gazette weather articles...</div>`;
   if(loadMoreButton){
     loadMoreButton.hidden = true;
     loadMoreButton.disabled = true;
   }
 
   try{
-    async function readArticlesFrom(url){
-      const response = await fetch(url, { cache: "no-store" });
+    async function readOzarkArticles(params){
+      const url = new URL(CGN_API_BASE);
+      url.searchParams.set("site", "ozark");
+      url.searchParams.set("action", "ozark_articles");
+      Object.keys(params || {}).forEach(function(key){
+        if(params[key] !== undefined && params[key] !== null && params[key] !== ""){
+          url.searchParams.set(key, params[key]);
+        }
+      });
+
+      const response = await fetch(url.toString(), { cache: "no-store" });
       const json = await response.json();
       return normalizeWeatherArticleList(json);
     }
 
-    let articles = await readArticlesFrom(`${CGN_API_BASE}?${OZARK_SITE_PARAM}&action=ozark_articles&category=Weather&limit=${WEATHER_ARTICLES_FETCH_LIMIT}`);
+    /*
+      IMPORTANT:
+      Do not fall back to action=articles or action=weather_articles here.
+      Those routes belong to the main CGN News Articles sheet in the shared Apps
+      Script project. The Ozark Gazette weather page must only use the Ozark
+      Gazette Google Sheet:
+      1Xz9bnMqb-tkHeo2N2UonUbBr1jpo1VzKcVbBW_PU2n0
+      via action=ozark_articles&site=ozark.
+    */
+    let articles = await readOzarkArticles({
+      category: "Weather",
+      limit: WEATHER_ARTICLES_FETCH_LIMIT
+    });
 
     if(!articles.length){
-      articles = await readArticlesFrom(`${CGN_API_BASE}?${OZARK_SITE_PARAM}&action=articles&category=Weather&limit=${WEATHER_ARTICLES_FETCH_LIMIT}`);
-    }
-
-    if(!articles.length){
-      const allArticles = await readArticlesFrom(`${CGN_API_BASE}?${OZARK_SITE_PARAM}&action=ozark_articles&limit=${WEATHER_ARTICLES_FETCH_LIMIT}`);
+      const allArticles = await readOzarkArticles({
+        limit: WEATHER_ARTICLES_FETCH_LIMIT
+      });
       articles = allArticles.filter(function(article){
         return slugify(article.category || "") === "weather";
       });
@@ -3140,7 +3159,7 @@ async function loadWeatherArticles(){
     weatherArticlesCache = sortWeatherArticles(dedupeWeatherArticles(articles));
 
     if(!weatherArticlesCache.length){
-      mount.innerHTML = `<div class="weather-articles-empty">No weather articles are available right now.</div>`;
+      mount.innerHTML = `<div class="weather-articles-empty">No Ozark Gazette weather articles are available right now.</div>`;
       updateWeatherArticleLoadMoreButton();
       return;
     }
@@ -3148,10 +3167,10 @@ async function loadWeatherArticles(){
     renderNextWeatherArticleBatch();
 
   } catch(err){
-    console.error("WEATHER ARTICLES ERROR:", err);
+    console.error("OZARK WEATHER ARTICLES ERROR:", err);
     weatherArticlesCache = [];
     weatherArticlesVisibleCount = 0;
-    mount.innerHTML = `<div class="weather-articles-empty">Weather articles are temporarily unavailable.</div>`;
+    mount.innerHTML = `<div class="weather-articles-empty">Ozark Gazette weather articles are temporarily unavailable.</div>`;
     updateWeatherArticleLoadMoreButton();
   }
 }
