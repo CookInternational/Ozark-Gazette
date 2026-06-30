@@ -1296,3 +1296,16 @@ body{
     text-align:center!important;
   }
 }
+
+
+/* Ozark footer support-link cleanup: Archives belongs under Briefs; Advertise With Us belongs under Support after Copyright. */
+#cgn-site-footer .footer-support-advertise{
+  color:var(--gold2,#f2d990)!important;
+  font-weight:900!important;
+}
+
+#cgn-site-footer .footer-support-advertise:hover,
+#cgn-site-footer .footer-support-advertise:focus{
+  color:#fff!important;
+  text-decoration:underline!important;
+}
