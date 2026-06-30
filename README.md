@@ -24,6 +24,6 @@ Tabs: `Articles`, `Archives`
 
 Use the existing CGN Apps Script project/web app URL, and add `apps-script/OzarkGazette.gs` as a separate file. Add the router hook from `apps-script/OZARK_ROUTER_HOOK.txt` to the main route handler.
 
-Ozark Gasette v1.0 | Last Updated on 30 June 2026 @ 06:31:45Z |
+Ozark Gasette v1.0.1 | Last Updated on 30 June 2026 @ 08:16:45Z |
 Copyright © 2026 Cook Global News Network | All Rights Reserved |
-Developed by Cook Technology Services
+Developed by Cook Technology Services in Chicago, Illinois
