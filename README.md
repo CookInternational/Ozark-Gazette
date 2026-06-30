@@ -1,15 +1,15 @@
-[README.ozark-v1.1.0-format-timestamp-fixed.md](https://github.com/user-attachments/files/29525432/README.ozark-v1.1.0-format-timestamp-fixed.md)
+[README.ozark-v1.2.0-format-timestamp-fixed.md](https://github.com/user-attachments/files/29525432/README.ozark-v1.2.0-format-timestamp-fixed.md)
 <img src="OzarkGazetteLogo.png" alt="The Ozark Gazette" width="260">
 
-# The Ozark Gazette v1.1.0 Production Alpha
+# The Ozark Gazette v1.2.0 Production Alpha
 
 **Plain-English + Technical README / Operating Manual**  
 CGN Shell | Ozark Gazette Local Publishing | Articles + Archives + Obituaries Sheet Routing | One Deployed CGN Apps Script Web App | Shared CGN Account Logic | CGN LIVE Homepage Takeover | PayPal + Paywall Preservation | Account Access | News Page | Weather Brief | Weather Radar | Traffic Brief | Sports Brief | Markets Brief | Puzzles | Horoscopes | Reporters | Obituaries | Court/Public Records Monitoring | SEO | Favicons | Static GitHub Pages Deployment | Apps Script Extension File | One-Week Archive Automation
 
-**Updated:** 30 June 2026 • 20:55:11Z UTC  
-**Site Build Stamp:** 30 June 2026 • 20:55:11Z UTC | Developed by Cook Technology Services  
-**Site Version:** `Ozark Gazette v1.1.0 Production Alpha`  
-**Site Slug:** `ozark-gazette-v1.1.0-production-alpha`  
+**Updated:** 30 June 2026 • 22:37:00Z UTC  
+**Site Build Stamp:** 30 June 2026 • 22:37:00Z UTC | Developed by Cook Technology Services  
+**Site Version:** `Ozark Gazette v1.2.0 Production Alpha`  
+**Site Slug:** `ozark-gazette-v1.2.0-production-alpha`  
 **Apps Script Extension File:** `apps-script/OzarkGazette.gs`  
 **Apps Script Extension Functions:** `102`  
 **Extension doGet / doPost:** `0` / `0`  
@@ -25,13 +25,13 @@ tips@cgnnews.net | https://ozarks.cgnnews.net | +1 (317) 442-1437
 Copyright © 2026 | Cook Global News Network | All Rights Reserved.
 
 ---
-## What Changed in v1.1.0?
+## What Changed in v1.2.0?
 
-v1.1.0 locks the current Ozark Gazette production-alpha shell and discovery files while correcting the article-display and shared-account contract. The site runs through one deployed CGN Apps Script Web App URL, while Ozark publishing reads the Ozark-only Google Sheet tabs: `Articles`, `Archives` and `Obituaries`.
+v1.2.0 locks the current Ozark Gazette production-alpha shell and discovery files while correcting the article-display and shared-account contract. The site runs through one deployed CGN Apps Script Web App URL, while Ozark publishing reads the Ozark-only Google Sheet tabs: `Articles`, `Archives` and `Obituaries`.
 
 ### Fixed and locked in this build
 
-- Updated the README version, build stamp and acceptance tests to `Ozark Gazette v1.1.0 Production Alpha`.
+- Updated the README version, build stamp and acceptance tests to `Ozark Gazette v1.2.0 Production Alpha`.
 - Preserved the exact Ozark Gazette README operating-manual format, address block and copyright line.
 - Locked the deployed Apps Script Web App URL to `https://script.google.com/macros/s/AKfycbx41mQg-Ine3XZ-VrMI_SaQn4_K6cDQHA0cBFyGPgupu_edNFoNRjSLv2hoSe_bOytt/exec`.
 - Locked the Ozark spreadsheet ID to `1Xz9bnMqb-tkHeo2N2UonUbBr1jpo1VzKcVbBW_PU2n0`.
@@ -99,9 +99,9 @@ Technical explanation: the static repo renders pages from HTML, CSS and JavaScri
 
 | Item | Current value |
 |---|---|
-| Site version | `Ozark Gazette v1.1.0 Production Alpha` |
-| Site build stamp | `2026-06-30T20:55:11Z` |
-| README updated | `30 June 2026 • 20:55:11Z UTC` |
+| Site version | `Ozark Gazette v1.2.0 Production Alpha` |
+| Site build stamp | `2026-06-30T22:37:00Z` |
+| README updated | `30 June 2026 • 22:37:00Z UTC` |
 | Production site | `https://ozarks.cgnnews.net` |
 | Repository | `CookInternational/Ozark-Gazette` |
 | Public brand | `The Ozark Gazette` |
@@ -911,8 +911,8 @@ Rules:
 
 The build is acceptable when:
 
-- README shows `Ozark Gazette v1.1.0` as the current build.
-- README timestamp is `30 June 2026 • 20:55:11Z UTC`.
+- README shows `Ozark Gazette v1.2.0` as the current build.
+- README timestamp is `30 June 2026 • 22:37:00Z UTC`.
 - README keeps the copyright line `Copyright © 2026 | Cook Global News Network | All Rights Reserved.`
 - Site canonical base is `https://ozarks.cgnnews.net/`.
 - No page uses `ozarkgazette.com` as canonical.
@@ -1075,7 +1075,7 @@ Do not add a fallback to the main CGN `action=articles` route.
 
 ---
 
-## 18. File Inventory for v1.1.0
+## 18. File Inventory for v1.2.0
 
 | File | Status |
 |---|---|
@@ -1098,6 +1098,6 @@ Do not add a fallback to the main CGN `action=articles` route.
 
 ---
 
-Ozark Gazette v1.1.0 | Last Updated on 30 June 2026 • 20:55:11Z UTC |  
+Ozark Gazette v1.2.0 | Last Updated on 30 June 2026 • 22:37:00Z UTC |  
 Copyright © 2026 Cook Global News Network | All Rights Reserved |  
 Developed by Cook Technology Services in Chicago, Illinois
