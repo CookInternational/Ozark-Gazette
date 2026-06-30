@@ -26,10 +26,9 @@
 <meta name="twitter:image" content="https://ozarks.cgnnews.net/traffic/CGNTrafficCenter.webp">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Traffic Brief | The Ozark Gazette","url":"https://ozarks.cgnnews.net/traffic/","isPartOf":{"@type":"WebSite","name":"The Ozark Gazette","url":"https://ozarks.cgnnews.net/"},"publisher":{"@type":"NewsMediaOrganization","name":"The Ozark Gazette","parentOrganization":{"@type":"NewsMediaOrganization","name":"Cook Global News Network","url":"https://www.cgnnews.net/"}}}</script>
 <link rel="stylesheet" href="/assets/ozark-site.css">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <style>
 .traffic-brief-hero{position:relative;overflow:hidden;border:1px solid #07172f;background:#07172f;color:#fff;margin:0 0 22px;min-height:300px;display:flex;align-items:flex-end;box-shadow:0 20px 48px rgba(7,23,47,.18)}
-.traffic-brief-hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.86}.traffic-brief-hero:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(7,23,47,.96),rgba(7,23,47,.72) 48%,rgba(7,23,47,.18)),radial-gradient(circle at 16% 18%,rgba(214,168,79,.22),transparent 30%)}.traffic-brief-copy{position:relative;z-index:2;max-width:850px;padding:32px}.traffic-brief-copy h1{font-family:Georgia,'Times New Roman',serif;font-size:clamp(38px,6vw,66px);line-height:.96;letter-spacing:-.045em;margin:0}.traffic-brief-copy p{font-size:16px;line-height:1.58;color:#dbe4f2;max-width:760px}.traffic-kicker{color:#f2d990;font-size:12px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;margin:0 0 10px}.traffic-dashboard{display:grid;grid-template-columns:1.1fr .9fr;gap:18px;align-items:stretch;margin:0 0 26px}.traffic-live-card,.traffic-source-card,.route-card{background:#fff;border:1px solid #d8dce4;box-shadow:0 12px 28px rgba(7,17,31,.07);overflow:hidden}.traffic-live-card{background:radial-gradient(circle at 12% 16%,rgba(47,137,255,.22),transparent 28%),linear-gradient(135deg,#030712 0%,#07111f 52%,#0b2546 100%);color:#fff;padding:22px;position:relative}.traffic-light-wrap{display:flex;gap:16px;align-items:center}.traffic-signal{width:54px;height:126px;border:2px solid rgba(255,255,255,.74);border-radius:18px;background:#020617;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:10px;box-shadow:0 18px 36px rgba(0,0,0,.35)}.traffic-light{width:23px;height:23px;border-radius:999px;opacity:.28;box-shadow:inset 0 2px 5px rgba(255,255,255,.18),inset 0 -3px 8px rgba(0,0,0,.50)}.traffic-red{background:#ef4444}.traffic-yellow{background:#fbbf24;opacity:1;box-shadow:0 0 0 5px rgba(251,191,36,.18),0 0 24px rgba(251,191,36,.85)}.traffic-green{background:#22c55e}.traffic-live-card h2{font-size:34px;letter-spacing:-.035em;margin:0 0 8px}.traffic-live-card p{color:#d9e1ee;line-height:1.55;margin:0}.traffic-status-pill{display:inline-flex;margin:0 0 12px;padding:7px 10px;border:1px solid rgba(251,191,36,.48);border-radius:999px;color:#fde68a;background:rgba(251,191,36,.14);font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.08em}.route-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:18px}.route-chip{border:1px solid rgba(255,255,255,.18);background:rgba(2,7,17,.42);padding:12px}.route-chip strong{display:block}.route-chip span{display:block;color:#cbd5e1;font-size:12px;margin-top:5px;line-height:1.35}.source-list{display:grid;gap:10px;padding:18px}.traffic-source-card h2,.route-card h2{margin:0;padding:18px 18px 0;color:#07172f;font-family:Georgia,'Times New Roman',serif;font-size:28px;letter-spacing:-.025em}.traffic-source-card p,.route-card p{padding:0 18px;color:#475467;line-height:1.5}.source-list a{display:flex;justify-content:space-between;gap:12px;padding:12px;border:1px solid #dfe4eb;text-decoration:none;color:#07172f;font-weight:900}.source-list a span{display:block;color:#64748b;font-size:12px;font-weight:700;margin-top:3px;line-height:1.35}.source-list a:hover{background:#07172f;color:#fff}.source-list a:hover span{color:#dbe4f2}.traffic-map-shell{margin:0 0 26px;border:1px solid #d8dce4;background:#fff;box-shadow:0 12px 28px rgba(7,17,31,.07);padding:18px}.traffic-map-shell iframe{width:100%;height:420px;border:0;background:#f5f7fa}.traffic-map-layout{display:grid;grid-template-columns:1.18fr .82fr;gap:16px;align-items:stretch}.traffic-state-map{min-height:480px;width:100%;border:1px solid #d8dce4;background:#e8eef7;overflow:hidden}.traffic-map-panel{display:flex;flex-direction:column;gap:12px}.traffic-map-control-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.traffic-map-control-grid button,.traffic-map-control-grid a{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:9px 10px;border:1px solid #07172f;background:#07172f;color:#fff;text-decoration:none;font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.04em;cursor:pointer}.traffic-map-control-grid button:hover,.traffic-map-control-grid a:hover{background:#c1121f;border-color:#c1121f}.traffic-map-control-grid .light{background:#fff;color:#07172f}.traffic-map-control-grid .wide{grid-column:1/-1}.traffic-map-legend{border:1px solid #d8dce4;background:#f8fafc;padding:12px;color:#475467;font-size:12px;line-height:1.45}.traffic-map-legend strong{display:block;color:#07172f;margin-bottom:6px}.traffic-map-legend ul{margin:8px 0 0;padding-left:18px}.traffic-modot-frame{margin-top:16px;border-top:1px solid #d8dce4;padding-top:16px}.traffic-note{font-size:12px;color:#64748b;line-height:1.45;margin:10px 0 0}.traffic-state-dot{background:#c1121f;border:2px solid #fff;border-radius:999px;box-shadow:0 0 0 4px rgba(193,18,31,.18)}.traffic-routes{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:0 0 26px}.route-card{padding-bottom:16px}.route-card strong{display:block;padding:0 18px 4px;color:#07172f}.back-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}.back-row a{display:inline-flex;align-items:center;justify-content:center;padding:10px 13px;background:#07172f;color:#fff;text-decoration:none;font-weight:900;font-size:12px;text-transform:uppercase}
+.traffic-brief-hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.86}.traffic-brief-hero:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(7,23,47,.96),rgba(7,23,47,.72) 48%,rgba(7,23,47,.18)),radial-gradient(circle at 16% 18%,rgba(214,168,79,.22),transparent 30%)}.traffic-brief-copy{position:relative;z-index:2;max-width:850px;padding:32px}.traffic-brief-copy h1{font-family:Georgia,'Times New Roman',serif;font-size:clamp(38px,6vw,66px);line-height:.96;letter-spacing:-.045em;margin:0}.traffic-brief-copy p{font-size:16px;line-height:1.58;color:#dbe4f2;max-width:760px}.traffic-kicker{color:#f2d990;font-size:12px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;margin:0 0 10px}.traffic-dashboard{display:grid;grid-template-columns:1.1fr .9fr;gap:18px;align-items:stretch;margin:0 0 26px}.traffic-live-card,.traffic-source-card,.route-card{background:#fff;border:1px solid #d8dce4;box-shadow:0 12px 28px rgba(7,17,31,.07);overflow:hidden}.traffic-live-card{background:radial-gradient(circle at 12% 16%,rgba(47,137,255,.22),transparent 28%),linear-gradient(135deg,#030712 0%,#07111f 52%,#0b2546 100%);color:#fff;padding:22px;position:relative}.traffic-light-wrap{display:flex;gap:16px;align-items:center}.traffic-signal{width:54px;height:126px;border:2px solid rgba(255,255,255,.74);border-radius:18px;background:#020617;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:10px;box-shadow:0 18px 36px rgba(0,0,0,.35)}.traffic-light{width:23px;height:23px;border-radius:999px;opacity:.28;box-shadow:inset 0 2px 5px rgba(255,255,255,.18),inset 0 -3px 8px rgba(0,0,0,.50)}.traffic-red{background:#ef4444}.traffic-yellow{background:#fbbf24;opacity:1;box-shadow:0 0 0 5px rgba(251,191,36,.18),0 0 24px rgba(251,191,36,.85)}.traffic-green{background:#22c55e}.traffic-live-card h2{font-size:34px;letter-spacing:-.035em;margin:0 0 8px}.traffic-live-card p{color:#d9e1ee;line-height:1.55;margin:0}.traffic-status-pill{display:inline-flex;margin:0 0 12px;padding:7px 10px;border:1px solid rgba(251,191,36,.48);border-radius:999px;color:#fde68a;background:rgba(251,191,36,.14);font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.08em}.route-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:18px}.route-chip{border:1px solid rgba(255,255,255,.18);background:rgba(2,7,17,.42);padding:12px}.route-chip strong{display:block}.route-chip span{display:block;color:#cbd5e1;font-size:12px;margin-top:5px;line-height:1.35}.source-list{display:grid;gap:10px;padding:18px}.traffic-source-card h2,.route-card h2{margin:0;padding:18px 18px 0;color:#07172f;font-family:Georgia,'Times New Roman',serif;font-size:28px;letter-spacing:-.025em}.traffic-source-card p,.route-card p{padding:0 18px;color:#475467;line-height:1.5}.source-list a{display:flex;justify-content:space-between;gap:12px;padding:12px;border:1px solid #dfe4eb;text-decoration:none;color:#07172f;font-weight:900}.source-list a span{display:block;color:#64748b;font-size:12px;font-weight:700;margin-top:3px;line-height:1.35}.source-list a:hover{background:#07172f;color:#fff}.source-list a:hover span{color:#dbe4f2}.traffic-map-shell{margin:0 0 26px;border:1px solid #d8dce4;background:#fff;box-shadow:0 12px 28px rgba(7,17,31,.07);padding:18px}.traffic-map-shell iframe{width:100%;height:620px;border:0;background:#f5f7fa}.traffic-modot-actions{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0 0}.traffic-modot-actions a{display:inline-flex;align-items:center;justify-content:center;padding:10px 13px;background:#07172f;color:#fff;text-decoration:none;font-weight:900;font-size:12px;text-transform:uppercase}.traffic-modot-actions a.secondary{background:#fff;color:#07172f;border:1px solid #07172f}.traffic-modot-actions a:hover{background:#c1121f;color:#fff;border-color:#c1121f}.traffic-routes{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:0 0 26px}.route-card{padding-bottom:16px}.route-card strong{display:block;padding:0 18px 4px;color:#07172f}.back-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}.back-row a{display:inline-flex;align-items:center;justify-content:center;padding:10px 13px;background:#07172f;color:#fff;text-decoration:none;font-weight:900;font-size:12px;text-transform:uppercase}
 @media(max-width:900px){.traffic-dashboard{grid-template-columns:1fr}.route-grid{grid-template-columns:1fr}.traffic-brief-copy{padding:24px 20px}.traffic-map-layout{grid-template-columns:1fr}.traffic-state-map{min-height:390px}.traffic-map-shell iframe{height:360px}.traffic-map-control-grid{grid-template-columns:1fr}}
 </style>
 <script defer src="/assets/ozark-shell.js"></script>
@@ -73,35 +72,15 @@
     </aside>
   </section>
 
-  <section class="traffic-map-shell" aria-label="Missouri traffic map source">
-    <div class="section-title"><h2>Missouri Traffic Map</h2><span>Statewide Missouri coverage, defaulted to Tecumseh and Ozark County.</span></div>
-    <div class="traffic-map-layout">
-      <div id="ozarkTrafficMap" class="traffic-state-map" role="application" aria-label="Statewide Missouri traffic map focused on Tecumseh"></div>
-      <aside class="traffic-map-panel" aria-label="Traffic map controls and source notes">
-        <div class="traffic-map-control-grid">
-          <button type="button" onclick="setOzarkTrafficMapView('tecumseh')">Tecumseh Focus</button>
-          <button type="button" onclick="setOzarkTrafficMapView('missouri')">Show Missouri</button>
-          <button type="button" class="light" onclick="setOzarkTrafficMapView('springfield')">Springfield</button>
-          <button type="button" class="light" onclick="setOzarkTrafficMapView('westplains')">West Plains</button>
-          <a class="wide" href="https://traveler.modot.org/map/" target="_blank" rel="noopener">Open Live MoDOT Traveler Map</a>
-        </div>
-        <div class="traffic-map-legend">
-          <strong>Map scope</strong>
-          The embedded map includes Missouri statewide reference points while opening on Tecumseh, US-160, MO-5 and Ozark County roads. Use the MoDOT Traveler map for live official incidents, closures, flooding, winter road conditions, work zones, cameras and traffic speed.
-          <ul>
-            <li>Default view: Tecumseh / Ozark County.</li>
-            <li>Statewide view: all of Missouri.</li>
-            <li>Official live source: MoDOT Traveler Information Map.</li>
-          </ul>
-        </div>
-        <p class="traffic-note">Do not use maps, camera pages, or mobile traffic tools while driving. Pull over safely or let a passenger check road conditions.</p>
-      </aside>
+  <section class="traffic-map-shell" aria-label="Official MoDOT Traveler map">
+    <div class="section-title"><h2>Official MoDOT Traveler Map</h2><span>Statewide Missouri live source. Start with Tecumseh, US-160, MO-5 and Ozark County in mind.</span></div>
+    <iframe title="MoDOT Traveler Information Map" src="https://traveler.modot.org/map/" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+    <div class="traffic-modot-actions">
+      <a href="https://traveler.modot.org/map/" target="_blank" rel="noopener">Open Full MoDOT Traveler Map</a>
+      <a class="secondary" href="https://www.mshp.dps.missouri.gov/HP68/search.jsp" target="_blank" rel="noopener">Open MSHP Crash Reports</a>
+      <a class="secondary" href="/weather/radar/">Open Weather Radar</a>
     </div>
-    <div class="traffic-modot-frame">
-      <div class="section-title"><h2>Official MoDOT Traveler</h2><span>Live Missouri traffic source.</span></div>
-      <iframe title="MoDOT Traveler Information" src="https://traveler.modot.org/map/" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
-      <p class="traffic-note">If the MoDOT map does not display inside the page, use the Open Live MoDOT Traveler Map button. Some official-source maps restrict embedding or behave differently across devices.</p>
-    </div>
+    <p class="traffic-note">The MoDOT Traveler Information Map is the official live Missouri traffic source for incidents, closures, flooding, work zones, winter road conditions, traffic, cameras, message boards and radar. If it does not display inside this page, open it directly with the button above. Do not use traffic maps, camera pages or mobile traffic tools while driving.</p>
   </section>
 
   <section class="traffic-routes" aria-label="Local traffic focus areas">
@@ -113,50 +92,6 @@
   <section><div class="section-title"><h2>Traffic Briefs</h2><span>Loaded from the Articles sheet.</span></div><div id="categoryGrid" class="article-grid" data-article-grid data-category="Traffic" data-limit="9"><div class="empty">Loading traffic briefs...</div></div></section>
 </main>
 <div id="cgn-site-footer"></div>
-
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script>
-const OZARK_TRAFFIC_POINTS = {
-  tecumseh: { label:"Tecumseh / Ozark County", lat:36.5836, lon:-92.2863, zoom:9, note:"US-160, MO-5, Tecumseh and low-water road focus." },
-  springfield: { label:"Springfield / Southwest Missouri", lat:37.2089, lon:-93.2923, zoom:9, note:"Regional Ozarks traffic hub and MoDOT district connections." },
-  westplains: { label:"West Plains / Southern Missouri", lat:36.7281, lon:-91.8524, zoom:9, note:"Southern Missouri route connections near Ozark County." },
-  stlouis: { label:"St. Louis", lat:38.6270, lon:-90.1994, zoom:8, note:"Eastern Missouri interstate and metro traffic." },
-  kansascity: { label:"Kansas City", lat:39.0997, lon:-94.5786, zoom:8, note:"Western Missouri interstate and metro traffic." },
-  columbia: { label:"Columbia / Mid-Missouri", lat:38.9517, lon:-92.3341, zoom:8, note:"I-70 and central Missouri traffic reference." }
-};
-let ozarkTrafficMap;
-let ozarkTrafficStateLayer;
-function initOzarkTrafficMap(){
-  const mount = document.getElementById("ozarkTrafficMap");
-  if(!mount || !window.L) return;
-  ozarkTrafficMap = L.map(mount, { scrollWheelZoom:false }).setView([OZARK_TRAFFIC_POINTS.tecumseh.lat, OZARK_TRAFFIC_POINTS.tecumseh.lon], OZARK_TRAFFIC_POINTS.tecumseh.zoom);
-  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom:19, attribution:"&copy; OpenStreetMap contributors" }).addTo(ozarkTrafficMap);
-  const missouriBounds = [[35.9956,-95.7747],[40.6136,-89.0988]];
-  ozarkTrafficStateLayer = L.rectangle(missouriBounds, { color:"#07172f", weight:2, fill:false, dashArray:"7 5" }).addTo(ozarkTrafficMap);
-  Object.keys(OZARK_TRAFFIC_POINTS).forEach(function(key){
-    const point = OZARK_TRAFFIC_POINTS[key];
-    const marker = L.marker([point.lat, point.lon]).addTo(ozarkTrafficMap);
-    marker.bindPopup("<strong>" + point.label + "</strong><br>" + point.note + "<br><a href='https://traveler.modot.org/map/' target='_blank' rel='noopener'>Open MoDOT Traveler</a>");
-  });
-  L.polyline([[36.7281,-91.8524],[36.5836,-92.2863],[36.6031,-92.4299],[36.6500,-93.2200]], { color:"#c1121f", weight:4, opacity:.8 }).addTo(ozarkTrafficMap).bindPopup("US-160 southern Missouri / Ozark County focus corridor");
-  L.polyline([[36.5836,-92.2863],[36.6031,-92.4299],[36.7553,-92.5799],[37.2089,-93.2923]], { color:"#d6a84f", weight:4, opacity:.85 }).addTo(ozarkTrafficMap).bindPopup("MO-5 / regional Ozarks connection focus");
-  setTimeout(function(){ ozarkTrafficMap.invalidateSize(); }, 250);
-}
-function setOzarkTrafficMapView(view){
-  if(!ozarkTrafficMap) return;
-  if(view === "missouri"){
-    ozarkTrafficMap.fitBounds([[35.9956,-95.7747],[40.6136,-89.0988]], { padding:[18,18] });
-    return;
-  }
-  const point = OZARK_TRAFFIC_POINTS[view] || OZARK_TRAFFIC_POINTS.tecumseh;
-  ozarkTrafficMap.setView([point.lat, point.lon], point.zoom);
-}
-if(document.readyState === "loading"){
-  document.addEventListener("DOMContentLoaded", initOzarkTrafficMap);
-} else {
-  initOzarkTrafficMap();
-}
-</script>
 
 </body>
 </html>
