@@ -146,13 +146,14 @@ a{color:inherit}
 @media(max-width:560px){.cgn-live-video-wrap{min-height:235px}.cgn-live-fallback-card{padding:12px}.cgn-live-fallback-image{max-height:105px}}
 </style>
 
+<link rel="stylesheet" href="/assets/ozark-site.css">
 <script defer src="/assets/cgn-dynamic-translate.js"></script>
 </head>
 <body>
 
 <div id="cgn-site-header"></div>
 
-<main class="cgn-market-page">
+<main id="main-content" class="cgn-market-page">
 
   <section class="market-hero">
     <img src="/OzarkGazetteBanner.png" alt="The Ozark Gazette Markets Brief — Markets Brief">
@@ -462,7 +463,7 @@ async function loadMarketArticles(){
 }
 function renderArticleCard(a){
   const url = normalizeArticleUrl(a);
-  const image = a.hero_image_url || a.image || "https://www.cgnnews.net/category/CGNMarkets01.png";
+  const image = a.hero_image_url || a.image || "/OzarkGazetteBanner.png";
   const date = formatCGNDate(a.published_at || a.updated_at);
   return `<article class="market-article-card"><a href="${escapeHtml(url)}" aria-label="${escapeHtml(a.title || "Markets brief")}"><img src="${escapeHtml(image)}" alt=""></a><div class="market-article-body"><p class="market-article-kicker">Markets</p><h3><a href="${escapeHtml(url)}">${escapeHtml(a.title || "Untitled article")}</a></h3><p class="market-article-meta">By ${escapeHtml(a.author || "The Ozark Gazette")}${date ? " • " + escapeHtml(date) : ""}</p><p class="market-article-summary">${escapeHtml(a.summary || a.subtitle || "")}</p></div></article>`;
 }
