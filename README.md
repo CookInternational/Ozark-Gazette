@@ -1,17 +1,16 @@
-[README.md](https://github.com/user-attachments/files/29525279/README.md)
-[README.md](https://github.com/user-attachments/files/29523056/README.md)
+[README.ozark-v1.1.0-format-timestamp-fixed.md](https://github.com/user-attachments/files/29525432/README.ozark-v1.1.0-format-timestamp-fixed.md)
 <img src="OzarkGazetteLogo.png" alt="The Ozark Gazette" width="260">
 
 # The Ozark Gazette v1.1.0 Production Alpha
 
 **Plain-English + Technical README / Operating Manual**  
-CGN Shell | Ozark Gazette Local Publishing | Articles + Archives Sheet Routing | CGN LIVE Homepage Takeover | PayPal + Paywall Preservation | Account Access | News Page | Weather Brief | Weather Radar | Traffic Brief | Sports Brief | Markets Brief | Puzzles | Horoscopes | Reporters | Obituaries | Court/Public Records Monitoring | SEO | Favicons | Static GitHub Pages Deployment | Apps Script Extension | One-Week Archive Automation
+CGN Shell | Ozark Gazette Local Publishing | Articles + Archives + Obituaries Sheet Routing | One Deployed CGN Apps Script Web App | Shared CGN Account Logic | CGN LIVE Homepage Takeover | PayPal + Paywall Preservation | Account Access | News Page | Weather Brief | Weather Radar | Traffic Brief | Sports Brief | Markets Brief | Puzzles | Horoscopes | Reporters | Obituaries | Court/Public Records Monitoring | SEO | Favicons | Static GitHub Pages Deployment | Apps Script Extension File | One-Week Archive Automation
 
 **Updated:** 30 June 2026 • 20:55:11Z UTC  
 **Site Build Stamp:** 30 June 2026 • 20:55:11Z UTC | Developed by Cook Technology Services  
 **Site Version:** `Ozark Gazette v1.1.0 Production Alpha`  
 **Site Slug:** `ozark-gazette-v1.1.0-production-alpha`  
-**Apps Script Extension:** `apps-script/OzarkGazette.gs`  
+**Apps Script Extension File:** `apps-script/OzarkGazette.gs`  
 **Apps Script Extension Functions:** `102`  
 **Extension doGet / doPost:** `0` / `0`  
 **Duplicate Function Declarations:** `0`  
@@ -28,17 +27,23 @@ Copyright © 2026 | Cook Global News Network | All Rights Reserved.
 ---
 ## What Changed in v1.1.0?
 
-v1.1.0 locks the current Ozark Gazette production-alpha shell and discovery files after the homepage banner-widget and sitemap updates.
+v1.1.0 locks the current Ozark Gazette production-alpha shell and discovery files while correcting the article-display and shared-account contract. The site runs through one deployed CGN Apps Script Web App URL, while Ozark publishing reads the Ozark-only Google Sheet tabs: `Articles`, `Archives` and `Obituaries`.
 
 ### Fixed and locked in this build
 
-- Updated `sitemap.xml` to the current Ozarks canonical route list.
 - Updated the README version, build stamp and acceptance tests to `Ozark Gazette v1.1.0 Production Alpha`.
+- Preserved the exact Ozark Gazette README operating-manual format, address block and copyright line.
+- Locked the deployed Apps Script Web App URL to `https://script.google.com/macros/s/AKfycbx41mQg-Ine3XZ-VrMI_SaQn4_K6cDQHA0cBFyGPgupu_edNFoNRjSLv2hoSe_bOytt/exec`.
+- Locked the Ozark spreadsheet ID to `1Xz9bnMqb-tkHeo2N2UonUbBr1jpo1VzKcVbBW_PU2n0`.
+- Preserved Ozark sheet routing through `ozark_articles`, `ozark_article`, `ozark_archives`, `ozark_obituaries` and `ozark_obituary`.
+- Fixed article-display expectations for the homepage, `/news/`, category pages and `article.html`.
+- Preserved shared CGN account/login/signup/paywall behavior through the CGN backend actions instead of creating a separate Ozark account system.
 - Preserved the homepage banner carousel order and CGN-style News, Weather, Traffic, Sports and Market Watch widgets.
 - Preserved the global shell route order: `News`, `Weather`, `Radar`, `Traffic`, `Sports`.
+- Preserved CGN LIVE and CGN Weather embed links in CGN LIVE.
 - Preserved the footer line: `Developed by Cook Technology Services`, linked to `https://cts.cook-international.com`.
-- Preserved Ozark sheet routing through `ozark_articles`, `ozark_article` and `ozark_archives`.
 - Preserved the single-trigger Ozark AutoNews22 dispatcher for Traffic Brief, Daily Weather Brief, Severe Weather Alert checks and Sports Brief publishing.
+
 
 ## What Changed in v1.0.3?
 
@@ -86,7 +91,7 @@ The Ozark Gazette is a production-ready alpha local news website operated by Coo
 
 Plain-English explanation: the public site is a local Ozarks newspaper front end. Readers browse Local, US, World, Politics, Investigations, Markets, Technology, Opinion, Environment, Entertainment, Obituaries, Weather, Radar, Traffic, Sports, Horoscopes, Sudoku, Puzzles, Crosswords and Reporters. The site loads published stories from the Ozark Gazette Google Sheet, displays them in category pages and article pages, and keeps current reader tools such as weather/time, stock ticker, CGN LIVE and account access in the global shell.
 
-Technical explanation: the static repo renders pages from HTML, CSS and JavaScript. `assets/ozark-shell.js` injects the global header/footer, account modal, local time/weather widget, stock ticker and shared article helpers. Category pages declare an article grid and category name; the shell calls the Apps Script web app using `site=ozark&action=ozark_articles`. `article.html` loads one article by slug or ID through `ozark_article`. `apps-script/OzarkGazette.gs` is added to the existing CGN Apps Script project as an extension router for Ozark-specific actions and reads the separate Ozark Gazette spreadsheet.
+Technical explanation: the static repo renders pages from HTML, CSS and JavaScript. `assets/ozark-shell.js` injects the global header/footer, account modal, local time/weather widget, stock ticker and shared article helpers. Category pages declare an article grid and category name; the shell calls the Apps Script web app using `site=ozark&action=ozark_articles`. `article.html` loads one article by slug or ID through `ozark_article`. `apps-script/OzarkGazette.gs` is added to the existing CGN Apps Script project as an extension router for Ozark-specific actions and reads the separate Ozark Gazette spreadsheet tabs for Articles, Archives and Obituaries.
 
 ---
 
@@ -104,7 +109,7 @@ Technical explanation: the static repo renders pages from HTML, CSS and JavaScri
 | Developer | `Cook Technology Services` |
 | Primary contact | `tips@cgnnews.net` |
 | Editor contact | `editor@cgnnews.net` for Michael A. Cook only |
-| Apps Script extension source | `apps-script/OzarkGazette.gs` |
+| Apps Script extension file | `apps-script/OzarkGazette.gs` |
 | Apps Script extension functions | `102` |
 | Extension doGet / doPost | `0` / `0` |
 | Duplicate extension functions | `0` |
@@ -112,13 +117,14 @@ Technical explanation: the static repo renders pages from HTML, CSS and JavaScri
 | Ozark spreadsheet ID | `1Xz9bnMqb-tkHeo2N2UonUbBr1jpo1VzKcVbBW_PU2n0` |
 | Active source tab | `Articles` |
 | Archive source tab | `Archives` |
+| Obituaries source tab | `Obituaries` |
 | Archive age | `168 hours` / one week |
 | Default hero image | `https://ozarks.cgnnews.net/OzarkGazetteBanner.png` |
 
 Critical controls:
 
-- Do not replace the main CGN Apps Script backend with the Ozark extension.
-- Do not add a second `doGet` or `doPost` in `OzarkGazette.gs`.
+- Do not deploy a separate Ozark account system or replace the shared CGN account backend.
+- Do not add a second `doGet` or `doPost` in `OzarkGazette.gs`; the deployed CGN Web App owns the web-app entry points.
 - Do not route Ozark pages to the main CGN `Articles` sheet unless the page intentionally links externally.
 - Ozark article feeds must call `action=ozark_articles` with `site=ozark`.
 - Ozark single-article loads must call `action=ozark_article` with `site=ozark`.
@@ -136,6 +142,7 @@ Critical controls:
 |---|---|
 | `index.html` | Homepage with Ozark live/headline widget and CGN LIVE takeover. |
 | `news/index.html` | News disambiguation page; loads all Ozark Gazette published articles. |
+| `archives/index.html` | Archive page; loads older Ozark Gazette articles from the Archives tab. |
 | `article.html` | Dynamic article reader for Ozark Gazette sheet articles. |
 | `assets/ozark-shell.js` | Ozark global shell: header, footer, account modal, weather/time, stock ticker, article helpers. |
 | `assets/ozark-site.css` | Global Ozark layout, shell, footer, widgets, article cards and responsive behavior. |
@@ -169,6 +176,7 @@ Critical controls:
 |---|---|---|
 | `/` | Homepage | Ozark `Articles` through shell helpers. |
 | `/news/` | All-news disambiguation | Ozark `Articles`. |
+| `/archives/` | Older-story archive | Ozark `Archives`. |
 | `/local/` | Category page | Ozark `Articles`, category `Local`. |
 | `/us/` | Category page | Ozark `Articles`, category `US`. |
 | `/world/` | Category page | Ozark `Articles`, category `World`. |
@@ -180,7 +188,7 @@ Critical controls:
 | `/opinion/` | Category page | Ozark `Articles`, category `Opinion`. |
 | `/environment/` | Category page | Ozark `Articles`, category `Environment`. |
 | `/entertainment/` | Category page | Ozark `Articles`, category `Entertainment`. |
-| `/obituaries/` | Category page | Ozark `Articles`, category `Obituaries`. |
+| `/obituaries/` | Obituaries page | Ozark `Obituaries` tab, with article-style fallback only where intentionally implemented. |
 | `/weather/` | Weather Brief | Weather widget + Ozark `Weather` articles. |
 | `/weather/radar/` | Weather Radar | Weather subpage; not an article category. |
 | `/traffic/` | Traffic Brief | Traffic page + Ozark `Traffic` articles. |
@@ -194,7 +202,7 @@ Critical controls:
 | `/contact/` | Contact page | Static. |
 | `/support/` | Support page | Static. |
 | `/account/` | Account handoff | Preserved CGN-style account flow. |
-| `/article.html?slug=...` | Article view | Ozark `Articles` then `Archives`. |
+| `/article.html?slug=...` | Article view | Ozark `Articles` first, then Ozark `Archives`. |
 | `/reproters/` | Redirect | Redirects to `/reporters/`. |
 
 ---
@@ -310,7 +318,7 @@ The Ozark Gazette uses a separate Google Sheet from the main CGN News site.
 
 ```text
 Spreadsheet ID: 1Xz9bnMqb-tkHeo2N2UonUbBr1jpo1VzKcVbBW_PU2n0
-Tabs: Articles, Archives
+Tabs: Articles, Archives, Obituaries
 ```
 
 ### Active articles
@@ -320,6 +328,10 @@ Tabs: Articles, Archives
 ### Archives
 
 `Archives` is the older-story tab. Articles move from `Articles` to `Archives` after one week.
+
+### Obituaries
+
+`Obituaries` is the obituary source tab. The public obituaries page should read this tab through `ozark_obituaries` and single obituary loads should use `ozark_obituary`.
 
 ### Article schema
 
@@ -348,6 +360,32 @@ status
 seo_title
 seo_description
 display_order
+```
+
+### Obituary schema
+
+The `Obituaries` tab should use this header row:
+
+```text
+obit_id
+name
+age
+slug
+source_name
+source_url
+source_published_at
+published_at
+updated_at
+date_of_death
+service_date
+location
+summary
+body_html
+image_url
+image_credit
+imported_at
+last_seen_at
+status
 ```
 
 ### Category values
@@ -423,6 +461,18 @@ Archive feeds use:
 ?action=ozark_archives&site=ozark
 ```
 
+Obituary feeds use:
+
+```text
+?action=ozark_obituaries&site=ozark
+```
+
+Single obituary loads use:
+
+```text
+?action=ozark_obituary&site=ozark&slug=OBITUARY_SLUG
+```
+
 ### Important regression rule
 
 Do not fall back to:
@@ -430,6 +480,8 @@ Do not fall back to:
 ```text
 ?action=articles
 ```
+
+Do not build login/signup/account calls against Ozark-only actions. Account logic must use the shared CGN account endpoints through the same deployed Web App.
 
 on Ozark pages. That route may return the main CGN News article sheet instead of The Ozark Gazette sheet.
 
@@ -443,7 +495,7 @@ The Apps Script extension is:
 apps-script/OzarkGazette.gs
 ```
 
-This file is an add-on extension for the existing CGN Apps Script project. It is not a standalone web app by itself.
+This file is an add-on extension file inside the single deployed CGN Apps Script Web App project. It is not a second standalone web app by itself.
 
 ### Function inventory
 
@@ -470,6 +522,8 @@ This file is an add-on extension for the existing CGN Apps Script project. It is
 | `OGZ_deleteArchiveTrigger_()` | Deletes the Ozark archive trigger. |
 | `OGZ_archiveTriggerStatus_()` | Returns archive trigger status. |
 | `OGZ_archiveDailyJob()` | Trigger handler for daily archive movement. |
+| `OGZ_obituaries_(payload)` | Reads the `Obituaries` tab. |
+| `OGZ_obituary_(payload)` | Finds one obituary by slug or `obit_id`. |
 | `OGZ_sourceRegistry_()` | Returns source registry groups. |
 | `OGZ_obituarySources_()` | Returns obituary monitoring sources. |
 | `OGZ_courtSources_()` | Returns court/public-record sources. |
@@ -492,6 +546,8 @@ This file is an add-on extension for the existing CGN Apps Script project. It is
 | `ozark_sources` | Returns obituary, court, traffic and weather source registries. |
 | `ozark_obituary_sources` | Obituary source list. |
 | `ozark_court_sources` | Court source list. |
+| `ozark_obituaries` | Published obituaries from the Obituaries tab. Supports `limit`, `offset`, recent-hour filtering and draft exclusion. |
+| `ozark_obituary` | Single obituary from Obituaries by slug or `obit_id`. |
 
 ### Router hook
 
@@ -571,6 +627,28 @@ Locked rules:
 - It must load `ozark_articles` only.
 - It must not use the main CGN News `action=articles` fallback.
 - It should filter/search title, subtitle, summary, category, tags, author, body preview and SEO fields when present.
+
+### Archives page
+
+`/archives/` loads older Ozark Gazette articles from the `Archives` tab.
+
+Locked rules:
+
+- It must use Ozark Gazette branding.
+- It must load `ozark_archives` only.
+- It must not use the main CGN News `action=articles` fallback.
+- Single article routes must still find archived stories through `ozark_article`.
+
+### Obituaries page
+
+`/obituaries/` loads the Ozark `Obituaries` tab through `ozark_obituaries`.
+
+Locked rules:
+
+- It must use respectful local-newspaper presentation.
+- It must not display main CGN articles by accident.
+- It must not fabricate obituary details.
+- Single obituary loads should use `ozark_obituary` when implemented.
 
 ### Weather Brief
 
@@ -759,6 +837,8 @@ The root `sitemap.xml` must list these canonical public routes for discovery:
 
 ```text
 https://ozarks.cgnnews.net/
+https://ozarks.cgnnews.net/news/
+https://ozarks.cgnnews.net/archives/
 https://ozarks.cgnnews.net/local/
 https://ozarks.cgnnews.net/us/
 https://ozarks.cgnnews.net/world/
@@ -803,7 +883,7 @@ Rules:
 3. Confirm `OzarkGazetteLogo.png` and `OzarkGazetteBanner.png` are at the repository root.
 4. Confirm `/assets/ozark-shell.js` and `/assets/ozark-site.css` are present.
 5. Confirm `/news/index.html` exists.
-6. Confirm `/weather/index.html`, `/traffic/index.html`, `/sports/index.html`, `/markets/center/index.html`, `/reporters/index.html`, `/about/index.html`, `/contact/index.html` and `/support/index.html` exist.
+6. Confirm `/archives/index.html`, `/weather/index.html`, `/traffic/index.html`, `/sports/index.html`, `/markets/center/index.html`, `/reporters/index.html`, `/about/index.html`, `/contact/index.html` and `/support/index.html` exist where included in the build.
 7. Confirm favicon files and `site.webmanifest` are at the repo root.
 8. Confirm `robots.txt` and `sitemap.xml` use `https://ozarks.cgnnews.net`.
 9. Add `apps-script/OzarkGazette.gs` as a separate file inside the existing CGN Apps Script project.
@@ -813,8 +893,10 @@ Rules:
 13. Test `?action=ozark_articles&site=ozark&limit=5`.
 14. Test `?action=ozark_articles&site=ozark&category=Weather`.
 15. Test `?action=ozark_article&site=ozark&slug=...` with a known slug.
-16. Run `?action=ozark_archive_trigger_status&site=ozark`.
-17. If no archive trigger exists, run `?action=ozark_archive_trigger_create&site=ozark`.
+16. Test `?action=ozark_archives&site=ozark&limit=5`.
+17. Test `?action=ozark_obituaries&site=ozark&limit=5`.
+18. Run `?action=ozark_archive_trigger_status&site=ozark`.
+19. If no archive trigger exists, run `?action=ozark_archive_trigger_create&site=ozark`.
 18. Confirm the homepage loads Ozark articles from the Ozark sheet.
 19. Confirm Weather, Markets, Traffic and Sports pages do not show main CGN News articles unless deliberately linked externally.
 20. Confirm CGN LIVE takeover and Back to Headlines behavior on desktop and mobile.
@@ -831,6 +913,7 @@ The build is acceptable when:
 
 - README shows `Ozark Gazette v1.1.0` as the current build.
 - README timestamp is `30 June 2026 • 20:55:11Z UTC`.
+- README keeps the copyright line `Copyright © 2026 | Cook Global News Network | All Rights Reserved.`
 - Site canonical base is `https://ozarks.cgnnews.net/`.
 - No page uses `ozarkgazette.com` as canonical.
 - Header top categories display `News`, `Weather`, `Radar`, `Traffic`, `Sports`.
@@ -844,7 +927,9 @@ The build is acceptable when:
 - Footer does not contain a duplicate News link beneath News.
 - CGN footer logo links to `https://www.cgnnews.net/`.
 - Footer tagline reads `Real-Time News.` then `Global Perspective.` on two lines.
-- `/news/` loads Ozark Gazette articles from the Ozark sheet.
+- `/news/` loads Ozark Gazette articles from the Ozark `Articles` tab.
+- `/archives/` loads older Ozark Gazette articles from the Ozark `Archives` tab where that page is present.
+- `/obituaries/` loads obituary rows from the Ozark `Obituaries` tab.
 - Weather page loads Weather articles from `ozark_articles`, not main CGN `articles`.
 - Markets Brief shell/header/footer render correctly.
 - Homepage CGN LIVE takes over the widget area when selected.
@@ -856,7 +941,7 @@ The build is acceptable when:
 - `ozark_archives` returns rows from `Archives`.
 - `ozark_article` checks `Articles` first and `Archives` second.
 - Archive movement skips drafts and moves published rows older than 168 hours.
-- PayPal, paywall and account behavior remain present.
+- PayPal, paywall and account behavior remain present and use shared CGN backend account logic.
 - No public page contains backend/dev/audit language.
 
 ---
@@ -956,6 +1041,10 @@ The News heading should be:
 
 Do not add a separate `<a href="/news/">News</a>` underneath the heading.
 
+### If login, signup or account state breaks
+
+Confirm account calls still use the shared CGN backend account actions through the deployed Web App URL. Do not invent Ozark-only account routes.
+
 ### If weather articles load from the wrong sheet
 
 Weather article loader must use:
@@ -975,6 +1064,7 @@ Do not add a fallback to the main CGN `action=articles` route.
 - Do not “simplify” the weather page by stripping Next 12 Hours, Extended Forecast or saved city behavior.
 - Do not change header/footer order unless explicitly requested.
 - Do not remove YouTube, Instagram, X, Support, account, weather/time or the stock ticker.
+- Do not touch CGN LIVE or CGN Weather embed links in CGN LIVE when making article-display fixes.
 - Do not change the Ozark sheet ID without explicit approval.
 - Do not change from `ozarks.cgnnews.net` to another domain without explicit approval.
 - Do not publish public-facing development language.
@@ -993,6 +1083,7 @@ Do not add a fallback to the main CGN `action=articles` route.
 | `sitemap.xml` | Current Ozarks canonical sitemap. |
 | `index.html` | Homepage with CGN LIVE takeover. |
 | `news/index.html` | All-news Ozark page. |
+| `archives/index.html` | Older-story Ozark archive page where included. |
 | `assets/ozark-shell.js` | Current Ozark shell. |
 | `assets/ozark-site.css` | Current shell/site CSS. |
 | `apps-script/OzarkGazette.gs` | Ozark Apps Script extension. |
