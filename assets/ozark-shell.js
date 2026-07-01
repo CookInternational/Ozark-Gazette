@@ -173,7 +173,16 @@
       .support-link img{width:28px;height:28px;object-fit:contain;display:block}
       .news-directory-link,.sports-center-link,.traffic-center-link{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;color:#111;text-decoration:none;flex:0 0 auto;transition:opacity .2s ease}
       .news-directory-link:hover,.news-directory-link:focus,.sports-center-link:hover,.sports-center-link:focus,.traffic-center-link:hover,.traffic-center-link:focus{opacity:.72;text-decoration:none;color:#111;background:transparent}
-      .news-directory-icon,.sports-center-icon,.traffic-center-icon{width:28px;height:28px;display:block;object-fit:contain}
+      .news-directory-icon{width:28px;height:28px;display:inline-flex;flex-direction:column;align-items:center;justify-content:flex-start;position:relative;line-height:1}
+      .news-directory-word{display:block;font-family:Arial Black,Arial,Helvetica,sans-serif;font-size:7px;font-weight:900;letter-spacing:.02em;color:#111;line-height:1;margin:0 0 1px}
+      .news-directory-paper{width:23px;height:20px;display:block;position:relative;box-sizing:border-box;border:2px solid #111;border-radius:2px;background:#fff;box-shadow:inset 0 0 0 1px rgba(0,0,0,.05)}
+      .news-directory-paper::before{content:"";position:absolute;left:3px;top:4px;width:7px;height:6px;background:#111;border-radius:1px}
+      .news-directory-line{position:absolute;left:12px;right:3px;height:2px;background:#111;border-radius:999px}
+      .news-directory-line-wide{left:3px;right:3px;top:12px}
+      .news-directory-line:not(.news-directory-line-wide):nth-of-type(2){top:4px}
+      .news-directory-line:not(.news-directory-line-wide):nth-of-type(3){top:8px}
+      .news-directory-box{position:absolute;left:3px;right:3px;bottom:3px;height:2px;background:#111;border-radius:999px}
+      .sports-center-icon,.traffic-center-icon{width:28px;height:28px;display:block;object-fit:contain}
       .right-tools .account-wrap{order:1}
       .right-tools .cgn-bureau-weather-time{order:2}
       .right-tools .news-directory-link{order:3}
@@ -400,7 +409,15 @@
 
   const newsDirectoryIconHtml = `
           <a id="news-directory-link" class="news-directory-link" href="/news/" aria-label="The Ozark Gazette news directory">
-            <img src="/CGNNewsIcon01.png" class="news-directory-icon" alt="" aria-hidden="true">
+            <span class="news-directory-icon" aria-hidden="true">
+              <span class="news-directory-word">NEWS</span>
+              <span class="news-directory-paper">
+                <span class="news-directory-line news-directory-line-wide"></span>
+                <span class="news-directory-line"></span>
+                <span class="news-directory-line"></span>
+                <span class="news-directory-box"></span>
+              </span>
+            </span>
           </a>`;
 
   const sportsCenterIconHtml = `
