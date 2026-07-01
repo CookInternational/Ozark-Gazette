@@ -451,7 +451,7 @@
             <a href="/us/">US</a><br>
             <a href="/world/">World</a><br>
             <a href="/politics/">Politics</a><br>
-            <a href="/business/">Business</a><br>
+            <a href="/technology/">Technology</a><br>
             <a href="/investigations/">Investigations</a><br>
             <a href="/opinion/">Opinion</a>
           </div>
