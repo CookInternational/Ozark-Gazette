@@ -11,6 +11,27 @@
 
   const OZARK_BUREAU_CITIES = [
     {
+      name:"Tecumseh",
+      location:"Tecumseh, MO",
+      latitude:36.5867,
+      longitude:-92.2867,
+      timeZone:"America/Chicago"
+    },
+    {
+      name:"Gainesville",
+      location:"Gainesville, MO",
+      latitude:36.60306,
+      longitude:-92.42833,
+      timeZone:"America/Chicago"
+    },
+    {
+      name:"St. Louis",
+      location:"St. Louis, MO",
+      latitude:38.6270,
+      longitude:-90.1994,
+      timeZone:"America/Chicago"
+    },
+    {
       name:"Indianapolis",
       location:"Indianapolis, IN",
       latitude:39.7684,
@@ -25,15 +46,8 @@
       timeZone:"America/Chicago"
     },
     {
-      name:"St. Louis",
-      location:"St. Louis, MO",
-      latitude:38.6270,
-      longitude:-90.1994,
-      timeZone:"America/Chicago"
-    },
-    {
-      name:"New York City",
-      location:"New York City, NY",
+      name:"New York",
+      location:"New York, NY",
       latitude:40.7128,
       longitude:-74.0060,
       timeZone:"America/New_York"
@@ -477,10 +491,10 @@
             </span>
           </span>
           <a id="cgn-bureau-weather-time" class="cgn-bureau-weather-time" href="/weather/" aria-label="Open Ozark weather">
-            <span id="cgn-bureau-mobile-line" class="cgn-bureau-mobile-line"><span class="cgn-bureau-mobile-date">Loading date...</span><span class="cgn-bureau-mobile-clock">Loading time...</span><span class="cgn-bureau-mobile-city">Indianapolis</span></span>
+            <span id="cgn-bureau-mobile-line" class="cgn-bureau-mobile-line"><span class="cgn-bureau-mobile-date">Loading date...</span><span class="cgn-bureau-mobile-clock">Loading time...</span><span class="cgn-bureau-mobile-city">Tecumseh</span></span>
             <span id="cgn-bureau-time" class="cgn-bureau-time">Loading local time...</span>
             <span id="cgn-bureau-weather" class="cgn-bureau-weather">Loading weather...</span>
-            <span id="cgn-bureau-location" class="cgn-bureau-location">Indianapolis</span>
+            <span id="cgn-bureau-location" class="cgn-bureau-location">Tecumseh</span>
           </a>
           <span id="datetime" class="cgn-shell-compat-hidden" aria-hidden="true"></span>
           <span id="weather" class="cgn-shell-compat-hidden" aria-hidden="true"></span>
