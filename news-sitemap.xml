@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
   <url>
+    <loc>https://ozarks.cgnnews.net/weather/2026/07/01/nyc-heat-wave-puts-focus-on-cooling-hydration-and-heat-illness-warnings/</loc>
+    <news:news>
+      <news:publication>
+        <news:name>The Ozark Gazette</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2026-07-01T11:26:03.749Z</news:publication_date>
+      <news:title>NYC Heat Wave Puts Focus on Cooling, Hydration and Heat Illness Warnings</news:title>
+    </news:news>
+    <lastmod>2026-07-01T11:27:53.086Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ozarks.cgnnews.net/news/2026/07/01/nyc-tax-break-incentive-draws-scrutiny-over-lost-affordable-apartments/</loc>
+    <news:news>
+      <news:publication>
+        <news:name>The Ozark Gazette</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2026-07-01T11:23:03.749Z</news:publication_date>
+      <news:title>NYC Tax Break Incentive Draws Scrutiny Over Lost Affordable Apartments</news:title>
+    </news:news>
+    <lastmod>2026-07-01T11:28:33.842Z</lastmod>
+  </url>
+  <url>
     <loc>https://ozarks.cgnnews.net/traffic/2026/07/01/cgn-traffic-advisory-for-1-july-2026-ozark-region-road-monitoring-and-safety-notes/</loc>
     <news:news>
       <news:publication>
@@ -23,6 +47,102 @@
       <news:title>Daily Weather Brief for 1 July 2026: Ozark Region Conditions and Planning Notes</news:title>
     </news:news>
     <lastmod>2026-07-01T11:04:00.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ozarks.cgnnews.net/news/2026/07/01/cgn-special-report-supreme-court-term-leaves-trump-with-losses-and-expanded-power/</loc>
+    <news:news>
+      <news:publication>
+        <news:name>The Ozark Gazette</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2026-07-01T10:06:43.708Z</news:publication_date>
+      <news:title>CGN Special Report: Supreme Court Term Leaves Trump With Losses &amp; Expanded Power</news:title>
+    </news:news>
+    <lastmod>2026-07-01T10:08:35.129Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ozarks.cgnnews.net/news/2026/07/01/cgn-world-brief-gop-push-tests-federal-limits-on-late-voter-roll-purges/</loc>
+    <news:news>
+      <news:publication>
+        <news:name>The Ozark Gazette</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2026-07-01T10:05:13.708Z</news:publication_date>
+      <news:title>CGN World Brief: GOP Push Tests Federal Limits on Late Voter Roll Purges</news:title>
+    </news:news>
+    <lastmod>2026-07-01T10:12:13.153Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ozarks.cgnnews.net/news/2026/07/01/cgn-politics-brief-rep-tom-kean-returns-after-absence-citing-depression-treatment/</loc>
+    <news:news>
+      <news:publication>
+        <news:name>The Ozark Gazette</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2026-07-01T10:03:43.708Z</news:publication_date>
+      <news:title>CGN Politics Brief: Rep. Tom Kean Returns After Absence, Citing Depression Treatment</news:title>
+    </news:news>
+    <lastmod>2026-07-01T10:15:00.428Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ozarks.cgnnews.net/news/2026/07/01/indiana-fever-host-second-annual-period-pack-to-donate-hygiene-products/</loc>
+    <news:news>
+      <news:publication>
+        <news:name>The Ozark Gazette</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2026-07-01T10:02:13.708Z</news:publication_date>
+      <news:title>Indiana Fever Host Second Annual Period Pack to Donate Hygiene Products</news:title>
+    </news:news>
+    <lastmod>2026-07-01T10:17:19.635Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ozarks.cgnnews.net/weather/2026/07/01/daily-weather-brief-for-1-july-2026/</loc>
+    <news:news>
+      <news:publication>
+        <news:name>The Ozark Gazette</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2026-07-01T10:02:04.365Z</news:publication_date>
+      <news:title>Daily Weather Brief for 1 July 2026</news:title>
+    </news:news>
+    <lastmod>2026-07-01T10:02:10.428Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ozarks.cgnnews.net/news/2026/07/01/banksys-london-flag-man-turns-blind-patriotism-into-public-warning/</loc>
+    <news:news>
+      <news:publication>
+        <news:name>The Ozark Gazette</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2026-07-01T10:00:43.708Z</news:publication_date>
+      <news:title>Banksy’s London Flag Man Turns Blind Patriotism Into Public Warning</news:title>
+    </news:news>
+    <lastmod>2026-07-01T10:23:55.761Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ozarks.cgnnews.net/news/2026/07/01/supreme-court-strikes-down-federal-limits-on-coordinated-party-spending/</loc>
+    <news:news>
+      <news:publication>
+        <news:name>The Ozark Gazette</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2026-07-01T09:59:13.708Z</news:publication_date>
+      <news:title>Supreme Court Strikes Down Federal Limits on Coordinated Party Spending</news:title>
+    </news:news>
+    <lastmod>2026-07-01T10:27:29.486Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ozarks.cgnnews.net/news/2026/07/01/cumberland-farms-sale-of-australian-business-becomes-a-markets-watch-point/</loc>
+    <news:news>
+      <news:publication>
+        <news:name>The Ozark Gazette</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2026-07-01T09:57:43.708Z</news:publication_date>
+      <news:title>Cumberland Farms Sale of Australian Business Becomes a Markets Watch Point</news:title>
+    </news:news>
+    <lastmod>2026-07-01T10:33:03.163Z</lastmod>
   </url>
   <url>
     <loc>https://ozarks.cgnnews.net/news/2026/07/01/arkansas-frog-gigging-trip-ends-in-unusual-headlight-accident/</loc>
