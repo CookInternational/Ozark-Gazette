@@ -369,11 +369,11 @@
           </div>
           <div>
             <h4>Briefs</h4>
-            <a href="/weather/">Weather Brief</a><br>
+            <a href="/weather/">Weather Center/a><br>
             <a href="/weather/radar/">Weather Radar</a><br>
-            <a href="/traffic/">Traffic Brief</a><br>
-            <a href="/sports/">Sports Brief</a><br>
-            <a href="/markets/center/">Markets Brief</a><br>
+            <a href="/traffic/">Traffic Center</a><br>
+            <a href="/sports/">Sports Center</a><br>
+            <a href="/markets/center/">Market Watch</a><br>
             <a href="/obituaries/">Obituaries</a><br>
             <a href="/archives/">Archives</a>
           </div>
