@@ -448,7 +448,7 @@
             <a href="https://www.cgnnews.net/privacy-policy">Privacy</a><br>
             <a href="https://www.cgnnews.net/terms-of-service">Terms</a><br>
             <a href="https://www.cgnnews.net/editorial-standards/">Editorial Standards</a><br>
-            <a href="https://www.cgnnews.net/copyright/">Copyright</a><br>
+            <a href="https://www.cgnnews.net/copyright/">Copyright Notice</a><br>
             <a class="footer-support-advertise" href="https://www.cgnnews.net/advertise/">Advertise With Us</a>
           </div>
         </div>
