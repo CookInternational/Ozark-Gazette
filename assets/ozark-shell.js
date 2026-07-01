@@ -384,7 +384,8 @@
             <a href="/puzzles/">Puzzles</a><br>
             <a href="/crosswords/">Crosswords</a><br>
             <a href="/reporters/">Reporters</a><br>
-            <a href="/about/">About</a>
+            <a href="/about/">About</a><br>
+            <a href="/classifieds/">Classifieds</a>
           </div>
           <div>
             <h4>Support</h4>
