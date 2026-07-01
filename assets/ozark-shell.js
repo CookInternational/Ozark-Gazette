@@ -38,6 +38,41 @@
     return localStorage.getItem("user_id") || localStorage.getItem("cgn_user_id") || "";
   }
 
+  function getAnonId(){
+    let id = localStorage.getItem("ozark_anon_id") || localStorage.getItem("cgn_anon_id");
+    if(!id){
+      id = "ozark_anon_" + Math.random().toString(36).slice(2) + Date.now().toString(36);
+      localStorage.setItem("ozark_anon_id", id);
+      localStorage.setItem("cgn_anon_id", id);
+    }
+    return id;
+  }
+
+  function applySubscriberState(data){
+    data = data || {};
+    const active = !!data.subscriber || !!data.active_subscriber || String(data.subscription_status || "").toLowerCase() === "active";
+    if(active) localStorage.setItem("subscriber", "true");
+    else localStorage.removeItem("subscriber");
+    try{ localStorage.setItem("cgn_subscription", JSON.stringify(data)); }catch(e){}
+    return active;
+  }
+
+  async function syncSubscriberState(userId){
+    if(!userId) return null;
+    try{
+      const qs = new URLSearchParams({action:"subscription_status", user_id:userId});
+      const res = await fetch(`${API_BASE}?${qs.toString()}`, {cache:"no-store"});
+      const data = await res.json();
+      if(data && data.success){
+        applySubscriberState(data);
+        return data;
+      }
+    }catch(e){
+      console.warn("Ozark subscriber sync failed:", e);
+    }
+    return null;
+  }
+
   function injectShellStyles(){
     if(document.getElementById("ozark-shell-responsive-styles")) return;
     const style = document.createElement("style");
@@ -215,11 +250,8 @@
           localStorage.setItem("cgn_user_id", userId);
         }
         if(userEmail) localStorage.setItem("user_email", userEmail);
-        if(data.subscriber || data.user?.subscriber || String(data.subscription_status || data.user?.subscription_status || "").toLowerCase() === "active"){
-          localStorage.setItem("subscriber", "true");
-        } else if(data.subscriber === false || data.user?.subscriber === false){
-          localStorage.removeItem("subscriber");
-        }
+        applySubscriberState(Object.assign({}, data, data.user || {}));
+        if(userId) await syncSubscriberState(userId);
         try{ localStorage.setItem("cgn_user", JSON.stringify(data.user || data)); }catch(e){}
 
         setShellLoginMessage(action === "signup" ? "Account created." : "Logged in.");
@@ -393,6 +425,7 @@
       }
     });
     updateAccountUI();
+    if(getUser()) syncSubscriberState(getUser());
     initWeatherTime();
     loadTicker();
     renderTradingViewTicker();
@@ -418,7 +451,6 @@
             <a href="/us/">US</a><br>
             <a href="/world/">World</a><br>
             <a href="/politics/">Politics</a><br>
-            <a href="/business/">Business</a><br>
             <a href="/investigations/">Investigations</a><br>
             <a href="/opinion/">Opinion</a>
           </div>
@@ -443,7 +475,7 @@
             <a href="/classifieds/">Classifieds</a>
           </div>
           <div>
-            <h4><a href="/support/">Support</a></h4>
+            <h4><a href="/support/"Support</h4>
             <a href="/contact/">Contact</a><br>
             <a href="/support/">Support</a><br>
             <a href="https://www.cgnnews.net/privacy-policy">Privacy</a><br>
@@ -769,19 +801,19 @@
   async function fetchArticle(params={}){
     const requested = String(params.slug || params.id || params.article_id || "").trim();
     if(!requested) return null;
-    const clean = slugify(requested);
+    const protectedParams = Object.assign({}, params, {
+      user_id:getUser(),
+      anon_id:getAnonId()
+    });
     try{
-      const json = await fetchApiJson("ozark_article", params);
+      const json = await fetchApiJson("ozark_article", protectedParams);
       const article = json.article || (json.title ? json : null);
-      if(article && article.title) return normalizeArticleItem(article, article.source || OZARK_SHEETS.articles);
+      if(article && article.title) return normalizeArticleItem(article, article.source || json.source || OZARK_SHEETS.articles);
+      return null;
     }catch(e){
-      console.warn("Ozark API Article fallback to Google Sheet:", e);
+      console.warn("Ozark API Article unavailable:", e);
+      return null;
     }
-    const active = normalizeArticlesPayload(await fetchSheetRows(OZARK_SHEETS.articles), OZARK_SHEETS.articles);
-    let found = active.find(a => String(a.article_id || "") === requested || slugify(a.slug || a.title || "") === clean);
-    if(found) return found;
-    const archives = normalizeArticlesPayload(await fetchSheetRows(OZARK_SHEETS.archives), OZARK_SHEETS.archives);
-    return archives.find(a => String(a.article_id || "") === requested || slugify(a.slug || a.title || "") === clean) || null;
   }
 
   async function fetchObituaries(params={}){
@@ -909,8 +941,9 @@
     try{
       const a = await fetchArticle({slug});
       if(!a || !a.title) throw new Error("missing");
+      const locked = a.locked === true || String(a.locked || "").toLowerCase() === "true" || String(a.access || "").toLowerCase() === "preview";
       document.title = (a.seo_title || a.title) + " | The Ozark Gazette";
-      mount.innerHTML = `<article class="about-section"><div class="article-meta">${esc(a.category || "Local")} · ${esc(formatDate(a.published_at || a.updated_at))} · By ${esc(a.author || "The Ozark Gazette")}</div><h1 style="font-family:Georgia,serif;font-size:clamp(34px,5vw,58px);line-height:1;margin:0 0 10px;color:#07172f">${esc(a.title)}</h1><p style="font-size:18px;color:#475467;line-height:1.55">${esc(a.subtitle || a.summary || "")}</p><img src="${esc(a.hero_image_url || DEFAULT_IMG)}" alt="" style="width:100%;max-height:460px;object-fit:cover;border:1px solid #dfe4eb"><div style="line-height:1.75;font-size:18px;margin-top:22px">${a.body_html || `<p>${esc(a.summary || "")}</p>`}</div>${a.what_this_means ? `<aside class="info-card" style="padding:18px;margin-top:20px"><h2>What this means</h2><p>${esc(a.what_this_means)}</p></aside>` : ""}</article>`;
+      mount.innerHTML = `<article class="about-section"><div class="article-meta">${esc(a.category || "Local")} · ${esc(formatDate(a.published_at || a.updated_at))} · By ${esc(a.author || "The Ozark Gazette")}</div><h1 style="font-family:Georgia,serif;font-size:clamp(34px,5vw,58px);line-height:1;margin:0 0 10px;color:#07172f">${esc(a.title)}</h1><p style="font-size:18px;color:#475467;line-height:1.55">${esc(a.subtitle || a.summary || "")}</p><img src="${esc(a.hero_image_url || DEFAULT_IMG)}" alt="" style="width:100%;max-height:460px;object-fit:cover;border:1px solid #dfe4eb"><div style="line-height:1.75;font-size:18px;margin-top:22px">${a.body_html || `<p>${esc(a.summary || "")}</p>`}</div>${locked ? `<aside class="info-card" style="padding:18px;margin-top:20px"><h2>Unlimited access</h2><p>This preview is available to free readers. Log in with an active subscription for full Ozark Gazette and CGN News access.</p><a class="section-btn" href="/account/">Account Access</a></aside>` : ""}${!locked && a.what_this_means ? `<aside class="info-card" style="padding:18px;margin-top:20px"><h2>What this means</h2><p>${esc(a.what_this_means)}</p></aside>` : ""}</article>`;
     }catch(e){
       mount.innerHTML = '<div class="empty">Article not found or not yet published.</div>';
     }
