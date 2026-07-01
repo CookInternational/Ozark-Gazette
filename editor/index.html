@@ -2813,8 +2813,24 @@
       el.className = "status";
     }
 
+    function ozarkEditorBackendAction(action) {
+      const a = String(action || "").trim();
+      if(!a || /^ozark_/i.test(a)) return a;
+
+      // Keep login/session on the existing CGN editor account flow if that is
+      // already configured, but force all Ozark article/dashboard/category/write
+      // operations through ozark_* routes so they cannot fall through to the
+      // main CGN Articles sheet.
+      if(/^editor_(login|logout|me)$/i.test(a)) return a;
+      if(/^editor_/i.test(a)) return "ozark_" + a;
+      if(/^(getBackendVersion|cgnImageDefaultsStatus|drive_upload_health|editor_drive_upload_health|get_editor_logs)$/i.test(a)) return "ozark_" + a;
+      if(/^(run_autonews|autonews|enable_autonews|disable_autonews)/i.test(a)) return "ozark_" + a;
+      return a;
+    }
+
     async function api(action, data = {}) {
-      const payload = Object.assign({}, data, { action, token: currentToken, site: OZARK_EDITOR_SITE, publication: OZARK_EDITOR_SITE, publication_name: OZARK_EDITOR_PUBLICATION_NAME, spreadsheet_id: OZARK_EDITOR_SPREADSHEET_ID, sheet_name: OZARK_EDITOR_ARTICLES_SHEET, articles_sheet: OZARK_EDITOR_ARTICLES_SHEET });
+      const routedAction = ozarkEditorBackendAction(action);
+      const payload = Object.assign({}, data, { action: routedAction, requested_action: action, token: currentToken, site: OZARK_EDITOR_SITE, publication: OZARK_EDITOR_SITE, publication_name: OZARK_EDITOR_PUBLICATION_NAME, spreadsheet_id: OZARK_EDITOR_SPREADSHEET_ID, target_spreadsheet_id: OZARK_EDITOR_SPREADSHEET_ID, sheet_name: OZARK_EDITOR_ARTICLES_SHEET, articles_sheet: OZARK_EDITOR_ARTICLES_SHEET, target_sheet: OZARK_EDITOR_ARTICLES_SHEET });
 
       let res;
       try {
