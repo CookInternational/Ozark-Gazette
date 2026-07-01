@@ -369,7 +369,7 @@
           </div>
           <div>
             <h4>Briefs</h4>
-            <a href="/weather/">Weather Center/a><br>
+            <a href="/weather/">Weather Center</a><br>
             <a href="/weather/radar/">Weather Radar</a><br>
             <a href="/traffic/">Traffic Center</a><br>
             <a href="/sports/">Sports Center</a><br>
