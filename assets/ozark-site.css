@@ -1684,3 +1684,69 @@ body{
     height:30px!important;
   }
 }
+
+
+/* =========================================================
+   The Ozark Gazette Footer Veteran-Owned + Social Links
+   Build: 1 July 2026
+   Purpose: place the veteran-owned business link directly above
+   the copyright rule and add CGN-style social icons under Advertise.
+   ========================================================= */
+#cgn-site-footer .footer-social{
+  display:flex!important;
+  align-items:center!important;
+  gap:12px!important;
+  margin-top:10px!important;
+}
+
+#cgn-site-footer .footer-social a{
+  width:22px!important;
+  height:22px!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  color:#fff!important;
+  text-decoration:none!important;
+  line-height:1!important;
+  transition:opacity .2s ease!important;
+}
+
+#cgn-site-footer .footer-social a:hover,
+#cgn-site-footer .footer-social a:focus{
+  opacity:.72!important;
+  text-decoration:none!important;
+}
+
+#cgn-site-footer .footer .social-icon,
+#cgn-site-footer .footer-social .social-icon{
+  width:20px!important;
+  height:20px!important;
+  display:block!important;
+  fill:#fff!important;
+}
+
+#cgn-site-footer .footer-veteran-owned-block{
+  max-width:1180px!important;
+  margin:0 auto!important;
+  text-align:center!important;
+  padding:0 18px 10px!important;
+  color:#fff!important;
+}
+
+#cgn-site-footer .footer-veteran-owned-link{
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  color:#fff!important;
+  text-decoration:none!important;
+  font-size:12px!important;
+  font-weight:900!important;
+  letter-spacing:.08em!important;
+  text-transform:uppercase!important;
+  line-height:1.4!important;
+}
+
+#cgn-site-footer .footer-veteran-owned-link:hover,
+#cgn-site-footer .footer-veteran-owned-link:focus{
+  text-decoration:underline!important;
+}
