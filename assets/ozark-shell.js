@@ -243,6 +243,13 @@
       .footer-bottom a{font-size:12px;color:#dbe4f0}
       .footer-developed{margin-top:5px;text-align:center;color:#dbe4f0;font-size:12px;font-weight:800;line-height:1.5}
       .footer-developed a{color:#f2d990;font-size:12px;font-weight:900;line-height:1.5}
+      .footer-social{display:flex;align-items:center;gap:12px;margin-top:10px}
+      .footer-social a{width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;color:#fff;text-decoration:none;line-height:1!important;transition:opacity .2s ease}
+      .footer-social a:hover,.footer-social a:focus{opacity:.72;text-decoration:none}
+      .footer .social-icon{width:20px;height:20px;display:block;fill:#fff}
+      .footer-veteran-owned-block{max-width:1180px;margin:0 auto;text-align:center;padding:0 18px 10px;color:#fff}
+      .footer-veteran-owned-link{display:inline-flex;align-items:center;justify-content:center;color:#fff!important;text-decoration:none!important;font-size:12px!important;font-weight:900!important;letter-spacing:.08em;text-transform:uppercase;line-height:1.4!important}
+      .footer-veteran-owned-link:hover,.footer-veteran-owned-link:focus{text-decoration:underline!important}
 
       .footer-support-advertise{color:#f2d990!important;font-weight:900}
       .footer-support-advertise:hover,.footer-support-advertise:focus{color:#fff!important;text-decoration:underline}
@@ -545,6 +552,28 @@
     renderTradingViewTicker();
   }
 
+  function footerSocialHtml(){
+    return `
+      <div class="footer-social">
+        <a href="https://instagram.com/cookglobalnews" target="_blank" rel="noopener noreferrer" aria-label="CGN News on Instagram">
+          <svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M7 2C4.243 2 2 4.243 2 7v10c0 2.757 2.243 5 5 5h10c2.757 0 5-2.243 5-5V7c0-2.757-2.243-5-5-5H7zm0 2h10c1.654 0 3 1.346 3 3v10c0 1.654-1.346 3-3 3H7c-1.654 0-3-1.346-3-3V7c0-1.654 1.346-3 3-3zm5 2.8A5.2 5.2 0 006.8 12 5.2 5.2 0 0012 17.2 5.2 5.2 0 0017.2 12 5.2 5.2 0 0012 6.8zm0 2A3.2 3.2 0 0115.2 12 3.2 3.2 0 0112 15.2 3.2 3.2 0 018.8 12 3.2 3.2 0 0112 8.8zm4.5-2.3a1.2 1.2 0 100 2.4 1.2 1.2 0 000-2.4z"/>
+          </svg>
+        </a>
+        <a href="https://x.com/CookGlobalNews" target="_blank" rel="noopener noreferrer" aria-label="CGN News on X">
+          <svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M18.244 2H21l-6.56 7.5L22 22h-6.828l-5.35-7.01L3.5 22H1l7.03-8.03L2 2h6.914l4.83 6.37L18.244 2zM17.15 20h1.52L7.03 4H5.4l11.75 16z"/>
+          </svg>
+        </a>
+        <a href="https://youtube.com/@CookGlobalNews" target="_blank" rel="noopener noreferrer" aria-label="CGN News on YouTube">
+          <svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.376.505A3.016 3.016 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.376-.505a3.016 3.016 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.75 15.568V8.432L15.818 12 9.75 15.568z"/>
+          </svg>
+        </a>
+      </div>
+    `;
+  }
+
   function renderFooter(){
     const mount = document.getElementById("cgn-site-footer");
     if(!mount) return;
@@ -598,7 +627,11 @@
             <a href="https://www.cgnnews.net/editorial-standards/">Editorial Standards</a><br>
             <a href="https://www.cgnnews.net/copyright/">Copyright Notice</a><br>
             <a class="footer-support-advertise" href="https://www.cgnnews.net/advertise/">Advertise With Us</a>
+            ${footerSocialHtml()}
           </div>
+        </div>
+        <div class="footer-veteran-owned-block">
+          <a class="footer-veteran-owned-link" href="https://www.cgnnews.net/equal-opportunity/">🇺🇸 VETERAN OWNED BUSINESS</a>
         </div>
         <div class="footer-bottom">
           <a href="https://www.cgnnews.net/copyright/">Copyright © 2026 | CGN News — All Rights Reserved</a>
