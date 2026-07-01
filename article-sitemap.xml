@@ -241,6 +241,18 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://ozarks.cgnnews.net/news/2026/07/01/anthropic-says-us-lifts-export-ban-on-its-advanced-ai-tools/</loc>
+    <lastmod>2026-07-01T07:18:00.000Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ozarks.cgnnews.net/news/2026/07/01/australia-plans-to-strengthen-laws-banning-children-from-social-media/</loc>
+    <lastmod>2026-07-01T07:15:00.000Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://ozarks.cgnnews.net/news/2026/07/01/cgn-investigates-is-grocery-shopping-worth-jail-whole-foods-indianapolis/</loc>
     <lastmod>2026-07-01T02:45:30.000Z</lastmod>
     <changefreq>daily</changefreq>
@@ -253,8 +265,38 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://ozarks.cgnnews.net/news/2026/07/01/east-wind-community-shows-how-ozark-land-stewardship-can-start-with-daily-work/</loc>
+    <lastmod>2026-07-01T07:45:00.000Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://ozarks.cgnnews.net/news/2026/07/01/indianapolis-based-slumlord-leaves-tenants-to-live-in-squalor-residents-say/</loc>
     <lastmod>2026-07-01T02:48:30.000Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ozarks.cgnnews.net/news/2026/07/01/santos-signs-10-year-deal-to-supply-south-australia-strategic-gas-reserve/</loc>
+    <lastmod>2026-07-01T07:14:00.000Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ozarks.cgnnews.net/news/2026/07/01/taliban-drone-strikes-near-pakistan-border-deepen-afghanistan-pakistan-tensions/</loc>
+    <lastmod>2026-07-01T05:29:27.279Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ozarks.cgnnews.net/news/2026/07/01/trump-made-more-than-1bn-from-crypto-in-first-year-back-in-office/</loc>
+    <lastmod>2026-07-01T07:19:00.000Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ozarks.cgnnews.net/news/2026/07/01/us-envoys-in-doha-as-iran-talks-move-through-mediators-not-direct-meetings/</loc>
+    <lastmod>2026-07-01T06:51:49.673Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -339,6 +381,48 @@
   <url>
     <loc>https://ozarks.cgnnews.net/weather/2026/07/01/daily-weather-brief-for-1-july-2026-ozark-region-conditions-and-planning-notes/</loc>
     <lastmod>2026-07-01T11:04:00.000Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ozarks.cgnnews.net/weather/2026/07/01/severe-weather-alert-extreme-heat-warning-for-chicago-and-cook-county/</loc>
+    <lastmod>2026-07-01T07:12:00.000Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ozarks.cgnnews.net/weather/2026/07/01/severe-weather-alert-extreme-heat-warning-for-indianapolis-and-marion-county/</loc>
+    <lastmod>2026-07-01T07:14:12.652Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ozarks.cgnnews.net/weather/2026/07/01/severe-weather-alert-extreme-heat-warning-for-new-york-and-new-york-county/</loc>
+    <lastmod>2026-07-01T06:54:09.529Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ozarks.cgnnews.net/weather/2026/07/01/severe-weather-alert-extreme-heat-warning-for-northwest-indiana/</loc>
+    <lastmod>2026-07-01T07:13:00.000Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ozarks.cgnnews.net/weather/2026/07/01/severe-weather-alert-extreme-heat-warning-for-philadelphia-and-philadelphia-county/</loc>
+    <lastmod>2026-07-01T07:19:10.906Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ozarks.cgnnews.net/weather/2026/07/01/severe-weather-alert-extreme-heat-warning-for-st-louis-city-and-st-louis-county/</loc>
+    <lastmod>2026-07-01T07:09:19.436Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ozarks.cgnnews.net/weather/2026/07/01/severe-weather-alert-heat-advisory-for-baton-rouge-and-east-baton-rouge-parish/</loc>
+    <lastmod>2026-07-01T07:17:00.000Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
