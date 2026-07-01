@@ -356,7 +356,7 @@
               </svg>
             </a>
             <p class="cgn-tag">Real-Time News.<br>Global Perspective.</p>
-            <p><strong>The Ozark Gazette</strong><br>P.O. Box 794<br>33256 US Highway 160<br>Tecumseh, Missouri 65760<br>📱 (317) 442-1437<br><a href="mailto:tips@cgnnews.net">tips@cgnnews.net</a></p>
+            <p><strong>The Ozark Gazette</strong><br>P.O. Box 794<br>33256 U.S. Highway 160<br>Tecumseh, Missouri 65760<br>📱 (317) 442-1437<br><a href="mailto:tips@cgnnews.net">📧 tips@cgnnews.net</a></p>
           </div>
           <div>
             <h4><a href="/news/">News</a></h4>
