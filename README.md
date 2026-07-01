@@ -1,16 +1,16 @@
-[README.md](https://github.com/user-attachments/files/29530672/README.md)
-[README.ozark-v1.2.0-format-timestamp-fixed.md](https://github.com/user-attachments/files/29525432/README.ozark-v1.2.0-format-timestamp-fixed.md)
+[README (1).md](https://github.com/user-attachments/files/29530697/README.1.md)
+[README.ozark-v1.3.0-router-isolation-fixed.md](https://github.com/user-attachments/files/29525432/README.ozark-v1.3.0-router-isolation-fixed.md)
 <img src="OzarkGazetteLogo.png" alt="The Ozark Gazette" width="260">
 
-# The Ozark Gazette v1.2.0 Production Alpha
+# The Ozark Gazette v1.3.0 Production Alpha
 
 **Plain-English + Technical README / Operating Manual**  
 CGN Shell | Ozark Gazette Local Publishing | Articles + Archives + Obituaries Sheet Routing | One Deployed CGN Apps Script Web App | Shared CGN Account Logic | CGN LIVE Homepage Takeover | PayPal + Paywall Preservation | Account Access | News Page | Weather Brief | Weather Radar | Traffic Brief | Sports Brief | Markets Brief | Puzzles | Horoscopes | Reporters | Obituaries | Court/Public Records Monitoring | SEO | Favicons | Static GitHub Pages Deployment | Apps Script Extension File | One-Week Archive Automation
 
-**Updated:** 30 June 2026 • 22:37:00Z UTC  
-**Site Build Stamp:** 30 June 2026 • 22:37:00Z UTC | Developed by Cook Technology Services  
-**Site Version:** `Ozark Gazette v1.2.0 Production Alpha`  
-**Site Slug:** `ozark-gazette-v1.2.0-production-alpha`  
+**Updated:** 01 July 2026 • 02:06:46Z UTC  
+**Site Build Stamp:** 01 July 2026 • 02:06:46Z UTC | Developed by Cook Technology Services  
+**Site Version:** `Ozark Gazette v1.3.0 Production Alpha`  
+**Site Slug:** `ozark-gazette-v1.3.0-production-alpha-router-isolation`  
 **Apps Script Extension File:** `apps-script/OzarkGazette.gs`  
 **Apps Script Extension Functions:** `102`  
 **Extension doGet / doPost:** `0` / `0`  
@@ -26,6 +26,23 @@ tips@cgnnews.net | https://ozarks.cgnnews.net | +1 (317) 442-1437
 Copyright © 2026 | Cook Global News Network | All Rights Reserved.
 
 ---
+## What Changed in v1.3.0?
+
+v1.3.0 applies the CGN / Ozark router-isolation fix while preserving the v1.2.0 Ozark Gazette operating-manual format, public branding, route contract and sheet contract. The Ozark Gazette remains a CGN-powered local site at `https://ozarks.cgnnews.net`, but Ozark article, archive, obituary and classifieds calls must stay on `ozark_...` actions so the main CGN News article feed cannot be accidentally hijacked.
+
+### Fixed and locked in this build
+
+- Updated the README version, timestamp and acceptance tests to `Ozark Gazette v1.3.0 Production Alpha`.
+- Preserved the Ozark Gazette logo, Ozark address block, Ozark copyright line and full operating-manual structure.
+- Locked the router isolation rule: `apps-script/OzarkGazette.gs` has no public `doGet(e)` or `doPost(e)`.
+- Locked the shared Web App rule: the main CGN Apps Script backend owns the single deployed `doGet(e)` and `doPost(e)` entry points.
+- Locked the Ozark route prefix: Ozark pages use `ozark_articles`, `ozark_article`, `ozark_archives`, `ozark_obituaries`, `ozark_obituary`, `ozark_classifieds` and related `ozark_...` actions.
+- Preserved CGN News routes such as `action=articles`, `action=article`, account actions, payment actions and paywall actions for the main CGN backend.
+- Confirmed the Ozark spreadsheet remains `1Xz9bnMqb-tkHeo2N2UonUbBr1jpo1VzKcVbBW_PU2n0`.
+- Confirmed the CGN main backend remains separate from the Ozark sheet and must not read Ozark content through the main `Articles` tab.
+- Confirmed Ozark pages must not fall back to `action=articles` when `ozark_articles` fails.
+- Preserved CGN LIVE, CGN Weather embed behavior, shared CGN account logic, PayPal/paywall behavior, header route order and footer requirements.
+
 ## What Changed in v1.2.0?
 
 v1.2.0 locks the current Ozark Gazette production-alpha shell and discovery files while correcting the article-display and shared-account contract. The site runs through one deployed CGN Apps Script Web App URL, while Ozark publishing reads the Ozark-only Google Sheet tabs: `Articles`, `Archives` and `Obituaries`.
@@ -100,9 +117,9 @@ Technical explanation: the static repo renders pages from HTML, CSS and JavaScri
 
 | Item | Current value |
 |---|---|
-| Site version | `Ozark Gazette v1.2.0 Production Alpha` |
-| Site build stamp | `2026-06-30T22:37:00Z` |
-| README updated | `30 June 2026 • 22:37:00Z UTC` |
+| Site version | `Ozark Gazette v1.3.0 Production Alpha` |
+| Site build stamp | `2026-07-01T02:06:46Z` |
+| README updated | `01 July 2026 • 02:06:46Z UTC` |
 | Production site | `https://ozarks.cgnnews.net` |
 | Repository | `CookInternational/Ozark-Gazette` |
 | Public brand | `The Ozark Gazette` |
@@ -125,6 +142,8 @@ Technical explanation: the static repo renders pages from HTML, CSS and JavaScri
 Critical controls:
 
 - Do not deploy a separate Ozark account system or replace the shared CGN account backend.
+- Do not add Ozark `doGet(e)` or `doPost(e)` handlers; the main CGN Apps Script Web App owns public entry points.
+- Do not let Ozark routing intercept non-`ozark_...` CGN actions such as `articles`, `article`, account, payment or paywall actions.
 - Do not add a second `doGet` or `doPost` in `OzarkGazette.gs`; the deployed CGN Web App owns the web-app entry points.
 - Do not route Ozark pages to the main CGN `Articles` sheet unless the page intentionally links externally.
 - Ozark article feeds must call `action=ozark_articles` with `site=ozark`.
@@ -476,15 +495,15 @@ Single obituary loads use:
 
 ### Important regression rule
 
-Do not fall back to:
+Do not fall back to the main CGN article feed on Ozark pages:
 
 ```text
 ?action=articles
 ```
 
-Do not build login/signup/account calls against Ozark-only actions. Account logic must use the shared CGN account endpoints through the same deployed Web App.
+That route may return the main CGN News article sheet instead of The Ozark Gazette sheet.
 
-on Ozark pages. That route may return the main CGN News article sheet instead of The Ozark Gazette sheet.
+Do not build login/signup/account calls against Ozark-only actions. Account logic must use the shared CGN account endpoints through the same deployed Web App.
 
 ---
 
@@ -912,8 +931,8 @@ Rules:
 
 The build is acceptable when:
 
-- README shows `Ozark Gazette v1.2.0` as the current build.
-- README timestamp is `30 June 2026 • 22:37:00Z UTC`.
+- README shows `Ozark Gazette v1.3.0` as the current build.
+- README timestamp is `01 July 2026 • 02:06:46Z UTC`.
 - README keeps the copyright line `Copyright © 2026 | Cook Global News Network | All Rights Reserved.`
 - Site canonical base is `https://ozarks.cgnnews.net/`.
 - No page uses `ozarkgazette.com` as canonical.
@@ -936,6 +955,8 @@ The build is acceptable when:
 - Homepage CGN LIVE takes over the widget area when selected.
 - Back to Headlines restores the Ozark headline widget.
 - `apps-script/OzarkGazette.gs` has no `doGet` or `doPost`.
+- Main CGN `action=articles` still returns the main CGN News article feed after the Ozark extension is installed.
+- Ozark `action=ozark_articles` returns only The Ozark Gazette article feed after the router-isolation fix.
 - `apps-script/OzarkGazette.gs` has 102 function declarations and no duplicate function names.
 - `ozark_health` returns the Ozark site, URL and spreadsheet ID.
 - `ozark_articles` returns rows from `Articles`.
@@ -1076,7 +1097,7 @@ Do not add a fallback to the main CGN `action=articles` route.
 
 ---
 
-## 18. File Inventory for v1.2.0
+## 18. File Inventory for v1.3.0
 
 | File | Status |
 |---|---|
@@ -1099,6 +1120,6 @@ Do not add a fallback to the main CGN `action=articles` route.
 
 ---
 
-Ozark Gazette v1.2.0 | Last Updated on 30 June 2026 • 22:37:00Z UTC |  
+Ozark Gazette v1.3.0 | Last Updated on 01 July 2026 • 02:06:46Z UTC |  
 Copyright © 2026 Cook Global News Network | All Rights Reserved |  
 Developed by Cook Technology Services in Chicago, Illinois
