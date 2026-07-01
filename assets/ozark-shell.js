@@ -114,11 +114,46 @@
       .footer-bottom a{font-size:12px;color:#dbe4f0}
       .footer-developed{margin-top:5px;text-align:center;color:#dbe4f0;font-size:12px;font-weight:800;line-height:1.5}
       .footer-developed a{color:#f2d990;font-size:12px;font-weight:900;line-height:1.5}
+
+      .right-tools .cgn-help-link{order:6}
+      .right-tools .cgn-ios-app-desktop-link{order:7}
+      .right-tools .editor-portal-link{order:8}
       .footer-support-advertise{color:#f2d990!important;font-weight:900}
       .footer-support-advertise:hover,.footer-support-advertise:focus{color:#fff!important;text-decoration:underline}
       .cgn-shell-login-modal{position:fixed;inset:0;z-index:99999;background:rgba(2,8,23,.72);display:none;align-items:center;justify-content:center;padding:18px}
       .cgn-shell-login-card{width:min(430px,96vw);background:#fff;color:#07172f;border:1px solid #d6dce7;box-shadow:0 20px 60px rgba(0,0,0,.28);padding:20px}
       .cgn-shell-login-card h3{margin:0 0 10px}.cgn-shell-login-label{display:block;margin:10px 0 5px;font-size:12px;font-weight:900;text-transform:uppercase}.cgn-shell-login-input{width:100%;padding:11px;border:1px solid #b8c0cc;font-size:15px}.cgn-shell-login-message{min-height:18px;color:#a41212;font-size:13px;margin:10px 0}.cgn-shell-login-actions{display:flex;gap:8px;flex-wrap:wrap}.cgn-shell-login-actions button,.cgn-shell-login-close{border:1px solid #07172f;background:#07172f;color:#fff;padding:10px 12px;font-weight:900;cursor:pointer}.cgn-shell-login-close{margin-top:10px;background:#fff;color:#07172f}
+
+      .cgn-help-link {
+        width:24px;
+        height:24px;
+        display:inline-flex;
+        flex-direction:column;
+        align-items:center;
+        justify-content:center;
+        gap:0;
+        color:#111;
+        text-decoration:none;
+        line-height:1;
+        flex:0 0 auto;
+        transition:opacity .2s ease;
+      }
+      .cgn-help-link:hover,.cgn-help-link:focus{opacity:.72;text-decoration:none;color:#111;background:transparent}
+      .cgn-help-mark{width:14px;height:14px;display:inline-flex;align-items:center;justify-content:center;border:2px solid #111;border-radius:999px;background:#fff;color:#111;font-family:Arial Black,Arial,Helvetica,sans-serif;font-size:10px;font-weight:900;line-height:1}
+      .cgn-help-text{display:block;margin-top:1px;color:#111;font-family:Arial Black,Arial,Helvetica,sans-serif;font-size:6px;font-weight:900;line-height:1;letter-spacing:.01em;white-space:nowrap}
+      .cgn-ios-app-desktop-link{width:26px;height:36px;display:inline-flex;align-items:center;justify-content:center;color:#111;text-decoration:none;flex:0 0 auto;transition:opacity .2s ease}
+      .cgn-ios-app-desktop-link:hover,.cgn-ios-app-desktop-link:focus{opacity:.72;text-decoration:none;color:#111;background:transparent}
+      .cgn-ios-app-phone{position:relative;display:inline-flex;align-items:center;justify-content:center;width:23px;height:32px;flex:0 0 23px;border:2px solid #111;border-radius:7px;background:radial-gradient(circle at 50% 42%,rgba(83,213,255,.18),transparent 46%),linear-gradient(180deg,rgba(7,17,31,.06),rgba(7,17,31,.02));box-shadow:inset 0 0 0 1px rgba(7,17,31,.10)}
+      .cgn-ios-app-notch{position:absolute;top:3px;left:50%;width:9px;height:2px;border-radius:999px;background:#111;transform:translateX(-50%)}
+      .cgn-ios-app-word{display:block;margin-top:1px;color:#111;font-family:Arial Black,Arial,Helvetica,sans-serif;font-size:7px;font-weight:900;line-height:1;letter-spacing:-.02em}
+      .cgn-ios-app-home{position:absolute;bottom:3px;left:50%;width:4px;height:4px;border-radius:999px;background:#c40000;transform:translateX(-50%);box-shadow:0 0 0 1px rgba(7,17,31,.42)}
+      .editor-portal-link{width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;position:relative;color:#111;text-decoration:none;transition:opacity .2s ease;flex:0 0 auto}
+      .editor-portal-link:hover,.editor-portal-link:focus{opacity:.65;text-decoration:none;color:#111;background:transparent}
+      .editor-portal-text{display:none}
+      .editor-portal-pen{width:17px;height:4px;background:#111;border-radius:999px;transform:rotate(-38deg);position:relative;display:block}
+      .editor-portal-pen::before{content:"";position:absolute;left:-5px;top:0;width:0;height:0;border-top:2px solid transparent;border-bottom:2px solid transparent;border-right:6px solid #111}
+      .editor-portal-pen::after{content:"";position:absolute;right:-4px;top:0;width:4px;height:4px;background:#111;border-radius:1px}
+      .footer-cgn-mark{object-fit:contain}
       .article-card{display:block;color:#07172f;text-decoration:none;border:1px solid #dfe4eb;background:#fff}.article-card img{width:100%;height:160px;object-fit:cover;display:block;background:#e5e7eb}.article-body{padding:14px}.article-body h3{margin:5px 0 7px;font-size:19px;line-height:1.2}.article-meta{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:#667085;font-weight:900}.article-body p{margin:0;color:#475467;line-height:1.45}.empty{border:1px solid #dfe4eb;background:#f7f9fc;color:#475467;padding:16px;line-height:1.45}
       @media(max-width:1120px){.top-bar{display:grid;grid-template-columns:1fr;justify-items:center}.brand-link{justify-content:center;text-align:center;flex-direction:column}.brand-text{align-items:center}.nav{justify-content:center}.right-tools{justify-content:center}.brand-link .logo{height:auto;max-width:min(92vw,290px)}}
       @media(max-width:700px){.top-bar{padding:10px;gap:10px}.nav{gap:10px;white-space:normal}.nav-dropdown{right:auto;left:50%;transform:translateX(-50%);max-width:calc(100vw - 24px)}.right-tools{width:100%;justify-content:center}.cgn-bureau-weather-time{min-width:120px}.social-link,.support-link{width:36px;height:36px}.ticker{padding:9px 10px}.market-ticker-live{padding:0 10px}.footer-container{grid-template-columns:1fr 1fr}.footer-container>div:first-child{grid-column:1 / -1}}
@@ -242,6 +277,27 @@
   const xIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2H21.5l-7.11 8.13L22.75 22h-6.55l-5.13-6.71L5.2 22H1.94l7.6-8.69L1.5 2h6.72l4.64 6.13L18.244 2Zm-1.15 17.91h1.8L7.24 3.98H5.31l11.784 15.93Z"></path></svg>';
   const youtubeIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2a3.02 3.02 0 0 0-2.13-2.14C19.48 3.56 12 3.56 12 3.56s-7.48 0-9.37.5A3.02 3.02 0 0 0 .5 6.2 31.5 31.5 0 0 0 0 12a31.5 31.5 0 0 0 .5 5.8 3.02 3.02 0 0 0 2.13 2.14c1.89.5 9.37.5 9.37.5s7.48 0 9.37-.5a3.02 3.02 0 0 0 2.13-2.14A31.5 31.5 0 0 0 24 12a31.5 31.5 0 0 0-.5-5.8ZM9.6 15.56V8.44L15.85 12 9.6 15.56Z"></path></svg>';
 
+  const helpButtonHtml = `
+          <a href="/support/" class="cgn-help-link" aria-label="Open Ozark Gazette Technical Support">
+            <span class="cgn-help-mark" aria-hidden="true">?</span>
+            <span class="cgn-help-text">Help?</span>
+          </a>`;
+
+  const iosAppIconHtml = `
+          <a id="cgn-ios-app-desktop-link" class="cgn-ios-app-desktop-link" href="https://www.cgnnews.net/ios" aria-label="Get the CGN NOW iOS app">
+            <span class="cgn-ios-app-phone" aria-hidden="true">
+              <span class="cgn-ios-app-notch"></span>
+              <span class="cgn-ios-app-word">iOS</span>
+              <span class="cgn-ios-app-home"></span>
+            </span>
+          </a>`;
+
+  const editorPortalIconHtml = `
+          <a href="https://ozarks.cgnnews.net/editor/" class="editor-portal-link" aria-label="Open Ozark Gazette Editor Portal">
+            <span class="editor-portal-pen" aria-hidden="true"></span>
+            <span class="editor-portal-text">EDITOR LOGIN</span>
+          </a>`;
+
   function renderHeader(){
     const mount = document.getElementById("cgn-site-header");
     if(!mount) return;
@@ -303,7 +359,9 @@
           <a class="social-link social-instagram" href="https://www.instagram.com/cookglobalnews/" target="_blank" rel="noopener noreferrer" aria-label="CGN News on Instagram">${instagramIcon}</a>
           <a class="social-link social-x" href="https://x.com/CookGlobalNews" target="_blank" rel="noopener noreferrer" aria-label="CGN News on X">${xIcon}</a>
           <a class="social-link social-youtube" href="https://www.youtube.com/@CookGlobalNews" target="_blank" rel="noopener noreferrer" aria-label="CGN News on YouTube">${youtubeIcon}</a>
-          <a class="support-link" href="/support/" aria-label="Support"><img src="/CGNHelpIcon01.png" alt=""></a>
+          ${helpButtonHtml}
+          ${iosAppIconHtml}
+          ${editorPortalIconHtml}
         </div>
       </header>
       <div class="ticker" id="cgn-shell-ticker" aria-label="The Ozark Gazette live headline feed"><span class="ticker-label">Latest</span><div class="ticker-viewport"><div class="ticker-track"><span class="ticker-group"><span class="ticker-item"><a href="/news/">Loading Ozark headlines...</a></span></span></div></div></div>
@@ -349,11 +407,7 @@
         <div class="footer-container">
           <div>
             <a class="footer-cgn-logo-link" href="https://www.cgnnews.net/" aria-label="Open CGN News">
-              <svg class="footer-cgn-mark" viewBox="0 0 330 92" role="img" aria-label="CGN">
-                <circle cx="46" cy="46" r="36" fill="none" stroke="currentColor" stroke-width="6"></circle>
-                <path d="M12 46h68M46 10c10 10 15 22 15 36S56 72 46 82M46 10C36 20 31 32 31 46s5 26 15 36M18 28h56M18 64h56" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"></path>
-                <text x="98" y="64" font-family="Arial Black, Arial, Helvetica, sans-serif" font-size="54" font-weight="900" fill="currentColor" letter-spacing="-2">CGN</text>
-              </svg>
+              <img src="/CGNLogo.webp" class="footer-cgn-mark" alt="CGN News">
             </a>
             <p class="cgn-tag">Real-Time News.<br>Global Perspective.</p>
             <p><strong>The Ozark Gazette</strong><br>P.O. Box 794<br>33256 U.S. Highway 160<br>Tecumseh, Missouri 65760<br>📱 (317) 442-1437<br><a href="mailto:tips@cgnnews.net">📧 tips@cgnnews.net</a></p>
