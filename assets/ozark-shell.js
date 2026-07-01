@@ -476,7 +476,7 @@
             <a href="/classifieds/">Classifieds</a>
           </div>
           <div>
-            <h4><a href="/support/"Support</h4>
+            <h4><a href="/support/">Support</a></h4>
             <a href="/contact/">Contact</a><br>
             <a href="/support/">Support</a><br>
             <a href="https://www.cgnnews.net/privacy-policy">Privacy</a><br>
