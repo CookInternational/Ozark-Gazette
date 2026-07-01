@@ -6,13 +6,67 @@
   const DEFAULT_IMG = "/OzarkGazetteBanner.png";
   const OZARK_SHEET_ID = "1Xz9bnMqb-tkHeo2N2UonUbBr1jpo1VzKcVbBW_PU2n0";
   const OZARK_SHEETS = { articles:"Articles", archives:"Archives", obituaries:"Obituaries" };
-  const TECUMSEH = {
-    name:"Tecumseh",
-    location:"Tecumseh, MO",
-    latitude:36.5836,
-    longitude:-92.2863,
-    timeZone:"America/Chicago"
-  };
+  const OZARK_BUREAU_ROTATION_MS = 7000;
+  const OZARK_BUREAU_WEATHER_REFRESH_MS = 10 * 60 * 1000;
+
+  const OZARK_BUREAU_CITIES = [
+    {
+      name:"Indianapolis",
+      location:"Indianapolis, IN",
+      latitude:39.7684,
+      longitude:-86.1581,
+      timeZone:"America/Indiana/Indianapolis"
+    },
+    {
+      name:"Chicago",
+      location:"Chicago, IL",
+      latitude:41.8781,
+      longitude:-87.6298,
+      timeZone:"America/Chicago"
+    },
+    {
+      name:"St. Louis",
+      location:"St. Louis, MO",
+      latitude:38.6270,
+      longitude:-90.1994,
+      timeZone:"America/Chicago"
+    },
+    {
+      name:"New York City",
+      location:"New York City, NY",
+      latitude:40.7128,
+      longitude:-74.0060,
+      timeZone:"America/New_York"
+    },
+    {
+      name:"Philadelphia",
+      location:"Philadelphia, PA",
+      latitude:39.9526,
+      longitude:-75.1652,
+      timeZone:"America/New_York"
+    },
+    {
+      name:"Baton Rouge",
+      location:"Baton Rouge, LA",
+      latitude:30.4515,
+      longitude:-91.1871,
+      timeZone:"America/Chicago"
+    },
+    {
+      name:"Miami",
+      location:"Miami, FL",
+      latitude:25.7617,
+      longitude:-80.1918,
+      timeZone:"America/New_York"
+    },
+    {
+      name:"Los Angeles",
+      location:"Los Angeles, CA",
+      latitude:34.0522,
+      longitude:-118.2437,
+      timeZone:"America/Los_Angeles"
+    }
+  ];
 
   window.CGN_API_BASE = API_BASE;
   window.CGN_API_URL = API_BASE;
@@ -20,6 +74,9 @@
 
   let shellClockTimer = null;
   let shellWeatherTimer = null;
+  let shellRotationTimer = null;
+  let ozarkBureauIndex = 0;
+  const ozarkBureauWeatherCache = {};
 
   function esc(v){
     return String(v == null ? "" : v).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
@@ -114,6 +171,20 @@
       .social-link:hover,.support-link:hover,.social-link:focus,.support-link:focus{background:#07172f;color:#fff;text-decoration:none}
       .social-link svg{width:19px;height:19px;display:block;fill:currentColor}
       .support-link img{width:28px;height:28px;object-fit:contain;display:block}
+      .news-directory-link,.sports-center-link,.traffic-center-link{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;color:#111;text-decoration:none;flex:0 0 auto;transition:opacity .2s ease}
+      .news-directory-link:hover,.news-directory-link:focus,.sports-center-link:hover,.sports-center-link:focus,.traffic-center-link:hover,.traffic-center-link:focus{opacity:.72;text-decoration:none;color:#111;background:transparent}
+      .news-directory-icon,.sports-center-icon,.traffic-center-icon{width:28px;height:28px;display:block;object-fit:contain}
+      .right-tools .account-wrap{order:1}
+      .right-tools .cgn-bureau-weather-time{order:2}
+      .right-tools .news-directory-link{order:3}
+      .right-tools .sports-center-link{order:4}
+      .right-tools .traffic-center-link{order:5}
+      .right-tools .cgn-help-link{order:6}
+      .right-tools .social-instagram{order:7}
+      .right-tools .social-x{order:8}
+      .right-tools .social-youtube{order:9}
+      .right-tools .cgn-ios-app-desktop-link{order:10}
+      .right-tools .editor-portal-link{order:11}
       @keyframes ozarkHeadlineTickerScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
       .ticker{display:flex;align-items:center;gap:12px;min-height:40px;height:40px;padding:0 20px;background:#000;color:#fff;font-size:13px;font-weight:900;overflow:hidden;position:relative;isolation:isolate}
       .ticker-label{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;height:24px;padding:0 9px;border:1px solid rgba(242,217,144,.54);border-radius:999px;background:#c1121f;color:#fff;font-size:10px;font-weight:900;letter-spacing:.09em;text-transform:uppercase;line-height:1;white-space:nowrap}
@@ -150,9 +221,6 @@
       .footer-developed{margin-top:5px;text-align:center;color:#dbe4f0;font-size:12px;font-weight:800;line-height:1.5}
       .footer-developed a{color:#f2d990;font-size:12px;font-weight:900;line-height:1.5}
 
-      .right-tools .cgn-help-link{order:6}
-      .right-tools .cgn-ios-app-desktop-link{order:7}
-      .right-tools .editor-portal-link{order:8}
       .footer-support-advertise{color:#f2d990!important;font-weight:900}
       .footer-support-advertise:hover,.footer-support-advertise:focus{color:#fff!important;text-decoration:underline}
       .cgn-shell-login-modal{position:fixed;inset:0;z-index:99999;background:rgba(2,8,23,.72);display:none;align-items:center;justify-content:center;padding:18px}
@@ -330,6 +398,21 @@
             <span class="editor-portal-text">EDITOR LOGIN</span>
           </a>`;
 
+  const newsDirectoryIconHtml = `
+          <a id="news-directory-link" class="news-directory-link" href="/news/" aria-label="The Ozark Gazette news directory">
+            <img src="/CGNNewsIcon01.png" class="news-directory-icon" alt="" aria-hidden="true">
+          </a>`;
+
+  const sportsCenterIconHtml = `
+          <a id="sports-center-link" class="sports-center-link" href="/sports/" aria-label="Ozark Gazette Sports Center">
+            <img src="/CGNSportsCenterIcon01.png" class="sports-center-icon" alt="" aria-hidden="true">
+          </a>`;
+
+  const trafficCenterIconHtml = `
+          <a id="traffic-center-link" class="traffic-center-link" href="/traffic/" aria-label="Ozark Gazette Traffic Center">
+            <img src="/CGNTrafficCenterIcon01.png" class="traffic-center-icon" alt="" aria-hidden="true">
+          </a>`;
+
   function renderHeader(){
     const mount = document.getElementById("cgn-site-header");
     if(!mount) return;
@@ -345,26 +428,23 @@
           </span>
         </a>
         <nav class="nav" aria-label="Main Navigation">
-          <a href="/news/">News</a>
-          <a href="/weather/">Weather</a>
-          <a href="/weather/radar/">Radar</a>
-          <a href="/traffic/">Traffic</a>
-          <a href="/sports/">Sports</a>
+          <a href="/local/">Local</a>
+          <a href="/us/">US</a>
+          <a href="/world/">World</a>
+          <a href="/politics/">Politics</a>
+          <a href="/markets/">Markets</a>
           <span class="nav-more">
             <button class="nav-more-button" type="button" aria-label="More Ozark Gazette categories" aria-haspopup="true" aria-expanded="false">▾</button>
             <span id="category-dropdown" class="nav-dropdown" role="menu">
-              <a href="/local/" role="menuitem">Local</a>
-              <a href="/us/" role="menuitem">US</a>
-              <a href="/world/" role="menuitem">World</a>
-              <a href="/politics/" role="menuitem">Politics</a>
-              <a href="/markets/" role="menuitem">Markets</a>
               <a href="/technology/" role="menuitem">Technology</a>
               <a href="/entertainment/" role="menuitem">Entertainment</a>
               <a href="/environment/" role="menuitem">Environment</a>
               <a href="/investigations/" role="menuitem">Investigations</a>
               <a href="/opinion/" role="menuitem">Opinion</a>
               <a href="/obituaries/" role="menuitem">Obituaries</a>
+              <a href="/classifieds/" role="menuitem">Classifieds</a>
               <a href="/weather/" role="menuitem">Weather</a>
+              <a href="/weather/radar/" role="menuitem">Radar</a>
               <a href="/traffic/" role="menuitem">Traffic</a>
               <a href="/sports/" role="menuitem">Sports</a>
               <a href="/news/" role="menuitem">View All News</a>
@@ -380,18 +460,21 @@
             </span>
           </span>
           <a id="cgn-bureau-weather-time" class="cgn-bureau-weather-time" href="/weather/" aria-label="Open Ozark weather">
-            <span id="cgn-bureau-mobile-line" class="cgn-bureau-mobile-line"><span class="cgn-bureau-mobile-date">Loading date...</span><span class="cgn-bureau-mobile-clock">Loading time...</span><span class="cgn-bureau-mobile-city">Tecumseh</span></span>
+            <span id="cgn-bureau-mobile-line" class="cgn-bureau-mobile-line"><span class="cgn-bureau-mobile-date">Loading date...</span><span class="cgn-bureau-mobile-clock">Loading time...</span><span class="cgn-bureau-mobile-city">Indianapolis</span></span>
             <span id="cgn-bureau-time" class="cgn-bureau-time">Loading local time...</span>
             <span id="cgn-bureau-weather" class="cgn-bureau-weather">Loading weather...</span>
-            <span id="cgn-bureau-location" class="cgn-bureau-location">Tecumseh</span>
+            <span id="cgn-bureau-location" class="cgn-bureau-location">Indianapolis</span>
           </a>
           <span id="datetime" class="cgn-shell-compat-hidden" aria-hidden="true"></span>
           <span id="weather" class="cgn-shell-compat-hidden" aria-hidden="true"></span>
-          <a id="cgn-mobile-weather-mini" class="cgn-mobile-weather-mini" href="/weather/" aria-label="Open Ozark weather"><span id="cgn-mobile-weather-compact" class="cgn-mobile-weather-compact">--°F</span></a>
+          <a id="cgn-mobile-weather-mini" class="cgn-mobile-weather-mini" href="/weather/" aria-label="Open Ozark weather"><span id="cgn-mobile-weather-compact" class="cgn-mobile-weather-compact">🌤 --°F</span></a>
+          ${newsDirectoryIconHtml}
+          ${sportsCenterIconHtml}
+          ${trafficCenterIconHtml}
+          ${helpButtonHtml}
           <a class="social-link social-instagram" href="https://www.instagram.com/cookglobalnews/" target="_blank" rel="noopener noreferrer" aria-label="CGN News on Instagram">${instagramIcon}</a>
           <a class="social-link social-x" href="https://x.com/CookGlobalNews" target="_blank" rel="noopener noreferrer" aria-label="CGN News on X">${xIcon}</a>
           <a class="social-link social-youtube" href="https://www.youtube.com/@CookGlobalNews" target="_blank" rel="noopener noreferrer" aria-label="CGN News on YouTube">${youtubeIcon}</a>
-          ${helpButtonHtml}
           ${iosAppIconHtml}
           ${editorPortalIconHtml}
         </div>
@@ -451,7 +534,7 @@
             <a href="/us/">US</a><br>
             <a href="/world/">World</a><br>
             <a href="/politics/">Politics</a><br>
-            <a href="/technology/">Technology</a><br>
+            <a href="/markets/">Markets</a><br>
             <a href="/investigations/">Investigations</a><br>
             <a href="/opinion/">Opinion</a>
           </div>
@@ -493,14 +576,56 @@
       </footer>`;
   }
 
-  function normalizeTimeZoneLabel(label){
+  function parseShortOffsetMinutes(label){
     const raw = String(label || "").trim();
-    if(raw === "GMT-5") return "CDT";
-    if(raw === "GMT-6") return "CST";
-    return raw || "CT";
+    if(raw === "GMT" || raw === "UTC") return 0;
+
+    const m = raw.match(/^(?:GMT|UTC)([+-])(\d{1,2})(?::?(\d{2}))?$/i);
+    if(!m) return null;
+
+    const sign = m[1] === "-" ? -1 : 1;
+    const hours = Number(m[2] || 0);
+    const minutes = Number(m[3] || 0);
+    return sign * ((hours * 60) + minutes);
   }
 
-  function formatLocalParts(){
+  function normalizeTimeZoneLabel(city, label){
+    const raw = String(label || "").trim();
+    if(raw && !/^(GMT|UTC)(?:[+-]|$)/i.test(raw)) return raw;
+
+    const offset = parseShortOffsetMinutes(raw);
+
+    if(city.timeZone === "America/Indiana/Indianapolis" || city.timeZone === "America/New_York"){
+      if(offset === -240) return "EDT";
+      if(offset === -300) return "EST";
+      return raw || "ET";
+    }
+
+    if(city.timeZone === "America/Chicago"){
+      if(offset === -300) return "CDT";
+      if(offset === -360) return "CST";
+      return raw || "CT";
+    }
+
+    if(city.timeZone === "America/Los_Angeles"){
+      if(offset === -420) return "PDT";
+      if(offset === -480) return "PST";
+      return raw || "PT";
+    }
+
+    return raw;
+  }
+
+  function getActiveBureauCity(){
+    return OZARK_BUREAU_CITIES[ozarkBureauIndex] || OZARK_BUREAU_CITIES[0];
+  }
+
+  function getBureauWeather(city){
+    return ozarkBureauWeatherCache[city.name] || null;
+  }
+
+  function formatLocalParts(city){
+    city = city || getActiveBureauCity();
     const parts = new Intl.DateTimeFormat("en-US", {
       day:"2-digit",
       month:"long",
@@ -509,80 +634,46 @@
       minute:"2-digit",
       second:"2-digit",
       hour12:true,
-      timeZone:TECUMSEH.timeZone,
+      timeZone:city.timeZone,
       timeZoneName:"short"
     }).formatToParts(new Date());
+
     const map = {};
     parts.forEach(p => { map[p.type] = p.value; });
-    const zone = normalizeTimeZoneLabel(map.timeZoneName);
+    const zone = normalizeTimeZoneLabel(city, map.timeZoneName);
     const dateText = `${map.day} ${map.month} ${map.year}`.replace(/\s+/g, " ").trim();
     const clockText = `${map.hour}:${map.minute}:${map.second} ${map.dayPeriod || ""}${zone ? " " + zone : ""}`.replace(/\s+/g, " ").trim();
     return {dateText, clockText, fullText:`${dateText} | ${clockText}`};
   }
 
   function updateClock(){
+    const city = getActiveBureauCity();
     const timeEl = document.getElementById("cgn-bureau-time");
+    const weatherEl = document.getElementById("cgn-bureau-weather");
     const locationEl = document.getElementById("cgn-bureau-location");
     const mobileLineEl = document.getElementById("cgn-bureau-mobile-line");
+    const compactEl = document.getElementById("cgn-mobile-weather-compact");
     const datetimeCompat = document.getElementById("datetime");
-    const parts = formatLocalParts();
+    const weatherCompat = document.getElementById("weather");
+    const parts = formatLocalParts(city);
+    const weather = getBureauWeather(city);
+    const weatherText = weather && !weather.error
+      ? `${weather.icon} ${weather.tempF}°F · ${weather.text}`
+      : "🌤 --°F · Weather updating";
+    const compactWeatherText = weather && !weather.error
+      ? `${weather.icon} ${weather.tempF}°`
+      : "🌤 --°";
+
     if(timeEl) timeEl.innerHTML = `${esc(parts.dateText)}<br>${esc(parts.clockText)}`;
-    if(locationEl) locationEl.textContent = TECUMSEH.name;
+    if(weatherEl) weatherEl.textContent = weatherText;
+    if(locationEl) locationEl.textContent = city.name;
     if(mobileLineEl){
-      mobileLineEl.innerHTML = `<span class="cgn-bureau-mobile-date">${esc(parts.dateText)}</span><span class="cgn-bureau-mobile-clock">${esc(parts.clockText)}</span><span class="cgn-bureau-mobile-city">${esc(TECUMSEH.name)}</span>`;
+      mobileLineEl.innerHTML = `<span class="cgn-bureau-mobile-date">${esc(parts.dateText)}</span><span class="cgn-bureau-mobile-clock">${esc(parts.clockText)}</span><span class="cgn-bureau-mobile-city">${esc(city.name)}</span>`;
     }
+    if(compactEl) compactEl.textContent = compactWeatherText;
     if(datetimeCompat) datetimeCompat.textContent = parts.fullText;
+    if(weatherCompat) weatherCompat.textContent = weatherText;
     updateWeatherAria();
-  }
-
-
-  function weatherTextInfo(text){
-    const raw = String(text || "").replace(/_/g, " ").replace(/\s+/g, " ").trim();
-    const lower = raw.toLowerCase();
-    if(!raw || /^(unknown|not available|n\/a|null)$/i.test(raw)) return null;
-    if(/thunder|t-?storm|lightning/.test(lower)) return {icon:"⛈", text:raw};
-    if(/freezing rain|freezing drizzle|sleet|ice pellet/.test(lower)) return {icon:"🌧", text:raw};
-    if(/snow|flurr|blizzard/.test(lower)) return {icon:"❄️", text:raw};
-    if(/rain|shower|drizzle|sprinkle/.test(lower)) return {icon:/sun|partly/i.test(raw) ? "🌦" : "🌧", text:raw};
-    if(/fog|mist|haze|smoke|dust/.test(lower)) return {icon:"🌫", text:raw};
-    if(/overcast|cloud|cloudy|few clouds|scattered clouds|broken clouds/.test(lower)) return {icon:/partly|few|scattered/i.test(raw) ? "🌤" : "☁️", text:raw};
-    if(/fair|clear|sunny/.test(lower)) return {icon:"☀️", text:raw};
-    return {icon:"🌤", text:raw};
-  }
-
-  function nwsValue(field){
-    if(field && typeof field === "object" && "value" in field) return Number(field.value);
-    return Number(field);
-  }
-
-  async function fetchNWSHeaderObservation(){
-    try{
-      const pointsUrl = `https://api.weather.gov/points/${TECUMSEH.latitude.toFixed(4)},${TECUMSEH.longitude.toFixed(4)}`;
-      const pointsResponse = await fetch(pointsUrl, {cache:"no-store", headers:{Accept:"application/geo+json"}});
-      if(!pointsResponse.ok) throw new Error("NWS points " + pointsResponse.status);
-      const pointsJson = await pointsResponse.json();
-      const stationsUrl = pointsJson && pointsJson.properties && pointsJson.properties.observationStations;
-      if(!stationsUrl) throw new Error("No observationStations URL");
-      const stationsResponse = await fetch(stationsUrl, {cache:"no-store", headers:{Accept:"application/geo+json"}});
-      if(!stationsResponse.ok) throw new Error("NWS stations " + stationsResponse.status);
-      const stationsJson = await stationsResponse.json();
-      const stations = Array.isArray(stationsJson.features) ? stationsJson.features : [];
-      for(const station of stations.slice(0, 6)){
-        const latestUrl = station && station.id ? station.id.replace(/\/$/, "") + "/observations/latest?require_qc=false" : "";
-        if(!latestUrl) continue;
-        const observationResponse = await fetch(latestUrl, {cache:"no-store", headers:{Accept:"application/geo+json"}});
-        if(!observationResponse.ok) continue;
-        const observationJson = await observationResponse.json();
-        const p = observationJson && observationJson.properties;
-        const info = weatherTextInfo(p && p.textDescription);
-        const tempC = nwsValue(p && p.temperature);
-        const tempF = Number.isFinite(tempC) ? Math.round((tempC * 9 / 5) + 32) : null;
-        if(info && Number.isFinite(tempF)) return {info, tempF};
-      }
-    }catch(e){
-      console.warn("Ozark shell NWS observation fallback:", e);
-    }
-    return null;
   }
 
   function weatherCodeInfo(code){
@@ -598,53 +689,87 @@
   }
 
   function updateWeatherAria(){
+    const city = getActiveBureauCity();
     const linkEl = document.getElementById("cgn-bureau-weather-time");
+    const mobileWeatherLinkEl = document.getElementById("cgn-mobile-weather-mini");
     const datetimeCompat = document.getElementById("datetime");
     const weatherCompat = document.getElementById("weather");
+    const weatherText = weatherCompat?.textContent || "weather updating";
+    const timeText = datetimeCompat?.textContent || "local time";
     if(linkEl){
-      linkEl.setAttribute("aria-label", `Open Ozark weather — ${TECUMSEH.name}, ${datetimeCompat?.textContent || "local time"}, ${weatherCompat?.textContent || "weather updating"}`);
+      linkEl.setAttribute("aria-label", `Open Ozark weather — ${city.name}, ${timeText}, ${weatherText}`);
+    }
+    if(mobileWeatherLinkEl){
+      mobileWeatherLinkEl.setAttribute("aria-label", `Open Ozark weather — ${city.name}, ${weatherText}`);
     }
   }
 
-  async function loadWeatherMini(){
-    const el = document.getElementById("cgn-bureau-weather");
-    const compactEl = document.getElementById("cgn-mobile-weather-compact");
-    const compatEl = document.getElementById("weather");
-    if(!el) return;
+  async function loadWeatherMini(city){
+    city = city || getActiveBureauCity();
     try{
-      let temp = null;
-      let info = null;
-      const nws = await fetchNWSHeaderObservation();
-      if(nws){
-        temp = nws.tempF;
-        info = nws.info;
-      } else {
-        const url = `https://api.open-meteo.com/v1/forecast?latitude=${TECUMSEH.latitude}&longitude=${TECUMSEH.longitude}&current=temperature_2m,weather_code&temperature_unit=fahrenheit&timezone=auto`;
-        const data = await (await fetch(url, {cache:"no-store"})).json();
-        const current = data.current || {};
-        temp = Math.round(Number(current.temperature_2m));
-        info = weatherCodeInfo(current.weather_code);
-      }
+      const url = "https://api.open-meteo.com/v1/forecast"
+        + `?latitude=${encodeURIComponent(city.latitude)}`
+        + `&longitude=${encodeURIComponent(city.longitude)}`
+        + "&current=temperature_2m,weather_code"
+        + "&temperature_unit=fahrenheit"
+        + "&timezone=auto";
+
+      const res = await fetch(url, {cache:"no-store"});
+      if(!res.ok) throw new Error("Open-Meteo " + res.status);
+      const data = await res.json();
+      const current = data && data.current ? data.current : {};
+      const temp = Math.round(Number(current.temperature_2m));
       if(!Number.isFinite(temp)) throw new Error("Missing temperature");
-      const text = `${info.icon} ${temp}°F · ${info.text}`;
-      el.textContent = text;
-      if(compactEl) compactEl.textContent = `${info.icon} ${temp}°`;
-      if(compatEl) compatEl.textContent = text;
+      const info = weatherCodeInfo(current.weather_code);
+      ozarkBureauWeatherCache[city.name] = {
+        tempF:temp,
+        icon:info.icon,
+        text:info.text,
+        error:false,
+        fetchedAt:Date.now()
+      };
     }catch(e){
-      el.textContent = "--°F · Weather updating";
-      if(compactEl) compactEl.textContent = "--°";
-      if(compatEl) compatEl.textContent = "--°F · Weather updating";
+      ozarkBureauWeatherCache[city.name] = {
+        tempF:"--",
+        icon:"🌤",
+        text:"Weather updating",
+        error:true,
+        fetchedAt:Date.now()
+      };
     }
-    updateWeatherAria();
+
+    if(city.name === getActiveBureauCity().name){
+      updateClock();
+    }
+  }
+
+  function loadAllBureauWeather(){
+    OZARK_BUREAU_CITIES.forEach(city => loadWeatherMini(city));
+  }
+
+  function rotateBureauCity(){
+    ozarkBureauIndex = (ozarkBureauIndex + 1) % OZARK_BUREAU_CITIES.length;
+    updateClock();
+
+    const city = getActiveBureauCity();
+    const weather = getBureauWeather(city);
+    if(!weather || (Date.now() - Number(weather.fetchedAt || 0)) > OZARK_BUREAU_WEATHER_REFRESH_MS){
+      loadWeatherMini(city);
+    }
   }
 
   function initWeatherTime(){
     if(shellClockTimer) clearInterval(shellClockTimer);
     if(shellWeatherTimer) clearInterval(shellWeatherTimer);
+    if(shellRotationTimer) clearInterval(shellRotationTimer);
+
+    ozarkBureauIndex = 0;
     updateClock();
-    loadWeatherMini();
+    loadAllBureauWeather();
+
     shellClockTimer = setInterval(updateClock, 1000);
-    shellWeatherTimer = setInterval(loadWeatherMini, 600000);
+    shellRotationTimer = setInterval(rotateBureauCity, OZARK_BUREAU_ROTATION_MS);
+    shellWeatherTimer = setInterval(loadAllBureauWeather, OZARK_BUREAU_WEATHER_REFRESH_MS);
   }
 
   function renderTradingViewTicker(){
