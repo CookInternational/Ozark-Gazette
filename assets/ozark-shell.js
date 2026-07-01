@@ -418,6 +418,7 @@
             <a href="/us/">US</a><br>
             <a href="/world/">World</a><br>
             <a href="/politics/">Politics</a><br>
+            <a href="/business/">Business</a><br>
             <a href="/investigations/">Investigations</a><br>
             <a href="/opinion/">Opinion</a>
           </div>
@@ -442,7 +443,7 @@
             <a href="/classifieds/">Classifieds</a>
           </div>
           <div>
-            <h4><a href="/support/"Support</h4>
+            <h4><a href="/support/">Support</a></h4>
             <a href="/contact/">Contact</a><br>
             <a href="/support/">Support</a><br>
             <a href="https://www.cgnnews.net/privacy-policy">Privacy</a><br>
