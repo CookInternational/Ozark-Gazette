@@ -1,3 +1,4 @@
+[README.md](https://github.com/user-attachments/files/29539130/README.md)
 [README (1).md](https://github.com/user-attachments/files/29530697/README.1.md)
 [README.ozark-v1.3.0-router-isolation-fixed.md](https://github.com/user-attachments/files/29525432/README.ozark-v1.3.0-router-isolation-fixed.md)
 <img src="OzarkGazetteLogo.png" alt="The Ozark Gazette" width="260">
@@ -7,12 +8,12 @@
 **Plain-English + Technical README / Operating Manual**  
 CGN Shell | Ozark Gazette Local Publishing | Articles + Archives + Obituaries Sheet Routing | One Deployed CGN Apps Script Web App | Shared CGN Account Logic | CGN LIVE Homepage Takeover | PayPal + Paywall Preservation | Account Access | News Page | Weather Brief | Weather Radar | Traffic Brief | Sports Brief | Markets Brief | Puzzles | Horoscopes | Reporters | Obituaries | Court/Public Records Monitoring | SEO | Favicons | Static GitHub Pages Deployment | Apps Script Extension File | One-Week Archive Automation
 
-**Updated:** 01 July 2026 • 02:06:46Z UTC  
-**Site Build Stamp:** 01 July 2026 • 02:06:46Z UTC | Developed by Cook Technology Services  
+**Updated:** 01 July 2026 • 07:06:45Z UTC  
+**Site Build Stamp:** 01 July 2026 • 07:06:45Z UTC | Developed by Cook Technology Services  
 **Site Version:** `Ozark Gazette v1.3.0 Production Alpha`  
 **Site Slug:** `ozark-gazette-v1.3.0-production-alpha-router-isolation`  
 **Apps Script Extension File:** `apps-script/OzarkGazette.gs`  
-**Apps Script Extension Functions:** `102`  
+**Apps Script Extension Functions:** `154`  
 **Extension doGet / doPost:** `0` / `0`  
 **Duplicate Function Declarations:** `0`  
 **Repository:** `CookInternational/Ozark-Gazette`  
@@ -32,6 +33,7 @@ v1.3.0 applies the CGN / Ozark router-isolation fix while preserving the v1.2.0 
 
 ### Fixed and locked in this build
 
+- Updated the build stamp to `2026-07-01T07:06:45Z` for `CGN NEWS BACKEND v11.5.8 AutoNews22 + OzarkGazettev1.0 Router Fix`.
 - Updated the README version, timestamp and acceptance tests to `Ozark Gazette v1.3.0 Production Alpha`.
 - Preserved the Ozark Gazette logo, Ozark address block, Ozark copyright line and full operating-manual structure.
 - Locked the router isolation rule: `apps-script/OzarkGazette.gs` has no public `doGet(e)` or `doPost(e)`.
@@ -118,8 +120,9 @@ Technical explanation: the static repo renders pages from HTML, CSS and JavaScri
 | Item | Current value |
 |---|---|
 | Site version | `Ozark Gazette v1.3.0 Production Alpha` |
-| Site build stamp | `2026-07-01T02:06:46Z` |
-| README updated | `01 July 2026 • 02:06:46Z UTC` |
+| Site build stamp | `2026-07-01T07:06:45Z` |
+| Backend build | `CGN NEWS BACKEND v11.5.8 AutoNews22 + OzarkGazettev1.0 Router Fix` |
+| README updated | `01 July 2026 • 07:06:45Z UTC` |
 | Production site | `https://ozarks.cgnnews.net` |
 | Repository | `CookInternational/Ozark-Gazette` |
 | Public brand | `The Ozark Gazette` |
@@ -128,7 +131,7 @@ Technical explanation: the static repo renders pages from HTML, CSS and JavaScri
 | Primary contact | `tips@cgnnews.net` |
 | Editor contact | `editor@cgnnews.net` for Michael A. Cook only |
 | Apps Script extension file | `apps-script/OzarkGazette.gs` |
-| Apps Script extension functions | `102` |
+| Apps Script extension functions | `154` |
 | Extension doGet / doPost | `0` / `0` |
 | Duplicate extension functions | `0` |
 | Apps Script Web App URL | `https://script.google.com/macros/s/AKfycbx41mQg-Ine3XZ-VrMI_SaQn4_K6cDQHA0cBFyGPgupu_edNFoNRjSLv2hoSe_bOytt/exec` |
@@ -932,7 +935,7 @@ Rules:
 The build is acceptable when:
 
 - README shows `Ozark Gazette v1.3.0` as the current build.
-- README timestamp is `01 July 2026 • 02:06:46Z UTC`.
+- README timestamp is `01 July 2026 • 07:06:45Z UTC`.
 - README keeps the copyright line `Copyright © 2026 | Cook Global News Network | All Rights Reserved.`
 - Site canonical base is `https://ozarks.cgnnews.net/`.
 - No page uses `ozarkgazette.com` as canonical.
@@ -957,7 +960,7 @@ The build is acceptable when:
 - `apps-script/OzarkGazette.gs` has no `doGet` or `doPost`.
 - Main CGN `action=articles` still returns the main CGN News article feed after the Ozark extension is installed.
 - Ozark `action=ozark_articles` returns only The Ozark Gazette article feed after the router-isolation fix.
-- `apps-script/OzarkGazette.gs` has 102 function declarations and no duplicate function names.
+- `apps-script/OzarkGazette.gs` has 154 function declarations and no duplicate function names.
 - `ozark_health` returns the Ozark site, URL and spreadsheet ID.
 - `ozark_articles` returns rows from `Articles`.
 - `ozark_archives` returns rows from `Archives`.
@@ -1120,6 +1123,6 @@ Do not add a fallback to the main CGN `action=articles` route.
 
 ---
 
-Ozark Gazette v1.3.0 | Last Updated on 01 July 2026 • 02:06:46Z UTC |  
+Ozark Gazette v1.3.0 | Last Updated on 01 July 2026 • 07:06:45Z UTC |  
 Copyright © 2026 Cook Global News Network | All Rights Reserved |  
 Developed by Cook Technology Services in Chicago, Illinois
