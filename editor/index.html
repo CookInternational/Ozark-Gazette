@@ -1708,6 +1708,32 @@
     }
 
 
+
+    /* OZARK EDITOR PORTAL GLOBAL SHELL LOCK
+       The editor uses /assets/ozark-shell.js for the global header/footer.
+       Hide the editor pencil on /editor/ itself and use /CGNLogo.webp on login. */
+    body.editor-portal-page #cgn-site-header .editor-portal-link {
+      display:none !important;
+    }
+
+    body.editor-portal-page .login-logo img {
+      width:160px;
+      max-width:72%;
+      height:auto;
+      display:block;
+      object-fit:contain;
+    }
+
+    body.editor-portal-page #cgn-site-header {
+      position:relative;
+      z-index:5000;
+    }
+
+    body.editor-portal-page #cgn-site-footer {
+      position:relative;
+      z-index:1;
+    }
+
   </style>
 
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -1719,7 +1745,7 @@
 
 </head>
 
-<body>
+<body class="editor-portal-page" data-page="editor">
 
 <div id="cgn-site-header"></div>
 
@@ -1735,7 +1761,7 @@
       <section id="loginView" class="login-wrap">
         <div class="login-card">
           <div class="login-logo">
-            <img src="/CGNNewsLogo01.png" alt="CGN News">
+            <img src="/CGNLogo.webp" alt="CGN News">
           </div>
 
           <h2>Ozark Gazette Editor Login</h2>
@@ -2638,7 +2664,7 @@
 
  <div id="cgn-site-footer"></div>
 
-  <script src="/assets/cgn-shell.js"></script>
+  <script src="/assets/ozark-shell.js"></script>
 
 
   <script>
@@ -2668,7 +2694,7 @@
 
 
     /* EDITOR-ONLY GLOBAL SHELL ACCOUNT OVERRIDE
-       The shared /assets/cgn-shell.js still renders the global CGN header/footer.
+       The shared /assets/ozark-shell.js renders the Ozark global CGN header/footer.
        This page only changes the shell account button behavior inside /editor/:
        - Logged out: button says "Editor Login" and scrolls to this editor login card.
        - Logged in: button says "Editor Account" and opens an editor-only menu.
@@ -2707,15 +2733,16 @@
       const rightTools = document.querySelector(".right-tools");
       if(!rightTools) return;
 
-      const editorPen = rightTools.querySelector(".editor-portal-link");
-      if(editorPen) editorPen.remove();
+      rightTools.querySelectorAll(".editor-portal-link").forEach(function(editorPen){
+        editorPen.remove();
+      });
 
       let appLink = document.getElementById("cgn-ios-app-desktop-link");
       if(!appLink){
         appLink = document.createElement("a");
         appLink.id = "cgn-ios-app-desktop-link";
         appLink.className = "cgn-ios-app-desktop-link";
-        appLink.href = "/ios/";
+        appLink.href = "https://www.cgnnews.net/ios";
         appLink.setAttribute("aria-label", "Get the CGN NOW iOS app");
         appLink.innerHTML = cgnEditorNowAppIconMarkup();
       }
