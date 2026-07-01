@@ -1,12 +1,13 @@
-[README.md](https://github.com/user-attachments/files/29530506/README.md)
-# CGN News Backend
+[README (1).md](https://github.com/user-attachments/files/29530618/README.1.md)
+# The Ozark Gazette Backend v1.3.0
 
-![CGN News](https://www.cgnnews.net/CGNNewsLogo01.png)
+![The Ozark Gazette](https://ozarks.cgnnews.net/OzarkGazetteLogo.png)
 
-**Cook Global News Network / CGN News**  
-**Documentation version:** v1.1.0  
-**Backend release:** `CGN NEWS BACKEND v11.5.7 AutoNews22 Local Traffic Advisory + OzarkGazettev1.0 Router Isolation Fix`  
-**Backend slug:** `v11.5.7-autonews22-local-ozarks-router-fix`  
+**The Ozark Gazette**  
+**Ozarks local news, weather, traffic, sports, obituaries and classifieds**  
+**Documentation version:** v1.3.0  
+**Backend release:** `OzarkGazettev1.0 Router Isolation Fix`  
+**CGN shared backend compatibility:** `v11.5.7-autonews22-local-ozarks-router-fix`  
 **Last updated:** 01 July 2026 at 01:50:04Z UTC  
 **Copyright © 2026 Cook Global News Network. All Rights Reserved.**
 
@@ -14,250 +15,272 @@
 
 ## Overview
 
-This repository contains the canonical Google Apps Script backend for **CGN News** at `https://www.cgnnews.net`.
+This repository documents **The Ozark Gazette** backend extension for `https://ozarks.cgnnews.net`.
 
-The backend powers article loading, article search, reporter profiles, subscriptions, newsletters, editorial tools, static article publishing, archive routing, weather automation, traffic advisories, CGN LLM editorial review tools and the isolated Ozark Gazette extension route.
+The Ozark Gazette uses its own Google Sheet, its own article/archive/obituary/classifieds tabs, its own Ozarks source registry and its own `ozark_...` public API actions. When installed inside the shared CGN Apps Script project, the Ozark backend must remain a route-only extension so it does not override the main CGN News article feed.
 
-This release is a router-isolation update. It preserves the main CGN News article API while allowing **The Ozark Gazette** to operate from its own spreadsheet through `ozark_...` actions only.
+This release updates the README for the Ozark router-isolation fix. The important rule is simple: **The Ozark Gazette routes stay prefixed with `ozark_`, and the Ozark extension does not define its own `doGet(e)` or `doPost(e)` inside the shared CGN Apps Script project.**
 
 ---
 
-## Current release: v11.5.7
+## Current release: OzarkGazettev1.0 Router Isolation Fix
 
 ### Primary fix
 
-The v11.5.7 router fix isolates Ozark Gazette routing so it cannot override the main CGN News public article feed.
+The router-isolation fix keeps The Ozark Gazette from crashing or hijacking the main `cgnnews.net` site when both systems are present in the same Apps Script project.
 
-In the shared Apps Script project:
+In the shared CGN Apps Script project:
 
 - **Only the main CGN backend may define `doGet(e)` and `doPost(e)`.**
-- The Ozark Gazette extension must be included as an extension route only.
-- Ozark actions must be prefixed with `ozark_`.
-- Main CGN actions such as `articles`, `article`, `articles_paged`, `weather_articles` and `sports_articles` must continue to route to the main CGN Articles sheet.
+- The Ozark Gazette extension must be installed as a route-only extension.
+- Ozark public actions must begin with `ozark_`.
+- CGN News actions such as `articles`, `article`, `articles_paged`, `weather_articles` and `sports_articles` must continue routing to the main CGN spreadsheet.
+- Ozark actions such as `ozark_articles`, `ozark_article`, `ozark_obituaries`, `ozark_classifieds` and `ozark_health` must route to the Ozark spreadsheet only.
 
 ### Why this matters
 
-A standalone Ozark extension with its own `doGet(e)` and `doPost(e)` can shadow or hijack the public Apps Script Web App route. That can make `action=articles` stop returning CGN News articles and cause the main site to appear empty.
+A standalone Ozark extension with its own global `doGet(e)` and `doPost(e)` can shadow the shared Apps Script Web App route. That can make `action=articles` return an Ozark error or an empty response instead of the main CGN News Articles feed.
 
 The corrected model is:
 
 ```text
-CGN Web App doGet/doPost
+Shared CGN Web App doGet/doPost
         |
-        |-- ozark_... actions --> ozarkGazetteRoute_(payload) --> Ozark spreadsheet
+        |-- ozark_... actions --> ozarkGazetteRoute_(payload) --> Ozark Gazette spreadsheet
         |
-        |-- all other CGN actions --> CGN backend routes --> CGN spreadsheet
+        |-- all other actions --> CGN News backend routes --> CGN News spreadsheet
 ```
 
 ---
 
-## Source-of-truth model
+## Ozark source-of-truth model
 
-### Main CGN News
+### Site
 
-Main CGN News content is controlled by the main CGN backend and its configured CGN spreadsheet.
+```text
+https://ozarks.cgnnews.net
+```
 
-Core tabs include:
+### Spreadsheet
 
-- `Articles`
-- `Reporters`
-- `Users`
-- `Admin`
-- `Payments`
-- `CheckoutSessions`
-- `Logs`
-- `Newsletter`
-- `SpecialNewsletter`
-- `SpecialNewsletterSends`
-- `Reports`
-- `LLM`
-- `ElectionCenter`
-- `Advertisers`
+The Ozark Gazette backend reads and writes to the Ozark spreadsheet configured as:
 
-### Archives
+```text
+OGZ_SPREADSHEET_ID = 1Xz9bnMqb-tkHeo2N2UonUbBr1jpo1VzKcVbBW_PU2n0
+```
 
-Long-term archives read the configured Archives Google Sheet tab by GID as the source of truth.
+### Tabs
 
-There is no `archive-index.json` source of truth and no static JSON dependency for `archives.cgnnews.net`.
+The Ozark Gazette source-of-truth tabs are:
 
-### Ozark Gazette
+```text
+Articles
+Archives
+Obituaries
+Classifieds
+```
 
-The Ozark Gazette uses its own spreadsheet and must remain route-isolated from the main CGN News backend.
+### Default images
 
-Allowed public Ozark actions include:
-
-- `ozark_health`
-- `ozark_articles`
-- `ozark_archives`
-- `ozark_article`
-- `ozark_obituaries`
-- `ozark_obituary`
-- `ozark_classifieds`
-- `ozark_classified`
-- `ozark_classified_submit`
-- `ozark_sources`
-
-Ozark automation and admin actions must also keep the `ozark_` prefix.
+```text
+Ozark logo:       https://ozarks.cgnnews.net/OzarkGazetteLogo.png
+Ozark banner:     https://ozarks.cgnnews.net/OzarkGazetteBanner.png
+Obituary image:   https://ozarks.cgnnews.net/obituaries/RestInPeace.webp
+```
 
 ---
 
 ## Public API actions
 
-The backend supports these core public actions through the Apps Script Web App URL.
+The Ozark Gazette uses `ozark_...` actions only.
+
+### Health
+
+```text
+action=ozark_health
+```
+
+### Articles and archives
+
+```text
+action=ozark_articles
+action=ozark_articles&limit=20
+action=ozark_articles&category=Local
+action=ozark_article&slug=<ozark-slug>
+action=ozark_archives
+action=ozark_archive_move_old_articles
+```
+
+### Obituaries
+
+```text
+action=ozark_obituaries
+action=ozark_obituaries&limit=15
+action=ozark_obituary&slug=<obituary-slug>
+action=ozark_sync_obituaries
+action=ozark_obituaries_headers
+action=ozark_obituaries_ensure_sheet
+```
+
+### Classifieds
+
+```text
+action=ozark_classifieds
+action=ozark_classified&slug=<classified-slug>
+action=ozark_classified_submit
+action=ozark_classifieds_headers
+action=ozark_classifieds_ensure_sheet
+```
+
+### Source registry
+
+```text
+action=ozark_sources
+action=ozark_obituary_sources
+action=ozark_court_sources
+```
+
+---
+
+## Ozark content modules
 
 ### Articles
 
-```text
-action=articles
-action=articles&format=paged
-action=articles_paged
-action=article&slug=<article-slug>
-action=weather_articles
-action=sports_articles
-action=reporter_articles
-action=articles_by_author
-```
+The `Articles` tab powers current Ozark Gazette local stories, weather briefs, traffic briefs, sports briefs and general coverage.
 
-### Reporters
+### Archives
+
+The `Archives` tab stores older Ozark Gazette articles after the configured archive window.
 
 ```text
-action=reporters
-action=reporter&slug=<reporter-slug>
-action=reporter_profile&slug=<reporter-slug>
+OGZ_ARCHIVE_AFTER_HOURS = 168
 ```
 
-### Site configuration
+### Obituaries
+
+The `Obituaries` tab powers the Ozark Gazette obituary listing and detail views. The backend includes an obituary source registry and can monitor Ozark-area obituary sources.
+
+Primary obituary source configured in the backend:
 
 ```text
-action=site_config
-action=getbackendversion
-action=cgnimagedefaultsstatus
-action=all
+https://www.ozarkcountytimes.com/obituaries
 ```
 
-### Newsletter and account routes
+### Classifieds
 
-```text
-action=newsletter
-action=unsubscribe_newsletter
-action=newsletter_test
-action=newsletter_daily_send
-action=special_newsletter_daily_send
-action=login
-action=signup
-action=subscription_status
-action=account_details
-```
+The `Classifieds` tab powers paid local classifieds. Classified submissions save as `pending_review` and use PayPal hosted-button metadata for the selected word-limit plan.
 
 ---
 
-## Editor and protected actions
+## Ozark AutoNews22
 
-Editor actions are routed through the protected editor layer and should not be exposed as general public website calls.
+The Ozark Gazette backend includes Ozark AutoNews22 actions for daily and hourly local service coverage.
 
-Important protected/editor workflows include:
+### Public/manual actions
 
-- Editor login and session validation
-- Article creation and update
-- Google Drive editor image upload
-- Manual hero-image protection
-- Editorial AI review
-- Manual copy editing for pending drafts
-- Logs panel actions
-- LLM prompt, lesson and audit controls
-- Static publishing workflow dispatch
-- Archive rebuild and archive mover tools
+```text
+action=ozark_autonews22_status
+action=ozark_autonews22_enable
+action=ozark_autonews22_disable
+action=ozark_autonews22_dispatcher
+action=ozark_autonews22_run_traffic_brief
+action=ozark_autonews22_run_daily_weather
+action=ozark_autonews22_run_severe_weather
+action=ozark_autonews22_run_sports_brief
+action=ozark_autonews22_publish_general
+```
 
-Public `doGet` blocks unsafe archive write/move/build actions from direct public execution. Use Apps Script Run menu or protected editor routes for those workflows.
+### Scheduled coverage
+
+```text
+Daily Traffic Brief:       05:00 CT
+Daily Weather Brief:       06:00 CT
+Severe Weather Checks:     Hourly
+Daily Sports Brief:        17:00 CT
+```
+
+AutoNews22 publishes only to the Ozark `Articles` sheet and should not write to the main CGN News Articles sheet.
 
 ---
 
-## Editorial safeguards
+## Source rules
 
-The backend includes hard editorial gates for CGN News standards.
+The Ozark Gazette follows CGN source-first standards while using Ozarks-local categories and source lanes.
 
-### Article requirements
+### Weather
 
-Canonical article rows must preserve the 21-column CGN schema:
+Weather and severe-weather coverage must remain official-source first.
 
-```text
-article_id, title, subtitle, slug, category, tags, author, published_at, updated_at, summary, body_html, what_this_means, hero_image_url, image_credit, inline_images, featured, breaking, views, status, seo_title, seo_description
-```
-
-### Source rules
-
-Articles must include a final paragraph:
-
-```html
-<p><strong>Additional Reporting By:</strong> ...</p>
-```
-
-The backend blocks or downgrades unsafe stories when public fields contain unsupported claims, generic source labels, missing source lines, duplicate stories, unsupported weather alerts or placeholder datelines.
-
-### Weather rules
-
-Daily Weather Briefs and Severe Weather Alerts are protected official-source weather flows when validation passes.
-
-Weather articles must use approved weather and preparedness sources such as:
-
-- National Weather Service
-- NOAA
-- Open-Meteo
-- AccuWeather
-- FEMA
-- Ready.gov
-- American Red Cross
-- Relevant state emergency or transportation agencies
-
-### Hero-image protection
-
-Manual/editor-uploaded hero images are protected from category/default image overrides.
-
-Google Drive editor uploads return website-ready thumbnail URLs and are preserved through later editorial AI or category-default passes.
-
----
-
-## Static publishing
-
-Published articles can trigger the configured GitHub Actions static publishing workflow.
-
-Static publishing supports:
-
-- Latest article builds
-- Individual article builds
-- Sitemap rebuilds
-- News, Weather and Sports article paths
-- Canonical article routing by date and slug
-
-Article paths are built as:
+Approved Ozark weather source lanes include:
 
 ```text
-/news/YYYY/MM/DD/<slug>/
-/weather/YYYY/MM/DD/<slug>/
-/sports/YYYY/MM/DD/<slug>/
+National Weather Service Springfield
+NOAA
+NWS Radar
+Open-Meteo
 ```
+
+### Traffic
+
+Traffic coverage must not invent road closures, crashes or emergency conditions.
+
+Approved Ozark traffic source lanes include:
+
+```text
+MoDOT Traveler Information
+MoDOT Road Conditions
+Missouri State Highway Patrol crash reports
+```
+
+### Courts and public records
+
+Court and public-record coverage must be cautious, record-based and source-attributed.
+
+Approved Ozark court source lanes include:
+
+```text
+Missouri Case.net
+Missouri Courts
+Ozark County Times court reporting as secondary local context
+```
+
+### Obituaries
+
+Obituary monitoring may use local funeral-home and local-news obituary pages, but dates, names, ages and service details should remain source-grounded.
 
 ---
 
 ## Deployment checklist
 
-Use this order when deploying the v11.5.7 router isolation fix:
+Use this order when deploying the Ozark router-isolation fix:
 
 1. Replace the main CGN backend file with the v11.5.7 router-fix backend.
-2. Replace the Ozark Gazette extension with the router-only extension.
-3. Confirm the Apps Script project has exactly one `function doGet(e)` and exactly one `function doPost(e)`.
-4. Confirm both entry points are in the main CGN backend file.
-5. Confirm the Ozark extension does **not** define `doGet(e)` or `doPost(e)`.
-6. Deploy a new Apps Script Web App version.
-7. Test the smoke-test actions below before assuming the website is fixed.
+2. Replace the Ozark Gazette extension file with the router-only Ozark extension.
+3. Confirm the Apps Script project has exactly one global `function doGet(e)`.
+4. Confirm the Apps Script project has exactly one global `function doPost(e)`.
+5. Confirm both global entry points are in the main CGN backend file.
+6. Confirm the Ozark extension does **not** define `doGet(e)` or `doPost(e)`.
+7. Deploy a new Apps Script Web App version.
+8. Run the smoke tests below before assuming either site is fixed.
 
 ---
 
 ## Smoke tests
 
-Run these checks after every backend deployment.
+### Ozark Gazette
 
-### Main CGN News
+```text
+action=ozark_health
+action=ozark_articles
+action=ozark_article&slug=<ozark-slug>
+action=ozark_obituaries
+action=ozark_classifieds
+action=ozark_autonews22_status
+```
+
+Expected result: Ozark responses load from the Ozark spreadsheet only.
+
+### Main CGN News compatibility
 
 ```text
 action=getbackendversion
@@ -269,29 +292,18 @@ action=weather_articles&limit=5
 action=sports_articles&limit=5
 ```
 
-Expected result: main CGN News article feeds load from the main CGN spreadsheet.
-
-### Ozark Gazette
-
-```text
-action=ozark_health
-action=ozark_articles
-action=ozark_article&slug=<ozark-slug>
-action=ozark_obituaries
-action=ozark_classifieds
-```
-
-Expected result: Ozark Gazette routes load from the Ozark spreadsheet only.
+Expected result: main CGN News article feeds still load from the main CGN spreadsheet.
 
 ### Failure signs
 
 Investigate immediately if:
 
 - `action=articles` returns an Ozark response.
-- `action=articles` returns an empty feed while the CGN Articles sheet has published rows.
+- `action=articles` returns empty while the CGN Articles sheet has published rows.
 - `action=ozark_articles` returns CGN News articles.
 - Apps Script contains more than one global `doGet(e)` or more than one global `doPost(e)`.
-- The website loads headers/footers but no articles.
+- `ozarks.cgnnews.net` loads the shell but not Ozark articles.
+- `cgnnews.net` loads the shell but not CGN articles.
 
 ---
 
@@ -299,7 +311,7 @@ Investigate immediately if:
 
 Do not add standalone product extensions to the shared CGN Apps Script project with their own Web App entry points.
 
-Every extension must follow this pattern:
+Every extension must follow this route-only pattern:
 
 ```javascript
 function productRoute_(payload) {
@@ -308,46 +320,30 @@ function productRoute_(payload) {
 }
 ```
 
-Then the main CGN `doGet(e)` may call the extension route before continuing to normal CGN actions.
+The Ozark version is:
 
-Never duplicate:
+```javascript
+function ozarkGazetteRoute_(payload) {
+  payload = payload || {};
+  var action = String(payload.action || "").trim();
+  if (!/^ozark_/i.test(action)) return null;
+  return OGZ_handleAction_(payload);
+}
+```
+
+Never duplicate this outside the main CGN backend file:
 
 ```javascript
 function doGet(e) { ... }
 function doPost(e) { ... }
 ```
 
-outside the main CGN backend file.
-
----
-
-## Canonical categories
-
-CGN News canonical categories are:
-
-```text
-World
-Politics
-Business
-Markets
-Technology
-Entertainment
-Environment
-Energy
-Opinion
-Local
-Religion & Spirituality
-Weather
-Sports
-Investigations
-Special Reports
-```
-
 ---
 
 ## Support
 
-Tips and newsroom contact: `tips@cgnnews.net`  
-Website: `https://www.cgnnews.net`
+Ozark site: `https://ozarks.cgnnews.net`  
+Main CGN site: `https://www.cgnnews.net`  
+Newsroom contact: `tips@cgnnews.net`
 
 **Copyright © 2026 Cook Global News Network. All Rights Reserved.**
