@@ -1515,3 +1515,86 @@ body{
     justify-content:center!important;
   }
 }
+
+
+/* =========================================================
+   The Ozark Gazette Header Category/Icon + Affiliate Clock Update
+   Build: 1 July 2026
+   Purpose: match the CGN-style header tool row while moving Local,
+   US, World, Politics, and Markets into the visible header nav.
+   ========================================================= */
+#cgn-site-header .right-tools .account-wrap{order:1!important;}
+#cgn-site-header .right-tools .cgn-bureau-weather-time{order:2!important;}
+#cgn-site-header .right-tools .news-directory-link{order:3!important;}
+#cgn-site-header .right-tools .sports-center-link{order:4!important;}
+#cgn-site-header .right-tools .traffic-center-link{order:5!important;}
+#cgn-site-header .right-tools .cgn-help-link{order:6!important;}
+#cgn-site-header .right-tools .social-instagram{order:7!important;}
+#cgn-site-header .right-tools .social-x{order:8!important;}
+#cgn-site-header .right-tools .social-youtube{order:9!important;}
+#cgn-site-header .right-tools .cgn-ios-app-desktop-link{order:10!important;}
+#cgn-site-header .right-tools .editor-portal-link{order:11!important;}
+
+#cgn-site-header .news-directory-link,
+#cgn-site-header .sports-center-link,
+#cgn-site-header .traffic-center-link{
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  width:28px!important;
+  height:28px!important;
+  min-width:28px!important;
+  color:#111!important;
+  background:transparent!important;
+  border:0!important;
+  border-radius:0!important;
+  text-decoration:none!important;
+  flex:0 0 auto!important;
+  overflow:visible!important;
+  transition:opacity .2s ease!important;
+}
+
+#cgn-site-header .news-directory-link:hover,
+#cgn-site-header .news-directory-link:focus,
+#cgn-site-header .sports-center-link:hover,
+#cgn-site-header .sports-center-link:focus,
+#cgn-site-header .traffic-center-link:hover,
+#cgn-site-header .traffic-center-link:focus{
+  opacity:.72!important;
+  color:#111!important;
+  background:transparent!important;
+  text-decoration:none!important;
+}
+
+#cgn-site-header .news-directory-icon,
+#cgn-site-header .sports-center-icon,
+#cgn-site-header .traffic-center-icon{
+  width:28px!important;
+  height:28px!important;
+  display:block!important;
+  object-fit:contain!important;
+}
+
+@media(max-width:700px){
+  #cgn-site-header .right-tools{
+    display:flex!important;
+    width:100%!important;
+    justify-content:center!important;
+    gap:8px!important;
+  }
+
+  #cgn-site-header .news-directory-link,
+  #cgn-site-header .sports-center-link,
+  #cgn-site-header .traffic-center-link{
+    width:30px!important;
+    height:30px!important;
+    min-width:30px!important;
+  }
+
+  #cgn-site-header .news-directory-icon,
+  #cgn-site-header .sports-center-icon,
+  #cgn-site-header .traffic-center-icon{
+    width:30px!important;
+    height:30px!important;
+  }
+}
