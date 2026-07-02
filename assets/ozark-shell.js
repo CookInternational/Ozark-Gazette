@@ -622,7 +622,6 @@
             <h4><a href="/support/">Support</a></h4>
             <a href="/about/">About</a><br>
             <a href="/contact/">Contact</a><br>
-            <a href="/support/">Support</a><br>
             <a href="https://www.cgnnews.net/privacy-policy">Privacy</a><br>
             <a href="https://www.cgnnews.net/terms-of-service">Terms</a><br>
             <a href="https://www.cgnnews.net/editorial-standards/">Editorial Standards</a><br>
