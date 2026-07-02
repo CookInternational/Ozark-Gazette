@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
   <url>
+    <loc>https://ozarks.cgnnews.net/news/2026/07/01/usmca-review-puts-free-trade-stability-in-spotlight/</loc>
+    <news:news>
+      <news:publication>
+        <news:name>The Ozark Gazette</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2026-07-01T23:38:00.000Z</news:publication_date>
+      <news:title>USMCA Review Puts Free Trade Stability in Spotlight</news:title>
+    </news:news>
+    <lastmod>2026-07-01T23:41:00.000Z</lastmod>
+  </url>
+  <url>
     <loc>https://ozarks.cgnnews.net/sports/2026/07/01/sports-highlights-for-01-july-2026-midwest-baseball-indiana-fever-watch-and-world-cup-knockouts/</loc>
     <news:news>
       <news:publication>
