@@ -595,8 +595,8 @@
             <a href="/world/">World</a><br>
             <a href="/politics/">Politics</a><br>
             <a href="/markets/">Markets</a><br>
-            <a href="/investigations/">Investigations</a><br>
-            <a href="/opinion/">Opinion</a>
+            <a href="/technology/">Technology</a><br>
+            <a href="/investigations/">Investigations</a>
           </div>
           <div>
             <h4>Briefs</h4>
